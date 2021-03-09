@@ -1,0 +1,42 @@
+name: remedi_flutter_plugin_update
+description: A new Flutter project.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #basic architecture of app
+  stacked_mvvm:
+    git:
+      url: https://github.com/studio-b-co-kr/stacked_mvvm.git
+      ref: master
+
+  remedi_flutter_widgets:
+    git:
+      url: https://github.com/studio-b-co-kr/remedi_flutter_widgets.git
+      ref: master
+
+  # go to store on force update page
+  store_redirect: ^1.0.2
+
+  #svg loader
+  flutter_svg: ^0.19.1
+
+  # multi-resolution support.
+  multiscreen: ^1.3.0
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+

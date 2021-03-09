@@ -1,0 +1,43 @@
+name: remedi_flutter_plugin_auth
+description: Remedi Plugin Auth
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #svg loader
+  flutter_svg: ^0.19.1
+
+  # store access token
+  # flutter_secure_storage: ^3.3.5
+
+  # kakao login
+  kakao_login: ^0.1.1
+
+  # sign in with apple
+  sign_in_with_apple: ^2.5.4
+
+  #basic architecture of app
+  stacked_mvvm:
+    git:
+      url: https://github.com/studio-b-co-kr/stacked_mvvm.git
+      ref: master
+
+  remedi_flutter_widgets:
+    git:
+      url: https://github.com/studio-b-co-kr/remedi_flutter_widgets.git
+      ref: master
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# The following section is specific to Flutter.
+flutter:

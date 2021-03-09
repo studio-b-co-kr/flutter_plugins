@@ -1,0 +1,29 @@
+name: remedi_flutter_plugin_splash
+description: Flutter Application templete project
+version: 0.0.1
+author: Remedi-DevTeam
+homepage: https://remedi.com
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  stacked_mvvm:
+    git:
+      url: https://github.com/studio-b-co-kr/stacked_mvvm.git
+      ref: master
+
+  # multi-resolution support.
+  multiscreen: ^1.3.0
+
+  #svg loader
+  flutter_svg: ^0.19.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
