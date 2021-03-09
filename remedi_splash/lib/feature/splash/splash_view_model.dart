@@ -1,7 +1,7 @@
-import 'package:remedi_flutter_plugin_splash/error/app_error.dart';
-import 'package:remedi_flutter_plugin_splash/repository/i_splash_repository.dart';
+import 'package:remedi_splash/error/app_error.dart';
+import 'package:remedi_splash/repository/i_splash_repository.dart';
+import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 
-import '../../splash.dart';
 import 'splash_page.dart';
 
 class SplashViewModel extends ISplashViewModel {

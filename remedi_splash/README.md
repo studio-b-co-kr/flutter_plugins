@@ -1,6 +1,6 @@
-# remedi_flutter_plugin_splash
+# remedi_splash
 
-A new Flutter project.
+A new Flutter package.
 
 ## Getting Started
 

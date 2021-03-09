@@ -2,9 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multiscreen/multiscreen.dart';
+import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
-
-import '../../splash.dart';
 
 class SplashView extends BindingView<ISplashViewModel> {
   final String logoBrand;

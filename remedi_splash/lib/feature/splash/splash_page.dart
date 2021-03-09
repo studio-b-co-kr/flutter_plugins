@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:remedi_flutter_plugin_splash/view_model/i_splash_view_model.dart';
+import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import '../../ui/splash_ui.dart';

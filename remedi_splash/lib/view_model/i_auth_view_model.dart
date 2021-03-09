@@ -1,5 +1,5 @@
-import 'package:remedi_flutter_plugin_splash/error/app_error.dart';
-import 'package:remedi_flutter_plugin_splash/repository/i_auth_repository.dart';
+import 'package:remedi_splash/error/app_error.dart';
+import 'package:remedi_splash/repository/i_auth_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IAuthViewModel

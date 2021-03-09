@@ -1,4 +1,4 @@
-library remedi_flutter_plugin_splash;
+library remedi_splash;
 
 import 'package:flutter/widgets.dart';
 
