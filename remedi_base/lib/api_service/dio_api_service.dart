@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:dio_firebase_performance/dio_firebase_performance.dart';
 import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:remedi_base/remedi_base.dart';
 
@@ -160,37 +159,39 @@ class DioFactory extends IClientFactory<Dio> {
   final bool enableLogging;
   final String userAgent;
   final String appVersion;
-  final bool enableFirebasePerformance;
+  final List<Interceptor> interceptors;
+
+  // final bool enableFirebasePerformance;
 
   DioFactory._(this.baseUrl,
       {this.accessToken,
       this.enableLogging,
       this.userAgent,
       this.appVersion,
-      this.enableFirebasePerformance});
+      this.interceptors});
 
   factory DioFactory.auth(String baseUrl, String accessToken,
           {bool enableLogging,
           String userAgent,
           String appVersion,
-          bool enableFirebasePerformance}) =>
+          List<Interceptor> interceptors}) =>
       DioFactory._(baseUrl,
           accessToken: accessToken,
           enableLogging: enableLogging = false,
           userAgent: userAgent,
           appVersion: appVersion,
-          enableFirebasePerformance: enableFirebasePerformance = false);
+          interceptors: interceptors);
 
   factory DioFactory.noneAuth(String baseUrl,
           {bool enableLogging,
           String userAgent,
           String appVersion,
-          bool enableFirebasePerformance}) =>
+          List<Interceptor> interceptors}) =>
       DioFactory._(baseUrl,
           enableLogging: enableLogging = false,
           userAgent: userAgent,
           appVersion: appVersion,
-          enableFirebasePerformance: enableFirebasePerformance = false);
+          interceptors: interceptors);
 
   @override
   Dio build() {
@@ -217,10 +218,11 @@ class DioFactory extends IClientFactory<Dio> {
       return error;
     }));
 
-    if (enableFirebasePerformance) {
-      final performanceInterceptor = DioFirebasePerformanceInterceptor();
-      http.interceptors.add(performanceInterceptor);
-    }
+    interceptors?.map((interceptor) {
+      if (interceptor != null) {
+        http.interceptors.add(interceptor);
+      }
+    });
 
     return http;
   }
