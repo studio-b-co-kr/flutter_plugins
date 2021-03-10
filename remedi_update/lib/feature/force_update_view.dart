@@ -40,7 +40,7 @@ class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
       return Icon(
         Icons.error_outline,
         color: Colors.red.shade400,
-        size: 200,
+        size: 120,
       );
     }
 
