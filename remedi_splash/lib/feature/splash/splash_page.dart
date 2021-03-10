@@ -99,7 +99,7 @@ class SplashPage extends BasePage<ISplashViewModel> {
   }
 
   goContentsPage(BuildContext buildContext) {
-    dev.log("readyToService", name: "SplashViewModel : run");
+    dev.log("goContentsPage", name: "SplashPage : run");
     Navigator.of(buildContext).pushReplacementNamed(this.contentsPageRouteName);
   }
 
