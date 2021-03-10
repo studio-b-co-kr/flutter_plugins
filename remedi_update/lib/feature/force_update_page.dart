@@ -8,13 +8,17 @@ import 'force_update_view.dart';
 class ForceUpdatePage extends BasePage<IForceUpdateViewModel> {
   static const String ROUTE_NAME = "/force_update";
 
-  ForceUpdatePage({Key key, IForceUpdateViewModel viewModel})
+  final String image;
+
+  ForceUpdatePage({Key key, this.image, IForceUpdateViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
   ForceUpdateView body(
       BuildContext context, IForceUpdateViewModel viewModel, Widget child) {
-    return ForceUpdateView();
+    return ForceUpdateView(
+      image: image,
+    );
   }
 
   @override
