@@ -4,7 +4,7 @@ import 'package:store_redirect/store_redirect.dart';
 class ForceUpdateViewModel extends IForceUpdateViewModel {
   IForceUpdateRepository repo;
 
-  ForceUpdateViewModel({IForceUpdateRepository repo});
+  ForceUpdateViewModel({this.repo}) : assert(repo != null);
 
   @override
   goToUpdate() {
