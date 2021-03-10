@@ -1,6 +1,6 @@
-# remedi_flutter_widgets
+# remedi_widgets
 
-A new Flutter project.
+A new Flutter package.
 
 ## Getting Started
 

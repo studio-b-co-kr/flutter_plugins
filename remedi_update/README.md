@@ -1,6 +1,6 @@
 # remedi_update
 
-A new Flutter project.
+A new Flutter package.
 
 ## Getting Started
 

@@ -1,7 +1,6 @@
-name: remedi_flutter_widgets
-description: A new Flutter project.
+name: remedi_widgets
+description: A new Flutter package.
 version: 0.0.1
-author:
 homepage:
 
 environment:
