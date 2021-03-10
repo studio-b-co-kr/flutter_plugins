@@ -96,7 +96,6 @@ class SplashPage extends BasePage<ISplashViewModel> {
     }
   }
 
-  @override
   goContentsPage(BuildContext buildContext) {
     Navigator.of(buildContext).pushReplacementNamed(this.contentsPageRouteName);
   }
