@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/widgets.dart';
 import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
@@ -97,6 +99,7 @@ class SplashPage extends BasePage<ISplashViewModel> {
   }
 
   goContentsPage(BuildContext buildContext) {
+    dev.log("readyToService", name: "SplashViewModel : run");
     Navigator.of(buildContext).pushReplacementNamed(this.contentsPageRouteName);
   }
 
