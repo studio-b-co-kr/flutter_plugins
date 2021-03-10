@@ -1,4 +1,4 @@
-name: remedi_flutter_plugin_auth
+name: remedi_auth
 description: Remedi Plugin Auth
 version: 0.0.1
 author:
@@ -27,13 +27,13 @@ dependencies:
   #basic architecture of app
   stacked_mvvm:
     git:
-      url: https://github.com/studio-b-co-kr/stacked_mvvm.git
-      ref: master
+      url: https://github.com/studio-b-co-kr/remedi_flutter.git
+      path: stacked_mvvm/
 
-  remedi_flutter_widgets:
+  remedi_widgets:
     git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_widgets.git
-      ref: master
+      url: https://github.com/studio-b-co-kr/remedi_flutter.git
+      path: remedi_widgets/
 
 dev_dependencies:
   flutter_test:

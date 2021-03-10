@@ -1,4 +1,4 @@
-import 'package:remedi_flutter_plugin_auth/repository/i_login_repository.dart';
+import 'package:remedi_auth/repository/i_login_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import '../auth_error.dart';

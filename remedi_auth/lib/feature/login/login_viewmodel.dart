@@ -3,12 +3,15 @@ import 'dart:developer' as dev;
 import 'package:kakao_login/kakao_login.dart';
 // ignore: implementation_imports
 import 'package:kakao_login/src/client_error.dart';
-import 'package:remedi_flutter_plugin_auth/repository/i_login_repository.dart';
-import 'package:remedi_flutter_plugin_auth/resources/app_strings.dart';
-import 'package:remedi_flutter_plugin_auth/viewmodel/i_login_viewmodel.dart';
+import 'package:remedi_auth/model/app_credential.dart';
+import 'package:remedi_auth/model/apple_credential.dart';
+import 'package:remedi_auth/model/kakao_credential.dart';
+import 'package:remedi_auth/repository/i_login_repository.dart';
+import 'package:remedi_auth/resources/app_strings.dart';
+import 'package:remedi_auth/viewmodel/i_login_viewmodel.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../../auth.dart';
+import '../../auth_error.dart';
 
 class LoginViewModel extends ILoginViewModel {
   final String kakaoAppId;

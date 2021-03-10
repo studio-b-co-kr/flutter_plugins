@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:remedi_flutter_plugin_auth/viewmodel/i_login_viewmodel.dart';
+import 'package:remedi_auth/viewmodel/i_login_viewmodel.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'login_view.dart';

@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:remedi_flutter_plugin_auth/viewmodel/i_login_viewmodel.dart';
-import 'package:remedi_flutter_widgets/text.dart';
+import 'package:remedi_auth/viewmodel/i_login_viewmodel.dart';
+import 'package:remedi_widgets/text.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-import '../../auth.dart';
+import '../../remedi_auth.dart';
 import '../../resources/app_strings.dart';
 
 class LoginView extends BindingView<ILoginViewModel> {

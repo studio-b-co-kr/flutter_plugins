@@ -1,3 +1,4 @@
+library remedi_auth;
 
 export 'auth_error.dart';
 export 'model/app_credential.dart';

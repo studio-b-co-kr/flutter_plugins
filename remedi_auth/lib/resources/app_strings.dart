@@ -15,5 +15,6 @@ class AppStrings {
 
   static String get codeLoginError => "LOGIN_ERROR";
 
-  static String get invalidVersionAppleLogin => "Apple로 로그인 하기 위해 iOS 버전이 13.0 이상이어야 합니다.";
+  static String get invalidVersionAppleLogin =>
+      "Apple로 로그인 하기 위해 iOS 버전이 13.0 이상이어야 합니다.";
 }

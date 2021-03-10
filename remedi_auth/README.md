@@ -1,6 +1,6 @@
-# remedi_flutter_plugin_auth
+# remedi_auth
 
-A new Flutter project.
+A new Flutter package.
 
 ## Getting Started
 
