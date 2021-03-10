@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:remedi_update/force_update.dart';
 import 'package:remedi_update/viewmodel/i_force_update_viewmodel.dart';
-import 'package:remedi_flutter_widgets/text.dart';
+import 'package:remedi_widgets/text.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
+import '../remedi_update.dart';
 import '../resources/app_strings.dart';
 
 class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
