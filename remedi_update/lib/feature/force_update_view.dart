@@ -8,6 +8,10 @@ import '../remedi_update.dart';
 import '../resources/app_strings.dart';
 
 class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
+  final String image;
+
+  ForceUpdateView({this.image});
+
   @override
   Widget build(BuildContext context, IForceUpdateViewModel viewModel) {
     return Scaffold(
@@ -32,7 +36,7 @@ class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
   }
 
   Widget _buildImage(BuildContext context, IForceUpdateViewModel viewModel) {
-    if (ForceUpdate.image == null) {
+    if (image == null) {
       return Icon(
         Icons.error_outline,
         color: Colors.red.shade400,
@@ -40,16 +44,16 @@ class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
       );
     }
 
-    if (ForceUpdate.image.contains("svg")) {
+    if (image.contains("svg")) {
       return SvgPicture.asset(
-        ForceUpdate.image,
+        image,
         fit: BoxFit.contain,
         width: 200,
         height: 200,
       );
     }
     return Image.asset(
-      ForceUpdate.image,
+      image,
       fit: BoxFit.contain,
       width: 200,
       height: 200,
