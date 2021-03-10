@@ -1,4 +1,4 @@
-# remedi_flutter_plugin_update
+# remedi_update
 
 A new Flutter project.
 

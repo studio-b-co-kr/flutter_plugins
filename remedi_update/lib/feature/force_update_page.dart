@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:remedi_flutter_plugin_update/viewmodel/i_force_update_viewmodel.dart';
+import 'package:remedi_update/viewmodel/i_force_update_viewmodel.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'force_update_view.dart';

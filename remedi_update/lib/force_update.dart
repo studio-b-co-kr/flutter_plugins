@@ -1,6 +1,6 @@
-export 'package:remedi_flutter_plugin_update/feature/force_update_page.dart';
-export 'package:remedi_flutter_plugin_update/repository/i_force_update_repository.dart';
-export 'package:remedi_flutter_plugin_update/viewmodel/i_force_update_viewmodel.dart';
+export 'package:remedi_update/feature/force_update_page.dart';
+export 'package:remedi_update/repository/i_force_update_repository.dart';
+export 'package:remedi_update/viewmodel/i_force_update_viewmodel.dart';
 
 class ForceUpdate {
   static String _image;

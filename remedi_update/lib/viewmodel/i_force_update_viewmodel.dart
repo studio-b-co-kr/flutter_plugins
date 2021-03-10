@@ -1,4 +1,4 @@
-import 'package:remedi_flutter_plugin_update/repository/i_force_update_repository.dart';
+import 'package:remedi_update/repository/i_force_update_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 import 'package:store_redirect/store_redirect.dart';
 
