@@ -2,10 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-import '../../ui/splash_ui.dart';
 import 'splash_view.dart';
 
-class SplashPage extends BasePage<ISplashViewModel> implements SplashUi {
+class SplashPage extends BasePage<ISplashViewModel> {
   static const ROUTE_NAME_APP_OPEN = "/";
   static const ROUTE_NAME_AFTER_INTRO = "/after_intro";
   static const ROUTE_NAME_AFTER_PERMISSION = "/after_permission";

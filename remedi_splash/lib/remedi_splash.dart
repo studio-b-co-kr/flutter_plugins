@@ -7,6 +7,5 @@ export 'package:stacked_mvvm/stacked_mvvm.dart';
 
 export 'error/app_error.dart';
 export 'error/app_error.dart';
-export 'view_model/view_model.dart';
 
 typedef Route<dynamic> GenerateRoutes(RouteSettings settings);

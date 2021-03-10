@@ -78,7 +78,7 @@ class SplashView extends BindingView<ISplashViewModel> {
   }
 
   Widget _images(BuildContext buildContext, {String image, double width}) {
-    if (image == null) {
+    if (image == null || image.isEmpty) {
       return Container(height: width / 4, width: width);
     }
 
