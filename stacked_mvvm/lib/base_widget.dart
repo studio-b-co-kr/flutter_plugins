@@ -16,11 +16,15 @@ abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
       },
       onModelReady: (model) {
         dev.log("onModelReady", name: "$this");
+        // to notify init
         onListen(context, model);
         model.init();
       },
       builder: (context, model, child) {
-        dev.log("builder", name: "$this");
+        dev.log("builder : child = $child", name: "$this");
+        if (model.state != model.initState) {
+          onListen(context, viewModel);
+        }
         return body(context, model, child);
       },
     );
@@ -30,6 +34,8 @@ abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
 
   @mustCallSuper
   void onListen(BuildContext context, VM viewModel) {
+    /// Do not update ui here.
+    /// Only for route other page or show dialog.
     dev.log("onListen:${viewModel?.state}", name: "$this");
   }
 }
