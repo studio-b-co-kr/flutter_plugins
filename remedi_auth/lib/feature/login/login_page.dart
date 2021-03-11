@@ -17,13 +17,13 @@ class LoginPage extends BasePage<ILoginViewModel> {
     return Navigator.pushNamed(context, ROUTE_NAME);
   }
 
-  final String logoBrand;
+  final String logoApp;
   final String logoCompany;
   final String routeBackTo;
 
   LoginPage(
       {Key key,
-      this.logoBrand,
+      this.logoApp,
       this.logoCompany,
       this.routeBackTo,
       ILoginViewModel viewModel})
@@ -33,7 +33,7 @@ class LoginPage extends BasePage<ILoginViewModel> {
   BindingView<ILoginViewModel> body(
       BuildContext context, ILoginViewModel viewModel, Widget child) {
     return LoginView(
-      logoBrand: logoBrand,
+      logoApp: logoApp,
       logoCompany: logoCompany,
     );
   }

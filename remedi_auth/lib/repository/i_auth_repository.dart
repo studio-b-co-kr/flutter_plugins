@@ -19,7 +19,10 @@ abstract class IAuthRepository extends BaseRepository {
 
   Future deleteUserId();
 
-  Future deleteAll();
+  Future _deleteAll() async {
+    await Future.wait(
+        [deleteUserId(), deleteAccessToken(), deleteRefreshToken()]);
+  }
 
   Future<bool> get isLoggedIn async {
     String token = await accessToken;
@@ -27,6 +30,7 @@ abstract class IAuthRepository extends BaseRepository {
   }
 
   Future logout() async {
-    await deleteAll();
+    await _deleteAll();
   }
 }
+

@@ -1,10 +1,11 @@
 import 'dart:developer' as dev;
 
-import 'package:kakao_login/kakao_login.dart';
 // ignore: implementation_imports
-import 'package:kakao_login/src/client_error.dart';
-import 'package:remedi_auth/model/app_credential.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_kakao_login/flutter_kakao_login.dart';
+import 'package:remedi_auth/auth_repository.dart';
 import 'package:remedi_auth/model/apple_credential.dart';
+import 'package:remedi_auth/model/i_app_credential.dart';
 import 'package:remedi_auth/model/kakao_credential.dart';
 import 'package:remedi_auth/repository/i_login_repository.dart';
 import 'package:remedi_auth/resources/app_strings.dart';
@@ -50,32 +51,23 @@ class LoginViewModel extends ILoginViewModel {
           authorizationCode: credential.authorizationCode,
           email: credential.email);
 
-      var ret = await repository.loginWithApple(appleCredential);
+      ICredential appCredential =
+          await repository.loginWithApple(appleCredential);
 
-      if (ret is AppCredential) {
-        await Future.wait([
-          repo.writeUserId(ret.userId),
-          repo.writeAccessToken(ret.accessToken),
-          repo.writeRefreshToken(ret.refreshToken)
-        ]);
-
-        update(state: LoginViewState.Success);
+      if (appCredential.isError) {
+        this.error = appCredential.error;
+        update(state: LoginViewState.Error);
         return;
       }
 
-      if (ret is AuthError) {
-        this.error = ret;
-        update(state: LoginViewState.Error);
-      }
+      await Future.wait([
+        AuthRepository.instance.writeUserId(appCredential.userId),
+        AuthRepository.instance.writeAccessToken(appCredential.accessToken),
+        AuthRepository.instance.writeRefreshToken(appCredential.refreshToken)
+      ]);
 
-      if (ret == null) {
-        this.error = AuthError(
-          title: AppStrings.loginError,
-          code: AppStrings.codeLoginError,
-          message: AppStrings.messageAuthError,
-        );
-        update(state: LoginViewState.Error);
-      }
+      update(state: LoginViewState.Success);
+      return;
     } catch (e) {
       if (e.toString().contains('AuthorizationErrorCode.canceled')) {
         update(state: LoginViewState.Idle);
@@ -95,78 +87,70 @@ class LoginViewModel extends ILoginViewModel {
     assert(kakaoAppId != null);
     update(state: LoginViewState.Loading);
 
-    final KakaoLogin kakaoSignIn = KakaoLogin.instance;
+    final FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
     await kakaoSignIn.init(kakaoAppId);
 
     final String hashKey = await (kakaoSignIn.hashKey);
     dev.log(hashKey, name: "Kakao HASH");
     String kakaoAccessToken;
-    int kakaoId;
+    String kakaoId;
     try {
-      final login = await kakaoSignIn.logIn();
-      login.when(() => null, success: (token) {
-        dev.log("$token", name: "Kakao Login Success");
-        kakaoAccessToken = token.accessToken;
-      }, fail: (error) {
-        dev.log("$error", name: "Kakao Login Fail");
-        this.error = AuthError(
-            title: AppStrings.codeKakaoLoginError,
-            code: AppStrings.codeKakaoLoginError,
-            message: AppStrings.messageAuthError,
-            error: error);
-      });
+      var login = await kakaoSignIn.logIn();
 
-      if (login.isError) {
-        if (error.error is ClientErrorCancelled) {
-          update(state: LoginViewState.Idle);
-          return;
-        }
-
-        update(state: LoginViewState.Error);
-        return;
-      }
-
-      final result = await kakaoSignIn.currentUser;
-      result.when(() => null, success: (value) {
-        dev.log("$value", name: "Kakao Login Success");
-        kakaoId = value.id;
-      }, fail: (error) {
-        dev.log("$error", name: "Kakao Login Fail");
-        this.error = AuthError(
-            title: AppStrings.codeKakaoLoginError,
-            code: AppStrings.codeKakaoLoginError,
-            message: AppStrings.messageAuthError,
-            error: error);
-      });
-
-      if (result.isValue) {
-        var ret = await repository.loginWithKakao(
-            KakaoCredential(accessToken: kakaoAccessToken, id: kakaoId));
-
-        if (ret is AppCredential) {
-          await Future.wait([
-            repo.writeUserId(ret.userId),
-            repo.writeAccessToken(ret.accessToken),
-            repo.writeRefreshToken(ret.refreshToken)
-          ]);
-          update(state: LoginViewState.Success);
-          return;
-        }
-
-        if (ret is AuthError) {
-          this.error = ret;
+      switch (login.status) {
+        case KakaoLoginStatus.loggedIn:
+          dev.log("${login.token.accessToken}", name: "Kakao Login Success");
+          kakaoAccessToken = login.token.accessToken;
+          login = await kakaoSignIn.getUserMe();
+          await kakaoSignIn.logOut();
+          break;
+        case KakaoLoginStatus.loggedOut:
+        case KakaoLoginStatus.unlinked:
+          this.error = AuthError(
+              title: AppStrings.codeKakaoLoginError,
+              code: AppStrings.codeKakaoLoginError,
+              message: AppStrings.messageAuthError);
           update(state: LoginViewState.Error);
           return;
-        }
-      } else {
+      }
+
+      kakaoId = login.account.userID;
+
+      int id = 0;
+      try {
+        id = int.tryParse(kakaoId);
+      } catch (e) {
         this.error = AuthError(
-            title: AppStrings.loginError,
-            code: AppStrings.codeLoginError,
+            title: AppStrings.codeKakaoLoginError,
+            code: AppStrings.codeKakaoLoginError,
             message: AppStrings.messageAuthError);
         update(state: LoginViewState.Error);
         return;
       }
+
+      ICredential credential = await repository.loginWithKakao(
+          KakaoCredential(accessToken: kakaoAccessToken, id: id));
+
+      if (credential.isError) {
+        this.error = credential.error;
+        update(state: LoginViewState.Error);
+        return;
+      }
+
+      await Future.wait([
+        AuthRepository.instance.writeUserId(credential.userId),
+        AuthRepository.instance.writeAccessToken(credential.accessToken),
+        AuthRepository.instance.writeRefreshToken(credential.refreshToken)
+      ]);
+      update(state: LoginViewState.Success);
+      return;
     } catch (error) {
+      if (error is PlatformException) {
+        if (error.details == '/oauth/authorize cancelled.') {
+          update(state: LoginViewState.Idle);
+          return;
+        }
+      }
       this.error = AuthError(
           title: AppStrings.codeKakaoLoginError,
           code: AppStrings.codeKakaoLoginError,

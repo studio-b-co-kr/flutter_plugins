@@ -10,13 +10,10 @@ import '../../remedi_auth.dart';
 import '../../resources/app_strings.dart';
 
 class LoginView extends BindingView<ILoginViewModel> {
-  final String logoBrand;
+  final String logoApp;
   final String logoCompany;
 
-  LoginView({this.logoBrand, this.logoCompany})
-      : assert(logoBrand != null),
-        assert(logoCompany != null),
-        super();
+  LoginView({this.logoApp, this.logoCompany}) : super();
 
   @override
   Widget build(BuildContext context, ILoginViewModel viewModel) {
@@ -28,7 +25,7 @@ class LoginView extends BindingView<ILoginViewModel> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Spacer(flex: 1),
-            _buildImage(logoBrand, width: 200),
+            _buildImage(logoApp, width: 200),
             Expanded(
               flex: 2,
               child: IndexedStack(index: _index(viewModel), children: [
@@ -105,7 +102,7 @@ class LoginView extends BindingView<ILoginViewModel> {
 
   Widget _buildButtons(ILoginViewModel viewModel) {
     List<Widget> buttons = [];
-    if (AuthConfig.enableApple) {
+    if (AuthManager.enableApple) {
       buttons.add(Container(
           margin: EdgeInsets.symmetric(vertical: 4),
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
@@ -137,7 +134,7 @@ class LoginView extends BindingView<ILoginViewModel> {
           )));
     }
 
-    if (AuthConfig.enableKakao) {
+    if (AuthManager.enableKakao) {
       buttons.add(Container(
           margin: EdgeInsets.symmetric(vertical: 4),
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
@@ -169,7 +166,7 @@ class LoginView extends BindingView<ILoginViewModel> {
   Widget _buildImage(String image, {double width}) {
     if (image == null) {
       return Icon(
-        Icons.error_outline,
+        Icons.image,
         color: Colors.red.shade400,
         size: width,
       );

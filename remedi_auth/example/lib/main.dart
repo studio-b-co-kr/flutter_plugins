@@ -1,113 +1,155 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:remedi_auth/feature/login/login_page.dart';
+import 'package:remedi_auth/feature/login/login_viewmodel.dart';
+import 'package:remedi_auth/remedi_auth.dart';
 
 void main() {
+  AuthManager.init(
+      storage: MyStorage(),
+      enableKakao: true,
+      kakaoAppId: "2d097d3c402c32951f7cb13e87f63b8c",
+      enableApple: true,
+      enableEmailPassword: false);
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Login Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: MyHomePage.ROUTE_NAME,
+      onGenerateRoute: (settings) {
+        Route ret;
+        switch (settings.name) {
+          case MyHomePage.ROUTE_NAME:
+            ret = MaterialPageRoute(builder: (context) => MyHomePage());
+            break;
+          case LoginPage.ROUTE_NAME_SPLASH:
+            ret = MaterialPageRoute(
+                settings: settings,
+                builder: (context) {
+                  return LoginPage(
+                    routeBackTo: '/',
+                    viewModel: LoginViewModel(
+                        repo: LoginRepository(),
+                        kakaoAppId: AuthManager.kakaoAppId),
+                  );
+                });
+            break;
+          case LoginPage.ROUTE_NAME:
+            ret = MaterialPageRoute(
+                settings: settings,
+                builder: (context) {
+                  return LoginPage(
+                    viewModel: LoginViewModel(
+                        repo: LoginRepository(),
+                        kakaoAppId: AuthManager.kakaoAppId),
+                  );
+                });
+            break;
+        }
+        return ret;
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class MyHomePage extends StatelessWidget {
+  static const ROUTE_NAME = "/";
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text("LoginExample"),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: Container(
+        child: Column(children: [
+          Expanded(
+              child: Center(
+            child: Text("Home page."),
+          )),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: MaterialButton(
+                minWidth: double.infinity,
+                height: 48,
+                color: Colors.blue,
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushReplacementNamed(LoginPage.ROUTE_NAME);
+                },
+                child: Text("Push & Replace LoginPage")),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: MaterialButton(
+                height: 48,
+                color: Colors.green,
+                minWidth: double.infinity,
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(LoginPage.ROUTE_NAME);
+                },
+                child: Text("Push LoginPage")),
+          ),
+        ]),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+class MyAppCredential extends ICredential {
+  MyAppCredential({
+    String userId,
+    String accessToken,
+    String refreshToken,
+    AuthError error,
+  }) : super(
+          userId: userId,
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+          error: error,
+        );
+}
+
+class MyStorage extends IStorage {
+  final FlutterSecureStorage _storage = FlutterSecureStorage();
+
+  @override
+  Future delete(String key) async {
+    await _storage.delete(key: key);
+  }
+
+  @override
+  Future<String> read(String key) async {
+    return await _storage.read(key: key);
+  }
+
+  @override
+  Future write({String key, String value}) async {
+    await _storage.write(key: key, value: value);
+  }
+}
+
+class LoginRepository extends ILoginRepository {
+  @override
+  Future<ICredential> loginWithApple(AppleCredential appleCredential) async {
+    await Future.delayed(Duration(seconds: 1));
+    return MyAppCredential(
+        accessToken: "123", refreshToken: "123", userId: "123");
+  }
+
+  @override
+  Future<ICredential> loginWithKakao(KakaoCredential credential) async {
+    await Future.delayed(Duration(seconds: 1));
+    return MyAppCredential(
+        accessToken: "123", refreshToken: "123", userId: "123");
   }
 }
