@@ -2,6 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- TODO change kakao app key to your app id-->
     <key>KAKAO_APP_KEY</key>
     <string>2d097d3c402c32951f7cb13e87f63b8c</string>
     <key>CFBundleURLTypes</key>
@@ -11,15 +12,17 @@
             <string>Editor</string>
             <key>CFBundleURLName</key>
             <string></string>
+            <!-- TODO change kakao scheme key to your app schem-->
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>kakao2d097d3c402c32951f7cb13e87f63b8c</string>
             </array>
         </dict>
     </array>
+    <!-- TODO change kakao scheme key to your app schem-->
     <key>LSApplicationQueriesSchemes</key>
     <array>
-        <string>kakao0123456789abcdefghijklmn</string>
+        <string>kakao2d097d3c402c32951f7cb13e87f63b8c</string>
         <string>kakaokompassauth</string>
         <string>storykompassauth</string>
         <string>kakaolink</string>
