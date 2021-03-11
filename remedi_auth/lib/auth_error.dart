@@ -1,10 +1,16 @@
-class AuthError {
+class AuthError extends Error {
   final String code;
   final String title;
   final String message;
-  final Error error;
+  final dynamic error;
 
-  StackTrace get stackTrace => error?.stackTrace;
+  StackTrace get stackTrace {
+    try {
+      return error?.stackTrace;
+    } catch (e) {
+      return null;
+    }
+  }
 
   AuthError({this.title, this.code, this.message, this.error});
 }

@@ -18,6 +18,12 @@ class LoginView extends BindingView<ILoginViewModel> {
   @override
   Widget build(BuildContext context, ILoginViewModel viewModel) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: true,
+        iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
@@ -165,10 +171,8 @@ class LoginView extends BindingView<ILoginViewModel> {
 
   Widget _buildImage(String image, {double width}) {
     if (image == null) {
-      return Icon(
-        Icons.image,
-        color: Colors.red.shade400,
-        size: width,
+      return Container(
+        height: 64,
       );
     }
 

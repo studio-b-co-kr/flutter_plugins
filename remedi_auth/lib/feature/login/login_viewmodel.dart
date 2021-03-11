@@ -69,16 +69,26 @@ class LoginViewModel extends ILoginViewModel {
       update(state: LoginViewState.Success);
       return;
     } catch (e) {
-      if (e.toString().contains('AuthorizationErrorCode.canceled')) {
-        update(state: LoginViewState.Idle);
-      } else {
-        this.error = AuthError(
-            title: AppStrings.loginError,
-            code: AppStrings.codeAppleLoginError,
-            message: AppStrings.messageAuthError,
-            error: e);
-        update(state: LoginViewState.Error);
+      String title = AppStrings.loginError;
+      String code = AppStrings.codeAppleLoginError;
+      String message = AppStrings.messageAuthError;
+
+      if (e is SignInWithAppleAuthorizationException) {
+        title = e.code.toString();
+        code = e.message;
+        message = e.message;
+        if (e.code == AuthorizationErrorCode.canceled) {
+          update(state: LoginViewState.Idle);
+          return;
+        }
       }
+
+      this.error = AuthError(
+          title: title,
+          code: code,
+          message: message,
+          error: e);
+      update(state: LoginViewState.Error);
     }
   }
 
@@ -145,18 +155,20 @@ class LoginViewModel extends ILoginViewModel {
       update(state: LoginViewState.Success);
       return;
     } catch (error) {
+      String title = AppStrings.codeKakaoLoginError;
+      String code = AppStrings.codeKakaoLoginError;
+      String message = AppStrings.messageAuthError;
+
       if (error is PlatformException) {
-        if (error.details == '/oauth/authorize cancelled.') {
-          update(state: LoginViewState.Idle);
-          return;
-        }
+        title = error.message;
+        code = error.code;
+        message = error.details;
       }
-      this.error = AuthError(
-          title: AppStrings.codeKakaoLoginError,
-          code: AppStrings.codeKakaoLoginError,
-          message: AppStrings.messageAuthError,
-          error: error);
-      update(state: LoginViewState.Error);
+
+      this.error =
+          AuthError(title: title, code: code, message: message, error: error);
+
+      update(state: LoginViewState.Idle);
       return;
     }
   }
