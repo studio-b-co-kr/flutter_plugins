@@ -1,7 +1,19 @@
 library remedi_permission;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:permission_handler/permission_handler.dart';
+
+export 'package:permission_handler/permission_handler.dart';
+
+export 'features/permission_list_page.dart';
+export 'features/permission_list_viewmodel.dart';
+export 'features/permission_page.dart';
+export 'features/permission_viewmodel.dart';
+export 'model/app_permission.dart';
+
+class PermissionManager {
+  static List<Permission> _permissionList;
+
+  static List<Permission> get permissionList => _permissionList;
+
+  static init(List<Permission> permissionList) {}
 }
