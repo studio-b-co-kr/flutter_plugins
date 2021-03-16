@@ -12,4 +12,4 @@ abstract class IPermissionListViewModel
   }
 }
 
-enum PermissionListViewState { Init }
+enum PermissionListViewState { Init, Denied, Granted, PermanentlyDenied }

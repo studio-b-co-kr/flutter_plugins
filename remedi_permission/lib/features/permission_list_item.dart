@@ -23,12 +23,15 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
   @override
   Widget build(BuildContext context, IPermissionViewModel viewModel) {
     return Card(
+      color: background(viewModel),
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      elevation: 4,
+      elevation: viewModel.state == PermissionViewState.Granted ? 0 : 4,
       child: InkWell(
-        onTap: () {
-          viewModel.requestPermission();
-        },
+        onTap: viewModel.repository.isGranted
+            ? null
+            : () {
+                viewModel.requestPermission();
+              },
         child: Container(
           padding: EdgeInsets.all(16),
           width: double.infinity,
@@ -52,21 +55,72 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                     fontWeight: FontWeight.bold),
               ))),
               Spacer(),
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.blueGrey.shade50,
-                child: Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  size: 24,
-                  color: Colors.blueGrey.shade700,
-                ),
-              )
+              action(viewModel),
             ]),
-            SizedBox(height: 8),
+            SizedBox(height: 16),
             Container(child: Text(viewModel.description)),
+            SizedBox(height: 8),
+            Container(child: Text(viewModel.resultMessage)),
           ]),
         ),
       ),
+    );
+  }
+
+  Color background(IPermissionViewModel viewModel) {
+    Color ret = Colors.grey.shade100;
+    switch (viewModel.state) {
+      case PermissionViewState.Init:
+        break;
+      case PermissionViewState.Granted:
+      case PermissionViewState.Limited:
+        // ret = Colors.green.shade100;
+        break;
+      case PermissionViewState.Denied:
+        ret = Colors.red.shade50;
+        break;
+      case PermissionViewState.PermanentlyDenied:
+        ret = Colors.red.shade50;
+        break;
+      case PermissionViewState.Error:
+        ret = Colors.red.shade100;
+        break;
+      case PermissionViewState.Restricted:
+        break;
+      case PermissionViewState.Disabled:
+        break;
+    }
+    return ret;
+  }
+
+  Widget action(IPermissionViewModel viewModel) {
+    IconData icon = Icons.check_circle_outline;
+    Color iconColor = Colors.white;
+    switch (viewModel.state) {
+      case PermissionViewState.Init:
+        break;
+      case PermissionViewState.Granted:
+      case PermissionViewState.Limited:
+        iconColor = Colors.green;
+        break;
+      case PermissionViewState.Denied:
+        iconColor = Colors.red.shade50;
+        break;
+      case PermissionViewState.PermanentlyDenied:
+        iconColor = Colors.red.shade50;
+        break;
+      case PermissionViewState.Error:
+        iconColor = Colors.red.shade100;
+        break;
+      case PermissionViewState.Restricted:
+        break;
+      case PermissionViewState.Disabled:
+        break;
+    }
+    return Icon(
+      icon,
+      size: 36,
+      color: iconColor,
     );
   }
 }

@@ -127,6 +127,7 @@ class HomePage extends StatelessWidget {
           AppPermission(Permission.location,
               icon: Icon(Icons.location_on_outlined),
               title: "Location",
+              errorDescription: "Please Please Please",
               description: "Please grant notification permission.",
               mandatory: true,
               platform: PermissionPlatform.both),

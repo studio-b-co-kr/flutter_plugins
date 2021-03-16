@@ -18,7 +18,10 @@ class AppPermission {
     this.errorDescription,
     this.platform = PermissionPlatform.both,
     this.mandatory = false,
-  }) : assert(permission != null);
+  })  : assert(permission != null),
+        assert(!mandatory ||
+            (mandatory &&
+                (errorDescription != null && errorDescription.isNotEmpty)));
 }
 
 extension PermissionEx on AppPermission {
