@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:remedi_permission/remedi_permission.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AppPermission {
   final Widget icon;

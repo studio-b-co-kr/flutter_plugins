@@ -4,6 +4,8 @@ import '../repository/i_home_repository.dart';
 
 abstract class IHomeViewModel
     extends BaseViewModel<HomeViewState, IHomeRepository> {
+  IHomeViewModel({IHomeRepository repository}) : super(repository: repository);
+
   int count;
 
   increment();

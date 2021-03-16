@@ -1,4 +1,5 @@
 import 'package:permission_handler/permission_handler.dart';
+import 'package:remedi_permission/features/permission_repository.dart';
 import 'package:remedi_permission/model/app_permission.dart';
 import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
@@ -10,11 +11,16 @@ class PermissionViewModel extends IPermissionViewModel {
   PermissionViewState get initState => PermissionViewState.Init;
 
   @override
-  IPermissionRepository get repository => throw UnimplementedError();
+  init() async {
+    await repository.init();
+  }
+
+  @override
+  IPermissionRepository get repository => repo;
 
   @override
   requestPermission() async {
-    PermissionStatus permissionStatus = await this.permission.status;
+    PermissionStatus permissionStatus = await repository.permission.status;
 
     switch (permissionStatus) {
       case PermissionStatus.granted:

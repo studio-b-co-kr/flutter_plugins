@@ -1,13 +1,10 @@
 import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-import '../remedi_permission.dart';
-
 abstract class IPermissionViewModel
     extends BaseViewModel<PermissionViewState, IPermissionRepository> {
-  final AppPermission permission;
 
-  IPermissionViewModel(this.permission);
+  IPermissionViewModel(this.repository);
 
   requestPermission();
 }

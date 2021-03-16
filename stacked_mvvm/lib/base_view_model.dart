@@ -5,7 +5,7 @@ abstract class BaseViewModel<S, R extends BaseRepository>
   S state;
 
   @mustCallSuper
-  BaseViewModel() {
+  BaseViewModel({this.repository}) {
     state = initState;
   }
 
@@ -22,7 +22,7 @@ abstract class BaseViewModel<S, R extends BaseRepository>
     /// Only for background work. ex> get data or others.
   }
 
-  R get repository;
+  final R repository;
 
   @mustCallSuper
   @override
