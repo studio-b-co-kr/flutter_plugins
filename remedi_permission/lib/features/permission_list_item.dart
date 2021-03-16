@@ -40,13 +40,13 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                 child: SizedBox(
                   height: 32,
                   width: 32,
-                  child: viewModel.permission.icon,
+                  child: viewModel.icon,
                 ),
               ),
               Container(
                   child: FixedScaleText(
                       text: Text(
-                viewModel.permission.title,
+                viewModel.title,
                 style: TextStyle(
                     color: Colors.blueGrey.shade700,
                     fontWeight: FontWeight.bold),
@@ -63,7 +63,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
               )
             ]),
             SizedBox(height: 8),
-            Container(child: Text(viewModel.permission.description)),
+            Container(child: Text(viewModel.description)),
           ]),
         ),
       ),

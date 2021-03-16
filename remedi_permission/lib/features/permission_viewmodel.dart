@@ -1,11 +1,12 @@
+import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:remedi_permission/features/permission_repository.dart';
 import 'package:remedi_permission/model/app_permission.dart';
 import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 
 class PermissionViewModel extends IPermissionViewModel {
-  PermissionViewModel(AppPermission permission) : super(permission);
+  PermissionViewModel({IPermissionRepository repository})
+      : super(repository: repository);
 
   @override
   PermissionViewState get initState => PermissionViewState.Init;
@@ -14,9 +15,6 @@ class PermissionViewModel extends IPermissionViewModel {
   init() async {
     await repository.init();
   }
-
-  @override
-  IPermissionRepository get repository => repo;
 
   @override
   requestPermission() async {
@@ -30,7 +28,7 @@ class PermissionViewModel extends IPermissionViewModel {
 
       case PermissionStatus.denied:
         // if the permission is mandatory to use app, keep permission page.
-        var status = await permission.permission.request();
+        var status = await repository.request();
         break;
 
       case PermissionStatus.permanentlyDenied:
@@ -44,6 +42,18 @@ class PermissionViewModel extends IPermissionViewModel {
 
     return;
   }
+
+  @override
+  String get description => repository.permission.description;
+
+  @override
+  String get errorDescription => repository.permission.errorDescription;
+
+  @override
+  Widget get icon => repository.permission.icon;
+
+  @override
+  String get title => repository.permission.title;
 }
 
 /// refer to below permission status.

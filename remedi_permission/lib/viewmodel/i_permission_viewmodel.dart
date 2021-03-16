@@ -1,12 +1,21 @@
+import 'package:flutter/widgets.dart';
 import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IPermissionViewModel
     extends BaseViewModel<PermissionViewState, IPermissionRepository> {
-
-  IPermissionViewModel(this.repository);
+  IPermissionViewModel({IPermissionRepository repository})
+      : super(repository: repository);
 
   requestPermission();
+
+  String get title;
+
+  String get description;
+
+  String get errorDescription;
+
+  Widget get icon;
 }
 
 enum PermissionViewState {

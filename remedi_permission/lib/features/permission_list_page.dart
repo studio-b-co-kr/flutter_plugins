@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_permission/features/permission_list_item.dart';
+import 'package:remedi_permission/features/permission_repository.dart';
 import 'package:remedi_permission/features/permission_viewmodel.dart';
 import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
@@ -100,6 +101,7 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
       BuildContext context, IPermissionListViewModel viewModel) {
     return List<PermissionListItemWidget>.of(viewModel.permissions
         .map<PermissionListItemWidget>((appPermission) =>
-            PermissionListItemWidget(PermissionViewModel(appPermission))));
+            PermissionListItemWidget(PermissionViewModel(
+                repository: PermissionRepository(appPermission)))));
   }
 }
