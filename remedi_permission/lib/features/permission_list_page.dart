@@ -19,7 +19,8 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
   @override
   PermissionListView body(
       BuildContext context, IPermissionListViewModel viewModel, Widget child) {
-    return PermissionListView();
+    return PermissionListView(
+        PermissionItemViewBuilder(viewModel.repository.permissions));
   }
 
   @override
@@ -27,9 +28,49 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
 
   @override
   String get screenName => "permission_list";
+
+  @override
+  void onListen(BuildContext context, IPermissionListViewModel viewModel) {
+    super.onListen(context, viewModel);
+    switch (viewModel.state) {
+      case PermissionListViewState.Init:
+        break;
+      case PermissionListViewState.Refresh:
+        break;
+      case PermissionListViewState.Error:
+        break;
+    }
+  }
+}
+
+class PermissionItemViewBuilder {
+  final List<AppPermission> permissions;
+
+  PermissionItemViewBuilder(this.permissions);
+
+  List<PermissionListItemWidget> build(List<AppPermission> permissions) {
+    List<PermissionListItemWidget> ret = List<PermissionListItemWidget>.of(
+        permissions.where((element) {
+      bool ret = true;
+      if (element.platform == PermissionPlatform.ios) {
+        ret = Platform.isIOS;
+      } else if (element.platform == PermissionPlatform.android) {
+        ret = Platform.isAndroid;
+      }
+      return ret;
+    }).map<PermissionListItemWidget>((appPermission) =>
+            PermissionListItemWidget(PermissionViewModel(
+                repository: PermissionRepository(appPermission)))));
+
+    return ret;
+  }
 }
 
 class PermissionListView extends BindingView<IPermissionListViewModel> {
+  final PermissionItemViewBuilder builder;
+
+  PermissionListView(this.builder);
+
   @override
   Widget build(BuildContext context, IPermissionListViewModel viewModel) {
     return Scaffold(
@@ -84,7 +125,7 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
         SizedBox(height: 16),
         TextButton(
           onPressed: () {
-            _requestAllPermissions();
+            _requestAllPermissions(viewModel);
           },
           child: Text(
             "모두 허용하기",
@@ -94,7 +135,7 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
       ]),
     ));
 
-    ret.addAll(_buildPermissionItem(context, viewModel));
+    ret.addAll(_buildPermissionItem(viewModel));
 
     ret.add(Container(
         margin: EdgeInsets.all(16),
@@ -118,21 +159,12 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
     return ret;
   }
 
-  _requestAllPermissions() {}
+  _requestAllPermissions(IPermissionListViewModel viewModel) {
+    viewModel.requestAll();
+  }
 
   List<PermissionListItemWidget> _buildPermissionItem(
-      BuildContext context, IPermissionListViewModel viewModel) {
-    return List<PermissionListItemWidget>.of(viewModel.permissions
-        .where((element) {
-      bool ret = true;
-      if (element.platform == PermissionPlatform.ios) {
-        ret = Platform.isIOS;
-      } else if (element.platform == PermissionPlatform.android) {
-        ret = Platform.isAndroid;
-      }
-      return ret;
-    }).map<PermissionListItemWidget>((appPermission) =>
-            PermissionListItemWidget(PermissionViewModel(
-                repository: PermissionRepository(appPermission)))));
+      IPermissionListViewModel viewModel) {
+    return builder.build(viewModel.repository.permissions);
   }
 }

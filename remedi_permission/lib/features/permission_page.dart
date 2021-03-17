@@ -8,8 +8,7 @@ class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
 
   final Permission permission;
 
-  PermissionPage(this.permission,
-      {Key key, IPermissionViewModel viewModel})
+  PermissionPage(this.permission, {Key key, IPermissionViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
