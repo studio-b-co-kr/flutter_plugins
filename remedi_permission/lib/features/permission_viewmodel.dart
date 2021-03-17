@@ -18,22 +18,23 @@ class PermissionViewModel extends IPermissionViewModel {
 
   @override
   requestPermission() async {
+    PermissionStatus status;
     switch (repository.status) {
       case PermissionStatus.granted:
       case PermissionStatus.limited:
         // close permission page and back to the screen to request permission.
         return;
-
       case PermissionStatus.denied:
         // if the permission is mandatory to use app, keep permission page.
-        bool a = repository.isPermanentlyDenied;
-        var status = await repository.request();
-        _handleStatus(status);
+        status = await repository.request();
         break;
 
       case PermissionStatus.permanentlyDenied:
         // goto settings
         bool ret = await openAppSettings();
+        if (ret) {
+          status = await repository.readPermissionStatus();
+        }
         break;
 
       case PermissionStatus.restricted:
@@ -41,23 +42,35 @@ class PermissionViewModel extends IPermissionViewModel {
         break;
     }
 
+    _handleStatus(status);
+
     return;
   }
 
   _handleStatus(PermissionStatus status) {
+    if (status == null) {
+      return;
+    }
     PermissionViewState state = PermissionViewState.Denied;
     switch (status) {
       case PermissionStatus.granted:
       case PermissionStatus.limited:
         state = PermissionViewState.Granted;
+
         break;
       case PermissionStatus.denied:
-        // retry request permission.
-        state = PermissionViewState.Denied;
+        if (repository.permission.mandatory) {
+          state = PermissionViewState.Error;
+        } else {
+          state = PermissionViewState.Denied;
+        }
         break;
       case PermissionStatus.permanentlyDenied:
-        // open setting screen.
-        state = PermissionViewState.PermanentlyDenied;
+        if (repository.permission.mandatory) {
+          state = PermissionViewState.Error;
+        } else {
+          state = PermissionViewState.PermanentlyDenied;
+        }
         break;
       case PermissionStatus.restricted:
         state = PermissionViewState.Disabled;
@@ -77,6 +90,34 @@ class PermissionViewModel extends IPermissionViewModel {
 
   @override
   String get title => repository.permission.title;
+
+  @override
+  String get statusMessage {
+    String ret = "";
+    switch (state) {
+      case PermissionViewState.Granted:
+      case PermissionViewState.Limited:
+        ret = "Granted!";
+        break;
+      case PermissionViewState.Denied:
+        ret = "Please grant this permission";
+        break;
+      case PermissionViewState.PermanentlyDenied:
+        ret = "Move to Settings Page.\nAnd grant this permission";
+        break;
+      case PermissionViewState.Error:
+        ret = errorDescription;
+        break;
+      case PermissionViewState.Disabled:
+      case PermissionViewState.Init:
+      case PermissionViewState.Restricted:
+        ret = "Not possible";
+        break;
+      default:
+        break;
+    }
+    return ret;
+  }
 }
 
 /// refer to below permission status.

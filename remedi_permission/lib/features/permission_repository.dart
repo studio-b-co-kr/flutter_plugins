@@ -16,7 +16,7 @@ class PermissionRepository extends IPermissionRepository {
 
   @override
   Future init() async {
-    status = await permission.permission.status;
+    await readPermissionStatus();
   }
 
   @override
@@ -35,6 +35,12 @@ class PermissionRepository extends IPermissionRepository {
   Future<PermissionStatus> request() async {
     PermissionStatus status = await permission.permission.request();
     this.status = status;
+    return status;
+  }
+
+  @override
+  Future<PermissionStatus> readPermissionStatus() async {
+    status = await permission.permission.status;
     return status;
   }
 }

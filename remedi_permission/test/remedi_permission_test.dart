@@ -9,10 +9,20 @@ import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 void main() {
-
   testWidgets('PermissionListItemView', (WidgetTester tester) async {
-    await tester.pumpWidget(TestWidget(
-        TestViewModel(TestRepository(AppPermission(Permission.photos)))));
+    TestRepository repository;
+    TestViewModel viewModel;
+    setUp(() {
+      repository = TestRepository(AppPermission(Permission.photos));
+      viewModel = TestViewModel(repository);
+    });
+
+    await tester.pumpWidget(Directionality(
+      textDirection: TextDirection.ltr,
+      child: Material(
+        child: TestWidget(viewModel),
+      ),
+    ));
   });
 }
 
@@ -41,6 +51,11 @@ class TestRepository extends IPermissionRepository {
   Future<PermissionStatus> request() {
     return null;
   }
+
+  @override
+  Future<PermissionStatus> readPermissionStatus() async {
+    return status = PermissionStatus.denied;
+  }
 }
 
 class TestViewModel extends IPermissionViewModel {
@@ -66,6 +81,9 @@ class TestViewModel extends IPermissionViewModel {
 
   @override
   String get title => "TITLE";
+
+  @override
+  String get statusMessage => "STATUS";
 }
 
 class TestWidget extends BaseWidget<IPermissionViewModel> {

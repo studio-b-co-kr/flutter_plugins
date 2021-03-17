@@ -4,9 +4,6 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IPermissionViewModel
     extends BaseViewModel<PermissionViewState, IPermissionRepository> {
-
-  String resultMessage = "Granted";
-
   IPermissionViewModel({IPermissionRepository repository})
       : super(repository: repository);
 
@@ -19,6 +16,8 @@ abstract class IPermissionViewModel
   String get errorDescription;
 
   Widget get icon;
+
+  String get statusMessage;
 }
 
 enum PermissionViewState {
@@ -48,6 +47,5 @@ enum PermissionViewState {
 
   /// Mandatory but denied or permanently denied.
   Error,
-
   Disabled,
 }

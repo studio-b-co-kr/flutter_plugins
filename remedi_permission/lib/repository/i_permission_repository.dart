@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/model/app_permission.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
@@ -23,4 +22,6 @@ abstract class IPermissionRepository extends BaseRepository {
   bool get isDenied;
 
   bool get isPermanentlyDenied;
+
+  Future<PermissionStatus> readPermissionStatus();
 }
