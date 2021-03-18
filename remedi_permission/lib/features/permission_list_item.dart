@@ -74,7 +74,27 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                           FixedScaleText(text: Text(viewModel.statusMessage)))
                 ],
               ),
-            )
+            ),
+            viewModel.repository.isPermanentlyDenied
+                ? Container(
+                    margin: EdgeInsets.only(top: 16, left: 8),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FixedScaleText(
+                              text: Text(
+                            "앱 세팅에서 가서 권한을 부여해주세요",
+                            style: TextStyle(
+                                color: Colors.blue.shade700,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          )),
+                          Icon(Icons.arrow_forward_ios_sharp,
+                              color: Colors.blue.shade700, size: 16)
+                        ]),
+                  )
+                : Container(),
           ]),
         ),
       ),
@@ -121,12 +141,9 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
         iconColor = Colors.green;
         break;
       case PermissionViewState.Denied:
-        icon = Icons.check_circle_outline;
-        iconColor = Colors.grey;
-        break;
       case PermissionViewState.PermanentlyDenied:
-        icon = Icons.check_circle_outline;
-        iconColor = Colors.red;
+        icon = Icons.error_outline_sharp;
+        iconColor = Colors.grey;
         break;
       case PermissionViewState.Error:
         icon = Icons.error_outline_sharp;

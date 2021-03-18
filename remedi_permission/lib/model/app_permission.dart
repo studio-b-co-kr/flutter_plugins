@@ -59,6 +59,7 @@ class AppPermission {
       default:
         break;
     }
+
     return ret;
   }
 }

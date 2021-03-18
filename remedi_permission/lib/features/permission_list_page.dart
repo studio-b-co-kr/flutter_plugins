@@ -48,6 +48,9 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
         break;
       case PermissionListViewState.Error:
         break;
+      case PermissionListViewState.Skip:
+        Navigator.pop(context, "skip");
+        break;
     }
   }
 }
@@ -99,12 +102,18 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
           elevation: 0,
           actions: [
             Center(
-                child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              child: FixedScaleText(
-                  text: Text("SKIP",
-                      style: TextStyle(color: Colors.blue, fontSize: 16))),
-            ))
+              child: InkWell(
+                  onTap: () {
+                    viewModel.skipOrNext();
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    child: FixedScaleText(
+                        text: Text("SKIP",
+                            style:
+                                TextStyle(color: Colors.blue, fontSize: 16))),
+                  )),
+            )
           ]),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -159,9 +168,14 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Next",
-                  style: TextStyle(fontSize: 16),
+                InkWell(
+                  onTap: () {
+                    viewModel.skipOrNext();
+                  },
+                  child: Text(
+                    "Next",
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
                 Icon(Icons.arrow_forward_ios_sharp, size: 20)
               ]),

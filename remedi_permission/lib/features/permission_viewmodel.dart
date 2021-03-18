@@ -107,10 +107,8 @@ class PermissionViewModel extends IPermissionViewModel {
         ret = "Granted!";
         break;
       case PermissionViewState.Denied:
-        ret = "Please grant this permission";
-        break;
       case PermissionViewState.PermanentlyDenied:
-        ret = "Move to Settings Page.\nAnd grant this permission";
+        ret = "Please grant this permission";
         break;
       case PermissionViewState.Error:
         ret = errorDescription;
