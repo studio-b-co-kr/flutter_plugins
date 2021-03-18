@@ -103,8 +103,8 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
           actions: [
             Center(
               child: InkWell(
-                  onTap: () {
-                    viewModel.skipOrNext();
+                  onTap: () async {
+                    await viewModel.skipOrNext();
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 16),
@@ -169,8 +169,8 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    viewModel.skipOrNext();
+                  onTap: () async {
+                    await viewModel.skipOrNext();
                   },
                   child: Text(
                     "Next",

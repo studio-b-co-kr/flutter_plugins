@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/model/app_permission.dart';
 import 'package:remedi_permission/repository/i_permission_list_repository.dart';
@@ -16,12 +18,13 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
     await Future.forEach<AppPermission>(repository.permissions,
         (appPermission) async {
-      PermissionStatus status = await appPermission.status;
-      bool result = (status != PermissionStatus.granted &&
-              status != PermissionStatus.limited) &&
-          appPermission.mandatory;
-      ret &= result;
+      await appPermission.status.then((status) => ret |=
+          appPermission.mandatory &&
+              !(status == PermissionStatus.granted ||
+                  status == PermissionStatus.limited));
     });
+
+    dev.log("hasError = $ret", name: "PermissionListViewModel");
 
     return ret;
   }
@@ -39,7 +42,8 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
   @override
   skipOrNext() async {
-    if (await hasError) {
+    bool error = await hasError;
+    if (error) {
       update(state: PermissionListViewState.Error);
       return;
     }
