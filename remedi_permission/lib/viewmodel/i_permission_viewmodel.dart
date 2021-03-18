@@ -9,6 +9,8 @@ abstract class IPermissionViewModel
 
   requestPermission();
 
+  Future<dynamic> refresh();
+
   String get title;
 
   String get description;

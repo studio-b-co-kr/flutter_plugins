@@ -84,6 +84,12 @@ class TestViewModel extends IPermissionViewModel {
 
   @override
   String get statusMessage => "STATUS";
+
+  @override
+  Future refresh() {
+    // TODO: implement refresh
+    throw UnimplementedError();
+  }
 }
 
 class TestWidget extends BaseWidget<IPermissionViewModel> {

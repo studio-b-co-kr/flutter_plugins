@@ -9,7 +9,6 @@ class PermissionListViewModel extends IPermissionListViewModel {
   PermissionListViewState get initState => PermissionListViewState.Init;
 
   @override
-  // TODO: implement hasError
   bool get hasError {
     return false;
   }
@@ -18,7 +17,6 @@ class PermissionListViewModel extends IPermissionListViewModel {
   Future requestAll() async {
     await repository.requestAll();
 
-    // TODO refresh all list
     update(state: PermissionListViewState.Refresh);
 
     if (false) {

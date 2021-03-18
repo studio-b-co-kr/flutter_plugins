@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/repository/i_permission_repository.dart';
@@ -47,7 +49,7 @@ class PermissionViewModel extends IPermissionViewModel {
     return;
   }
 
-  _handleStatus(PermissionStatus status) {
+  _handleStatus(PermissionStatus status) async {
     if (status == null) {
       return;
     }
@@ -75,6 +77,11 @@ class PermissionViewModel extends IPermissionViewModel {
       case PermissionStatus.restricted:
         state = PermissionViewState.Disabled;
         break;
+    }
+    if (repository.permission.permission.value == Permission.camera.value) {
+      dev.log("${repository.permission.permission}", name: "HANDLE_STATUS");
+      dev.log("${await repository.permission.permission.status}",
+          name: "HANDLE_STATUS");
     }
     update(state: state);
   }
@@ -117,6 +124,12 @@ class PermissionViewModel extends IPermissionViewModel {
         break;
     }
     return ret;
+  }
+
+  @override
+  Future refresh() async {
+    PermissionStatus status = await repository.readPermissionStatus();
+    _handleStatus(status);
   }
 }
 

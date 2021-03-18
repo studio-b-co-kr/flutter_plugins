@@ -7,20 +7,26 @@ import 'package:remedi_permission/features/permission_repository.dart';
 import 'package:remedi_permission/features/permission_viewmodel.dart';
 import 'package:remedi_permission/model/app_permission.dart';
 import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';
+import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
+// ignore: must_be_immutable
 class PermissionListPage extends BasePage<IPermissionListViewModel> {
   static const ROUTE_NAME = "/permission_list";
 
+  PermissionItemViewBuilder _permissionItemViewBuilder;
+
   PermissionListPage({Key key, IPermissionListViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+      : super(key: key, viewModel: viewModel) {
+    _permissionItemViewBuilder =
+        PermissionItemViewBuilder(viewModel.repository.permissions);
+  }
 
   @override
   PermissionListView body(
       BuildContext context, IPermissionListViewModel viewModel, Widget child) {
-    return PermissionListView(
-        PermissionItemViewBuilder(viewModel.repository.permissions));
+    return PermissionListView(_permissionItemViewBuilder);
   }
 
   @override
@@ -36,6 +42,9 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
       case PermissionListViewState.Init:
         break;
       case PermissionListViewState.Refresh:
+        Future.forEach<IPermissionViewModel>(
+            _permissionItemViewBuilder.listItems.map((e) => e.viewModel),
+            (viewModel) async => await viewModel.refresh());
         break;
       case PermissionListViewState.Error:
         break;
@@ -45,12 +54,16 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
 
 class PermissionItemViewBuilder {
   final List<AppPermission> permissions;
+  List<PermissionListItemWidget> _listItems;
 
-  PermissionItemViewBuilder(this.permissions);
+  List<PermissionListItemWidget> get listItems => _listItems;
 
-  List<PermissionListItemWidget> build(List<AppPermission> permissions) {
-    List<PermissionListItemWidget> ret = List<PermissionListItemWidget>.of(
-        permissions.where((element) {
+  PermissionItemViewBuilder(this.permissions) {
+    _listItems = _build(permissions);
+  }
+
+  List<PermissionListItemWidget> _build(List<AppPermission> permissions) {
+    return List<PermissionListItemWidget>.of(permissions.where((element) {
       bool ret = true;
       if (element.platform == PermissionPlatform.ios) {
         ret = Platform.isIOS;
@@ -59,10 +72,8 @@ class PermissionItemViewBuilder {
       }
       return ret;
     }).map<PermissionListItemWidget>((appPermission) =>
-            PermissionListItemWidget(PermissionViewModel(
-                repository: PermissionRepository(appPermission)))));
-
-    return ret;
+        PermissionListItemWidget(PermissionViewModel(
+            repository: PermissionRepository(appPermission)))));
   }
 }
 
@@ -165,6 +176,6 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
 
   List<PermissionListItemWidget> _buildPermissionItem(
       IPermissionListViewModel viewModel) {
-    return builder.build(viewModel.repository.permissions);
+    return builder.listItems;
   }
 }

@@ -18,3 +18,5 @@ part 'base_view_model.dart';
 part 'base_widget.dart';
 
 part 'binding_view.dart';
+
+part 'list_view.dart';
