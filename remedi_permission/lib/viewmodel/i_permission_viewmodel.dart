@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
@@ -7,7 +8,7 @@ abstract class IPermissionViewModel
   IPermissionViewModel({IPermissionRepository repository})
       : super(repository: repository);
 
-  requestPermission();
+  Future<PermissionStatus> requestPermission();
 
   Future<dynamic> refresh();
 

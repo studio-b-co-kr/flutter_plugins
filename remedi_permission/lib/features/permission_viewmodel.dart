@@ -19,23 +19,22 @@ class PermissionViewModel extends IPermissionViewModel {
   }
 
   @override
-  requestPermission() async {
-    PermissionStatus status;
+  Future<PermissionStatus> requestPermission() async {
     switch (repository.status) {
       case PermissionStatus.granted:
       case PermissionStatus.limited:
         // close permission page and back to the screen to request permission.
-        return;
+        break;
       case PermissionStatus.denied:
         // if the permission is mandatory to use app, keep permission page.
-        status = await repository.request();
+        await repository.request();
         break;
 
       case PermissionStatus.permanentlyDenied:
         // goto settings
         bool ret = await openAppSettings();
         if (ret) {
-          status = await repository.readPermissionStatus();
+          await repository.readPermissionStatus();
         }
         break;
 
@@ -44,9 +43,9 @@ class PermissionViewModel extends IPermissionViewModel {
         break;
     }
 
-    _handleStatus(status);
+    _handleStatus(repository.status);
 
-    return;
+    return repository.status;
   }
 
   _handleStatus(PermissionStatus status) async {

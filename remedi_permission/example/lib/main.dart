@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: MaterialButton(
                 onPressed: () async {
-                  await Navigator.of(context).push(generateRoute());
+                  await Navigator.of(context).push(allRoute());
                 },
                 minWidth: double.maxFinite,
                 color: Colors.teal,
@@ -54,67 +54,26 @@ class HomePage extends StatelessWidget {
               ),
             )),
             Expanded(
+                flex: 9,
                 child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: MaterialButton(
-                onPressed: () {},
-                minWidth: double.maxFinite,
-                color: Colors.blueGrey,
-                textColor: Colors.white,
-                child: Text("Location Permissions"),
-              ),
-            )),
-            Expanded(
-                child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: MaterialButton(
-                onPressed: () {},
-                minWidth: double.maxFinite,
-                color: Colors.green,
-                textColor: Colors.white,
-                child: Text("Camera Permissions"),
-              ),
-            )),
-            Expanded(
-                child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: MaterialButton(
-                onPressed: () {},
-                minWidth: double.maxFinite,
-                color: Colors.purple,
-                textColor: Colors.white,
-                child: Text("Storage Permissions"),
-              ),
-            )),
-            Expanded(
-                child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: MaterialButton(
-                onPressed: () {},
-                minWidth: double.maxFinite,
-                color: Colors.purple,
-                textColor: Colors.white,
-                child: Text("Photo Permissions"),
-              ),
-            )),
-            Expanded(
-                child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: MaterialButton(
-                onPressed: () {},
-                minWidth: double.maxFinite,
-                color: Colors.amber.shade700,
-                textColor: Colors.white,
-                child: Text("Notification Permissions(iOS only)"),
-              ),
-            )),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: MaterialButton(
+                    onPressed: () async {
+                      await Navigator.of(context).push(locationRoute());
+                    },
+                    minWidth: double.maxFinite,
+                    color: Colors.blueGrey,
+                    textColor: Colors.white,
+                    child: Text("Location Permissions\n\n For an App needs one permission or need to request JIT"),
+                  ),
+                )),
           ],
         ),
       ),
     );
   }
 
-  MaterialPageRoute generateRoute() {
+  MaterialPageRoute allRoute() {
     return MaterialPageRoute(
       builder: (context) => PermissionListPage(
         viewModel: PermissionListViewModel(
@@ -191,6 +150,19 @@ class HomePage extends StatelessWidget {
             //     title: "activityRecognition",
             //     description: "Please grant activityRecognition permission."),
           ],
+        )),
+      ),
+    );
+  }
+
+  MaterialPageRoute locationRoute() {
+    return MaterialPageRoute(
+      builder: (context) => PermissionPage(
+        viewModel: PermissionViewModel(
+            repository: PermissionRepository(
+          AppPermission(Permission.location,
+              title: "location",
+              description: "Please grant location permission."),
         )),
       ),
     );

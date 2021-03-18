@@ -6,9 +6,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
   static const ROUTE_NAME = "/permission";
 
-  final Permission permission;
-
-  PermissionPage(this.permission, {Key key, IPermissionViewModel viewModel})
+  PermissionPage({Key key, IPermissionViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
@@ -27,6 +25,24 @@ class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
 class PermissionView extends BindingView<IPermissionViewModel> {
   @override
   Widget build(BuildContext context, IPermissionViewModel viewModel) {
-    return Scaffold();
+    return FutureBuilder(
+        future: viewModel.requestPermission(),
+        builder: (context, snapshot) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
+              title: Text(
+                "권한 요청",
+                style: TextStyle(color: Colors.blueGrey.shade700),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.white,
+            ),
+            body: SafeArea(
+              child: Container(),
+            ),
+          );
+        });
   }
 }
