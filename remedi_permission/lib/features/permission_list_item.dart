@@ -41,11 +41,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Container(
                 margin: EdgeInsets.only(right: 8),
-                child: SizedBox(
-                  height: 36,
-                  width: 36,
-                  child: viewModel.icon ?? _permissionIcon(viewModel),
-                ),
+                child: viewModel.icon(),
               ),
               Container(
                   child: FixedScaleText(
@@ -170,79 +166,5 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
     Color ret = Colors.blueGrey.shade700;
 
     return ret;
-  }
-
-  Widget _permissionIcon(IPermissionViewModel viewModel) {
-    IconData iconData;
-    switch (viewModel.repository.permission.permission.value) {
-      case 0: //calendar
-        iconData = Icons.calendar_today_sharp;
-        break;
-      case 1: //camera
-        iconData = Icons.camera_alt_outlined;
-        break;
-      case 2: //contacts
-        iconData = Icons.contacts_outlined;
-        break;
-      case 3: //location
-      case 4: //locationAlways
-      case 5: //locationWhenInUse
-        iconData = Icons.location_on_outlined;
-        break;
-      case 6: //mediaLibrary
-        iconData = Icons.library_music_outlined;
-        break;
-      case 7: //microphone
-        iconData = Icons.mic_none_outlined;
-        break;
-      case 8: //phone
-        iconData = Icons.local_phone_outlined;
-        break;
-      case 9: //photos
-        iconData = Icons.photo_size_select_actual_outlined;
-        break;
-      case 10: //photosAddOnly
-        iconData = Icons.add_a_photo_outlined;
-        break;
-      case 11: //reminders
-        iconData = Icons.access_alarms;
-        break;
-      case 12: //sensors
-        iconData = Icons.device_thermostat;
-        break;
-      case 13: //sms
-        iconData = Icons.sms_outlined;
-        break;
-      case 14: //speech
-        iconData = Icons.connect_without_contact;
-        break;
-      case 15: //storage
-        iconData = Icons.sd_storage_outlined;
-        break;
-      case 16: //ignoreBatteryOptimizations
-        iconData = Icons.battery_alert_rounded;
-        break;
-      case 17: //notification
-        iconData = Icons.notifications_active_outlined;
-        break;
-      case 18: //accessMediaLocation
-        iconData = Icons.mediation_sharp;
-        break;
-      case 19: //activityRecognition
-        iconData = Icons.accessibility;
-        break;
-      case 21: //bluetooth
-        iconData = Icons.bluetooth;
-        break;
-      case 20: //unknown
-      default:
-        iconData = Icons.device_unknown_sharp;
-        break;
-    }
-
-    return Icon(
-      iconData,
-      color: Colors.blueGrey.shade700,
-    );
   }
 }

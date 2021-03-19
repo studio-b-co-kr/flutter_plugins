@@ -64,7 +64,8 @@ class HomePage extends StatelessWidget {
                     minWidth: double.maxFinite,
                     color: Colors.blueGrey,
                     textColor: Colors.white,
-                    child: Text("Location Permissions\n\n For an App needs one permission or need to request JIT"),
+                    child: Text(
+                        "Location Permissions\n\n For an App needs one permission or need to request JIT"),
                   ),
                 )),
           ],
@@ -159,11 +160,15 @@ class HomePage extends StatelessWidget {
     return MaterialPageRoute(
       builder: (context) => PermissionPage(
         viewModel: PermissionViewModel(
-            repository: PermissionRepository(
-          AppPermission(Permission.location,
-              title: "location",
-              description: "Please grant location permission."),
-        )),
+          repository: PermissionRepository(
+            AppPermission(Permission.location,
+                title: "location",
+                mandatory: true,
+                errorDescription: "위치권한 없이는 앱을 사용할 수 없습니다.",
+                description:
+                    "Please grant location permission to use this app."),
+          ),
+        ),
       ),
     );
   }

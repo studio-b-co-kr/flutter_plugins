@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/repository/i_permission_repository.dart';
@@ -92,9 +93,6 @@ class PermissionViewModel extends IPermissionViewModel {
   String get errorDescription => repository.permission.errorDescription;
 
   @override
-  Widget get icon => repository.permission.icon;
-
-  @override
   String get title => repository.permission.title;
 
   @override
@@ -127,6 +125,87 @@ class PermissionViewModel extends IPermissionViewModel {
   Future refresh() async {
     PermissionStatus status = await repository.readPermissionStatus();
     _handleStatus(status);
+  }
+
+  @override
+  // Widget get icon => repository.permission.icon;
+  Widget icon({double size = 24}) {
+    if (repository.permission.icon != null) {
+      return repository.permission.icon;
+    }
+
+    IconData iconData;
+    switch (repository.permission.permission.value) {
+      case 0: //calendar
+        iconData = Icons.calendar_today_sharp;
+        break;
+      case 1: //camera
+        iconData = Icons.camera_alt_outlined;
+        break;
+      case 2: //contacts
+        iconData = Icons.contacts_outlined;
+        break;
+      case 3: //location
+      case 4: //locationAlways
+      case 5: //locationWhenInUse
+        iconData = Icons.location_on_outlined;
+        break;
+      case 6: //mediaLibrary
+        iconData = Icons.library_music_outlined;
+        break;
+      case 7: //microphone
+        iconData = Icons.mic_none_outlined;
+        break;
+      case 8: //phone
+        iconData = Icons.local_phone_outlined;
+        break;
+      case 9: //photos
+        iconData = Icons.photo_size_select_actual_outlined;
+        break;
+      case 10: //photosAddOnly
+        iconData = Icons.add_a_photo_outlined;
+        break;
+      case 11: //reminders
+        iconData = Icons.access_alarms;
+        break;
+      case 12: //sensors
+        iconData = Icons.device_thermostat;
+        break;
+      case 13: //sms
+        iconData = Icons.sms_outlined;
+        break;
+      case 14: //speech
+        iconData = Icons.connect_without_contact;
+        break;
+      case 15: //storage
+        iconData = Icons.sd_storage_outlined;
+        break;
+      case 16: //ignoreBatteryOptimizations
+        iconData = Icons.battery_alert_rounded;
+        break;
+      case 17: //notification
+        iconData = Icons.notifications_active_outlined;
+        break;
+      case 18: //accessMediaLocation
+        iconData = Icons.mediation_sharp;
+        break;
+      case 19: //activityRecognition
+        iconData = Icons.accessibility;
+        break;
+      case 21: //bluetooth
+        iconData = Icons.bluetooth;
+        break;
+      case 20: //unknown
+      default:
+        iconData = Icons.device_unknown_sharp;
+        break;
+    }
+
+    return Icon(
+      iconData,
+      size: size,
+      color: Colors.blueGrey.shade700,
+    );
   }
 }
 

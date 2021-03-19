@@ -23,7 +23,7 @@ class PermissionRepository extends IPermissionRepository {
   bool get isDenied => status.isDenied || status.isRestricted;
 
   @override
-  bool get isError => isDenied && permission.mandatory;
+  bool get isError => !isGranted && permission.mandatory;
 
   @override
   bool get isGranted => status.isGranted || status.isLimited;

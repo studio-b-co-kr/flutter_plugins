@@ -69,15 +69,7 @@ class TestViewModel extends IPermissionViewModel {
   String get errorDescription => "ERROR";
 
   @override
-  Widget get icon => Container(color: Colors.red);
-
-  @override
   PermissionViewState get initState => PermissionViewState.Init;
-
-  @override
-  requestPermission() async {
-    return;
-  }
 
   @override
   String get title => "TITLE";
@@ -89,6 +81,16 @@ class TestViewModel extends IPermissionViewModel {
   Future refresh() {
     // TODO: implement refresh
     throw UnimplementedError();
+  }
+
+  @override
+  Future<PermissionStatus> requestPermission() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget icon({double size}) {
+    return Container(color: Colors.red);
   }
 }
 

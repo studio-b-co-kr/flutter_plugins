@@ -18,7 +18,7 @@ abstract class IPermissionViewModel
 
   String get errorDescription;
 
-  Widget get icon;
+  Widget icon({double size});
 
   String get statusMessage;
 }
