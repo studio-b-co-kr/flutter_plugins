@@ -17,7 +17,7 @@ abstract class BaseViewModel<S, R extends BaseRepository>
     notifyListeners();
   }
 
-  init() {
+  init() async {
     /// Do not update ui here.
     /// Only for background work. ex> get data or others.
   }

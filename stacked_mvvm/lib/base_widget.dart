@@ -14,9 +14,9 @@ abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
         dev.log("viewModelBuilder", name: "$this");
         return viewModel;
       },
-      onModelReady: (model) {
+      onModelReady: (model) async {
         dev.log("onModelReady", name: "$this");
-        model.init();
+        await model.init();
       },
       builder: (context, model, child) {
         dev.log("builder : child = $child", name: "$this");
