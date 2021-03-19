@@ -20,11 +20,9 @@ abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
       },
       builder: (context, model, child) {
         dev.log("builder : child = $child", name: "$this");
-        if (model.state != model.initState) {
-          try {
-            Future.microtask(() => onListen(context, model));
-          } catch (e) {}
-        }
+        try {
+          Future.microtask(() => onListen(context, model));
+        } catch (e) {}
         return body(context, model, child);
       },
     );
