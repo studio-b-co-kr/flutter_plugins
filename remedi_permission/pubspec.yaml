@@ -24,6 +24,8 @@ dependencies:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
       path: remedi_widgets/
 
+  flutter_secure_storage: ^3.3.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
