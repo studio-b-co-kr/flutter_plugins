@@ -68,7 +68,7 @@ class SplashViewModel extends ISplashViewModel {
   @override
   afterForceUpdate() async {
     dev.log("afterForceUpdate",name: "SplashViewModel : run");
-    var ret = await repository.doneIntro();
+    var ret = await repository.isCompletedIntro();
     if (ret) {
       afterIntro();
       return;
@@ -80,7 +80,7 @@ class SplashViewModel extends ISplashViewModel {
   @override
   afterIntro() async {
     dev.log("afterIntro",name: "SplashViewModel : run");
-    var ret = await repository.donePermissionGrant();
+    var ret = await repository.isCompletedPermissionGrant();
     if (ret) {
       afterPermission();
       return;
@@ -104,7 +104,7 @@ class SplashViewModel extends ISplashViewModel {
   @override
   afterLogin() async {
     dev.log("afterLogin",name: "SplashViewModel : run");
-    var ret = await repository.doneOnboarding();
+    var ret = await repository.isCompletedOnboarding();
     if (ret) {
       afterOnboarding();
       return;
