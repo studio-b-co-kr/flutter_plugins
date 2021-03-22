@@ -1,22 +1,25 @@
 part of 'stacked_mvvm.dart';
 
 class ListItemsBuilder<I extends BindingView> {
-  final List<I> items = [];
+  List<I> items;
 
   List<I> build() {
+    items = [];
     return items;
   }
 
   int get count => items.length;
 
-  refresh() {}
+  refresh(){
+
+  }
 }
 
 abstract class ListBindingView<VM extends BaseViewModel>
     extends BindingView<VM> {
   final ListItemsBuilder itemsBuilder;
 
-  ListBindingView({required this.itemsBuilder});
+  ListBindingView({this.itemsBuilder});
 
   @override
   Widget build(BuildContext context, VM viewModel) {
