@@ -90,14 +90,8 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: FixedScaleText(
-            text: Text(
-              "권한 요청",
-              style: TextStyle(color: Colors.blueGrey.shade700),
-            ),
-          ),
           backgroundColor: Colors.white,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
           elevation: 0,
           actions: [
