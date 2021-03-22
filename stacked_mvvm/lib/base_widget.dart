@@ -3,9 +3,7 @@ part of 'stacked_mvvm.dart';
 abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
   final VM viewModel;
 
-  BaseWidget({Key key, this.viewModel})
-      : assert(viewModel != null),
-        super(key: key);
+  BaseWidget({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

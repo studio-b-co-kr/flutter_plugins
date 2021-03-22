@@ -2,7 +2,8 @@ part of 'stacked_mvvm.dart';
 
 /// route
 abstract class BasePage<VM extends BaseViewModel> extends BaseWidget<VM> {
-  BasePage({Key key, VM viewModel}) : super(key: key, viewModel: viewModel) {
+  BasePage({Key? key, required VM viewModel})
+      : super(key: key, viewModel: viewModel) {
     onCreated();
   }
 
