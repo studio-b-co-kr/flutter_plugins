@@ -34,7 +34,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                 viewModel.requestPermission();
               },
         child: Container(
-          padding: EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 16),
+          padding: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 16),
           width: double.infinity,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
