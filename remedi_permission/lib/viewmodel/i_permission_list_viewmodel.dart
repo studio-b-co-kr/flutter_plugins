@@ -11,6 +11,12 @@ abstract class IPermissionListViewModel
   Future<bool> get hasError;
 
   skipOrNext();
+
+  Future<bool> get canSkip;
+
+  Future<bool> get showNext;
+
+  Future<bool> get showRequestAll;
 }
 
 enum PermissionListViewState { Init, Refresh, Error, Skip }

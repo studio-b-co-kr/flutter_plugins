@@ -87,36 +87,38 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
 
   @override
   Widget build(BuildContext context, IPermissionListViewModel viewModel) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return WillPopScope(
+        child: Scaffold(
           backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
-          elevation: 0,
-          actions: [
-            Center(
-              child: InkWell(
-                  onTap: () async {
-                    await viewModel.skipOrNext();
-                  },
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
-                    child: FixedScaleText(
-                        text: Text("SKIP",
-                            style:
-                                TextStyle(color: Colors.blue, fontSize: 16))),
-                  )),
-            )
-          ]),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: _buildList(context, viewModel),
+          appBar: AppBar(
+              backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
+              elevation: 0,
+              actions: [
+                Center(
+                  child: InkWell(
+                      onTap: () async {
+                        await viewModel.skipOrNext();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16),
+                        child: FixedScaleText(
+                            text: Text("SKIP",
+                                style: TextStyle(
+                                    color: Colors.blue, fontSize: 16))),
+                      )),
+                )
+              ]),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: _buildList(context, viewModel),
+              ),
+            ),
           ),
         ),
-      ),
-    );
+        onWillPop: () async => false);
   }
 
   List<Widget> _buildList(

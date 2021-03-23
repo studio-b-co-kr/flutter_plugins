@@ -13,8 +13,6 @@ abstract class IPermissionRepository extends BaseRepository {
 
   Future<PermissionStatus> request();
 
-  Future goToSettings();
-
   bool get isError;
 
   bool get isGranted;

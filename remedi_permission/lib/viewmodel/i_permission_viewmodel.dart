@@ -21,6 +21,10 @@ abstract class IPermissionViewModel
   Widget icon({double size});
 
   String get statusMessage;
+
+  Future<bool> get canSkip;
+
+  Future goToSettings();
 }
 
 enum PermissionViewState {

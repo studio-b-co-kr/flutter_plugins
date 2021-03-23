@@ -14,4 +14,6 @@ abstract class IPermissionListRepository extends BaseRepository {
   Future<Map<Permission, PermissionStatus>> requestAll();
 
   bool get hasError;
+
+  Future<bool> get isAllGranted;
 }

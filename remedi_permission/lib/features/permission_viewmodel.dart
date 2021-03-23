@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,8 +13,14 @@ class PermissionViewModel extends IPermissionViewModel {
 
   @override
   init() async {
+    // await Future.delayed(Duration(milliseconds: 100));
     await repository.init();
     _handleStatus(repository.status);
+  }
+
+  @override
+  Future<bool> goToSettings() async {
+    return await openAppSettings();
   }
 
   @override
@@ -49,10 +53,11 @@ class PermissionViewModel extends IPermissionViewModel {
     return repository.status;
   }
 
-  _handleStatus(PermissionStatus status) async {
+  _handleStatus(PermissionStatus status) {
     if (status == null) {
       return;
     }
+
     PermissionViewState state = PermissionViewState.Denied;
     switch (status) {
       case PermissionStatus.granted:
@@ -78,11 +83,7 @@ class PermissionViewModel extends IPermissionViewModel {
         state = PermissionViewState.Disabled;
         break;
     }
-    if (repository.permission.permission.value == Permission.camera.value) {
-      dev.log("${repository.permission.permission}", name: "HANDLE_STATUS");
-      dev.log("${await repository.permission.permission.status}",
-          name: "HANDLE_STATUS");
-    }
+
     update(state: state);
   }
 
@@ -207,6 +208,9 @@ class PermissionViewModel extends IPermissionViewModel {
       color: Colors.blueGrey.shade700,
     );
   }
+
+  @override
+  Future<bool> get canSkip async => false;
 }
 
 /// refer to below permission status.

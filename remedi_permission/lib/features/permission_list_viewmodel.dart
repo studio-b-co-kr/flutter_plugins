@@ -50,4 +50,13 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
     update(state: PermissionListViewState.Skip);
   }
+
+  @override
+  Future<bool> get canSkip async =>
+      !(await hasError) && !(await repository.isAllGranted);
+
+  @override
+  Future<bool> get showNext async => false;
+
+  Future<bool> get showRequestAll async => false;
 }

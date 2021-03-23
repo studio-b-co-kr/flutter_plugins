@@ -19,4 +19,10 @@ class PermissionListRepository extends IPermissionListRepository {
     return await List<Permission>.of(permissions.map((e) => e.permission))
         .request();
   }
+
+  @override
+  Future<bool> get isAllGranted async {
+    bool ret = true;
+    return ret;
+  }
 }

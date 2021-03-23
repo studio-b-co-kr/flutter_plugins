@@ -92,6 +92,16 @@ class TestViewModel extends IPermissionViewModel {
   Widget icon({double size}) {
     return Container(color: Colors.red);
   }
+
+  @override
+  // TODO: implement canSkip
+  Future<bool> get canSkip => throw UnimplementedError();
+
+  @override
+  Future goToSettings() {
+    // TODO: implement goToSettings
+    throw UnimplementedError();
+  }
 }
 
 class TestWidget extends BaseWidget<IPermissionViewModel> {
