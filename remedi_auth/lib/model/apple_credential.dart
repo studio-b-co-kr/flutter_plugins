@@ -13,7 +13,7 @@ class AppleCredential extends IDto {
       this.authorizationCode});
 
   @override
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       "email": email,
       "identity_token": identityToken,
