@@ -1,4 +1,3 @@
-
 /// IApiService is base class for restful api service.
 ///
 /// C is Client in charge of http request/response. like Dio, Retrofit and etc.
@@ -13,6 +12,7 @@ abstract class IApiService<C, R> {
 
   // request body
   final dynamic body;
+
   //request queries
   final Map<String, dynamic> query;
 
@@ -42,7 +42,7 @@ abstract class IClientFactory<C> {
 abstract class IDto {
   IDto();
 
-  IDto.fromJson(Map<dynamic, dynamic> jsonMap);
+  IDto.fromJson(Map<String, dynamic> jsonMap);
 
-  Map<dynamic, dynamic> toJson();
+  Map<String, dynamic> toJson();
 }
