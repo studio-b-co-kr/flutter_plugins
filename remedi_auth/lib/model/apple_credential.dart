@@ -1,10 +1,10 @@
 import 'package:remedi_base/api_service/api_service.dart';
 
 class AppleCredential extends IDto {
-  final String email;
-  final String identityToken;
-  final String userIdentifier;
-  final String authorizationCode;
+  final String? email;
+  final String? identityToken;
+  final String? userIdentifier;
+  final String? authorizationCode;
 
   AppleCredential(
       {this.email,
@@ -23,10 +23,10 @@ class AppleCredential extends IDto {
   }
 
   factory AppleCredential.fromJson(
-      {String email,
-      String identityToken,
-      String userIdentifier,
-      String authorizationCode}) {
+      {String? email,
+      String? identityToken,
+      String? userIdentifier,
+      String? authorizationCode}) {
     return AppleCredential(
         email: email,
         identityToken: identityToken,

@@ -17,16 +17,16 @@ class LoginPage extends BasePage<ILoginViewModel> {
     return Navigator.pushNamed(context, ROUTE_NAME);
   }
 
-  final String logoApp;
-  final String logoCompany;
-  final String routeBackTo;
+  final String? logoApp;
+  final String? logoCompany;
+  final String? routeBackTo;
 
   LoginPage(
-      {Key key,
+      {Key? key,
       this.logoApp,
       this.logoCompany,
       this.routeBackTo,
-      ILoginViewModel viewModel})
+      required ILoginViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
@@ -50,7 +50,7 @@ class LoginPage extends BasePage<ILoginViewModel> {
         break;
       case LoginViewState.Success:
         if (routeBackTo != null) {
-          Navigator.pushReplacementNamed(context, routeBackTo);
+          Navigator.pushReplacementNamed(context, routeBackTo!);
         } else {
           Navigator.pop(context);
         }

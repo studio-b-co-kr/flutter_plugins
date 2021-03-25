@@ -3,15 +3,9 @@ import 'package:remedi_auth/repository/i_auth_repository.dart';
 import 'remedi_auth.dart';
 
 class AuthRepository extends IAuthRepository {
-  static AuthRepository _instance;
+  static AuthRepository _instance = AuthRepository._();
 
-  static AuthRepository get instance {
-    if (_instance == null) {
-      _instance = AuthRepository._();
-    }
-
-    return _instance;
-  }
+  factory AuthRepository.instance() => _instance;
 
   AuthRepository._();
 
@@ -20,7 +14,7 @@ class AuthRepository extends IAuthRepository {
   static const String _KEY_REFRESH_TOKEN = "REFRESH_TOKEN";
 
   Future writeAccessToken(String accessToken) async {
-    if (accessToken == null || accessToken.isEmpty) {
+    if (accessToken.isEmpty) {
       return;
     }
 
@@ -29,7 +23,7 @@ class AuthRepository extends IAuthRepository {
   }
 
   Future writeRefreshToken(String refreshToken) async {
-    if (refreshToken == null || refreshToken.isEmpty) {
+    if (refreshToken.isEmpty) {
       return;
     }
 

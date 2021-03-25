@@ -5,17 +5,14 @@ import '../auth_error.dart';
 
 abstract class ILoginViewModel
     extends BaseViewModel<LoginViewState, ILoginRepository> {
-  final ILoginRepository repo;
-  AuthError error;
+  late AuthError? error;
 
-  ILoginViewModel({this.repo}) : super();
+  ILoginViewModel({required ILoginRepository repository})
+      : super(repository: repository);
 
   loginWithKakao();
 
   loginWithApple();
-
-  @override
-  ILoginRepository get repository => repo;
 }
 
 enum LoginViewState { Idle, Loading, Success, Error }

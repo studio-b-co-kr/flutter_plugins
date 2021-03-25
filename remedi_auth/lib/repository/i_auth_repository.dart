@@ -33,4 +33,3 @@ abstract class IAuthRepository extends BaseRepository {
     await _deleteAll();
   }
 }
-

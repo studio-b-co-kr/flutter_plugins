@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                   return LoginPage(
                     routeBackTo: '/',
                     viewModel: LoginViewModel(
-                        repo: LoginRepository(),
+                        repository: LoginRepository(),
                         kakaoAppId: AuthManager.kakaoAppId),
                   );
                 });
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                 builder: (context) {
                   return LoginPage(
                     viewModel: LoginViewModel(
-                        repo: LoginRepository(),
+                        repository: LoginRepository(),
                         kakaoAppId: AuthManager.kakaoAppId),
                   );
                 });
@@ -119,7 +119,7 @@ class MyAppCredential extends ICredential {
         );
 
   @override
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {};
   }
 }

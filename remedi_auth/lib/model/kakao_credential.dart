@@ -1,8 +1,8 @@
 import 'package:remedi_base/remedi_base.dart';
 
 class KakaoCredential extends IDto {
-  final String accessToken;
-  final int id;
+  final String? accessToken;
+  final int? id;
 
   KakaoCredential({this.accessToken, this.id})
       : assert(accessToken != null && accessToken.isNotEmpty),
@@ -16,7 +16,7 @@ class KakaoCredential extends IDto {
     };
   }
 
-  factory KakaoCredential.fromJson({String accessToken, int id}) {
-    return KakaoCredential(accessToken: accessToken, id: id);
+  factory KakaoCredential.fromJson(Map<String, dynamic> map) {
+    return KakaoCredential(accessToken: map['access_token'], id: map['id']);
   }
 }

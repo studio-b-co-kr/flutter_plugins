@@ -15,11 +15,10 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../auth_error.dart';
 
 class LoginViewModel extends ILoginViewModel {
-  final String kakaoAppId;
+  final String? kakaoAppId;
 
-  LoginViewModel({ILoginRepository repo, this.kakaoAppId})
-      : assert(repo != null),
-        super(repo: repo);
+  LoginViewModel({required ILoginRepository repository, this.kakaoAppId})
+      : super(repository: repository);
 
   @override
   LoginViewState get initState => LoginViewState.Idle;
@@ -61,9 +60,10 @@ class LoginViewModel extends ILoginViewModel {
       }
 
       await Future.wait([
-        AuthRepository.instance.writeUserId(appCredential.userId),
-        AuthRepository.instance.writeAccessToken(appCredential.accessToken),
-        AuthRepository.instance.writeRefreshToken(appCredential.refreshToken)
+        AuthRepository.instance().writeUserId(appCredential.userId),
+        AuthRepository.instance().writeAccessToken(appCredential.accessToken),
+        AuthRepository.instance()
+            .writeRefreshToken(appCredential.refreshToken ?? "")
       ]);
 
       update(state: LoginViewState.Success);
@@ -83,22 +83,18 @@ class LoginViewModel extends ILoginViewModel {
         }
       }
 
-      this.error = AuthError(
-          title: title,
-          code: code,
-          message: message,
-          error: e);
+      this.error =
+          AuthError(title: title, code: code, message: message, error: e);
       update(state: LoginViewState.Error);
     }
   }
 
   @override
   loginWithKakao() async {
-    assert(kakaoAppId != null);
     update(state: LoginViewState.Loading);
 
     final FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
-    await kakaoSignIn.init(kakaoAppId);
+    await kakaoSignIn.init(kakaoAppId!);
 
     final String hashKey = await (kakaoSignIn.hashKey);
     dev.log(hashKey, name: "Kakao HASH");
@@ -109,8 +105,8 @@ class LoginViewModel extends ILoginViewModel {
 
       switch (login.status) {
         case KakaoLoginStatus.loggedIn:
-          dev.log("${login.token.accessToken}", name: "Kakao Login Success");
-          kakaoAccessToken = login.token.accessToken;
+          dev.log("${login.token?.accessToken}", name: "Kakao Login Success");
+          kakaoAccessToken = login.token!.accessToken!;
           login = await kakaoSignIn.getUserMe();
           await kakaoSignIn.logOut();
           break;
@@ -124,11 +120,11 @@ class LoginViewModel extends ILoginViewModel {
           return;
       }
 
-      kakaoId = login.account.userID;
+      kakaoId = login.account!.userID!;
 
       int id = 0;
       try {
-        id = int.tryParse(kakaoId);
+        id = int.tryParse(kakaoId!)!;
       } catch (e) {
         this.error = AuthError(
             title: AppStrings.codeKakaoLoginError,
@@ -148,9 +144,10 @@ class LoginViewModel extends ILoginViewModel {
       }
 
       await Future.wait([
-        AuthRepository.instance.writeUserId(credential.userId),
-        AuthRepository.instance.writeAccessToken(credential.accessToken),
-        AuthRepository.instance.writeRefreshToken(credential.refreshToken)
+        AuthRepository.instance().writeUserId(credential.userId),
+        AuthRepository.instance().writeAccessToken(credential.accessToken),
+        AuthRepository.instance()
+            .writeRefreshToken(credential.refreshToken ?? "")
       ]);
       update(state: LoginViewState.Success);
       return;
@@ -160,7 +157,7 @@ class LoginViewModel extends ILoginViewModel {
       String message = AppStrings.messageAuthError;
 
       if (error is PlatformException) {
-        title = error.message;
+        title = error.message ?? "";
         code = error.code;
         message = error.details;
       }

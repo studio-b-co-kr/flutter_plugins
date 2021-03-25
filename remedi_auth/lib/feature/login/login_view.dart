@@ -10,8 +10,8 @@ import '../../remedi_auth.dart';
 import '../../resources/app_strings.dart';
 
 class LoginView extends BindingView<ILoginViewModel> {
-  final String logoApp;
-  final String logoCompany;
+  final String? logoApp;
+  final String? logoCompany;
 
   LoginView({this.logoApp, this.logoCompany}) : super();
 
@@ -169,7 +169,7 @@ class LoginView extends BindingView<ILoginViewModel> {
     return Column(children: buttons);
   }
 
-  Widget _buildImage(String image, {double width}) {
+  Widget _buildImage(String? image, {double width = 200}) {
     if (image == null) {
       return Container(
         height: 64,
