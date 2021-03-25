@@ -90,7 +90,7 @@ class File extends IDto {
   File({this.path});
 
   @override
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return null;
   }
 }
