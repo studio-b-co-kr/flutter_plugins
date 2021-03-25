@@ -3,17 +3,13 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IForceUpdateViewModel
     extends BaseViewModel<ForceUpdateViewState, IForceUpdateRepository> {
-  IForceUpdateRepository repo;
-
-  IForceUpdateViewModel({this.repo}) : assert(repo != null);
+  IForceUpdateViewModel({required IForceUpdateRepository repository})
+      : super(repository: repository);
 
   goToUpdate();
 
   @override
   ForceUpdateViewState get initState => ForceUpdateViewState.Init;
-
-  @override
-  IForceUpdateRepository get repository => repo;
 }
 
 enum ForceUpdateViewState { Init }

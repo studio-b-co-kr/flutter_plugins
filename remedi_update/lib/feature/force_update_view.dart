@@ -8,7 +8,7 @@ import '../remedi_update.dart';
 import '../resources/app_strings.dart';
 
 class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
-  final String image;
+  final String? image;
 
   ForceUpdateView({this.image});
 
@@ -44,16 +44,16 @@ class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
       );
     }
 
-    if (image.contains("svg")) {
+    if (image!.contains("svg")) {
       return SvgPicture.asset(
-        image,
+        image!,
         fit: BoxFit.contain,
         width: 200,
         height: 200,
       );
     }
     return Image.asset(
-      image,
+      image!,
       fit: BoxFit.contain,
       width: 200,
       height: 200,
