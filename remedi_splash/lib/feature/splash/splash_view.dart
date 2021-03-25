@@ -6,8 +6,8 @@ import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 class SplashView extends BindingView<ISplashViewModel> {
-  final String logoBrand;
-  final String logoCompany;
+  final String? logoBrand;
+  final String? logoCompany;
 
   SplashView({this.logoBrand, this.logoCompany});
 
@@ -77,7 +77,8 @@ class SplashView extends BindingView<ISplashViewModel> {
     );
   }
 
-  Widget _images(BuildContext buildContext, {String image, double width}) {
+  Widget _images(BuildContext buildContext,
+      {String? image, double width = 200}) {
     if (image == null || image.isEmpty) {
       return Container(height: width / 4, width: width);
     }

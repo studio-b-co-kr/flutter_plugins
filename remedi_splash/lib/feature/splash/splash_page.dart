@@ -13,28 +13,27 @@ class SplashPage extends BasePage<ISplashViewModel> {
   static const ROUTE_NAME_AFTER_LOGIN = "/after_login";
   static const ROUTE_NAME_AFTER_ONBOARDING = "/after_onboarding";
 
-  final String forceUpdatePageRouteName;
-  final String permissionPageRouteName;
-  final String loginPageRouteName;
-  final String introPageRouteName;
-  final String onBoardingPageRouteName;
+  final String? forceUpdatePageRouteName;
+  final String? permissionPageRouteName;
+  final String? loginPageRouteName;
+  final String? introPageRouteName;
+  final String? onBoardingPageRouteName;
   final String contentsPageRouteName;
-  final String imageLogoCompany;
-  final String imageLogoApp;
+  final String? imageLogoCompany;
+  final String? imageLogoApp;
 
   SplashPage({
-    Key key,
+    Key? key,
     this.forceUpdatePageRouteName,
     this.permissionPageRouteName,
     this.loginPageRouteName,
     this.introPageRouteName,
     this.onBoardingPageRouteName,
-    this.contentsPageRouteName,
+    required this.contentsPageRouteName,
     this.imageLogoApp,
     this.imageLogoCompany,
-    ISplashViewModel viewModel,
-  })  : assert(contentsPageRouteName != null),
-        super(key: key, viewModel: viewModel);
+    required ISplashViewModel viewModel,
+  }) : super(key: key, viewModel: viewModel);
 
   @override
   String get screenName => "splash";
@@ -49,31 +48,31 @@ class SplashPage extends BasePage<ISplashViewModel> {
       case SplashViewState.AppOpen:
         break;
       case SplashViewState.Login:
-        if (loginPageRouteName != null && loginPageRouteName.contains('/')) {
-          Navigator.of(context).pushReplacementNamed(loginPageRouteName);
+        if (loginPageRouteName != null && loginPageRouteName!.contains('/')) {
+          Navigator.of(context).pushReplacementNamed(loginPageRouteName!);
           return;
         }
         viewModel.afterLogin();
         break;
       case SplashViewState.Onboarding:
         if (onBoardingPageRouteName != null &&
-            onBoardingPageRouteName.contains('/')) {
-          Navigator.of(context).pushReplacementNamed(onBoardingPageRouteName);
+            onBoardingPageRouteName!.contains('/')) {
+          Navigator.of(context).pushReplacementNamed(onBoardingPageRouteName!);
           return;
         }
         viewModel.afterOnboarding();
         break;
       case SplashViewState.Permission:
         if (permissionPageRouteName != null &&
-            permissionPageRouteName.contains('/')) {
-          Navigator.of(context).pushNamed(permissionPageRouteName);
+            permissionPageRouteName!.contains('/')) {
+          Navigator.of(context).pushNamed(permissionPageRouteName!);
           return;
         }
         viewModel.afterPermission();
         break;
       case SplashViewState.Intro:
-        if (introPageRouteName != null && introPageRouteName.contains('/')) {
-          Navigator.of(context).pushReplacementNamed(introPageRouteName);
+        if (introPageRouteName != null && introPageRouteName!.contains('/')) {
+          Navigator.of(context).pushReplacementNamed(introPageRouteName!);
           return;
         }
         viewModel.afterIntro();
@@ -82,8 +81,8 @@ class SplashPage extends BasePage<ISplashViewModel> {
         break;
       case SplashViewState.ForceUpdate:
         if (forceUpdatePageRouteName != null &&
-            forceUpdatePageRouteName.contains('/')) {
-          Navigator.of(context).pushReplacementNamed(forceUpdatePageRouteName);
+            forceUpdatePageRouteName!.contains('/')) {
+          Navigator.of(context).pushReplacementNamed(forceUpdatePageRouteName!);
           return;
         }
         viewModel.afterForceUpdate();
