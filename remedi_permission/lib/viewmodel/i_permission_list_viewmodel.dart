@@ -3,7 +3,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IPermissionListViewModel
     extends BaseViewModel<PermissionListViewState, IPermissionListRepository> {
-  IPermissionListViewModel({IPermissionListRepository repository})
+  IPermissionListViewModel({required IPermissionListRepository repository})
       : super(repository: repository);
 
   Future<dynamic> requestAll();

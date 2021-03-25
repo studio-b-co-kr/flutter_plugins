@@ -2,12 +2,12 @@ import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AppPermission {
-  final Widget icon;
-  final String title;
-  final String description;
+  final Widget? icon;
+  final String? title;
+  final String? description;
   final bool mandatory;
   final Permission permission;
-  final String errorDescription;
+  final String? errorDescription;
 
   AppPermission(
     this.permission, {
@@ -16,8 +16,7 @@ class AppPermission {
     this.description,
     this.errorDescription,
     this.mandatory = false,
-  })  : assert(permission != null),
-        assert(!mandatory ||
+  }) : assert(!mandatory ||
             (mandatory &&
                 (errorDescription != null && errorDescription.isNotEmpty)));
 

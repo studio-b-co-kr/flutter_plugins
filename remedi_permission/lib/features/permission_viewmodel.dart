@@ -5,7 +5,7 @@ import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 
 class PermissionViewModel extends IPermissionViewModel {
-  PermissionViewModel({IPermissionRepository repository})
+  PermissionViewModel({required IPermissionRepository repository})
       : super(repository: repository);
 
   @override
@@ -53,7 +53,7 @@ class PermissionViewModel extends IPermissionViewModel {
     return repository.status;
   }
 
-  _handleStatus(PermissionStatus status) {
+  _handleStatus(PermissionStatus? status) {
     if (status == null) {
       return;
     }
@@ -88,13 +88,13 @@ class PermissionViewModel extends IPermissionViewModel {
   }
 
   @override
-  String get description => repository.permission.description;
+  String get description => repository.permission.description ?? "";
 
   @override
-  String get errorDescription => repository.permission.errorDescription;
+  String get errorDescription => repository.permission.errorDescription ?? "";
 
   @override
-  String get title => repository.permission.title;
+  String get title => repository.permission.title ?? "";
 
   @override
   String get statusMessage {
@@ -129,12 +129,11 @@ class PermissionViewModel extends IPermissionViewModel {
   }
 
   @override
-  // Widget get icon => repository.permission.icon;
   Widget icon({double size = 24}) {
-    if (repository.permission.icon != null) {
-      return repository.permission.icon;
-    }
+    return repository.permission.icon ?? _generateIcon(size: size);
+  }
 
+  Widget _generateIcon({double size = 24}) {
     IconData iconData;
     switch (repository.permission.permission.value) {
       case 0: //calendar

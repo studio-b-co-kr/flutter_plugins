@@ -1,16 +1,11 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LocalStorage {
-  static LocalStorage _instance;
-
-  static LocalStorage get instance {
-    if (_instance == null) {
-      _instance = LocalStorage._();
-    }
-    return _instance;
-  }
+  static final LocalStorage _instance = LocalStorage._();
 
   LocalStorage._();
+
+  factory LocalStorage.instance() => _instance;
 
   static const _KEY_SKIP_ON_SPLASH = "KEY_SKIP_ON_SPLASH";
   static const _VALUE_SKIP = "skipped";

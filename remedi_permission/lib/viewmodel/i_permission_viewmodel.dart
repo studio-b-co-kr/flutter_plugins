@@ -5,7 +5,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IPermissionViewModel
     extends BaseViewModel<PermissionViewState, IPermissionRepository> {
-  IPermissionViewModel({IPermissionRepository repository})
+  IPermissionViewModel({required IPermissionRepository repository})
       : super(repository: repository);
 
   Future<PermissionStatus> requestPermission();

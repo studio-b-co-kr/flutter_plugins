@@ -6,7 +6,7 @@ import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';
 
 class PermissionListViewModel extends IPermissionListViewModel {
-  PermissionListViewModel({IPermissionListRepository repository})
+  PermissionListViewModel({required IPermissionListRepository repository})
       : super(repository: repository);
 
   @override

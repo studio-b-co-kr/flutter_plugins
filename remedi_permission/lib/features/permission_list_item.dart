@@ -66,8 +66,8 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                   _action(viewModel),
                   SizedBox(width: 8),
                   Expanded(
-                      child:
-                          FixedScaleText(text: Text(viewModel.statusMessage ?? "")))
+                      child: FixedScaleText(
+                          text: Text(viewModel.statusMessage ?? "")))
                 ],
               ),
             ),

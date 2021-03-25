@@ -4,9 +4,9 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IPermissionRepository extends BaseRepository {
   final AppPermission permission;
-  PermissionStatus status;
+  late PermissionStatus status;
 
-  IPermissionRepository({this.permission});
+  IPermissionRepository({required this.permission});
 
   /// to get status after construct method call;
   Future init();

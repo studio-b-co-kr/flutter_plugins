@@ -5,9 +5,8 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 abstract class IPermissionListRepository extends BaseRepository {
   final List<AppPermission> permissions;
 
-  IPermissionListRepository({this.permissions})
-      : assert(permissions != null),
-        assert(permissions.isNotEmpty);
+  IPermissionListRepository({required this.permissions})
+      : assert(permissions.isNotEmpty);
 
   Future init();
 

@@ -15,12 +15,12 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 class PermissionListPage extends BasePage<IPermissionListViewModel> {
   static const ROUTE_NAME = "/permission_list";
 
-  PermissionItemViewBuilder _permissionItemViewBuilder;
+  late final PermissionItemViewBuilder _permissionItemViewBuilder;
 
-  PermissionListPage({Key key, IPermissionListViewModel viewModel})
+  PermissionListPage({Key? key, required IPermissionListViewModel viewModel})
       : super(key: key, viewModel: viewModel) {
-    _permissionItemViewBuilder =
-        PermissionItemViewBuilder(viewModel.repository.permissions);
+    _permissionItemViewBuilder = PermissionItemViewBuilder(
+        permissions: viewModel.repository.permissions);
   }
 
   @override
@@ -57,11 +57,11 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
 
 class PermissionItemViewBuilder {
   final List<AppPermission> permissions;
-  List<PermissionListItemWidget> _listItems;
+  late List<PermissionListItemWidget> _listItems;
 
   List<PermissionListItemWidget> get listItems => _listItems;
 
-  PermissionItemViewBuilder(this.permissions) {
+  PermissionItemViewBuilder({required this.permissions}) {
     _listItems = _build(permissions);
   }
 

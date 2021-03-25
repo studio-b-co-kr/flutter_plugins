@@ -6,7 +6,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
   static const ROUTE_NAME = "/permission";
 
-  PermissionPage({Key key, IPermissionViewModel viewModel})
+  PermissionPage({Key? key, required IPermissionViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override

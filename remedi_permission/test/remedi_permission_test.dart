@@ -10,8 +10,8 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 void main() {
   testWidgets('PermissionListItemView', (WidgetTester tester) async {
-    TestRepository repository;
-    TestViewModel viewModel;
+    late TestRepository repository;
+    late TestViewModel viewModel;
     setUp(() {
       repository = TestRepository(AppPermission(Permission.photos));
       viewModel = TestViewModel(repository);
@@ -20,7 +20,7 @@ void main() {
     await tester.pumpWidget(Directionality(
       textDirection: TextDirection.ltr,
       child: Material(
-        child: TestWidget(viewModel),
+        child: TestWidget(viewModel: viewModel),
       ),
     ));
   });
@@ -30,10 +30,7 @@ class TestRepository extends IPermissionRepository {
   TestRepository(AppPermission permission) : super(permission: permission);
 
   @override
-  Future goToSettings() {}
-
-  @override
-  Future init() {}
+  Future init() async {}
 
   @override
   bool get isDenied => false;
@@ -48,8 +45,8 @@ class TestRepository extends IPermissionRepository {
   bool get isPermanentlyDenied => false;
 
   @override
-  Future<PermissionStatus> request() {
-    return null;
+  Future<PermissionStatus> request() async {
+    return PermissionStatus.denied;
   }
 
   @override
@@ -89,7 +86,7 @@ class TestViewModel extends IPermissionViewModel {
   }
 
   @override
-  Widget icon({double size}) {
+  Widget icon({double size = 24}) {
     return Container(color: Colors.red);
   }
 
@@ -105,7 +102,8 @@ class TestViewModel extends IPermissionViewModel {
 }
 
 class TestWidget extends BaseWidget<IPermissionViewModel> {
-  TestWidget(IPermissionViewModel viewModel) : super(viewModel: viewModel);
+  TestWidget({required IPermissionViewModel viewModel})
+      : super(viewModel: viewModel);
 
   @override
   BindingView<IPermissionViewModel> body(

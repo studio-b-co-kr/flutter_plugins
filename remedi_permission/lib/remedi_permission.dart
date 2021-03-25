@@ -15,19 +15,19 @@ export 'features/permission_viewmodel.dart';
 export 'model/app_permission.dart';
 
 class PermissionManager {
-  static List<Permission> _permissionList;
+  static late List<Permission> _permissionList;
 
   static List<Permission> get permissionList => _permissionList;
 
   static init(List<Permission> permissionList) {}
 
   static Future<bool> get doNotShowPermissionOnSplash async =>
-      await LocalStorage.instance.skipped || await allGranted;
+      await LocalStorage.instance().skipped || await allGranted;
 
   static Future<bool> get allGranted async {
     bool ret = true;
-    await Future.forEach(_permissionList, (appPermission) async {
-      PermissionStatus status = await appPermission.permission.request;
+    await Future.forEach<Permission>(_permissionList, (permission) async {
+      PermissionStatus status = await permission.status;
       ret &= !(status == PermissionStatus.granted ||
           status == PermissionStatus.limited);
     });

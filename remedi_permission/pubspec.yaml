@@ -5,26 +5,28 @@ version: 0.0.1
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=2.12.2 <3.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: ^6.0.1+1
+  permission_handler: ^6.1.1
+
+  flutter_secure_storage: ^4.1.0
 
   stacked_mvvm:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
+      ref: null-safety
       path: stacked_mvvm/
 
   remedi_widgets:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
+      ref: null-safety
       path: remedi_widgets/
-
-  flutter_secure_storage: ^3.3.4
 
 dev_dependencies:
   flutter_test:
