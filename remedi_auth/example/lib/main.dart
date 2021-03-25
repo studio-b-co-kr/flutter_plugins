@@ -117,6 +117,11 @@ class MyAppCredential extends ICredential {
           refreshToken: refreshToken,
           error: error,
         );
+
+  @override
+  Map toJson() {
+    return {};
+  }
 }
 
 class MyStorage extends IStorage {
