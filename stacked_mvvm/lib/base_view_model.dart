@@ -3,9 +3,11 @@ part of 'stacked_mvvm.dart';
 abstract class BaseViewModel<S, R extends BaseRepository>
     with ChangeNotifier, DiagnosticableTreeMixin {
   late S state;
+  late final R? _repository;
 
   @mustCallSuper
-  BaseViewModel({this.repository}) {
+  BaseViewModel({R? repository}) {
+    _repository = repository;
     state = initState;
   }
 
@@ -24,10 +26,7 @@ abstract class BaseViewModel<S, R extends BaseRepository>
     /// Only for background work. ex> get data or others.
   }
 
-  @protected
-  final R? repository;
-
-  R get repo => repository!;
+  R get repo => _repository!;
 
   @mustCallSuper
   @override
