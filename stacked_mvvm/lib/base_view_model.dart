@@ -24,7 +24,10 @@ abstract class BaseViewModel<S, R extends BaseRepository>
     /// Only for background work. ex> get data or others.
   }
 
+  @protected
   final R? repository;
+
+  R get repo => repository!;
 
   @mustCallSuper
   @override
