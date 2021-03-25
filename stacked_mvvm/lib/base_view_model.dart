@@ -2,7 +2,7 @@ part of 'stacked_mvvm.dart';
 
 abstract class BaseViewModel<S, R extends BaseRepository>
     with ChangeNotifier, DiagnosticableTreeMixin {
-  S state;
+  late S state;
 
   @mustCallSuper
   BaseViewModel({this.repository}) {
@@ -12,8 +12,10 @@ abstract class BaseViewModel<S, R extends BaseRepository>
   S get initState;
 
   /// use this method to move other screen or show popup
-  update({S state}) {
-    this.state = state;
+  update({S? state}) {
+    if (state != null) {
+      this.state = state;
+    }
     notifyListeners();
   }
 
@@ -22,7 +24,7 @@ abstract class BaseViewModel<S, R extends BaseRepository>
     /// Only for background work. ex> get data or others.
   }
 
-  final R repository;
+  final R? repository;
 
   @mustCallSuper
   @override
