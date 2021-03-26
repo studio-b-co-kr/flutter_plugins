@@ -46,6 +46,9 @@ dependencies:
   # user-agent info.
   flutter_user_agent: ^1.2.2
 
+dependency_overrides:
+  crypto: ^3.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
