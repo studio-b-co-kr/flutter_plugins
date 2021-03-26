@@ -1,4 +1,5 @@
-import 'package:udid/udid.dart';
+
+import 'package:flutter_udid/flutter_udid.dart';
 
 class AppRepository {
   static AppRepository _instance;
@@ -12,5 +13,5 @@ class AppRepository {
     return _instance;
   }
 
-  Future<String> get appId async => await Udid.udid;
+  Future<String> get appId async => await FlutterUdid.consistentUdid;
 }

@@ -41,16 +41,10 @@ dependencies:
   device_info: ^2.0.0
 
   # uuid generator
-  udid: ^0.0.2
+  flutter_udid: 1.2.0
 
   # user-agent info.
   flutter_user_agent: ^1.2.2
-
-dependency_overrides:
-  sqflite:
-    git:
-      url: https://github.com/TinyProgrammers/sqflite.git
-      path: sqflite
 
 dev_dependencies:
   flutter_test:
