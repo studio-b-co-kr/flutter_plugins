@@ -1,11 +1,13 @@
 name: remedi_splash
 description: A new Flutter package.
-version: 0.0.1
+version: 1.0.0
 homepage:
+
+publish_to: 'none'
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
