@@ -19,6 +19,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
@@ -44,6 +45,12 @@ dependencies:
 
   # user-agent info.
   flutter_user_agent: ^1.2.2
+
+dependency_overrides:
+  sqflite:
+    git:
+      url: https://github.com/TinyProgrammers/sqflite.git
+      path: sqflite
 
 dev_dependencies:
   flutter_test:
