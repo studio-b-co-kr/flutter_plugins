@@ -112,7 +112,7 @@ class LoginViewModel extends ILoginViewModel {
           dev.log("${login.token.accessToken}", name: "Kakao Login Success");
           kakaoAccessToken = login.token.accessToken;
           login = await kakaoSignIn.getUserMe();
-          await kakaoSignIn.logOut();
+          // await kakaoSignIn.logOut();
           break;
         case KakaoLoginStatus.loggedOut:
         case KakaoLoginStatus.unlinked:
