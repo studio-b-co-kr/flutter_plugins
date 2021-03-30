@@ -28,7 +28,11 @@ dependencies:
       path: remedi_widgets/
 
   # go to store on force update page
-  store_redirect: ^1.0.2
+  store_redirect:
+    git:
+      url: https://github.com/studio-b-co-kr/remedi_flutter_plugin_mirror.git
+      ref: master
+      path: store_redirect/
 
   #svg loader
   flutter_svg: 0.21.0-nullsafety.0
