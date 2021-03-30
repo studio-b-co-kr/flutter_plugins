@@ -10,7 +10,7 @@ class PermissionListItemWidget extends BaseWidget<IPermissionViewModel> {
 
   @override
   BindingView<IPermissionViewModel> body(
-      BuildContext context, IPermissionViewModel viewModel, Widget child) {
+      BuildContext context, IPermissionViewModel viewModel, Widget? child) {
     return PermissionListItemView();
   }
 

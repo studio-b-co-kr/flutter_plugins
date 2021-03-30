@@ -25,7 +25,7 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
 
   @override
   PermissionListView body(
-      BuildContext context, IPermissionListViewModel viewModel, Widget child) {
+      BuildContext context, IPermissionListViewModel viewModel, Widget? child) {
     return PermissionListView(_permissionItemViewBuilder);
   }
 

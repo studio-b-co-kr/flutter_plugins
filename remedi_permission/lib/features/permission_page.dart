@@ -11,7 +11,7 @@ class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
 
   @override
   PermissionView body(
-      BuildContext context, IPermissionViewModel viewModel, Widget child) {
+      BuildContext context, IPermissionViewModel viewModel, Widget? child) {
     return PermissionView();
   }
 

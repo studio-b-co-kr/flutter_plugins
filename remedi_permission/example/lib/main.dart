@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: HomePage.ROUTE_NAME,
         onGenerateRoute: (settings) {
-          MaterialPageRoute ret;
+          MaterialPageRoute? ret;
           switch (settings.name) {
             case HomePage.ROUTE_NAME:
               ret = MaterialPageRoute(
