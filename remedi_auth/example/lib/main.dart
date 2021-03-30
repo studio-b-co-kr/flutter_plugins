@@ -119,9 +119,7 @@ class MyAppCredential extends ICredential {
         );
 
   @override
-  Map<String, dynamic> toJson() {
-    return {};
-  }
+  Map<String, dynamic>? get toJson => null;
 }
 
 class MyStorage extends IStorage {
