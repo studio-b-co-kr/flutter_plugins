@@ -1,14 +1,18 @@
-##1.3.0
+
+## 2.0.0
+- support null-safety
+
+## 1.3.0
 - add some options as dp size
 - if guide size is null, return origin input.
 
-##1.2.1
+## 1.2.1
 remove debug print
 
-##1.2.0
+## 1.2.0
 support rotate screen
 
-##1.1.0
+## 1.1.0
 change how to use.
 
 ##1.0.6

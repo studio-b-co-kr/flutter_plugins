@@ -1,12 +1,10 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/daewook.kwon/Library/flutter"
-export "FLUTTER_APPLICATION_PATH=/Volumes/Development/etc/multiscreen/example"
+export "FLUTTER_APPLICATION_PATH=/Volumes/Development/remedi_flutter/multiscreen/example"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "SYMROOT=${SOURCE_ROOT}/../build/ios"
-export "OTHER_LDFLAGS=$(inherited) -framework Flutter"
-export "FLUTTER_FRAMEWORK_DIR=/Users/daewook.kwon/Library/flutter/bin/cache/artifacts/engine/ios"
 export "FLUTTER_BUILD_NAME=1.0.0"
 export "FLUTTER_BUILD_NUMBER=1"
 export "DART_OBFUSCATION=false"

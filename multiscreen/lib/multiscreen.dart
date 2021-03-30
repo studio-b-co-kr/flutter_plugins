@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 /// you can create one GUI guide and use Multiscreen for development.
 ///
 
-double resize(double origin, {double guideSize}) {
+double resize(double origin, {double? guideSize}) {
   if (guideSize == null) {
     return origin;
   }
