@@ -26,7 +26,7 @@ abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
     );
   }
 
-  BindingView<VM> body(BuildContext context, VM viewModel, Widget child);
+  BindingView<VM> body(BuildContext context, VM viewModel, Widget? child);
 
   @mustCallSuper
   void onListen(BuildContext context, VM viewModel) {
