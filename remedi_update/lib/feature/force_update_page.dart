@@ -16,7 +16,7 @@ class ForceUpdatePage extends BasePage<IForceUpdateViewModel> {
 
   @override
   ForceUpdateView body(
-      BuildContext context, IForceUpdateViewModel viewModel, Widget child) {
+      BuildContext context, IForceUpdateViewModel viewModel, Widget? child) {
     return ForceUpdateView(
       image: image,
     );
