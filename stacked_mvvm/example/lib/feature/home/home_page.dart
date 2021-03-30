@@ -9,7 +9,7 @@ import 'home_view.dart';
 class HomePage extends BasePage<IHomeViewModel> {
   static const ROUTE_NAME = "/";
 
-  HomePage({Key key, HomeViewModel viewModel})
+  HomePage({Key? key, required HomeViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   static Route<dynamic> route(RouteSettings settings) {
@@ -30,7 +30,7 @@ class HomePage extends BasePage<IHomeViewModel> {
 
   @override
   BindingView<IHomeViewModel> body(
-      BuildContext context, IHomeViewModel viewModel, Widget child) {
+      BuildContext context, IHomeViewModel viewModel, Widget? child) {
     return HomeView(key: LabeledGlobalKey("HomeView"));
   }
 }

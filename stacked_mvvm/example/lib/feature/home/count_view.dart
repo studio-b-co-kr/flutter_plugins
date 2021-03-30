@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 class CountView extends BindingView<IHomeViewModel> {
-  CountView({Key key}) : super(key: key);
+  CountView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, IHomeViewModel viewModel) {
