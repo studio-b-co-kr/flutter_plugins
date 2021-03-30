@@ -7,7 +7,7 @@ import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'splash_page.dart';
 
 class SplashViewModel extends ISplashViewModel {
-  SplashViewModel(String routeName, {required ISplashRepository repository})
+  SplashViewModel(String? routeName, {required ISplashRepository repository})
       : super(routeName, repository: repository);
   late AppError _error;
 
