@@ -7,11 +7,10 @@ class AppContainer extends StatelessWidget with WidgetsBindingObserver {
   final MaterialApp app;
 
   AppContainer({
-    Key key,
-    this.app,
-  })  : assert(app != null),
-        super(key: key) {
-    WidgetsBinding.instance.addObserver(this);
+    Key? key,
+    required this.app,
+  }) : super(key: key) {
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override

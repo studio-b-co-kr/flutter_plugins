@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initPlatformState() async {
     String platformVersion;
-    platformVersion = await AppRepository.instance.appId;
+    platformVersion = await AppRepository.instance().appId;
     if (!mounted) return;
 
     setState(() {
@@ -95,7 +95,5 @@ class GoogleApiDto extends IDto {
   GoogleApiDto({this.html});
 
   @override
-  Map<String, dynamic> toJson() {
-    return {"data": html};
-  }
+  Map<String, dynamic> get toJson => {"data": html};
 }

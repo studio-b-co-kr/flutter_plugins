@@ -11,7 +11,7 @@ abstract class IApiService<C, R> {
   String? get path;
 
   // request body
-  final dynamic? body;
+  final dynamic body;
 
   //request queries
   final Map<String, dynamic>? query;
@@ -20,7 +20,7 @@ abstract class IApiService<C, R> {
     _client = clientFactory.build();
   }
 
-  Future<R> request({
+  Future<R?> request({
     Function(dynamic) onSuccess,
     Function(dynamic) onFail,
     Function(dynamic) onError,
@@ -44,5 +44,5 @@ abstract class IDto {
 
   IDto.fromJson(Map<String, dynamic> jsonMap);
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic>? get toJson;
 }
