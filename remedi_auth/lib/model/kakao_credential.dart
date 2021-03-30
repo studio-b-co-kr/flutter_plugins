@@ -9,10 +9,8 @@ class KakaoCredential extends IDto {
         assert(id != null);
 
   @override
-  Map<String, dynamic> get toJson => {
-        "access_token": accessToken,
-        "id": id,
-      };
+  Map<String, dynamic> get toJson =>
+      {"access_token": accessToken, "id": id, "provider": "kakao"};
 
   factory KakaoCredential.fromJson({String accessToken, int id}) {
     return KakaoCredential(accessToken: accessToken, id: id);

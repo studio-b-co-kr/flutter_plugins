@@ -18,6 +18,7 @@ class AppleCredential extends IDto {
         "identity_token": identityToken,
         "user_identifier": userIdentifier,
         "authorization_code": authorizationCode,
+        "provider": "apple"
       };
 
   factory AppleCredential.fromJson(
