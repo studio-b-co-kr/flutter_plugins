@@ -99,7 +99,7 @@ class LoginViewModel extends ILoginViewModel {
     final String hashKey = await (kakaoSignIn.hashKey);
     dev.log(hashKey, name: "Kakao HASH");
     String kakaoAccessToken;
-    String kakaoId;
+    String? kakaoId;
     try {
       var login = await kakaoSignIn.logIn();
 
@@ -120,11 +120,11 @@ class LoginViewModel extends ILoginViewModel {
           return;
       }
 
-      kakaoId = login.account!.userID!;
+      kakaoId = login.account?.userID ?? "";
 
       int id = 0;
       try {
-        id = int.tryParse(kakaoId!)!;
+        id = int.parse(kakaoId);
       } catch (e) {
         this.error = AuthError(
             title: AppStrings.codeKakaoLoginError,
