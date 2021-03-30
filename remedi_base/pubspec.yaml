@@ -30,9 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   # network api.
-  dio: ^3.0.10
+  dio: ^4.0.0
   dio_flutter_transformer: ^3.0.2
-  # dio_firebase_performance: ^0.3.0
 
   # app version, build number and etc
   package_info: ^2.0.0
