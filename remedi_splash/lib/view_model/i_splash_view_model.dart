@@ -4,7 +4,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class ISplashViewModel
     extends BaseViewModel<SplashViewState, ISplashRepository> {
-  final String routeName;
+  final String? routeName;
 
   ISplashViewModel(this.routeName, {required ISplashRepository repository})
       : super(repository: repository);
