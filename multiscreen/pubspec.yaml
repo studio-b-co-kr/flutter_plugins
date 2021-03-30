@@ -4,15 +4,6 @@ version: 2.0.0
 
 publish_to: 'none'
 
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: me.tossy.flutter.multiscreen
-        pluginClass: MultiscreenPlugin
-      ios:
-        pluginClass: MultiscreenPlugin
-
 environment:
   sdk: ">=2.12.2 <3.0.0"
   flutter: ">=2.0.0"
@@ -24,3 +15,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: me.tossy.flutter.multiscreen
+        pluginClass: MultiscreenPlugin
+      ios:
+        pluginClass: MultiscreenPlugin
+
