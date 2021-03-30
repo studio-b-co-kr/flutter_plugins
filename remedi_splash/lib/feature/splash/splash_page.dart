@@ -104,7 +104,7 @@ class SplashPage extends BasePage<ISplashViewModel> {
 
   @override
   BindingView<ISplashViewModel> body(
-      BuildContext context, ISplashViewModel viewModel, Widget child) {
+      BuildContext context, ISplashViewModel viewModel, Widget? child) {
     return SplashView(
       logoBrand: imageLogoApp,
       logoCompany: imageLogoCompany,
