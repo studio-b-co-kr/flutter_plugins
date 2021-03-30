@@ -127,7 +127,7 @@ class AppConfig {
         AppConfig._deviceManufacturer = info.manufacturer;
         AppConfig._deviceModel = info.model;
       }
-    } on PlatformException catch (e) {}
+    } on PlatformException {}
   }
 
   static Future _setUserAgent() async {
@@ -146,7 +146,7 @@ class AppConfig {
     dev.log(_endpoint ?? "unknown", name: "endpoint");
     dev.log(_appVersion ?? "unknown", name: "appVersion");
     dev.log(_buildNumber ?? "unknown", name: "buildNumber");
-    dev.log(platform ?? "unknown", name: "platform");
+    dev.log(platform, name: "platform");
     dev.log(_osVersion ?? "unknown", name: "osVersion");
     dev.log("$_osVersionSdk", name: "osVersionSdk");
     dev.log(_deviceManufacturer ?? "unknown", name: "deviceManufacturer");
