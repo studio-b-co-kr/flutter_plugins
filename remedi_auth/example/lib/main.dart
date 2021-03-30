@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: MyHomePage.ROUTE_NAME,
       onGenerateRoute: (settings) {
-        Route ret;
+        Route? ret;
         switch (settings.name) {
           case MyHomePage.ROUTE_NAME:
             ret = MaterialPageRoute(builder: (context) => MyHomePage());
@@ -107,10 +107,10 @@ class MyHomePage extends StatelessWidget {
 
 class MyAppCredential extends ICredential {
   MyAppCredential({
-    String userId,
-    String accessToken,
-    String refreshToken,
-    AuthError error,
+    required String userId,
+    required String accessToken,
+    String? refreshToken,
+    AuthError? error,
   }) : super(
           userId: userId,
           accessToken: accessToken,
@@ -128,18 +128,18 @@ class MyStorage extends IStorage {
   final FlutterSecureStorage _storage = FlutterSecureStorage();
 
   @override
-  Future delete(String key) async {
+  Future delete({required String key}) async {
     await _storage.delete(key: key);
   }
 
   @override
-  Future<String> read(String key) async {
+  Future<String?> read({required String key}) async {
     return await _storage.read(key: key);
   }
 
   @override
-  Future write({String key, String value}) async {
-    await _storage.write(key: key, value: value);
+  Future<void> write({required String key, required String value}) async {
+    return await _storage.write(key: key, value: value);
   }
 }
 

@@ -43,20 +43,21 @@ class AuthRepository extends IAuthRepository {
     return await AuthManager.storage.write(key: _KEY_USER_ID, value: "$userId");
   }
 
-  Future<String> get accessToken async =>
-      await AuthManager.storage.read(_KEY_ACCESS_TOKEN);
+  Future<String?> get accessToken async =>
+      await AuthManager.storage.read(key: _KEY_ACCESS_TOKEN);
 
-  Future<String> get refreshToken async =>
-      await AuthManager.storage.read(_KEY_REFRESH_TOKEN);
+  Future<String?> get refreshToken async =>
+      await AuthManager.storage.read(key: _KEY_REFRESH_TOKEN);
 
-  Future<String> get userId async =>
-      await AuthManager.storage.read(_KEY_USER_ID);
+  Future<String?> get userId async =>
+      await AuthManager.storage.read(key: _KEY_USER_ID);
 
   Future deleteAccessToken() async =>
-      await AuthManager.storage.delete(_KEY_ACCESS_TOKEN);
+      await AuthManager.storage.delete(key: _KEY_ACCESS_TOKEN);
 
   Future deleteRefreshToken() async =>
-      await AuthManager.storage.delete(_KEY_REFRESH_TOKEN);
+      await AuthManager.storage.delete(key: _KEY_REFRESH_TOKEN);
 
-  Future deleteUserId() async => await AuthManager.storage.delete(_KEY_USER_ID);
+  Future deleteUserId() async =>
+      await AuthManager.storage.delete(key: _KEY_USER_ID);
 }
