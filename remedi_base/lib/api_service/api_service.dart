@@ -44,5 +44,5 @@ abstract class IDto {
 
   IDto.fromJson(Map<String, dynamic> jsonMap);
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> get toJson;
 }

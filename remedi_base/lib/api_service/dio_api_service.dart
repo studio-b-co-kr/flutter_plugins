@@ -57,7 +57,7 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
       Function(dynamic) onFail,
       Function(dynamic) onError}) async {
     var res = await client.patch<Map<String, dynamic>>(path,
-        data: data.toJson(), queryParameters: query);
+        data: data.toJson, queryParameters: query);
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
   }
@@ -78,7 +78,7 @@ abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
       Function(dynamic) onFail,
       Function(dynamic) onError}) async {
     var res = await client.delete<Map<String, dynamic>>(path,
-        data: data.toJson(), queryParameters: query);
+        data: data.toJson, queryParameters: query);
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
   }
@@ -90,9 +90,7 @@ class File extends IDto {
   File({this.path});
 
   @override
-  Map<String, dynamic> toJson() {
-    return null;
-  }
+  Map<String, dynamic> get toJson => null;
 }
 
 /// File Download Api
@@ -114,7 +112,7 @@ class FileDownloadApiService extends IApiService<Dio, File> {
       Function(dynamic) onFail,
       Function(dynamic) onError}) async {
     try {
-      await client.download(url, savePath, data: data.toJson());
+      await client.download(url, savePath, data: data.toJson);
       return File(path: savePath);
     } catch (error) {
       return File();

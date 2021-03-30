@@ -95,7 +95,5 @@ class GoogleApiDto extends IDto {
   GoogleApiDto({this.html});
 
   @override
-  Map<String, dynamic> toJson() {
-    return {"data": html};
-  }
+  Map<String, dynamic> get toJson => {"data": html};
 }
