@@ -13,9 +13,9 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
 
   @override
   Future<R> request(
-      {Function(Response) onSuccess,
-      Function(dynamic) onFail,
-      Function(dynamic) onError}) async {
+      {Function(Response)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
     var res = await client.post<Map<String, dynamic>>(path,
         data: data.toJson, queryParameters: query);
     return handleResponse(res,
@@ -131,9 +131,9 @@ abstract class _TransFormer<R> {
 
   handleResponse(
     Response res, {
-    Function(Response response) onSuccess,
-    Function(dynamic) onFail,
-    Function(dynamic) onError,
+    Function(Response response)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
   }) {
     if (res is DioError) {
       if (onFail != null) onFail(res);

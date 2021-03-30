@@ -3,18 +3,18 @@
 /// C is Client in charge of http request/response. like Dio, Retrofit and etc.
 /// R is Response of api request.
 abstract class IApiService<C, R> {
-  C _client;
+  late final C _client;
 
   C get client => _client;
 
   /// url path.
-  String get path;
+  String? get path;
 
   // request body
-  final dynamic body;
+  final dynamic? body;
 
   //request queries
-  final Map<String, dynamic> query;
+  final Map<String, dynamic>? query;
 
   IApiService(IClientFactory clientFactory, {this.body, this.query}) {
     _client = clientFactory.build();
@@ -33,7 +33,7 @@ abstract class IApiService<C, R> {
 abstract class IClientFactory<C> {
   final String baseUrl;
 
-  IClientFactory({this.baseUrl});
+  IClientFactory({required this.baseUrl});
 
   C build();
 }
