@@ -31,7 +31,7 @@ class LoginPage extends BasePage<ILoginViewModel> {
 
   @override
   BindingView<ILoginViewModel> body(
-      BuildContext context, ILoginViewModel viewModel, Widget child) {
+      BuildContext context, ILoginViewModel viewModel, Widget? child) {
     return LoginView(
       logoApp: logoApp,
       logoCompany: logoCompany,
