@@ -42,7 +42,7 @@ dependencies:
   flutter_udid: ^2.0.0
 
   # user-agent info.
-  flutter_user_agent: ^1.2.2
+  flutter_user_agentx: ^1.2.4
 
 dev_dependencies:
   flutter_test:

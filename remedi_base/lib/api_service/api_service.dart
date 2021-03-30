@@ -8,7 +8,7 @@ abstract class IApiService<C, R> {
   C get client => _client;
 
   /// url path.
-  String? get path;
+  String get path;
 
   // request body
   final dynamic body;

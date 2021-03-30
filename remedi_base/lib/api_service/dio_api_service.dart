@@ -140,7 +140,7 @@ abstract class _TransFormer<R> {
       return null;
     }
 
-    if (res.statusCode / 200 != 1) {
+    if (!"${res.statusCode}".startsWith("20")) {
       if (onError != null) onError(res);
       return null;
     }
@@ -206,7 +206,8 @@ class DioFactory extends IClientFactory<Dio> {
         requestHeader: enableLogging,
         responseHeader: enableLogging));
 
-    http.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
+    http.interceptors
+        .add(InterceptorsWrapper(onRequest: (options, handler) async {
       options.headers['Accept'] = 'application/json';
       if (accessToken != null)
         options.headers["Authorization"] = "Bearer $accessToken";

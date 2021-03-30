@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_user_agent/flutter_user_agent.dart';
+import 'package:flutter_user_agentx/flutter_user_agent.dart';
 import 'package:package_info/package_info.dart';
 
 import 'app_repository.dart';
