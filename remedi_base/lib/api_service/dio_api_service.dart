@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:remedi_base/remedi_base.dart';
 
 /// Post Api
@@ -204,17 +206,17 @@ class DioFactory extends IClientFactory<Dio> {
         requestHeader: enableLogging,
         responseHeader: enableLogging));
 
-    http.interceptors.add(InterceptorsWrapper(onRequest: (options) async {
+    http.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
       options.headers['Accept'] = 'application/json';
       if (accessToken != null)
         options.headers["Authorization"] = "Bearer $accessToken";
       if (userAgent != null) options.headers['User-Agent'] = userAgent;
       if (appVersion != null) options.headers['App-Version'] = appVersion;
-      return options;
-    }, onResponse: (Response<dynamic> response) {
-      return response;
-    }, onError: (DioError error) {
-      return error;
+      // return options;
+    }, onResponse: (Response<dynamic> response, handler) {
+      // return response;
+    }, onError: (DioError error, handler) {
+      // return error;
     }));
 
     interceptors?.map((interceptor) {
@@ -223,4 +225,17 @@ class DioFactory extends IClientFactory<Dio> {
 
     return http;
   }
+}
+
+class FlutterTransformer extends DefaultTransformer {
+  FlutterTransformer() : super(jsonDecodeCallback: _parseJson);
+}
+
+// Must be top-level function
+_parseAndDecode(String response) {
+  return jsonDecode(response);
+}
+
+_parseJson(String text) {
+  return compute(_parseAndDecode, text);
 }

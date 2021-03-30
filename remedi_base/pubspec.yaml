@@ -31,7 +31,6 @@ dependencies:
 
   # network api.
   dio: ^4.0.0
-  dio_flutter_transformer: ^3.0.2
 
   # app version, build number and etc
   package_info: ^2.0.0
