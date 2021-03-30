@@ -1,0 +1,27 @@
+name: multiscreen
+description: Support multiscreen(different resolution and size of display) for mobile application.
+version: 1.3.0
+homepage: https://github.com/team-tossy/multiscreen
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: me.tossy.flutter.multiscreen
+        pluginClass: MultiscreenPlugin
+      ios:
+        pluginClass: MultiscreenPlugin
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+  # Flutter versions prior to 1.12 did not support the
+  # flutter.plugin.platforms map.
+  flutter: ">=1.12.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
