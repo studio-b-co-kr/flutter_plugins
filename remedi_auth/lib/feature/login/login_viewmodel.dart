@@ -83,11 +83,8 @@ class LoginViewModel extends ILoginViewModel {
         }
       }
 
-      this.error = AuthError(
-          title: title,
-          code: code,
-          message: message,
-          error: e);
+      this.error =
+          AuthError(title: title, code: code, message: message, error: e);
       update(state: LoginViewState.Error);
     }
   }
@@ -112,7 +109,7 @@ class LoginViewModel extends ILoginViewModel {
           dev.log("${login.token.accessToken}", name: "Kakao Login Success");
           kakaoAccessToken = login.token.accessToken;
           login = await kakaoSignIn.getUserMe();
-          // await kakaoSignIn.logOut();
+
           break;
         case KakaoLoginStatus.loggedOut:
         case KakaoLoginStatus.unlinked:
@@ -140,6 +137,8 @@ class LoginViewModel extends ILoginViewModel {
 
       ICredential credential = await repository.loginWithKakao(
           KakaoCredential(accessToken: kakaoAccessToken, id: id));
+
+      await kakaoSignIn.logOut();
 
       if (credential.isError) {
         this.error = credential.error;
