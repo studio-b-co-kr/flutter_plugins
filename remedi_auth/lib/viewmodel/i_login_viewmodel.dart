@@ -5,7 +5,7 @@ import '../auth_error.dart';
 
 abstract class ILoginViewModel
     extends BaseViewModel<LoginViewState, ILoginRepository> {
-  late AuthError? error;
+  AuthError? error;
 
   ILoginViewModel({required ILoginRepository repository})
       : super(repository: repository);
