@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:remedi_auth/feature/login/login_page.dart';
 import 'package:remedi_auth/feature/login/login_viewmodel.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_repository.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_viewmodel.dart';
 import 'package:remedi_auth/remedi_auth.dart';
 
 void main() {
@@ -52,6 +55,17 @@ class MyApp extends StatelessWidget {
                   );
                 });
             break;
+          case PhoneVerificationPage.routeName:
+            ret = MaterialPageRoute(
+                settings: settings,
+                builder: (context) {
+                  return PhoneVerificationPage(
+                    information: "서비스를 사용하기 위해 전화번호를 인증해주세요.",
+                    viewModel: PhoneVerificationViewModel(
+                        repository: PhoneVerificationRepository()),
+                  );
+                });
+            break;
         }
         return ret;
       },
@@ -98,6 +112,19 @@ class MyHomePage extends StatelessWidget {
                   Navigator.of(context).pushNamed(LoginPage.ROUTE_NAME);
                 },
                 child: Text("Push LoginPage")),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: MaterialButton(
+                height: 48,
+                color: Colors.red,
+                minWidth: double.infinity,
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(PhoneVerificationPage.routeName);
+                },
+                child: Text("Phone Verification")),
           ),
         ]),
       ),
