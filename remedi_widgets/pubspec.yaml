@@ -11,6 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations: # Add this line
+    sdk: flutter
+
+  # phone number input.
+  flutter_multi_formatter: ^2.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
