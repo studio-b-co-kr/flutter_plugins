@@ -13,7 +13,7 @@ abstract class ViewModelWidget<V extends ViewModel> extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<V>(
-        stream:viewModel.stream,
+        stream:viewModel.stream1,
         builder: (context, snapshot) => buildWidget(context));
   }
 

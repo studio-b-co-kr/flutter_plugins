@@ -5,13 +5,13 @@ import 'package:bloc/bloc.dart';
 import 'package:extension/extension.dart';
 
 class ViewModel<T extends ViewState> extends Cubit<T> {
-  late final StreamController<ViewModel> _streamController1;
+  late final StreamController<VM> _streamController1;
 
   ViewModel(T initialState) : super(initialState) {
     _streamController1 = StreamController();
   }
 
-  Stream get stream1 => _streamController1.stream;
+  Stream<VM> get stream1 => _streamController1.stream;
 
   @override
   void onChange(Change<T> change) {
