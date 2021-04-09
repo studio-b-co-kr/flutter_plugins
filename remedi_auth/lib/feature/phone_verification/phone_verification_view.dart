@@ -23,13 +23,11 @@ class PhoneVerificationView extends BindingView<IPhoneVerificationViewModel> {
       ),
       body: SafeArea(
         child: Container(
-          child: Column(
-            children: [
-              _textGuide(),
-              _textInput(context),
-              _textError(),
-            ],
-          ),
+          child: Column(children: [
+            _textGuide(),
+            _textInput(context),
+            _textError(),
+          ]),
         ),
       ),
     );
@@ -76,14 +74,15 @@ class PhoneVerificationView extends BindingView<IPhoneVerificationViewModel> {
                 print("[REMEDI] onChanged:$changed");
                 _textInputKey.currentState?.validate();
               },
-
               validator: (input) {
                 String phoneNumber = phoneInputFormatter.unmasked;
                 return null;
               },
               inputFormatters: [
-                phoneInputFormatter,
+                // phoneInputFormatter,
                 // PhoneNumberFormatter(),
+                MaskedInputFormatter('###-0000-#####',
+                    anyCharMatcher: RegExp(r'[0-9]'))
               ]),
         ));
   }
@@ -96,13 +95,12 @@ class PhoneVerificationView extends BindingView<IPhoneVerificationViewModel> {
 class PhoneNumberFormatter {
   static modFormatter() {
     PhoneInputFormatter.replacePhoneMask(
-        countryCode: "KR", newMask: "+00 000 0000 0000");
+        countryCode: "KR", newMask: "+00 (0)00 0000 0000");
     PhoneInputFormatter.addAlternativePhoneMasks(
         countryCode: "KR",
         alternativeMasks: [
-          "+00 000 000 0000",
-          "+00 00 000 0000",
-          "+00 00 0000 0000"
+          "+00 (0)00 000 0000",
+          "+00 (0)00 000 0000",
         ]);
   }
 }
