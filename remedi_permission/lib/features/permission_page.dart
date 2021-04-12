@@ -74,33 +74,36 @@ class PermissionView extends BindingView<IPermissionViewModel> {
             ],
           ),
           body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Spacer(flex: 1),
-                viewModel.icon(size: 60),
-                Container(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    child:
-                        Text(viewModel.title, style: TextStyle(fontSize: 28))),
-                Expanded(
-                    flex: 2, child: Center(child: Text(viewModel.description))),
-                _errorMessage(viewModel),
-                Container(
-                    margin: EdgeInsets.only(
-                        right: 16, left: 16, bottom: 32, top: 8),
-                    child: MaterialButton(
-                        color: _buttonColor(viewModel),
-                        height: 40,
-                        minWidth: double.maxFinite,
-                        onPressed: () async {
-                          await viewModel.requestPermission();
-                        },
-                        child: Text(
-                          _buttonText(viewModel),
-                          style: TextStyle(color: Colors.white),
-                        ))),
-              ],
+            child: FutureBuilder(
+              future: viewModel.init(),
+              builder: (context, snapshot) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Spacer(flex: 1),
+                    viewModel.icon(size: 60),
+                    Container(
+                        margin: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(viewModel.title,
+                            style: TextStyle(fontSize: 28))),
+                    Expanded(
+                        flex: 2,
+                        child: Center(child: Text(viewModel.description))),
+                    _errorMessage(viewModel),
+                    Container(
+                        margin: EdgeInsets.only(
+                            right: 16, left: 16, bottom: 32, top: 8),
+                        child: MaterialButton(
+                            color: _buttonColor(viewModel),
+                            height: 40,
+                            minWidth: double.maxFinite,
+                            onPressed: () async {
+                              await viewModel.requestPermission();
+                            },
+                            child: Text(
+                              _buttonText(viewModel),
+                              style: TextStyle(color: Colors.white),
+                            ))),
+                  ]),
             ),
           ),
         ),

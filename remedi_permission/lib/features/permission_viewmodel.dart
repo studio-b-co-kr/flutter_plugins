@@ -25,7 +25,7 @@ class PermissionViewModel extends IPermissionViewModel {
 
   @override
   Future<PermissionStatus> requestPermission() async {
-    switch (repository.status) {
+    switch (repository.status ?? PermissionStatus.granted) {
       case PermissionStatus.granted:
       case PermissionStatus.limited:
         // close permission page and back to the screen to request permission.
@@ -50,7 +50,7 @@ class PermissionViewModel extends IPermissionViewModel {
 
     _handleStatus(repository.status);
 
-    return repository.status;
+    return repository.status ?? PermissionStatus.granted;
   }
 
   _handleStatus(PermissionStatus? status) {
