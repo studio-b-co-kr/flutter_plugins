@@ -15,16 +15,16 @@ dependencies:
     sdk: flutter
 
   #svg loader
-  flutter_svg: ^0.21.0-nullsafety.0
+  flutter_svg: ^0.21.0+1
 
   # kakao login
-  flutter_kakao_login: ^3.1.0
+  flutter_kakao_login: ^3.2.1
 
   # sign in with apple
   sign_in_with_apple: ^3.0.0
 
   # phone verification
-  firebase_auth: ^1.0.1
+  firebase_auth: ^1.0.3
 
   # phone number input.
   flutter_multi_formatter: ^2.0.2
