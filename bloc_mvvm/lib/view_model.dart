@@ -4,7 +4,7 @@ import 'dart:developer' as dev;
 import 'package:bloc/bloc.dart';
 import 'package:extension/extension.dart';
 
-class ViewModel<T extends ViewState> extends Cubit<T> {
+class ViewModel<VM, T extends ViewState> extends Cubit<T> {
   late final StreamController<VM> _streamController1;
 
   ViewModel(T initialState) : super(initialState) {
