@@ -10,8 +10,8 @@ import 'package:package_info/package_info.dart';
 import 'app_repository.dart';
 
 class AppConfig {
-  static String? _baseUrl;
-  static String? _baseWebUrl;
+  static late final String baseUrl;
+  static late final String baseWebUrl;
   static bool _isRelease = false;
   static String? _endpoint;
   static String? _appVersion;
@@ -22,10 +22,6 @@ class AppConfig {
   static String? _deviceManufacturer;
   static String? _deviceModel;
   static String? _userAgent;
-
-  static String? get baseUrl => _baseUrl;
-
-  static String? get baseWebUrl => _baseWebUrl;
 
   static bool get isRelease => _isRelease;
 
@@ -60,12 +56,12 @@ class AppConfig {
   /// user set this config in main()
   static setFlavorConfig(
       {required String baseUrl,
-      String? baseWebUrl,
+      required String baseWebUrl,
       bool isRelease = false,
       String? endpoint,
       bool enablePrintLog = false}) {
-    AppConfig._baseUrl = baseUrl;
-    AppConfig._baseWebUrl = baseWebUrl;
+    AppConfig.baseUrl = baseUrl;
+    AppConfig.baseWebUrl = baseWebUrl;
     AppConfig._isRelease = isRelease;
     AppConfig._endpoint = endpoint ?? "";
     AppConfig._enablePrintLog = enablePrintLog;
