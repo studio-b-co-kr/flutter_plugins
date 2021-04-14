@@ -38,7 +38,10 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
       {Function(Response)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res = await client.get<dynamic>(path, queryParameters: query);
+    var res;
+    try {
+      res = await client.get<dynamic>(path, queryParameters: query);
+    } catch (e) {}
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
   }
