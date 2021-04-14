@@ -134,8 +134,8 @@ class AppConfig {
   static Future<String> get appId => AppRepository.instance().appId;
 
   static void log() async {
-    dev.log(_baseUrl ?? "unknown", name: "baseUrl");
-    dev.log(_baseWebUrl ?? "unknown", name: "webBaseUrl");
+    dev.log(baseUrl, name: "baseUrl");
+    dev.log(baseWebUrl, name: "webBaseUrl");
     dev.log("$_isRelease", name: "isRelease");
     dev.log(_endpoint ?? "unknown", name: "endpoint");
     dev.log(_appVersion ?? "unknown", name: "appVersion");
