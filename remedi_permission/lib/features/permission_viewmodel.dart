@@ -33,6 +33,10 @@ class PermissionViewModel extends IPermissionViewModel {
       case PermissionStatus.denied:
         // if the permission is mandatory to use app, keep permission page.
         await repository.request();
+        if (repository.status == PermissionStatus.limited ||
+            repository.status == PermissionStatus.granted) {
+          update(state: PermissionViewState.Exit);
+        }
         break;
 
       case PermissionStatus.permanentlyDenied:

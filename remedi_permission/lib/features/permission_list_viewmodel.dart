@@ -13,7 +13,12 @@ class PermissionListViewModel extends IPermissionListViewModel {
   PermissionListViewState get initState => PermissionListViewState.Init;
 
   @override
-  Future<bool> get hasError async {
+  init() async {
+
+  }
+
+  @override
+  Future<bool> get hasErrors async {
     bool ret = false;
 
     await Future.forEach<AppPermission>(repository.permissions,
@@ -35,14 +40,14 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
     update(state: PermissionListViewState.Refresh);
 
-    if (await hasError) {
+    if (await hasErrors) {
       update(state: PermissionListViewState.Error);
     }
   }
 
   @override
   skipOrNext() async {
-    bool error = await hasError;
+    bool error = await hasErrors;
     if (error) {
       update(state: PermissionListViewState.Error);
       return;
@@ -53,7 +58,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
   @override
   Future<bool> get canSkip async =>
-      !(await hasError) && !(await repository.isAllGranted);
+      !(await hasErrors) && !(await repository.isAllGranted);
 
   @override
   Future<bool> get showNext async => false;

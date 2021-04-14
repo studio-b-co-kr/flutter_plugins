@@ -163,7 +163,7 @@ class HomePage extends StatelessWidget {
           repository: PermissionRepository(
             AppPermission(Permission.location,
                 title: "location",
-                mandatory: true,
+                mandatory: false,
                 errorDescription: "위치권한 없이는 앱을 사용할 수 없습니다.",
                 description:
                     "Please grant location permission to use this app."),

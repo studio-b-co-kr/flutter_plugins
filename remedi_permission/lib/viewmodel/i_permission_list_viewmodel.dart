@@ -8,7 +8,7 @@ abstract class IPermissionListViewModel
 
   Future<dynamic> requestAll();
 
-  Future<bool> get hasError;
+  Future<bool> get hasErrors;
 
   skipOrNext();
 
@@ -17,6 +17,8 @@ abstract class IPermissionListViewModel
   Future<bool> get showNext;
 
   Future<bool> get showRequestAll;
+
+
 }
 
 enum PermissionListViewState { Init, Refresh, Error, Skip }

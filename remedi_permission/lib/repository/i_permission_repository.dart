@@ -4,7 +4,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IPermissionRepository extends BaseRepository {
   final AppPermission permission;
-  late PermissionStatus status;
+  PermissionStatus? status;
 
   IPermissionRepository({required this.permission}) {
     Future.microtask(() async => status = await permission.permission.status);

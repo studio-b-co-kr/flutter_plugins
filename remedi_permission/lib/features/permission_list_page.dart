@@ -157,21 +157,16 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
         margin: EdgeInsets.all(16),
         alignment: Alignment.topRight,
         child: TextButton(
-          onPressed: () {
-            //_requestAllPermissions();
+          onPressed: () async {
+            await viewModel.skipOrNext();
           },
           child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InkWell(
-                  onTap: () async {
-                    await viewModel.skipOrNext();
-                  },
-                  child: Text(
-                    "Next",
-                    style: TextStyle(fontSize: 16),
-                  ),
+                Text(
+                  "Next",
+                  style: TextStyle(fontSize: 16),
                 ),
                 Icon(Icons.arrow_forward_ios_sharp, size: 20)
               ]),
@@ -187,5 +182,16 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
   List<PermissionListItemWidget> _buildPermissionItem(
       IPermissionListViewModel viewModel) {
     return builder.listItems;
+  }
+
+  Future<List<Widget>> _buildNext(
+      BuildContext context, IPermissionListViewModel viewModel) async {
+    List<Widget> ret = [];
+
+    if (await viewModel.hasErrors) {
+      return ret;
+    }
+
+    return ret;
   }
 }

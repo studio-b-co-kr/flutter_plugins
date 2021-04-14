@@ -41,6 +41,9 @@ class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
         break;
       case PermissionViewState.Disabled:
         break;
+      case PermissionViewState.Exit:
+        Navigator.of(context).pop();
+        break;
     }
   }
 }
@@ -56,55 +59,24 @@ class PermissionView extends BindingView<IPermissionViewModel> {
             elevation: 0,
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
-            actions: [
-              Container(
-                  child: TextButton(
-                      onPressed: () async => await _onSkip(context),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "SKIP",
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                          Icon(Icons.arrow_forward_ios_sharp,
-                              size: 16, color: Colors.blue)
-                        ],
-                      )))
-            ],
+            actions: [..._buildSkip(context, viewModel)],
           ),
           body: SafeArea(
-            child: FutureBuilder(
-              future: viewModel.init(),
-              builder: (context, snapshot) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Spacer(flex: 1),
-                    viewModel.icon(size: 60),
-                    Container(
-                        margin: EdgeInsets.symmetric(vertical: 8),
-                        child: Text(viewModel.title,
-                            style: TextStyle(fontSize: 28))),
-                    Expanded(
-                        flex: 2,
-                        child: Center(child: Text(viewModel.description))),
-                    _errorMessage(viewModel),
-                    Container(
-                        margin: EdgeInsets.only(
-                            right: 16, left: 16, bottom: 32, top: 8),
-                        child: MaterialButton(
-                            color: _buttonColor(viewModel),
-                            height: 40,
-                            minWidth: double.maxFinite,
-                            onPressed: () async {
-                              await viewModel.requestPermission();
-                            },
-                            child: Text(
-                              _buttonText(viewModel),
-                              style: TextStyle(color: Colors.white),
-                            ))),
-                  ]),
-            ),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Spacer(flex: 1),
+                  viewModel.icon(size: 60),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      child: Text(viewModel.title,
+                          style: TextStyle(fontSize: 28))),
+                  Expanded(
+                      flex: 2,
+                      child: Center(child: Text(viewModel.description))),
+                  _errorMessage(viewModel),
+                  _buildButton(context, viewModel),
+                ]),
           ),
         ),
         onWillPop: () async => false);
@@ -117,11 +89,21 @@ class PermissionView extends BindingView<IPermissionViewModel> {
     return Colors.blue;
   }
 
-  String _buttonText(IPermissionViewModel viewModel) {
+  Widget _buttonText(BuildContext context, IPermissionViewModel viewModel) {
+    String text = "";
+    Color color = Colors.white;
     if (viewModel.repository.isPermanentlyDenied) {
-      return "세팅에서 권한 허용하기";
-    }
-    return "권한 요청하기";
+      text = "세팅에서 권한 허용하기";
+    } else if (viewModel.repository.isGranted) {
+      text = "허용됨";
+      color = Colors.grey.shade700;
+    } else
+      text = "권한 요청하기";
+
+    return Text(
+      text,
+      style: TextStyle(color: color),
+    );
   }
 
   _onSkip(BuildContext context) async {
@@ -145,5 +127,51 @@ class PermissionView extends BindingView<IPermissionViewModel> {
     }
 
     return Container();
+  }
+
+  List<Widget> _buildSkip(
+      BuildContext context, IPermissionViewModel viewModel) {
+    List<Widget> ret = [];
+
+    if (viewModel.repository.isError) {
+      return ret;
+    }
+
+    String title = "Skip";
+    if (viewModel.repository.isGranted) {
+      title = "Next";
+    }
+
+    ret.add(Container(
+        child: TextButton(
+            onPressed: () async => await _onSkip(context),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title.toUpperCase(),
+                  style: TextStyle(color: Colors.blue),
+                ),
+                Icon(Icons.arrow_forward_ios_sharp,
+                    size: 16, color: Colors.blue)
+              ],
+            ))));
+
+    return ret;
+  }
+
+  Widget _buildButton(BuildContext context, IPermissionViewModel viewModel) {
+    return Container(
+        margin: EdgeInsets.only(right: 16, left: 16, bottom: 32, top: 8),
+        child: MaterialButton(
+            color: _buttonColor(viewModel),
+            height: 40,
+            minWidth: double.maxFinite,
+            onPressed: viewModel.repository.isGranted
+                ? null
+                : () async {
+                    await viewModel.requestPermission();
+                  },
+            child: _buttonText(context, viewModel)));
   }
 }
