@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:remedi_base/remedi_base.dart';
-import 'dart:developer' as dev;
 
 /// Post Api
 abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
@@ -15,9 +14,10 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request({Function(Response)? onSuccess,
-    Function(dynamic)? onFail,
-    Function(dynamic)? onError}) async {
+  Future<R> request(
+      {Function(Response)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
     var res = await client.post<Map<String, dynamic>>(path,
         data: data?.toJson, queryParameters: query);
     return handleResponse(res,
@@ -34,9 +34,10 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request({Function(Response)? onSuccess,
-    Function(dynamic)? onFail,
-    Function(dynamic)? onError}) async {
+  Future<R> request(
+      {Function(Response)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
     var res;
     try {
       res = await client.get<dynamic>(path, queryParameters: query);
@@ -56,9 +57,10 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request({Function(Response)? onSuccess,
-    Function(dynamic)? onFail,
-    Function(dynamic)? onError}) async {
+  Future<R> request(
+      {Function(Response)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
     var res = await client.patch<Map<String, dynamic>>(path,
         data: data?.toJson, queryParameters: query);
     return handleResponse(res,
@@ -76,9 +78,10 @@ abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request({Function(Response response)? onSuccess,
-    Function(dynamic)? onFail,
-    Function(dynamic)? onError}) async {
+  Future<R> request(
+      {Function(Response response)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
     var res = await client.delete<Map<String, dynamic>>(path,
         data: data?.toJson, queryParameters: query);
     return handleResponse(res,
@@ -101,16 +104,18 @@ class FileDownloadApiService extends IApiService<Dio, File> {
   final IDto? data;
   final String savePath;
 
-  FileDownloadApiService(IClientFactory clientFactory,
-      this.url,
-      this.savePath, {
-        this.data,
-      }) : super(clientFactory);
+  FileDownloadApiService(
+    IClientFactory clientFactory,
+    this.url,
+    this.savePath, {
+    this.data,
+  }) : super(clientFactory);
 
   @override
-  Future<File?> request({Function(Response response)? onSuccess,
-    Function(dynamic)? onFail,
-    Function(dynamic)? onError}) async {
+  Future<File?> request(
+      {Function(Response response)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
     try {
       await client.download(url, savePath, data: data?.toJson);
       return File(path: savePath);
@@ -127,7 +132,8 @@ abstract class _TransFormer<R> {
   /// json should be map<string,dynamic> or int, string, bool
   R jsonTo(dynamic json);
 
-  handleResponse(Response res, {
+  handleResponse(
+    Response res, {
     Function(Response response)? onSuccess,
     Function(dynamic)? onFail,
     Function(dynamic)? onError,
@@ -162,17 +168,17 @@ class DioFactory extends IClientFactory<Dio> {
 
   DioFactory._(this.baseUrl,
       {this.accessToken,
-        this.enableLogging = false,
-        this.userAgent,
-        this.appVersion,
-        this.interceptors})
+      this.enableLogging = false,
+      this.userAgent,
+      this.appVersion,
+      this.interceptors})
       : super(baseUrl: baseUrl);
 
   factory DioFactory.auth(String baseUrl, String accessToken,
-      {bool enableLogging = false,
-        String? userAgent,
-        String? appVersion,
-        List<Interceptor>? interceptors}) =>
+          {bool enableLogging = false,
+          String? userAgent,
+          String? appVersion,
+          List<Interceptor>? interceptors}) =>
       DioFactory._(baseUrl,
           accessToken: accessToken,
           enableLogging: enableLogging,
@@ -181,10 +187,10 @@ class DioFactory extends IClientFactory<Dio> {
           interceptors: interceptors);
 
   factory DioFactory.noneAuth(String baseUrl,
-      {bool enableLogging = false,
-        String? userAgent,
-        String? appVersion,
-        List<Interceptor>? interceptors}) =>
+          {bool enableLogging = false,
+          String? userAgent,
+          String? appVersion,
+          List<Interceptor>? interceptors}) =>
       DioFactory._(baseUrl,
           enableLogging: enableLogging,
           userAgent: userAgent,
@@ -195,6 +201,15 @@ class DioFactory extends IClientFactory<Dio> {
   Dio build() {
     Dio http = Dio();
     http.options.baseUrl = baseUrl;
+    http.options.connectTimeout = 5000;
+    if (accessToken != null)
+      http.options.headers.addAll({
+        "Authorization": "Bearer $accessToken",
+      });
+    if (userAgent != null)
+      http.options.headers.addAll({'User-Agent': userAgent});
+    if (appVersion != null)
+      http.options.headers.addAll({'App-Version': appVersion});
     http.transformer = FlutterTransformer();
 
     http.interceptors.add(LogInterceptor(
@@ -202,20 +217,6 @@ class DioFactory extends IClientFactory<Dio> {
         responseBody: enableLogging,
         requestHeader: enableLogging,
         responseHeader: enableLogging));
-
-    http.interceptors
-        .add(InterceptorsWrapper(onRequest: (options, handler) async {
-      options.headers['Accept'] = 'application/json';
-      if (accessToken != null)
-        options.headers["Authorization"] = "Bearer $accessToken";
-      if (userAgent != null) options.headers['User-Agent'] = userAgent;
-      if (appVersion != null) options.headers['App-Version'] = appVersion;
-      // return options;
-    }, onResponse: (Response<dynamic> response, handler) {
-      dev.log("onResponse", name: "DIO");
-    }, onError: (DioError error, handler) {
-      dev.log("onError", name: "DIO");
-    }));
 
     interceptors?.map((interceptor) {
       http.interceptors.add(interceptor);

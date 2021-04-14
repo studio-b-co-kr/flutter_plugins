@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context, snapshot) {
               String htmlString = 'about:blank';
               if (snapshot.hasData) {
-                htmlString = snapshot.data;
+                htmlString = "${snapshot.data}";
               }
               return ListView(
                 children: [Text(htmlString)],
@@ -88,3 +88,5 @@ class GoogleApiDto extends IDto {
   @override
   Map<String, dynamic> get toJson => {"data": html};
 }
+
+
