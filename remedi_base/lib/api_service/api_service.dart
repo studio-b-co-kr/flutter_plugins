@@ -42,7 +42,7 @@ abstract class IClientFactory<C> {
 abstract class IDto {
   IDto();
 
-  // factory IDto.fromJson(Map<String, dynamic>? jsonMap);
+  // factory IDto.fromJson(dynamic? jsonMap);
 
   Map<String, dynamic>? get toJson;
 }
