@@ -40,8 +40,10 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await client.get<dynamic>(path, queryParameters: query);
-    } catch (e) {}
+      res = (await client.get<dynamic>(path, queryParameters: query));
+    } catch (e) {
+      int i = 0;
+    }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
   }
@@ -133,7 +135,7 @@ abstract class _TransFormer<R> {
   R jsonTo(dynamic json);
 
   handleResponse(
-    Response res, {
+    dynamic res, {
     Function(Response response)? onSuccess,
     Function(dynamic)? onFail,
     Function(dynamic)? onError,

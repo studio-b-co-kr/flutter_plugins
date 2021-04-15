@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class GoogleApiService extends DioGetApiService<String> {
-  GoogleApiService({IClientFactory clientFactory})
+  GoogleApiService({IClientFactory? clientFactory})
       : super(clientFactory = DioFactory.noneAuth(AppConfig.baseUrl));
 
   @override
@@ -83,7 +83,7 @@ class GoogleApiService extends DioGetApiService<String> {
 class GoogleApiDto extends IDto {
   final String html;
 
-  GoogleApiDto({this.html});
+  GoogleApiDto({required this.html});
 
   @override
   Map<String, dynamic> get toJson => {"data": html};
