@@ -108,7 +108,6 @@ class LoginViewModel extends ILoginViewModel {
           dev.log("${login.token?.accessToken}", name: "Kakao Login Success");
           kakaoAccessToken = login.token!.accessToken!;
           login = await kakaoSignIn.getUserMe();
-          await kakaoSignIn.logOut();
           break;
         case KakaoLoginStatus.loggedOut:
         case KakaoLoginStatus.unlinked:
@@ -116,6 +115,7 @@ class LoginViewModel extends ILoginViewModel {
               title: AppStrings.codeKakaoLoginError,
               code: AppStrings.codeKakaoLoginError,
               message: AppStrings.messageAuthError);
+          await kakaoSignIn.logOut();
           update(state: LoginViewState.Error);
           return;
       }
@@ -130,6 +130,7 @@ class LoginViewModel extends ILoginViewModel {
             title: AppStrings.codeKakaoLoginError,
             code: AppStrings.codeKakaoLoginError,
             message: AppStrings.messageAuthError);
+        await kakaoSignIn.logOut();
         update(state: LoginViewState.Error);
         return;
       }
@@ -139,6 +140,7 @@ class LoginViewModel extends ILoginViewModel {
 
       if (credential.isError) {
         this.error = credential.error;
+        await kakaoSignIn.logOut();
         update(state: LoginViewState.Error);
         return;
       }
@@ -149,6 +151,8 @@ class LoginViewModel extends ILoginViewModel {
         AuthRepository.instance()
             .writeRefreshToken(credential.refreshToken ?? "")
       ]);
+
+      await kakaoSignIn.logOut();
       update(state: LoginViewState.Success);
       return;
     } catch (error) {
@@ -164,7 +168,7 @@ class LoginViewModel extends ILoginViewModel {
 
       this.error =
           AuthError(title: title, code: code, message: message, error: error);
-
+      await kakaoSignIn.logOut();
       update(state: LoginViewState.Idle);
       return;
     }
