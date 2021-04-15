@@ -23,7 +23,11 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
       res = await client.post<Map<String, dynamic>>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
-      res = e;
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
     }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
@@ -47,7 +51,11 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
     try {
       res = (await client.get<dynamic>(path, queryParameters: query));
     } catch (e) {
-      res = e;
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
     }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
@@ -73,7 +81,11 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
       res = await client.patch<Map<String, dynamic>>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
-      res = e;
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
     }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
@@ -99,7 +111,11 @@ abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
       res = await client.delete<Map<String, dynamic>>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
-      res = e;
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
     }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
