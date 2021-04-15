@@ -18,8 +18,13 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
       {Function(Response)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res = await client.post<Map<String, dynamic>>(path,
-        data: data?.toJson, queryParameters: query);
+    var res;
+    try {
+      res = await client.post<Map<String, dynamic>>(path,
+          data: data?.toJson, queryParameters: query);
+    } catch (e) {
+      res = e;
+    }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
   }
@@ -42,7 +47,7 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
     try {
       res = (await client.get<dynamic>(path, queryParameters: query));
     } catch (e) {
-      int i = 0;
+      res = e;
     }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
@@ -63,8 +68,13 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
       {Function(Response)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res = await client.patch<Map<String, dynamic>>(path,
-        data: data?.toJson, queryParameters: query);
+    var res;
+    try {
+      res = await client.patch<Map<String, dynamic>>(path,
+          data: data?.toJson, queryParameters: query);
+    } catch (e) {
+      res = e;
+    }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
   }
@@ -84,8 +94,13 @@ abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
       {Function(Response response)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res = await client.delete<Map<String, dynamic>>(path,
-        data: data?.toJson, queryParameters: query);
+    var res;
+    try {
+      res = await client.delete<Map<String, dynamic>>(path,
+          data: data?.toJson, queryParameters: query);
+    } catch (e) {
+      res = e;
+    }
     return handleResponse(res,
         onSuccess: onSuccess, onError: onError, onFail: onFail);
   }
