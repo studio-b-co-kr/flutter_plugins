@@ -4,13 +4,13 @@ class AppleCredential extends IDto {
   final String? email;
   final String? identityToken;
   final String? userIdentifier;
-  final String? authorizationCode;
+  final String authorizationCode;
 
   AppleCredential(
       {this.email,
       this.identityToken,
       this.userIdentifier,
-      this.authorizationCode});
+      required this.authorizationCode});
 
   @override
   Map<String, dynamic> get toJson => {
@@ -25,7 +25,7 @@ class AppleCredential extends IDto {
       {String? email,
       String? identityToken,
       String? userIdentifier,
-      String? authorizationCode}) {
+      required String authorizationCode}) {
     return AppleCredential(
         email: email,
         identityToken: identityToken,
