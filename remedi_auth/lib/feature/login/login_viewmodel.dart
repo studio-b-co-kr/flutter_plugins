@@ -156,9 +156,9 @@ class LoginViewModel extends ILoginViewModel {
       update(state: LoginViewState.Success);
       return;
     } catch (error) {
-      String title = AppStrings.codeKakaoLoginError;
+      String? title = AppStrings.codeKakaoLoginError;
       String code = AppStrings.codeKakaoLoginError;
-      String message = AppStrings.messageAuthError;
+      String? message = AppStrings.messageAuthError;
 
       if (error is PlatformException) {
         title = error.message ?? "";

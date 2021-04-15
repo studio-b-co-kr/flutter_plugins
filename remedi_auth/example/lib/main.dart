@@ -82,51 +82,53 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("LoginExample"),
       ),
-      body: Container(
-        child: Column(children: [
-          Expanded(
-              child: Center(
-            child: Text("Home page."),
-          )),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: MaterialButton(
-                minWidth: double.infinity,
-                height: 48,
-                color: Colors.blue,
-                textColor: Colors.white,
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(LoginPage.ROUTE_NAME);
-                },
-                child: Text("Push & Replace LoginPage")),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: MaterialButton(
-                height: 48,
-                color: Colors.green,
-                minWidth: double.infinity,
-                textColor: Colors.white,
-                onPressed: () {
-                  Navigator.of(context).pushNamed(LoginPage.ROUTE_NAME);
-                },
-                child: Text("Push LoginPage")),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: MaterialButton(
-                height: 48,
-                color: Colors.red,
-                minWidth: double.infinity,
-                textColor: Colors.white,
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(PhoneVerificationPage.routeName);
-                },
-                child: Text("Phone Verification")),
-          ),
-        ]),
+      body: SafeArea(
+        child: Container(
+          child: Column(children: [
+            Expanded(
+                child: Center(
+              child: Text("Home page."),
+            )),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: MaterialButton(
+                  minWidth: double.infinity,
+                  height: 48,
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(LoginPage.ROUTE_NAME);
+                  },
+                  child: Text("Push & Replace LoginPage")),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: MaterialButton(
+                  height: 48,
+                  color: Colors.green,
+                  minWidth: double.infinity,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(LoginPage.ROUTE_NAME);
+                  },
+                  child: Text("Push LoginPage")),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: MaterialButton(
+                  height: 48,
+                  color: Colors.red,
+                  minWidth: double.infinity,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(PhoneVerificationPage.routeName);
+                  },
+                  child: Text("Phone Verification")),
+            ),
+          ]),
+        ),
       ),
     );
   }
