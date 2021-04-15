@@ -168,7 +168,7 @@ class LoginViewModel extends ILoginViewModel {
 
       this.error =
           AuthError(title: title, code: code, message: message, error: error);
-      await kakaoSignIn.logOut();
+      //await kakaoSignIn.logOut();
       update(state: LoginViewState.Idle);
       return;
     }
