@@ -15,7 +15,7 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
 
   @override
   Future<R> request(
-      {Function(Response)? onSuccess,
+      {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     var res;
@@ -44,7 +44,7 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
 
   @override
   Future<R> request(
-      {Function(Response)? onSuccess,
+      {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     var res;
@@ -73,7 +73,7 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
 
   @override
   Future<R> request(
-      {Function(Response)? onSuccess,
+      {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     var res;
@@ -103,7 +103,7 @@ abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
 
   @override
   Future<R> request(
-      {Function(Response response)? onSuccess,
+      {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     var res;
@@ -166,26 +166,24 @@ abstract class _TransFormer<R> {
   R jsonTo(dynamic json);
 
   handleResponse(
-    dynamic res, {
-    Function(Response response)? onSuccess,
+    Response? res, {
+    Function(dynamic)? onSuccess,
     Function(dynamic)? onFail,
     Function(dynamic)? onError,
   }) {
-    if (res is DioError) {
+    if (res == null) {
       if (onFail != null) onFail(res);
-      return null;
     }
 
-    if (!"${res.statusCode}".startsWith("20")) {
+    if (!"${res?.statusCode}".startsWith("20")) {
       if (onError != null) onError(res);
-      return null;
     }
 
     if (onSuccess != null) {
       onSuccess(res);
     }
 
-    return jsonTo(res.data);
+    return jsonTo(res?.data);
   }
 }
 
