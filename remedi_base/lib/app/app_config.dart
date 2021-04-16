@@ -21,7 +21,6 @@ class AppConfig {
   static int? _osVersionSdk = 0;
   static String? _deviceManufacturer;
   static String? _deviceModel;
-  static String? _userAgent;
 
   static bool get isRelease => _isRelease;
 
@@ -41,14 +40,11 @@ class AppConfig {
 
   static String? get deviceModel => _deviceModel;
 
-  static String? get userAgent => _userAgent;
-
   // set device info.
   static Future init() async {
     return await Future.wait([
       _setPackageInfo(),
       _setDeviceInfo(),
-      _setUserAgent(),
     ]);
   }
 
@@ -123,12 +119,6 @@ class AppConfig {
         AppConfig._deviceModel = info.model;
       }
     } on PlatformException {}
-  }
-
-  static Future _setUserAgent() async {
-    try {
-      AppConfig._userAgent = platform;
-    } catch (e) {}
   }
 
   static Future<String> get appId => AppRepository.instance().appId;
