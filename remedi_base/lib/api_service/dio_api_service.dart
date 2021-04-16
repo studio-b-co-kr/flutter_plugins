@@ -207,8 +207,8 @@ class DioFactory extends IClientFactory<Dio> {
 
   factory DioFactory.auth(String baseUrl, String accessToken,
           {bool enableLogging = false,
-          String? userAgent,
-          String? appVersion,
+          required String userAgent,
+          required String? appVersion,
           List<Interceptor>? interceptors}) =>
       DioFactory._(baseUrl,
           accessToken: accessToken,
@@ -219,8 +219,8 @@ class DioFactory extends IClientFactory<Dio> {
 
   factory DioFactory.noneAuth(String baseUrl,
           {bool enableLogging = false,
-          String? userAgent,
-          String? appVersion,
+          required String userAgent,
+          required String? appVersion,
           List<Interceptor>? interceptors}) =>
       DioFactory._(baseUrl,
           enableLogging: enableLogging,
