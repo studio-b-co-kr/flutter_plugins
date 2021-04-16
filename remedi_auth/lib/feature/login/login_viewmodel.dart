@@ -177,7 +177,7 @@ class LoginViewModel extends ILoginViewModel {
       this.error =
           AuthError(title: title, code: code, message: message, error: error);
 
-      if (message == "cancelled") {
+      if (message == "cancelled.") {
         update(state: LoginViewState.Idle);
       } else {
         update(state: LoginViewState.Error);
