@@ -14,7 +14,7 @@ class AppleCredential extends IDto {
 
   @override
   Map<String, dynamic> get toJson => {
-        "identity_token": identityToken,
+        "sso_token": identityToken,
         "sso_provider": "apple"
       };
 

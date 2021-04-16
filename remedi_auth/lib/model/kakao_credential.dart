@@ -10,7 +10,7 @@ class KakaoCredential extends IDto {
 
   @override
   Map<String, dynamic> get toJson =>
-      {"sso_access_token": accessToken, "sso_id": id, "sso_provider": "kakao"};
+      {"sso_token": accessToken, "sso_id": id, "sso_provider": "kakao"};
 
   factory KakaoCredential.fromJson(Map<String, dynamic> map) {
     return KakaoCredential(accessToken: map['access_token'], id: map['id']);
