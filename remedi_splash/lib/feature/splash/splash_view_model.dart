@@ -1,6 +1,6 @@
 import 'dart:developer' as dev;
 
-import 'package:remedi_splash/error/app_error.dart';
+import 'package:remedi_base/errors/app_error.dart';
 import 'package:remedi_splash/repository/i_splash_repository.dart';
 import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 
@@ -130,7 +130,7 @@ class SplashViewModel extends ISplashViewModel {
     update(state: SplashViewState.GoContentsPage);
   }
 
-  showError(AppError error) {
+  showError(AppError error) async {
     dev.log("showError", name: "SplashViewModel : run");
     update(state: SplashViewState.Error);
   }

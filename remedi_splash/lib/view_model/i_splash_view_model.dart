@@ -1,4 +1,4 @@
-import 'package:remedi_splash/error/app_error.dart';
+import 'package:remedi_base/errors/app_error.dart';
 import 'package:remedi_splash/repository/i_splash_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
