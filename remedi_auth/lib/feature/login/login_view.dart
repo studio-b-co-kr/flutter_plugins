@@ -59,14 +59,14 @@ class LoginView extends BindingView<ILoginViewModel> {
         FixedScaleText(
           text: Text(
             "${viewModel.error?.title} (code : ${viewModel.error?.code})",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
           ),
         ),
         SizedBox(height: 8),
         FixedScaleText(
           text: Text(
             "${viewModel.error?.message}",
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
           ),
         ),
         SizedBox(height: 8),
