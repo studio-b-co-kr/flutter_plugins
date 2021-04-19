@@ -106,11 +106,11 @@ class PermissionViewModel extends IPermissionViewModel {
     switch (state) {
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
-        ret = "Granted!";
+        ret = "허용됨!";
         break;
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:
-        ret = "Please grant this permission";
+        ret = "해당 권한을 허용해주세요.";
         break;
       case PermissionViewState.Error:
         ret = errorDescription;
@@ -118,7 +118,7 @@ class PermissionViewModel extends IPermissionViewModel {
       case PermissionViewState.Disabled:
       case PermissionViewState.Init:
       case PermissionViewState.Restricted:
-        ret = "Not possible";
+        ret = "사용 불가능합니다.";
         break;
       default:
         break;
