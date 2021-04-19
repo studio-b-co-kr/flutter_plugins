@@ -30,7 +30,7 @@ class PermissionManager {
     bool ret = true;
     await Future.forEach<Permission>(_permissionList, (permission) async {
       PermissionStatus status = await permission.status;
-      ret &= !(status == PermissionStatus.granted ||
+      ret = ret && !(status == PermissionStatus.granted ||
           status == PermissionStatus.limited);
     });
 
