@@ -5,13 +5,15 @@ import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 class PermissionListItemWidget extends BaseWidget<IPermissionViewModel> {
-  PermissionListItemWidget(IPermissionViewModel viewModel)
+  final Function? onPressed;
+
+  PermissionListItemWidget(IPermissionViewModel viewModel, {this.onPressed})
       : super(viewModel: viewModel);
 
   @override
   BindingView<IPermissionViewModel> body(
       BuildContext context, IPermissionViewModel viewModel, Widget? child) {
-    return PermissionListItemView();
+    return PermissionListItemView(onPressed);
   }
 
   @override
@@ -21,6 +23,10 @@ class PermissionListItemWidget extends BaseWidget<IPermissionViewModel> {
 }
 
 class PermissionListItemView extends BindingView<IPermissionViewModel> {
+  final Function? onPressed;
+
+  PermissionListItemView(this.onPressed);
+
   @override
   Widget build(BuildContext context, IPermissionViewModel viewModel) {
     return Card(
@@ -30,8 +36,11 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       child: InkWell(
         onTap: viewModel.repository.isGranted
             ? null
-            : () {
-                viewModel.requestPermission();
+            : () async {
+                await viewModel.requestPermission();
+                if (onPressed != null) {
+                  onPressed!();
+                }
               },
         child: Container(
           padding: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 16),

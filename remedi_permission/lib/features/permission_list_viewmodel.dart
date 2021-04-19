@@ -52,6 +52,13 @@ class PermissionListViewModel extends IPermissionListViewModel {
   }
 
   @override
+  Future refresh() async {
+    if (await repository.isAllGranted) {
+      update(state: PermissionListViewState.AllGranted);
+    }
+  }
+
+  @override
   skipOrNext() async {
     hasError = await checkError;
     if (hasError) {

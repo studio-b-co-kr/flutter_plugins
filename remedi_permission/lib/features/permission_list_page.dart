@@ -22,7 +22,10 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
       {Key? key, required IPermissionListViewModel viewModel, this.backTo})
       : super(key: key, viewModel: viewModel) {
     _permissionItemViewBuilder = PermissionItemViewBuilder(
-        permissions: viewModel.repository.permissions);
+        permissions: viewModel.repository.permissions,
+        onRefresh: () {
+          this.viewModel.refresh();
+        });
   }
 
   @override
@@ -73,10 +76,11 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
 class PermissionItemViewBuilder {
   final List<AppPermission> permissions;
   late List<PermissionListItemWidget> _listItems;
+  final Function? onRefresh;
 
   List<PermissionListItemWidget> get listItems => _listItems;
 
-  PermissionItemViewBuilder({required this.permissions}) {
+  PermissionItemViewBuilder({required this.permissions, this.onRefresh}) {
     _listItems = _build(permissions);
   }
 
@@ -90,8 +94,10 @@ class PermissionItemViewBuilder {
       }
       return ret;
     }).map<PermissionListItemWidget>((appPermission) =>
-        PermissionListItemWidget(PermissionViewModel(
-            repository: PermissionRepository(appPermission)))));
+        PermissionListItemWidget(
+          PermissionViewModel(repository: PermissionRepository(appPermission)),
+          onPressed: onRefresh,
+        )));
   }
 }
 

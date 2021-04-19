@@ -17,12 +17,12 @@ export 'features/permission_viewmodel.dart';
 export 'model/app_permission.dart';
 
 class PermissionManager {
-  static late List<Permission> _permissionList;
+  static final List<Permission> _permissionList = [];
 
   static List<Permission> get permissionList => _permissionList;
 
   static init(List<Permission> permissionList) {
-    _permissionList = permissionList;
+    _permissionList.addAll(permissionList);
   }
 
   static Future<bool> get doNotShowPermissionOnSplash async =>

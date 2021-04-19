@@ -106,7 +106,7 @@ class PermissionViewModel extends IPermissionViewModel {
     switch (state) {
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
-        ret = "허용됨!";
+        ret = "허용됨";
         break;
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:

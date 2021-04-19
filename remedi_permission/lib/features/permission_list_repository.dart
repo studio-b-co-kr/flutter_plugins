@@ -23,6 +23,13 @@ class PermissionListRepository extends IPermissionListRepository {
   @override
   Future<bool> get isAllGranted async {
     bool ret = true;
+    await Future.forEach<AppPermission>(permissions, (appPermission) async {
+      await appPermission.status.then((status) {
+        ret = ret &&
+            (status == PermissionStatus.granted ||
+                status == PermissionStatus.limited);
+      });
+    });
     return ret;
   }
 }
