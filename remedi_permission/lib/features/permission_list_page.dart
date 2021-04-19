@@ -51,13 +51,19 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
       case PermissionListViewState.Error:
         break;
       case PermissionListViewState.Skip:
-        Navigator.pop(context, "skip");
+        if (backTo == null) {
+          Navigator.of(context).pop("skip");
+        } else {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(backTo!, (route) => false);
+        }
         break;
       case PermissionListViewState.AllGranted:
         if (backTo == null) {
           Navigator.of(context).pop('all_granted');
         } else {
-          Navigator.pushNamedAndRemoveUntil(context, backTo!, (route) => false);
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(backTo!, (route) => false);
         }
         break;
     }
