@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LocalStorage {
@@ -15,6 +17,9 @@ class LocalStorage {
     return await _storage.write(key: _KEY_SKIP_ON_SPLASH, value: _VALUE_SKIP);
   }
 
-  Future<bool> get skipped async =>
-      await _storage.read(key: _KEY_SKIP_ON_SPLASH) == _VALUE_SKIP;
+  Future<bool> get skipped async {
+    bool ret = await _storage.read(key: _KEY_SKIP_ON_SPLASH) == _VALUE_SKIP;
+    dev.log("allGranted = $ret", name: "PermissionManager");
+    return ret;
+  }
 }

@@ -1,5 +1,7 @@
 library remedi_permission;
 
+import 'dart:developer' as dev;
+
 import 'package:permission_handler/permission_handler.dart';
 
 import 'data/local_storage.dart';
@@ -30,10 +32,11 @@ class PermissionManager {
     bool ret = true;
     await Future.forEach<Permission>(_permissionList, (permission) async {
       PermissionStatus status = await permission.status;
-      ret = ret && !(status == PermissionStatus.granted ||
-          status == PermissionStatus.limited);
+      ret = ret &&
+          !(status == PermissionStatus.granted ||
+              status == PermissionStatus.limited);
     });
-
+    dev.log("allGranted = $ret", name: "PermissionManager");
     return ret;
   }
 }
