@@ -16,8 +16,10 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
   static const ROUTE_NAME = "/permission_list";
 
   late final PermissionItemViewBuilder _permissionItemViewBuilder;
+  final String? backTo;
 
-  PermissionListPage({Key? key, required IPermissionListViewModel viewModel})
+  PermissionListPage(
+      {Key? key, required IPermissionListViewModel viewModel, this.backTo})
       : super(key: key, viewModel: viewModel) {
     _permissionItemViewBuilder = PermissionItemViewBuilder(
         permissions: viewModel.repository.permissions);
@@ -50,6 +52,13 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
         break;
       case PermissionListViewState.Skip:
         Navigator.pop(context, "skip");
+        break;
+      case PermissionListViewState.AllGranted:
+        if (backTo == null) {
+          Navigator.of(context).pop('all_granted');
+        } else {
+          Navigator.pushNamedAndRemoveUntil(context, backTo!, (route) => false);
+        }
         break;
     }
   }

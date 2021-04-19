@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:remedi_permission/remedi_permission.dart';
 
 void main() {
+  PermissionManager.init([
+    Permission.camera,
+    Permission.location,
+    Permission.storage,
+  ]);
   runApp(MyApp());
 }
 

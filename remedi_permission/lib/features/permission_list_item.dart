@@ -66,8 +66,8 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                   _action(viewModel),
                   SizedBox(width: 8),
                   Expanded(
-                      child: FixedScaleText(
-                          text: Text(viewModel.statusMessage)))
+                      child:
+                          FixedScaleText(text: Text(viewModel.statusMessage)))
                 ],
               ),
             ),
@@ -122,6 +122,8 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       case PermissionViewState.Error:
         ret = Colors.red.shade50;
         break;
+      case PermissionViewState.Exit:
+        break;
     }
     return ret;
   }
@@ -148,6 +150,8 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       case PermissionViewState.Restricted:
       case PermissionViewState.Disabled:
         break;
+      case PermissionViewState.Exit:
+        break;
     }
     return Icon(
       icon,
@@ -155,16 +159,16 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       color: iconColor,
     );
   }
-
-  String _resultMessage(IPermissionViewModel viewModel) {
-    String message = "";
-
-    return message;
-  }
-
-  Color _textColor(IPermissionViewModel viewModel) {
-    Color ret = Colors.blueGrey.shade700;
-
-    return ret;
-  }
+//
+// String _resultMessage(IPermissionViewModel viewModel) {
+//   String message = "";
+//
+//   return message;
+// }
+//
+// Color _textColor(IPermissionViewModel viewModel) {
+//   Color ret = Colors.blueGrey.shade700;
+//
+//   return ret;
+// }
 }

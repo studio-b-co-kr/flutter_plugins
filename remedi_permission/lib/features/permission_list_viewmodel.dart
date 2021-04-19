@@ -2,6 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/model/app_permission.dart';
+import 'package:remedi_permission/remedi_permission.dart';
 import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';
 
@@ -13,9 +14,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
   PermissionListViewState get initState => PermissionListViewState.Init;
 
   @override
-  init() async {
-
-  }
+  init() async {}
 
   @override
   Future<bool> get hasErrors async {
@@ -42,6 +41,10 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
     if (await hasErrors) {
       update(state: PermissionListViewState.Error);
+    }
+
+    if (await PermissionManager.allGranted) {
+      update(state: PermissionListViewState.AllGranted);
     }
   }
 
