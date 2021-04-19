@@ -103,10 +103,17 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 16),
-                        child: FixedScaleText(
-                            text: Text("SKIP",
-                                style: TextStyle(
-                                    color: Colors.blue, fontSize: 16))),
+                        child: Row(children: [
+                          FixedScaleText(
+                              text: Text("SKIP",
+                                  style: TextStyle(
+                                      color: Colors.blue, fontSize: 16))),
+                          Icon(
+                            Icons.arrow_forward_ios_sharp,
+                            color: Colors.blue,
+                            size: 16,
+                          )
+                        ]),
                       )),
                 )
               ]),
