@@ -153,25 +153,6 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
 
     ret.addAll(_buildPermissionItem(viewModel));
 
-    ret.add(Container(
-        margin: EdgeInsets.all(16),
-        alignment: Alignment.topRight,
-        child: TextButton(
-          onPressed: () async {
-            await viewModel.skipOrNext();
-          },
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Next",
-                  style: TextStyle(fontSize: 16),
-                ),
-                Icon(Icons.arrow_forward_ios_sharp, size: 20)
-              ]),
-        )));
-
     return ret;
   }
 
