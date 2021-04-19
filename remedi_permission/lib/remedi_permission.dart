@@ -26,7 +26,7 @@ class PermissionManager {
   }
 
   static Future<bool> get doNotShowPermissionOnSplash async =>
-      await LocalStorage.instance().skipped || await allGranted;
+      await LocalStorage.instance().skipped && await allGranted;
 
   static Future<bool> get allGranted async {
     bool ret = true;
