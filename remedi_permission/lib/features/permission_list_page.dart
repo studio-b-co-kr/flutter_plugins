@@ -177,7 +177,7 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
             child: Row(children: [
               FixedScaleText(
                   text: Text("건너뛰기",
-                      style: TextStyle(color: Colors.blue, fontSize: 16))),
+                      style: TextStyle(color: Colors.blue, fontSize: 14))),
               Icon(
                 Icons.arrow_forward_ios_sharp,
                 color: Colors.blue,
