@@ -19,7 +19,7 @@ class LocalStorage {
 
   Future<bool> get skipped async {
     bool ret = await _storage.read(key: _KEY_SKIP_ON_SPLASH) == _VALUE_SKIP;
-    dev.log("allGranted = $ret", name: "PermissionManager");
+    dev.log("skipped = $ret", name: "PermissionManager");
     return ret;
   }
 }
