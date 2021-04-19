@@ -164,15 +164,4 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
       IPermissionListViewModel viewModel) {
     return builder.listItems;
   }
-
-  Future<List<Widget>> _buildNext(
-      BuildContext context, IPermissionListViewModel viewModel) async {
-    List<Widget> ret = [];
-
-    if (await viewModel.hasErrors) {
-      return ret;
-    }
-
-    return ret;
-  }
 }
