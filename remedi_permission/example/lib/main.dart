@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
               title: "camera",
               errorDescription: "앱 사용에 꼭 필요한 권한입니다.",
               description: "Please grant camera permission.",
-              mandatory: true,
+              mandatory: false,
             ),
             AppPermission(Permission.location,
                 title: "location",

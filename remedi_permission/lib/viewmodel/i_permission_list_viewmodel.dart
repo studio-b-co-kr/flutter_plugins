@@ -6,9 +6,11 @@ abstract class IPermissionListViewModel
   IPermissionListViewModel({required IPermissionListRepository repository})
       : super(repository: repository);
 
+  bool hasError = false;
+
   Future<dynamic> requestAll();
 
-  Future<bool> get hasErrors;
+  Future<bool> get checkError;
 
   skipOrNext();
 

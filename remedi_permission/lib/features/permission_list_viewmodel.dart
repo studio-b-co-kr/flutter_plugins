@@ -14,10 +14,13 @@ class PermissionListViewModel extends IPermissionListViewModel {
   PermissionListViewState get initState => PermissionListViewState.Init;
 
   @override
-  init() async {}
+  init() async {
+    hasError = await checkError;
+    update();
+  }
 
   @override
-  Future<bool> get hasErrors async {
+  Future<bool> get checkError async {
     bool ret = false;
 
     await Future.forEach<AppPermission>(repository.permissions,
@@ -28,7 +31,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
                   status == PermissionStatus.limited));
     });
 
-    dev.log("hasError = $ret", name: "PermissionListViewModel");
+    dev.log("checkError = $ret", name: "PermissionListViewModel");
 
     return ret;
   }
@@ -39,7 +42,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
     update(state: PermissionListViewState.Refresh);
 
-    if (await hasErrors) {
+    if (hasError = await checkError) {
       update(state: PermissionListViewState.Error);
     }
 
@@ -50,8 +53,8 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
   @override
   skipOrNext() async {
-    bool error = await hasErrors;
-    if (error) {
+    hasError = await checkError;
+    if (hasError) {
       update(state: PermissionListViewState.Error);
       return;
     }
@@ -61,7 +64,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
   @override
   Future<bool> get canSkip async =>
-      !(await hasErrors) && !(await repository.isAllGranted);
+      !(await checkError) && !(await repository.isAllGranted);
 
   @override
   Future<bool> get showNext async => false;

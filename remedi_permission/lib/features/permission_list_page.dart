@@ -104,28 +104,7 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
               automaticallyImplyLeading: false,
               iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
               elevation: 0,
-              actions: [
-                Center(
-                  child: InkWell(
-                      onTap: () async {
-                        await viewModel.skipOrNext();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(children: [
-                          FixedScaleText(
-                              text: Text("SKIP",
-                                  style: TextStyle(
-                                      color: Colors.blue, fontSize: 16))),
-                          Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            color: Colors.blue,
-                            size: 16,
-                          )
-                        ]),
-                      )),
-                )
-              ]),
+              actions: _buildActions(context, viewModel)),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -179,5 +158,34 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
   List<PermissionListItemWidget> _buildPermissionItem(
       IPermissionListViewModel viewModel) {
     return builder.listItems;
+  }
+
+  List<Widget> _buildActions(
+      BuildContext context, IPermissionListViewModel viewModel) {
+    List<Widget> ret = [];
+
+    if (viewModel.hasError) {
+      return [];
+    }
+    ret.add(Center(
+      child: InkWell(
+          onTap: () async {
+            await viewModel.skipOrNext();
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            child: Row(children: [
+              FixedScaleText(
+                  text: Text("건너뛰기",
+                      style: TextStyle(color: Colors.blue, fontSize: 16))),
+              Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: Colors.blue,
+                size: 16,
+              )
+            ]),
+          )),
+    ));
+    return ret;
   }
 }
