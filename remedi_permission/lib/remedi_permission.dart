@@ -33,7 +33,7 @@ class PermissionManager {
     await Future.forEach<Permission>(_permissionList, (permission) async {
       PermissionStatus status = await permission.status;
       ret = ret &&
-          !(status == PermissionStatus.granted ||
+          (status == PermissionStatus.granted ||
               status == PermissionStatus.limited);
     });
     dev.log("allGranted = $ret", name: "PermissionManager");
