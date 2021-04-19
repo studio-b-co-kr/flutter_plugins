@@ -19,7 +19,9 @@ class PermissionManager {
 
   static List<Permission> get permissionList => _permissionList;
 
-  static init(List<Permission> permissionList) {}
+  static init(List<Permission> permissionList) {
+    _permissionList = permissionList;
+  }
 
   static Future<bool> get doNotShowPermissionOnSplash async =>
       await LocalStorage.instance().skipped || await allGranted;

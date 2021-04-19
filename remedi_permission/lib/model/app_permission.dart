@@ -5,9 +5,9 @@ class AppPermission {
   final Widget? icon;
   final String? title;
   final String? description;
-  final bool mandatory;
   final Permission permission;
   final String? errorDescription;
+  final bool mandatory;
 
   AppPermission(
     this.permission, {
