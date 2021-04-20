@@ -21,6 +21,7 @@ class AppConfig {
   static int? _osVersionSdk = 0;
   static String? _deviceManufacturer;
   static String? _deviceModel;
+  static String? appId;
 
   static bool get isRelease => _isRelease;
 
@@ -45,6 +46,7 @@ class AppConfig {
     return await Future.wait([
       _setPackageInfo(),
       _setDeviceInfo(),
+      _setAppId(),
     ]);
   }
 
@@ -121,7 +123,9 @@ class AppConfig {
     } on PlatformException {}
   }
 
-  static Future<String> get appId => AppRepository.instance().appId;
+  static Future _setAppId() async {
+    appId = await AppRepository.instance().appId;
+  }
 
   static void log() async {
     dev.log(baseUrl, name: "baseUrl");
