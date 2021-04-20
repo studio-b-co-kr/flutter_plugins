@@ -5,6 +5,7 @@ class AppleCredential extends IDto {
   final String? identityToken;
   final String? userIdentifier;
   final String authorizationCode;
+  String? fcmToken;
 
   AppleCredential(
       {this.email,
@@ -13,8 +14,11 @@ class AppleCredential extends IDto {
       required this.authorizationCode});
 
   @override
-  Map<String, dynamic> get toJson =>
-      {"sso_token": identityToken, "sso_provider": "apple"};
+  Map<String, dynamic> get toJson => {
+        "sso_token": identityToken,
+        "sso_provider": "apple",
+        "fcm_token": fcmToken
+      };
 
   factory AppleCredential.fromJson(
       {String? email,
