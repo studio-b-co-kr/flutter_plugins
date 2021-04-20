@@ -69,12 +69,13 @@ class _MyAppState extends State<MyApp> {
 
 class GoogleApiService extends DioGetApiService<String> {
   GoogleApiService({IClientFactory? clientFactory})
-      : super(clientFactory = DioFactory.noneAuth(
+      : super(clientFactory = DioFactory.auth(
           AppConfig.baseUrl,
           userAgent: AppConfig.platform,
           appVersion: AppConfig.appVersion,
           osVersion: AppConfig.osVersion,
           appId: AppConfig.appId,
+          authHeaderInterceptors: [AuthHeaderInterceptor(getToken())],
         ));
 
   @override
@@ -93,4 +94,8 @@ class GoogleApiDto extends IDto {
 
   @override
   Map<String, dynamic> get toJson => {"data": html};
+}
+
+Future<String> getToken() async {
+  return "";
 }

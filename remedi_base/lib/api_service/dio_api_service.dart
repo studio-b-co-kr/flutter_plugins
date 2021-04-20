@@ -191,40 +191,41 @@ abstract class _TransFormer<R> {
 
 class DioFactory extends IClientFactory<Dio> {
   final String baseUrl;
-  final String? accessToken;
   final bool enableLogging;
   final String? userAgent;
   final String? appVersion;
   final String? osVersion;
   final String? appId;
+  final List<Interceptor>? authHeaderInterceptors;
   final List<Interceptor>? interceptors;
 
   // final bool enableFirebasePerformance;
 
   DioFactory._(this.baseUrl,
-      {this.accessToken,
-      this.enableLogging = false,
+      {this.enableLogging = false,
       this.userAgent,
       this.appVersion,
       this.osVersion,
       this.appId,
+      this.authHeaderInterceptors,
       this.interceptors})
       : super(baseUrl: baseUrl);
 
-  factory DioFactory.auth(String baseUrl, String accessToken,
+  factory DioFactory.auth(String baseUrl,
           {bool enableLogging = false,
           required String userAgent,
           required String? appVersion,
           required String? osVersion,
           required String? appId,
+          required List<Interceptor> authHeaderInterceptors,
           List<Interceptor>? interceptors}) =>
       DioFactory._(baseUrl,
-          accessToken: accessToken,
           enableLogging: enableLogging,
           userAgent: userAgent,
           appVersion: appVersion,
           osVersion: osVersion,
           appId: appId,
+          authHeaderInterceptors: authHeaderInterceptors,
           interceptors: interceptors);
 
   factory DioFactory.noneAuth(String baseUrl,
@@ -247,10 +248,7 @@ class DioFactory extends IClientFactory<Dio> {
     Dio http = Dio();
     http.options.baseUrl = baseUrl;
     http.options.connectTimeout = 5000;
-    if (accessToken != null)
-      http.options.headers.addAll({
-        "Authorization": "Bearer $accessToken",
-      });
+
     if (userAgent != null)
       http.options.headers.addAll({'User-Agent': userAgent});
     if (appVersion != null)
@@ -266,6 +264,10 @@ class DioFactory extends IClientFactory<Dio> {
         responseBody: enableLogging,
         requestHeader: enableLogging,
         responseHeader: enableLogging));
+
+    authHeaderInterceptors?.map((interceptor) {
+      http.interceptors.add(interceptor);
+    });
 
     interceptors?.map((interceptor) {
       http.interceptors.add(interceptor);
@@ -286,4 +288,19 @@ _parseAndDecode(String response) {
 
 _parseJson(String text) {
   return compute(_parseAndDecode, text);
+}
+
+class AuthHeaderInterceptor extends Interceptor {
+  final Future<String?> token;
+
+  AuthHeaderInterceptor(this.token);
+
+  @override
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    options.headers.addAll({
+      "Authorization": "Bearer ${await token}",
+    });
+    return super.onRequest(options, handler);
+  }
 }
