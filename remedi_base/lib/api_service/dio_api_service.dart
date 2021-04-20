@@ -209,7 +209,7 @@ class DioFactory extends IClientFactory<Dio> {
       this.interceptors})
       : super(baseUrl: baseUrl);
 
-  factory DioFactory.auth(String baseUrl, Future<String> accessToken,
+  factory DioFactory.auth(String baseUrl, Future<String?> accessToken,
           {bool enableLogging = false,
           required String userAgent,
           required String? appVersion,
