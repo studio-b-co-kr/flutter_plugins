@@ -1,20 +1,18 @@
 library remedi_engage;
 
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'dart:developer' as dev;
 
-class Analytics {
-  final String eventName;
-  final Map<String, String>? params;
-  final bool enableLogging;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-  Analytics._(
-      {required this.eventName, this.enableLogging = true, this.params});
+class FcmManager {
+  static String? fcmToken;
 
-  factory Analytics.builder(String eventName, Map<String, String>? params) {
-    return Analytics._(eventName: eventName, params: params);
+  static init() async {
+    fcmToken = await FirebaseMessaging.instance.getToken();
+    dev.log("$fcmToken", name: "FirebaseMessaging.token");
   }
+}
 
-  log() async {
-    FirebaseAnalytics().logEvent(name: eventName, parameters: params);
-  }
+class BranchIoManager {
+
 }
