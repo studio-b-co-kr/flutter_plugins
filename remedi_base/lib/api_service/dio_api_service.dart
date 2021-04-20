@@ -193,6 +193,8 @@ class DioFactory extends IClientFactory<Dio> {
   final bool enableLogging;
   final String? userAgent;
   final String? appVersion;
+  final String? osVersion;
+  final String? appId;
   final List<Interceptor>? interceptors;
 
   // final bool enableFirebasePerformance;
@@ -202,6 +204,8 @@ class DioFactory extends IClientFactory<Dio> {
       this.enableLogging = false,
       this.userAgent,
       this.appVersion,
+      this.osVersion,
+      this.appId,
       this.interceptors})
       : super(baseUrl: baseUrl);
 
@@ -209,23 +213,31 @@ class DioFactory extends IClientFactory<Dio> {
           {bool enableLogging = false,
           required String userAgent,
           required String? appVersion,
+          required String? osVersion,
+          required String? appId,
           List<Interceptor>? interceptors}) =>
       DioFactory._(baseUrl,
           accessToken: accessToken,
           enableLogging: enableLogging,
           userAgent: userAgent,
           appVersion: appVersion,
+          osVersion: osVersion,
+          appId: appId,
           interceptors: interceptors);
 
   factory DioFactory.noneAuth(String baseUrl,
           {bool enableLogging = false,
           required String userAgent,
           required String? appVersion,
+          required String? osVersion,
+          required String? appId,
           List<Interceptor>? interceptors}) =>
       DioFactory._(baseUrl,
           enableLogging: enableLogging,
           userAgent: userAgent,
           appVersion: appVersion,
+          osVersion: osVersion,
+          appId: appId,
           interceptors: interceptors);
 
   @override
@@ -241,6 +253,10 @@ class DioFactory extends IClientFactory<Dio> {
       http.options.headers.addAll({'User-Agent': userAgent});
     if (appVersion != null)
       http.options.headers.addAll({'App-Version': appVersion});
+    if (osVersion != null)
+      http.options.headers.addAll({'Os-Version': osVersion});
+    if (appId != null) http.options.headers.addAll({'App-Id': appId});
+
     http.transformer = FlutterTransformer();
 
     http.interceptors.add(LogInterceptor(
