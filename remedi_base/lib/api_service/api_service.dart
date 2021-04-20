@@ -4,8 +4,12 @@
 /// R is Response of api request.
 abstract class IApiService<C, R> {
   late final C _client;
+  final IClientFactory clientFactory;
 
-  C get client => _client;
+  Future<C> get client async {
+    if (_client == null) _client = await clientFactory.build();
+    return _client;
+  }
 
   /// url path.
   String get path;
@@ -16,9 +20,7 @@ abstract class IApiService<C, R> {
   //request queries
   final Map<String, dynamic>? query;
 
-  IApiService(IClientFactory clientFactory, {this.body, this.query}) {
-    _client = clientFactory.build();
-  }
+  IApiService(this.clientFactory, {this.body, this.query});
 
   Future<R?> request({
     Function(dynamic) onSuccess,
@@ -35,7 +37,7 @@ abstract class IClientFactory<C> {
 
   IClientFactory({required this.baseUrl});
 
-  C build();
+  Future<C> build();
 }
 
 /// Data transfer object.

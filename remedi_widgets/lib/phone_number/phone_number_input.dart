@@ -54,8 +54,8 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
           validator: (input) {
             print("[REMEDI] validator:$input");
 
-            String? errorMessage =
-                PhoneNumberValidator.validate(widget.countryCode, formatter.unmasked);
+            String? errorMessage = PhoneNumberValidator.validate(
+                widget.countryCode, formatter.unmasked);
             return errorMessage;
           },
           inputFormatters: [

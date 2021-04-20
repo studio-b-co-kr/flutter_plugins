@@ -20,8 +20,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class MyHomePage extends ViewModelWidget<MyHomeViewModel> {
   MyHomePage({Key? key, MyHomeViewModel? viewModel})
       : super(key: key, viewModel: viewModel);

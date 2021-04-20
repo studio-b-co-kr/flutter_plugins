@@ -13,10 +13,8 @@ class AppleCredential extends IDto {
       required this.authorizationCode});
 
   @override
-  Map<String, dynamic> get toJson => {
-        "sso_token": identityToken,
-        "sso_provider": "apple"
-      };
+  Map<String, dynamic> get toJson =>
+      {"sso_token": identityToken, "sso_provider": "apple"};
 
   factory AppleCredential.fromJson(
       {String? email,

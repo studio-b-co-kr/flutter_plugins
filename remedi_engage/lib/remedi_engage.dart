@@ -13,6 +13,4 @@ class FcmManager {
   }
 }
 
-class BranchIoManager {
-
-}
+class BranchIoManager {}

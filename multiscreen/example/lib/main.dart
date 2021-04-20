@@ -21,12 +21,12 @@ class _MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<_MyPage> {
-
   @override
   Widget build(BuildContext context) {
     debugPrint('resize(20) = ${resize(20)}');
     return Container(
       color: Colors.white,
+
       /// resize using Multiscreen.
       margin: EdgeInsets.only(top: resize(80)),
       child: Align(
@@ -38,9 +38,7 @@ class _MyPageState extends State<_MyPage> {
             minWidth: resize(280),
             child: Text(
               'text',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: resize(16)),
+              style: TextStyle(color: Colors.white, fontSize: resize(16)),
             ),
             onPressed: () {},
           ),
@@ -50,9 +48,7 @@ class _MyPageState extends State<_MyPage> {
             minWidth: resize(300),
             child: Text(
               'text',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: resize(16)),
+              style: TextStyle(color: Colors.white, fontSize: resize(16)),
             ),
             onPressed: () {},
           ),
@@ -62,9 +58,7 @@ class _MyPageState extends State<_MyPage> {
             minWidth: resize(320),
             child: Text(
               'text',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: resize(16)),
+              style: TextStyle(color: Colors.white, fontSize: resize(16)),
             ),
             onPressed: () {},
           ),
@@ -74,9 +68,7 @@ class _MyPageState extends State<_MyPage> {
             minWidth: resize(340),
             child: Text(
               'text',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: resize(16)),
+              style: TextStyle(color: Colors.white, fontSize: resize(16)),
             ),
             onPressed: () {},
           ),
@@ -86,9 +78,7 @@ class _MyPageState extends State<_MyPage> {
             minWidth: resize(360),
             child: Text(
               'text',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0.resize360),
+              style: TextStyle(color: Colors.white, fontSize: 16.0.resize360),
             ),
             onPressed: () {},
           ),

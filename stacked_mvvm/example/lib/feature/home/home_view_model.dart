@@ -6,8 +6,7 @@ import '../../viewmodel/i_home_viewmodel.dart';
 class HomeViewModel extends IHomeViewModel {
   int _count = 0;
 
-  HomeViewModel({IHomeRepository? repository})
-      : super(repository: repository);
+  HomeViewModel({IHomeRepository? repository}) : super(repository: repository);
 
   @override
   int get count => _count;

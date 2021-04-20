@@ -70,7 +70,10 @@ class _MyAppState extends State<MyApp> {
 class GoogleApiService extends DioGetApiService<String> {
   GoogleApiService({IClientFactory? clientFactory})
       : super(clientFactory = DioFactory.noneAuth(AppConfig.baseUrl,
-            userAgent: AppConfig.platform, appVersion: AppConfig.appVersion));
+            userAgent: AppConfig.platform,
+            appVersion: AppConfig.appVersion,
+            osVersion: AppConfig.osVersion,
+            appId: AppConfig.appId));
 
   @override
   String get path => "";
