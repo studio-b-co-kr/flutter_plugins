@@ -20,7 +20,7 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await (await client).post<Map<String, dynamic>>(path,
+      res = await clientFactory.build().post<Map<String, dynamic>>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
@@ -49,7 +49,9 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await (await client).get<dynamic>(path, queryParameters: query);
+      res = await clientFactory
+          .build()
+          .get<dynamic>(path, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
         res = e.response;
@@ -78,7 +80,7 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await (await client).patch<Map<String, dynamic>>(path,
+      res = await clientFactory.build().patch<Map<String, dynamic>>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
@@ -108,7 +110,7 @@ abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await (await client).delete<Map<String, dynamic>>(path,
+      res = await clientFactory.build().delete<Map<String, dynamic>>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
@@ -150,7 +152,7 @@ class FileDownloadApiService extends IApiService<Dio, File> {
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     try {
-      await (await client).download(url, savePath, data: data?.toJson);
+      await clientFactory.build().download(url, savePath, data: data?.toJson);
       return File(path: savePath);
     } catch (error) {
       return null;
@@ -189,7 +191,7 @@ abstract class _TransFormer<R> {
 
 class DioFactory extends IClientFactory<Dio> {
   final String baseUrl;
-  final Future<String?>? accessToken;
+  final String? accessToken;
   final bool enableLogging;
   final String? userAgent;
   final String? appVersion;
@@ -209,7 +211,7 @@ class DioFactory extends IClientFactory<Dio> {
       this.interceptors})
       : super(baseUrl: baseUrl);
 
-  factory DioFactory.auth(String baseUrl, Future<String?> accessToken,
+  factory DioFactory.auth(String baseUrl, String accessToken,
           {bool enableLogging = false,
           required String userAgent,
           required String? appVersion,
@@ -241,13 +243,13 @@ class DioFactory extends IClientFactory<Dio> {
           interceptors: interceptors);
 
   @override
-  Future<Dio> build() async {
+  Dio build() {
     Dio http = Dio();
     http.options.baseUrl = baseUrl;
     http.options.connectTimeout = 5000;
     if (accessToken != null)
       http.options.headers.addAll({
-        "Authorization": "Bearer ${await accessToken}",
+        "Authorization": "Bearer $accessToken",
       });
     if (userAgent != null)
       http.options.headers.addAll({'User-Agent': userAgent});

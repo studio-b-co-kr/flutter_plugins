@@ -3,13 +3,7 @@
 /// C is Client in charge of http request/response. like Dio, Retrofit and etc.
 /// R is Response of api request.
 abstract class IApiService<C, R> {
-  late final C _client;
   final IClientFactory clientFactory;
-
-  Future<C> get client async {
-    if (_client == null) _client = await clientFactory.build();
-    return _client;
-  }
 
   /// url path.
   String get path;
@@ -37,7 +31,7 @@ abstract class IClientFactory<C> {
 
   IClientFactory({required this.baseUrl});
 
-  Future<C> build();
+  C build();
 }
 
 /// Data transfer object.
