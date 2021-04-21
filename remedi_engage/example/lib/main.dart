@@ -33,59 +33,20 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  await FcmManager.init();
+  await FcmManager.init(
+      onBackgroundMessage: (RemoteMessage message) async {
+        await Firebase.initializeApp();
+        dev.log('Handling a background message ${message.messageId}');
+      },
+      channel: channel);
 
-  if (Platform.isIOS) {
-    NotificationSettings settings =
-        await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-
-  // Set the background messaging handler early on, as a named top-level function
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  /// Create an Android Notification Channel.
-  ///
-  /// We use this channel in the `AndroidManifest.xml` file to override the
-  /// default FCM channel to enable heads up notifications.
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  /// Update the iOS foreground notification presentation options to allow
-  /// heads up notifications.
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  runApp(MyApp(
-    streams: [
-      FirebaseMessaging.onMessageOpenedApp,
-      FirebaseMessaging.onMessage,
-    ],
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
 
-  final List<Stream> streams = [];
-
-  MyApp({Key? key, List<Stream>? streams}) : super(key: key) {
-    if (streams == null || streams.isNotEmpty) {
-      this.streams.addAll(streams!);
-    }
-  }
+  MyApp({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
