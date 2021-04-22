@@ -1,4 +1,4 @@
-# remedi_base_example
+# example
 
 Demonstrates how to use the remedi_base plugin.
 

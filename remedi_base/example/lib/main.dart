@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as dev;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,21 @@ void main() async {
 
   AppConfig.log();
 
-  runApp(AppContainer(
+  runApp(AppWrapper(
     app: MaterialApp(
       home: MyApp(),
     ),
+    initialJobs: [
+      () {
+        dev.log("function 1");
+      },
+      () {
+        dev.log("function 2");
+      },
+      () {
+        dev.log("function 3");
+      }
+    ],
   ));
 }
 
