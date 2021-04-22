@@ -98,7 +98,7 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio>
 
 /// Delete Api
 abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio>
-    with _TransFormer<dynamic> {
+    with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
 
