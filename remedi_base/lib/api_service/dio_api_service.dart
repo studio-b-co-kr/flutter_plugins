@@ -165,7 +165,7 @@ class FileDownloadApiService extends IApiService<Dio, File> {
 
 abstract class _TransFormer<R> {
   /// json should be map<string,dynamic> or int, string, bool
-  R jsonTo(dynamic json);
+  R jsonToObject(dynamic json);
 
   handleResponse(
     Response? res, {
@@ -185,7 +185,7 @@ abstract class _TransFormer<R> {
       onSuccess(res);
     }
 
-    return jsonTo(res?.data);
+    return jsonToObject(res?.data);
   }
 }
 

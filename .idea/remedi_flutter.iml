@@ -19,8 +19,10 @@
       <excludeFolder url="file://$MODULE_DIR$/remedi_auth/build" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_auth/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_auth/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_base/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_base/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_base/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_base/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_base/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_base/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_engage/.pub" />
@@ -51,5 +53,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
+    <orderEntry type="library" name="Dart Packages" level="project" />
   </component>
 </module>

@@ -94,7 +94,7 @@ class GoogleApiService extends DioGetApiService<String> {
   String get path => "";
 
   @override
-  String jsonTo(dynamic json) {
+  String jsonToObject(dynamic json) {
     return json;
   }
 }
