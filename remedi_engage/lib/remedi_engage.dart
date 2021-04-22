@@ -78,33 +78,35 @@ class FcmManager {
 
   static handleOnMessage(
       {required AndroidNotificationChannelWrapperList channels}) {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       AppleNotification? apple = message.notification?.apple;
       // Android
       if (android != null) {
         if (notification != null) {
-          channels.channels
-              ?.forEach((AndroidNotificationChannelWrapper channel) {
-            if (channel.channel.id == android.channelId) {
-              _flutterLocalNotificationsPlugin.show(
-                  notification.hashCode,
-                  notification.title,
-                  notification.body,
-                  NotificationDetails(
-                    android: AndroidNotificationDetails(
-                      channel.id,
-                      channel.name,
-                      channel.description,
-                      icon: channel.icon,
-                    ),
-                  ));
-              return;
-            }
-          });
+          if (channels.channels != null) {
+            await Future.forEach(channels.channels!,
+                (AndroidNotificationChannelWrapper channel) async {
+              if (channel.channel.id == android.channelId) {
+                await _flutterLocalNotificationsPlugin.show(
+                    notification.hashCode,
+                    notification.title,
+                    notification.body,
+                    NotificationDetails(
+                      android: AndroidNotificationDetails(
+                        channel.id,
+                        channel.name,
+                        channel.description,
+                        icon: channel.icon,
+                      ),
+                    ));
+                return;
+              }
+            });
+          }
 
-          _flutterLocalNotificationsPlugin.show(
+          await _flutterLocalNotificationsPlugin.show(
               notification.hashCode,
               notification.title,
               notification.body,
@@ -121,7 +123,7 @@ class FcmManager {
 
       // apple (iphone, ipad)
       if (apple != null) {
-        _flutterLocalNotificationsPlugin.show(
+        await _flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification?.title,
             notification?.body,
