@@ -265,11 +265,11 @@ class DioFactory extends IClientFactory<Dio> {
         requestHeader: enableLogging,
         responseHeader: enableLogging));
 
-    authHeaderInterceptors?.forEach((interceptor) {
+    authHeaderInterceptors?.forEach((Interceptor interceptor) {
       http.interceptors.add(interceptor);
     });
 
-    interceptors?.forEach((interceptor) {
+    interceptors?.forEach((Interceptor interceptor) {
       http.interceptors.add(interceptor);
     });
 
