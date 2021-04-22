@@ -29,3 +29,10 @@ class ViewModel<VM, T extends ViewState> extends Cubit<T> {
 abstract class ViewState extends Enum<int> {
   const ViewState(int value) : super(value);
 }
+
+class ViewData<D, S> {
+  D? data;
+  S state;
+
+  ViewData({required this.state});
+}
