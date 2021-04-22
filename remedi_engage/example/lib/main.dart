@@ -5,15 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:remedi_base/remedi_base.dart';
 import 'package:remedi_engage/remedi_engage.dart';
 
-const List<AndroidNotificationChannelWrapper> channels = [
-  AndroidNotificationChannelWrapper(
-      channel: AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    'This channel is used for important notifications.', // description
-    importance: Importance.high,
-  ))
-];
+const AndroidNotificationChannelWrapperList channels =
+    AndroidNotificationChannelWrapperList(
+        defaultChannelId: 'high_importance_channel',
+        defaultChannelTitle: 'High Importance Notifications',
+        defaultChannelBody: 'This channel is used for important notifications.',
+        channels: [
+      AndroidNotificationChannelWrapper(
+          channel: AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        'This channel is used for important notifications.', // description
+        importance: Importance.high,
+      ))
+    ]);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +28,7 @@ void main() async {
   await FcmManager.init(
       onBackgroundMessage: (RemoteMessage message) async {
         await Firebase.initializeApp();
-        dev.log('Handling a background message ${message.messageId}');
+        dev.log('Handling a background message${message.messageId}');
       },
       channels: channels);
 

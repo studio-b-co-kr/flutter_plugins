@@ -18,19 +18,31 @@ class FcmManager {
 
   static init(
       {required Future Function(RemoteMessage message) onBackgroundMessage,
-      required List<AndroidNotificationChannelWrapper> channels}) async {
+      required AndroidNotificationChannelWrapperList channels}) async {
     fcmToken = await FirebaseMessaging.instance.getToken();
     dev.log("$fcmToken", name: "FirebaseMessaging.token");
 
     FcmManager.onBackgroundMessage = onBackgroundMessage;
 
-    await Future.forEach<AndroidNotificationChannelWrapper>(channels,
-        (channel) async {
+    if (channels.channels == null || channels.channels!.isEmpty) {
       await _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(channel.channel);
-    });
+          ?.createNotificationChannel(AndroidNotificationChannel(
+            channels.defaultChannelId, // id
+            channels.defaultChannelTitle, // title
+            channels.defaultChannelBody, // description
+            importance: Importance.high,
+          ));
+    } else {
+      await Future.forEach<AndroidNotificationChannelWrapper>(
+          channels.channels!, (channel) async {
+        await _flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.createNotificationChannel(channel.channel);
+      });
+    }
 
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
@@ -65,27 +77,56 @@ class FcmManager {
   }
 
   static handleOnMessage(
-      {required List<AndroidNotificationChannelWrapper> channels}) {
+      {required AndroidNotificationChannelWrapperList channels}) {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        channels.forEach((AndroidNotificationChannelWrapper channel) {
-          if (channel.channel.id == android.channelId) {
-            _flutterLocalNotificationsPlugin.show(
-                notification.hashCode,
-                notification.title,
-                notification.body,
-                NotificationDetails(
-                  android: AndroidNotificationDetails(
-                    channel.id,
-                    channel.name,
-                    channel.description,
-                    icon: channel.icon,
-                  ),
-                ));
-          }
-        });
+      AppleNotification? apple = message.notification?.apple;
+      // Android
+      if (android != null) {
+        if (notification != null) {
+          channels.channels
+              ?.forEach((AndroidNotificationChannelWrapper channel) {
+            if (channel.channel.id == android.channelId) {
+              _flutterLocalNotificationsPlugin.show(
+                  notification.hashCode,
+                  notification.title,
+                  notification.body,
+                  NotificationDetails(
+                    android: AndroidNotificationDetails(
+                      channel.id,
+                      channel.name,
+                      channel.description,
+                      icon: channel.icon,
+                    ),
+                  ));
+              return;
+            }
+          });
+
+          _flutterLocalNotificationsPlugin.show(
+              notification.hashCode,
+              notification.title,
+              notification.body,
+              NotificationDetails(
+                android: AndroidNotificationDetails(
+                  channels.defaultChannelId,
+                  channels.defaultChannelTitle,
+                  channels.defaultChannelBody,
+                ),
+              ));
+        }
+        return;
+      }
+
+      // apple (iphone, ipad)
+      if (apple != null) {
+        _flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification?.title,
+            notification?.body,
+            NotificationDetails(iOS: IOSNotificationDetails()));
+        return;
       }
     });
   }
@@ -97,6 +138,20 @@ class FcmManager {
       handler(message);
     });
   }
+}
+
+class AndroidNotificationChannelWrapperList {
+  final String defaultChannelId;
+  final String defaultChannelTitle;
+  final String defaultChannelBody;
+
+  final List<AndroidNotificationChannelWrapper>? channels;
+
+  const AndroidNotificationChannelWrapperList(
+      {required this.defaultChannelId,
+      required this.defaultChannelTitle,
+      required this.defaultChannelBody,
+      this.channels});
 }
 
 class AndroidNotificationChannelWrapper {
