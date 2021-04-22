@@ -7,7 +7,7 @@ import 'package:remedi_base/remedi_base.dart';
 import '../errors/app_error.dart';
 
 /// Post Api
-abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
+abstract class DioPostApiService<R extends IDto> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -16,7 +16,7 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request(
+  Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
@@ -37,7 +37,7 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
 }
 
 /// Get Api
-abstract class DioGetApiService<R> extends IApiService<Dio, R>
+abstract class DioGetApiService<R extends IDto> extends IApiService<Dio>
     with _TransFormer<R> {
   final Map<String, dynamic>? query;
 
@@ -45,7 +45,7 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request(
+  Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
@@ -67,7 +67,7 @@ abstract class DioGetApiService<R> extends IApiService<Dio, R>
 }
 
 /// Patch Api
-abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
+abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -76,7 +76,7 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request(
+  Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
@@ -97,8 +97,8 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
 }
 
 /// Delete Api
-abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
-    with _TransFormer<R> {
+abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio>
+    with _TransFormer<dynamic> {
   final IDto? data;
   final Map<String, dynamic>? query;
 
@@ -106,7 +106,7 @@ abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
       : super(clientFactory);
 
   @override
-  Future<R> request(
+  Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
@@ -136,7 +136,7 @@ class File extends IDto {
 }
 
 /// File Download Api
-class FileDownloadApiService extends IApiService<Dio, File> {
+class FileDownloadApiService extends IApiService<Dio> {
   final url;
   final IDto? data;
   final String savePath;
@@ -149,7 +149,7 @@ class FileDownloadApiService extends IApiService<Dio, File> {
   }) : super(clientFactory);
 
   @override
-  Future<File?> request(
+  Future<dynamic> request(
       {Function(Response response)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
@@ -165,7 +165,7 @@ class FileDownloadApiService extends IApiService<Dio, File> {
   String get path => "";
 }
 
-abstract class _TransFormer<R> {
+abstract class _TransFormer<R extends IDto> {
   /// json should be map<string,dynamic> or int, string, bool
   R jsonToObject(dynamic json);
 

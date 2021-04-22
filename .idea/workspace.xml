@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="93b2b27e-b6fc-48fa-9799-7ce6efb10836" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -2,7 +2,7 @@
 ///
 /// C is Client in charge of http request/response. like Dio, Retrofit and etc.
 /// R is Response of api request.
-abstract class IApiService<C, R> {
+abstract class IApiService<C> {
   final IClientFactory clientFactory;
 
   /// url path.
@@ -16,7 +16,7 @@ abstract class IApiService<C, R> {
 
   IApiService(this.clientFactory, {this.body, this.query});
 
-  Future<R?> request({
+  Future<dynamic> request({
     Function(dynamic) onSuccess,
     Function(dynamic) onFail,
     Function(dynamic) onError,
