@@ -18,9 +18,19 @@ class FcmManager {
 
   static init(
       {required Future Function(RemoteMessage message) onBackgroundMessage,
-      required AndroidNotificationChannelWrapperList channels}) async {
+      required AndroidNotificationChannelWrapperList channels,
+      String androidDefaultIcon = 'mipmap/ic_launcher'}) async {
     fcmToken = await FirebaseMessaging.instance.getToken();
     dev.log("$fcmToken", name: "FirebaseMessaging.token");
+
+    AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings(
+            androidDefaultIcon); // <- default icon name is @mipmap/ic_launcher
+    IOSInitializationSettings initializationSettingsIOS =
+        IOSInitializationSettings();
+    InitializationSettings initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
     FcmManager.onBackgroundMessage = onBackgroundMessage;
 

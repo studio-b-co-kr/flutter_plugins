@@ -35,9 +35,11 @@ void main() async {
   runApp(AppWrapper(
     app: MaterialApp(home: MyHomePage()),
     initialJobs: [
-      FcmManager.handleInitialMessage(handler: (RemoteMessage message) {}),
-      FcmManager.handleOnMessage(channels: channels),
-      FcmManager.handleOnMessageOpenedApp(handler: (RemoteMessage message) {})
+      () =>
+          FcmManager.handleInitialMessage(handler: (RemoteMessage message) {}),
+      () => FcmManager.handleOnMessage(channels: channels),
+      () => FcmManager.handleOnMessageOpenedApp(
+          handler: (RemoteMessage message) {})
     ],
   ));
 }
@@ -62,9 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title!),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
