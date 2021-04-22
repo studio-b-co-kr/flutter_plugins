@@ -9,10 +9,7 @@ class AppWrapper extends StatefulWidget {
   final Function? dispose;
 
   AppWrapper(
-      {Key? key,
-      required this.app,
-      List<Function()>? initialJobs,
-      this.dispose})
+      {Key? key, required this.app, List<Function>? initialJobs, this.dispose})
       : super(key: key) {
     if (initialJobs != null && initialJobs.isNotEmpty) {
       this.initialJobs.addAll(initialJobs);
