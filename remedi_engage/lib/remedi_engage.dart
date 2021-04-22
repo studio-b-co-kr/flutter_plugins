@@ -31,7 +31,7 @@ class FcmManager {
           ?.createNotificationChannel(AndroidNotificationChannel(
             channels.defaultChannelId, // id
             channels.defaultChannelTitle, // title
-            channels.defaultChannelBody, // description
+            channels.defaultChannelBody, //// description
             importance: Importance.high,
           ));
     } else {
@@ -86,10 +86,10 @@ class FcmManager {
       if (android != null) {
         if (notification != null) {
           if (channels.channels != null) {
-            await Future.forEach(channels.channels!,
+            Future.forEach(channels.channels!,
                 (AndroidNotificationChannelWrapper channel) async {
               if (channel.channel.id == android.channelId) {
-                await _flutterLocalNotificationsPlugin.show(
+                _flutterLocalNotificationsPlugin.show(
                     notification.hashCode,
                     notification.title,
                     notification.body,
@@ -106,7 +106,7 @@ class FcmManager {
             });
           }
 
-          await _flutterLocalNotificationsPlugin.show(
+          _flutterLocalNotificationsPlugin.show(
               notification.hashCode,
               notification.title,
               notification.body,
@@ -115,6 +115,7 @@ class FcmManager {
                   channels.defaultChannelId,
                   channels.defaultChannelTitle,
                   channels.defaultChannelBody,
+                  icon: channels.defaultIcon,
                 ),
               ));
         }
@@ -123,7 +124,7 @@ class FcmManager {
 
       // apple (iphone, ipad)
       if (apple != null) {
-        await _flutterLocalNotificationsPlugin.show(
+        _flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification?.title,
             notification?.body,
@@ -146,6 +147,7 @@ class AndroidNotificationChannelWrapperList {
   final String defaultChannelId;
   final String defaultChannelTitle;
   final String defaultChannelBody;
+  final String? defaultIcon;
 
   final List<AndroidNotificationChannelWrapper>? channels;
 
@@ -153,6 +155,7 @@ class AndroidNotificationChannelWrapperList {
       {required this.defaultChannelId,
       required this.defaultChannelTitle,
       required this.defaultChannelBody,
+      this.defaultIcon,
       this.channels});
 }
 
