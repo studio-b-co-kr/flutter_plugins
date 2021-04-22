@@ -1,32 +1,21 @@
-import 'dart:async';
 import 'dart:developer' as dev;
-import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:remedi_base/remedi_base.dart';
 import 'package:remedi_engage/remedi_engage.dart';
 
-/// Define a top-level named handler which background/terminated messages will
-/// call.
-///
-/// To verify things are working, check out the native platform logs.
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  dev.log('Handling a background message ${message.messageId}');
-}
-
-/// Create a [AndroidNotificationChannel] for heads up notifications
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel', // id
-  'High Importance Notifications', // title
-  'This channel is used for important notifications.', // description
-  importance: Importance.high,
-);
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+const List<AndroidNotificationChannelWrapper> channels = [
+  AndroidNotificationChannelWrapper(
+      channel: AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    'This channel is used for important notifications.', // description
+    importance: Importance.high,
+  ))
+];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,73 +27,16 @@ void main() async {
         await Firebase.initializeApp();
         dev.log('Handling a background message ${message.messageId}');
       },
-      channel: channel);
+      channels: channels);
 
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
-
-  MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return MyAppState();
-  }
-}
-
-class MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) {
-      if (message != null) {
-        // TODO do something...
-        dev.log("FirebaseMessaging.instance.initialMessage",
-            name: "MyAppState");
-      }
-    });
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      dev.log("FirebaseMessaging.onMessage.listen", name: "MyAppState");
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channel.description,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
-                icon: 'launch_background',
-              ),
-            ));
-      }
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      dev.log("FirebaseMessaging.onMessageOpenedApp.listen",
-          name: "MyAppState");
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage(title: 'Flutter Demo Home Page'));
-  }
+  runApp(AppWrapper(
+    app: MaterialApp(home: MyHomePage()),
+    initialJobs: [
+      FcmManager.handleInitialMessage(handler: (RemoteMessage message) {}),
+      FcmManager.handleOnMessage(channels: channels),
+      FcmManager.handleOnMessageOpenedApp(handler: (RemoteMessage message) {})
+    ],
+  ));
 }
 
 class MyHomePage extends StatefulWidget {
