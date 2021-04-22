@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:remedi_base/remedi_base.dart';
 
+import '../errors/app_error.dart';
+
 /// Post Api
 abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
     with _TransFormer<R> {
@@ -167,7 +169,7 @@ abstract class _TransFormer<R> {
   /// json should be map<string,dynamic> or int, string, bool
   R jsonToObject(dynamic json);
 
-  handleResponse(
+  dynamic handleResponse(
     Response? res, {
     Function(dynamic)? onSuccess,
     Function(dynamic)? onFail,
@@ -175,10 +177,15 @@ abstract class _TransFormer<R> {
   }) {
     if (res == null) {
       if (onFail != null) onFail(res);
+      return AppError(code: "FAIL", message: "response is null", title: "FAIL");
     }
 
     if (!"${res?.statusCode}".startsWith("20")) {
       if (onError != null) onError(res);
+      return AppError(
+          code: "res?.statusCode",
+          message: res?.data,
+          title: res?.statusMessage);
     }
 
     if (onSuccess != null) {
