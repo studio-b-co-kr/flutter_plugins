@@ -20,3 +20,5 @@ part 'base_widget.dart';
 part 'binding_view.dart';
 
 part 'list_view.dart';
+
+part 'view_data.dart';
