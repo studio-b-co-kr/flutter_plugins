@@ -23,6 +23,16 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
+  <component name="RunManager" selected="Flutter.base-example">
+    <list>
+      <item itemvalue="Flutter.base-example" />
+      <item itemvalue="Flutter.engage-exmaple" />
+      <item itemvalue="Flutter.auth-exmaple" />
+      <item itemvalue="Flutter.permission-exmaple" />
+      <item itemvalue="Flutter.analytics-exmaple" />
+      <item itemvalue="Flutter.splash-exmaple" />
+    </list>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>

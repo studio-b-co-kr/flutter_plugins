@@ -180,19 +180,19 @@ abstract class _TransFormer<R extends IDto> {
       return AppError(code: "FAIL", message: "response is null", title: "FAIL");
     }
 
-    if (!"${res?.statusCode}".startsWith("20")) {
+    if (!"${res.statusCode}".startsWith("20")) {
       if (onError != null) onError(res);
       return AppError(
-          code: "res?.statusCode",
-          message: res?.data,
-          title: res?.statusMessage);
+          code: "${res.statusCode}",
+          message: res.data,
+          title: res.statusMessage);
     }
 
     if (onSuccess != null) {
       onSuccess(res);
     }
 
-    return jsonToObject(res?.data);
+    return jsonToObject(res.data);
   }
 }
 
