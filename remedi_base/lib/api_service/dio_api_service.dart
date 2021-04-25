@@ -7,7 +7,7 @@ import 'package:remedi_base/remedi_base.dart';
 import '../errors/app_error.dart';
 
 /// Post Api
-abstract class DioPostApiService<R extends IDto> extends IApiService<Dio>
+abstract class DioPostApiService<R extends IDto?> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -37,7 +37,7 @@ abstract class DioPostApiService<R extends IDto> extends IApiService<Dio>
 }
 
 /// Get Api
-abstract class DioGetApiService<R extends IDto> extends IApiService<Dio>
+abstract class DioGetApiService<R extends IDto?> extends IApiService<Dio>
     with _TransFormer<R> {
   final Map<String, dynamic>? query;
 
@@ -67,7 +67,7 @@ abstract class DioGetApiService<R extends IDto> extends IApiService<Dio>
 }
 
 /// Patch Api
-abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio>
+abstract class DioPatchApiService<R extends IDto?> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -97,7 +97,7 @@ abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio>
 }
 
 /// Delete Api
-abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio>
+abstract class DioDeleteApiService<R extends IDto?> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -165,7 +165,7 @@ class FileDownloadApiService extends IApiService<Dio> {
   String get path => "";
 }
 
-abstract class _TransFormer<R extends IDto> {
+abstract class _TransFormer<R extends IDto?> {
   /// json should be map<string,dynamic> or int, string, bool
   R jsonToObject(dynamic json);
 
@@ -190,6 +190,21 @@ abstract class _TransFormer<R extends IDto> {
 
     if (onSuccess != null) {
       onSuccess(res);
+    }
+
+    // support json as String
+    if (res.data is String) {
+      return res.data;
+    }
+
+    // support json as bool
+    if (res.data is bool) {
+      return res.data;
+    }
+
+    // 204(no-content) code - response data is null
+    if (res.data == null) {
+      return res.data;
     }
 
     return jsonToObject(res.data);
