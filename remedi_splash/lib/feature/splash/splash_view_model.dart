@@ -66,6 +66,13 @@ class SplashViewModel extends ISplashViewModel {
   afterForceUpdate() async {
     dev.log("afterForceUpdate", name: "SplashViewModel : run");
     var ret = await repository.isCompletedIntro();
+
+    if (ret is AppError) {
+      _error = ret;
+      update(state: SplashViewState.Error);
+      return;
+    }
+
     if (ret) {
       afterIntro();
       return;
@@ -102,6 +109,18 @@ class SplashViewModel extends ISplashViewModel {
   afterLogin() async {
     dev.log("afterLogin", name: "SplashViewModel : run");
     var ret = await repository.isCompletedOnboarding();
+
+    if (ret is AppError) {
+      if (ret.code == "401") {
+        update(state: SplashViewState.Login);
+        return;
+      }
+
+      _error = ret;
+      update(state: SplashViewState.Error);
+      return;
+    }
+
     if (ret) {
       afterOnboarding();
       return;
@@ -122,6 +141,11 @@ class SplashViewModel extends ISplashViewModel {
     var ret = await repository.readyToService();
 
     if (ret is AppError) {
+      if (ret.code == "401") {
+        update(state: SplashViewState.Login);
+        return;
+      }
+
       _error = ret;
       update(state: SplashViewState.Error);
       return;

@@ -7,11 +7,11 @@ abstract class ISplashRepository extends BaseRepository {
 
   Future<bool> isCompletedPermissionGrant();
 
-  Future<bool> isCompletedIntro();
+  Future<dynamic> isCompletedIntro();
 
   Future<bool> isLoggedIn();
 
-  Future<bool> isCompletedOnboarding();
+  Future<dynamic> isCompletedOnboarding();
 
   Future<dynamic> readyToService();
 }
