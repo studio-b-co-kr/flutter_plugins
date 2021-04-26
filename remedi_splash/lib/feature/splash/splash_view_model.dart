@@ -96,6 +96,8 @@ class SplashViewModel extends ISplashViewModel {
   @override
   afterPermission() async {
     dev.log("afterPermission", name: "SplashViewModel : run");
+    await repository.afterPermission();
+    
     var ret = await repository.isLoggedIn();
     if (ret) {
       afterLogin();

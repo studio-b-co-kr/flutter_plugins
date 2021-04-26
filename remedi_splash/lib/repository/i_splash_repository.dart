@@ -14,4 +14,6 @@ abstract class ISplashRepository extends BaseRepository {
   Future<dynamic> isCompletedOnboarding();
 
   Future<dynamic> readyToService();
+
+  Future<dynamic> afterPermission();
 }
