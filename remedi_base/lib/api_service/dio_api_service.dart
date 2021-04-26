@@ -22,7 +22,7 @@ abstract class DioPostApiService<R extends IDto?> extends IApiService<Dio>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await clientFactory.build().post<Map<String, dynamic>>(path,
+      res = await clientFactory.build().post<dynamic>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
@@ -82,7 +82,7 @@ abstract class DioPatchApiService<R extends IDto?> extends IApiService<Dio>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await clientFactory.build().patch<Map<String, dynamic>>(path,
+      res = await clientFactory.build().patch<dynamic>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
@@ -112,7 +112,7 @@ abstract class DioDeleteApiService<R extends IDto?> extends IApiService<Dio>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await clientFactory.build().delete<Map<String, dynamic>>(path,
+      res = await clientFactory.build().delete<dynamic>(path,
           data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
@@ -192,7 +192,7 @@ abstract class _TransFormer<R extends IDto?> {
       onSuccess(res);
     }
 
-    if(res.statusCode == 204) {
+    if (res.statusCode == 204) {
       return null;
     }
 
