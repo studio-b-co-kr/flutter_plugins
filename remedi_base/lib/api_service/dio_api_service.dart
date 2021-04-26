@@ -192,6 +192,10 @@ abstract class _TransFormer<R extends IDto?> {
       onSuccess(res);
     }
 
+    if(res.statusCode == 204) {
+      return null;
+    }
+
     // support json as String
     if (res.data is String) {
       return res.data;
