@@ -282,6 +282,7 @@ class DioFactory extends IClientFactory<Dio> {
     if (osVersion != null)
       http.options.headers.addAll({'Os-Version': osVersion});
     if (appId != null) http.options.headers.addAll({'App-Id': appId});
+    http.options.headers.addAll({'Accept': 'application/json'});
 
     http.transformer = FlutterTransformer();
 
