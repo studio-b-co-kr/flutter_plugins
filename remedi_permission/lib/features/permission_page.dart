@@ -115,8 +115,8 @@ class PermissionView extends BindingView<IPermissionViewModel> {
     );
   }
 
-  _onSkip(BuildContext context) async {
-    Navigator.of(context).pop("skip");
+  _onSkip(BuildContext context, String result) async {
+    Navigator.of(context).pop(result);
   }
 
   Widget _errorMessage(IPermissionViewModel viewModel) {
@@ -153,7 +153,8 @@ class PermissionView extends BindingView<IPermissionViewModel> {
 
     ret.add(Container(
         child: TextButton(
-            onPressed: () async => await _onSkip(context),
+            onPressed: () async => await _onSkip(
+                context, viewModel.repository.isGranted ? "granted" : "skip"),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
