@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="16d1ac47-d817-42a7-87b2-6f1dd96de0b9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_permission/lib/features/permission_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_permission/lib/features/permission_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,9 +54,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="413" y="-953" width="913" height="490" key="find.popup" timestamp="1619424777566">
+    <state x="413" y="-953" width="913" height="490" key="find.popup" timestamp="1619516117818">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state x="413" y="-953" width="913" height="490" key="find.popup/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619424777566" />
+    <state x="413" y="-953" width="913" height="490" key="find.popup/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619516117818" />
   </component>
 </project>

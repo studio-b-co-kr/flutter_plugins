@@ -62,27 +62,30 @@ class PermissionView extends BindingView<IPermissionViewModel> {
             actions: [..._buildSkip(context, viewModel)],
           ),
           body: SafeArea(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Spacer(flex: 1),
-                  viewModel.icon(size: 60),
-                  Container(
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      child: Text(viewModel.title,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Spacer(flex: 1),
+                    viewModel.icon(size: 60),
+                    Container(
+                        margin: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(viewModel.title,
+                            style: TextStyle(
+                                fontSize: 28, color: Colors.grey.shade700))),
+                    Expanded(
+                        flex: 2,
+                        child: Center(
+                            child: Text(
+                          viewModel.description,
                           style: TextStyle(
-                              fontSize: 28, color: Colors.grey.shade700))),
-                  Expanded(
-                      flex: 2,
-                      child: Center(
-                          child: Text(
-                        viewModel.description,
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.grey.shade900),
-                      ))),
-                  _errorMessage(viewModel),
-                  _buildButton(context, viewModel),
-                ]),
+                              fontSize: 16, color: Colors.grey.shade900),
+                        ))),
+                    _errorMessage(viewModel),
+                    _buildButton(context, viewModel),
+                  ]),
+            ),
           ),
         ),
         onWillPop: () async => false);
