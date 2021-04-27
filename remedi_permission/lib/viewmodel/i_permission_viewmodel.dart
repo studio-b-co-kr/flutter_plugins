@@ -55,5 +55,5 @@ enum PermissionViewState {
   /// Mandatory but denied or permanently denied.
   Error,
   Disabled,
-  Exit,
+  grantedAndExit,
 }

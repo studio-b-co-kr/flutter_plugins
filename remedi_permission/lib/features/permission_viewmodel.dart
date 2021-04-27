@@ -35,7 +35,7 @@ class PermissionViewModel extends IPermissionViewModel {
         await repository.request();
         if (repository.status == PermissionStatus.limited ||
             repository.status == PermissionStatus.granted) {
-          update(state: PermissionViewState.Exit);
+          update(state: PermissionViewState.grantedAndExit);
         }
         break;
 

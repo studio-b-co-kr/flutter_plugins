@@ -131,7 +131,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       case PermissionViewState.Error:
         ret = Colors.red.shade50;
         break;
-      case PermissionViewState.Exit:
+      case PermissionViewState.grantedAndExit:
         break;
     }
     return ret;
@@ -159,7 +159,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       case PermissionViewState.Restricted:
       case PermissionViewState.Disabled:
         break;
-      case PermissionViewState.Exit:
+      case PermissionViewState.grantedAndExit:
         break;
     }
     return Icon(

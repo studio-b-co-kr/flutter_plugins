@@ -41,8 +41,8 @@ class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
         break;
       case PermissionViewState.Disabled:
         break;
-      case PermissionViewState.Exit:
-        Navigator.of(context).pop();
+      case PermissionViewState.grantedAndExit:
+        Navigator.of(context).pop("granted");
         break;
     }
   }
