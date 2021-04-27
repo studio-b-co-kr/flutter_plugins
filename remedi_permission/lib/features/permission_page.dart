@@ -70,10 +70,16 @@ class PermissionView extends BindingView<IPermissionViewModel> {
                   Container(
                       margin: EdgeInsets.symmetric(vertical: 8),
                       child: Text(viewModel.title,
-                          style: TextStyle(fontSize: 28))),
+                          style: TextStyle(
+                              fontSize: 28, color: Colors.grey.shade700))),
                   Expanded(
                       flex: 2,
-                      child: Center(child: Text(viewModel.description))),
+                      child: Center(
+                          child: Text(
+                        viewModel.description,
+                        style: TextStyle(
+                            fontSize: 16, color: Colors.grey.shade900),
+                      ))),
                   _errorMessage(viewModel),
                   _buildButton(context, viewModel),
                 ]),
