@@ -22,8 +22,9 @@ abstract class DioPostApiService<R extends IDto?> extends IApiService<Dio>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await clientFactory.build().post<dynamic>(path,
-          data: data?.toJson, queryParameters: query);
+      res = await clientFactory
+          .build()
+          .post<dynamic>(path, data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
         res = e.response;
@@ -82,8 +83,9 @@ abstract class DioPatchApiService<R extends IDto?> extends IApiService<Dio>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await clientFactory.build().patch<dynamic>(path,
-          data: data?.toJson, queryParameters: query);
+      res = await clientFactory
+          .build()
+          .patch<dynamic>(path, data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
         res = e.response;
@@ -112,8 +114,9 @@ abstract class DioDeleteApiService<R extends IDto?> extends IApiService<Dio>
       Function(dynamic)? onError}) async {
     var res;
     try {
-      res = await clientFactory.build().delete<dynamic>(path,
-          data: data?.toJson, queryParameters: query);
+      res = await clientFactory
+          .build()
+          .delete<dynamic>(path, data: data?.toJson, queryParameters: query);
     } catch (e) {
       if (e is DioError) {
         res = e.response;

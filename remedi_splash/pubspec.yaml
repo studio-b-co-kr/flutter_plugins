@@ -34,7 +34,7 @@ dependencies:
       path: remedi_base/
 
   #svg loader
-  flutter_svg: ^0.21.0+1
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:

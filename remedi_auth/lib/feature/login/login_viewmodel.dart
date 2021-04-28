@@ -177,8 +177,9 @@ class LoginViewModel extends ILoginViewModel {
       this.error =
           AuthError(title: title, code: code, message: message, error: error);
 
-      if (message == "cancelled." || title ==
-          "The operation couldn’t be completed. (KakaoSDKCommon.SdkError error 0.)")  {
+      if (message == "cancelled." ||
+          title ==
+              "The operation couldn’t be completed. (KakaoSDKCommon.SdkError error 0.)") {
         update(state: LoginViewState.Idle);
       } else {
         update(state: LoginViewState.Error);
