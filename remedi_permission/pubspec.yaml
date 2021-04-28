@@ -12,9 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: ^6.1.1
+  permission_handler: ^7.0.0
 
-  flutter_secure_storage: ^4.1.0
+  flutter_secure_storage: ^4.2.0
 
   stacked_mvvm:
     git:
