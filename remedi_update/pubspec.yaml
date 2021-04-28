@@ -35,7 +35,7 @@ dependencies:
       path: store_redirect/
 
   #svg loader
-  flutter_svg: ^0.21.0+1
+  flutter_svg: ^0.22.0
 
   # multi-resolution support.
   multiscreen:
