@@ -26,7 +26,7 @@ class MultiFormatImage extends StatelessWidget {
 
   factory MultiFormatImage.asset(
     String asset, {
-    required format,
+    required ImageFormat format,
     double? width,
     double? height,
     BoxFit? fit,
@@ -43,7 +43,7 @@ class MultiFormatImage extends StatelessWidget {
 
   factory MultiFormatImage.network(
     String url, {
-    required format,
+    required ImageFormat format,
     double? width,
     double? height,
     BoxFit? fit,
