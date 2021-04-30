@@ -21,7 +21,8 @@ class MultiFormatImage extends StatelessWidget {
       required this.resource,
       required this.format,
       required this.resourceType})
-      : assert(format == ImageFormat.svg && fit != null),
+      : assert(format == ImageFormat.others ||
+            (format == ImageFormat.svg && fit != null)),
         super(key: key);
 
   factory MultiFormatImage.asset(
