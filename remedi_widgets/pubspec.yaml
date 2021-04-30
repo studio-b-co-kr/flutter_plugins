@@ -17,6 +17,10 @@ dependencies:
   # phone number input.
   flutter_multi_formatter: ^2.0.3
 
+  # network image
+  flutter_svg: ^0.22.0
+  extended_image: ^4.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
