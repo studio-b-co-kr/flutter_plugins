@@ -7,7 +7,7 @@ import 'package:remedi_base/remedi_base.dart';
 import '../errors/app_error.dart';
 
 /// Post Api
-abstract class DioPostApiService<R extends IDto?> extends IApiService<Dio>
+abstract class DioPostApiService<R extends dynamic> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -38,7 +38,7 @@ abstract class DioPostApiService<R extends IDto?> extends IApiService<Dio>
 }
 
 /// Get Api
-abstract class DioGetApiService<R extends IDto?> extends IApiService<Dio>
+abstract class DioGetApiService<R extends dynamic> extends IApiService<Dio>
     with _TransFormer<R> {
   final Map<String, dynamic>? query;
 
@@ -68,7 +68,7 @@ abstract class DioGetApiService<R extends IDto?> extends IApiService<Dio>
 }
 
 /// Patch Api
-abstract class DioPatchApiService<R extends IDto?> extends IApiService<Dio>
+abstract class DioPatchApiService<R extends dynamic> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -99,7 +99,7 @@ abstract class DioPatchApiService<R extends IDto?> extends IApiService<Dio>
 }
 
 /// Delete Api
-abstract class DioDeleteApiService<R extends IDto?> extends IApiService<Dio>
+abstract class DioDeleteApiService<R extends dynamic> extends IApiService<Dio>
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
@@ -168,7 +168,7 @@ class FileDownloadApiService extends IApiService<Dio> {
   String get path => "";
 }
 
-abstract class _TransFormer<R extends IDto?> {
+abstract class _TransFormer<R> {
   /// json should be map<string,dynamic> or int, string, bool
   R jsonToObject(dynamic json);
 

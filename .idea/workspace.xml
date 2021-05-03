@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16d1ac47-d817-42a7-87b2-6f1dd96de0b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/remedi_widgets/lib/remedi_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_widgets/lib/remedi_widgets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

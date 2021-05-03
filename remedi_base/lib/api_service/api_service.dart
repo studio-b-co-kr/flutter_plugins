@@ -40,5 +40,5 @@ abstract class IDto {
 
   // factory IDto.fromJson(dynamic? jsonMap);
 
-  Map<String, dynamic>? get toJson;
+  dynamic get toJson;
 }
