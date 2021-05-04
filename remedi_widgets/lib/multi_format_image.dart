@@ -31,6 +31,7 @@ class MultiFormatImage extends StatelessWidget {
     double? width,
     double? height,
     BoxFit? fit,
+    Color? color,
   }) {
     return MultiFormatImage._(
       resource: asset,
@@ -38,6 +39,7 @@ class MultiFormatImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      color: color,
       resourceType: ResourceType.asset,
     );
   }
@@ -48,6 +50,7 @@ class MultiFormatImage extends StatelessWidget {
     double? width,
     double? height,
     BoxFit? fit,
+    Color? color,
   }) {
     return MultiFormatImage._(
       resource: url,
@@ -55,6 +58,7 @@ class MultiFormatImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      color: color,
       resourceType: ResourceType.network,
     );
   }
