@@ -18,7 +18,10 @@ abstract class BaseViewModel<S, R extends BaseRepository>
     if (state != null) {
       this.state = state;
     }
-    notifyListeners();
+
+    try {
+      notifyListeners();
+    } catch (_) {}
   }
 
   init() async {
