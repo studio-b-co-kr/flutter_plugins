@@ -12,28 +12,23 @@ abstract class DioPostApiService<R extends dynamic> extends IApiService<Dio>
   final IDto? data;
   final Map<String, dynamic>? query;
 
-  DioPostApiService(IClientFactory clientFactory, {this.data, this.query})
-      : super(clientFactory);
+  DioPostApiService(IClientBuilder<Dio> clientBuilder, {this.data, this.query})
+      : super(clientBuilder);
 
   @override
   Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res;
-    try {
-      res = await clientFactory
-          .build()
-          .post<dynamic>(path, data: data?.toJson, queryParameters: query);
-    } catch (e) {
-      if (e is DioError) {
-        res = e.response;
-      } else {
-        res = e;
-      }
-    }
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
+    return handleResponse(
+        await clientBuilder.post(
+          path,
+          data: data?.toJson,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
   }
 }
 
@@ -42,28 +37,22 @@ abstract class DioGetApiService<R extends dynamic> extends IApiService<Dio>
     with _TransFormer<R> {
   final Map<String, dynamic>? query;
 
-  DioGetApiService(IClientFactory clientFactory, {this.query})
-      : super(clientFactory);
+  DioGetApiService(IClientBuilder<Dio> clientBuilder, {this.query})
+      : super(clientBuilder);
 
   @override
   Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res;
-    try {
-      res = await clientFactory
-          .build()
-          .get<dynamic>(path, queryParameters: query);
-    } catch (e) {
-      if (e is DioError) {
-        res = e.response;
-      } else {
-        res = e;
-      }
-    }
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
+    return handleResponse(
+        await clientBuilder.get(
+          path,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
   }
 }
 
@@ -73,28 +62,23 @@ abstract class DioPatchApiService<R extends dynamic> extends IApiService<Dio>
   final IDto? data;
   final Map<String, dynamic>? query;
 
-  DioPatchApiService(IClientFactory clientFactory, {this.data, this.query})
-      : super(clientFactory);
+  DioPatchApiService(IClientBuilder<Dio> clientBuilder, {this.data, this.query})
+      : super(clientBuilder);
 
   @override
   Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res;
-    try {
-      res = await clientFactory
-          .build()
-          .patch<dynamic>(path, data: data?.toJson, queryParameters: query);
-    } catch (e) {
-      if (e is DioError) {
-        res = e.response;
-      } else {
-        res = e;
-      }
-    }
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
+    return handleResponse(
+        await clientBuilder.patch(
+          path,
+          data: data?.toJson,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
   }
 }
 
@@ -104,28 +88,24 @@ abstract class DioDeleteApiService<R extends dynamic> extends IApiService<Dio>
   final IDto? data;
   final Map<String, dynamic>? query;
 
-  DioDeleteApiService(IClientFactory clientFactory, {this.data, this.query})
-      : super(clientFactory);
+  DioDeleteApiService(IClientBuilder<Dio> clientBuilder,
+      {this.data, this.query})
+      : super(clientBuilder);
 
   @override
   Future<dynamic> request(
       {Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
-    var res;
-    try {
-      res = await clientFactory
-          .build()
-          .delete<dynamic>(path, data: data?.toJson, queryParameters: query);
-    } catch (e) {
-      if (e is DioError) {
-        res = e.response;
-      } else {
-        res = e;
-      }
-    }
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
+    return handleResponse(
+        await clientBuilder.delete(
+          path,
+          data: data,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
   }
 }
 
@@ -145,11 +125,11 @@ class FileDownloadApiService extends IApiService<Dio> {
   final String savePath;
 
   FileDownloadApiService(
-    IClientFactory clientFactory,
+    IClientBuilder<Dio> clientBuilder,
     this.url,
     this.savePath, {
     this.data,
-  }) : super(clientFactory);
+  }) : super(clientBuilder);
 
   @override
   Future<dynamic> request(
@@ -157,7 +137,7 @@ class FileDownloadApiService extends IApiService<Dio> {
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     try {
-      await clientFactory.build().download(url, savePath, data: data?.toJson);
+      await clientBuilder.build().download(url, savePath, data: data?.toJson);
       return File(path: savePath);
     } catch (error) {
       return null;
@@ -218,7 +198,7 @@ abstract class _TransFormer<R> {
   }
 }
 
-class DioFactory extends IClientFactory<Dio> {
+class DioBuilder extends IClientBuilder<Dio> {
   final String baseUrl;
   final bool enableLogging;
   final String? userAgent;
@@ -230,7 +210,7 @@ class DioFactory extends IClientFactory<Dio> {
 
   // final bool enableFirebasePerformance;
 
-  DioFactory._(this.baseUrl,
+  DioBuilder._(this.baseUrl,
       {this.enableLogging = false,
       this.userAgent,
       this.appVersion,
@@ -240,7 +220,7 @@ class DioFactory extends IClientFactory<Dio> {
       this.interceptors})
       : super(baseUrl: baseUrl);
 
-  factory DioFactory.auth(String baseUrl,
+  factory DioBuilder.auth(String baseUrl,
           {bool enableLogging = false,
           required String userAgent,
           required String? appVersion,
@@ -248,7 +228,7 @@ class DioFactory extends IClientFactory<Dio> {
           required String? appId,
           required List<Interceptor> authHeaderInterceptors,
           List<Interceptor>? interceptors}) =>
-      DioFactory._(baseUrl,
+      DioBuilder._(baseUrl,
           enableLogging: enableLogging,
           userAgent: userAgent,
           appVersion: appVersion,
@@ -257,14 +237,14 @@ class DioFactory extends IClientFactory<Dio> {
           authHeaderInterceptors: authHeaderInterceptors,
           interceptors: interceptors);
 
-  factory DioFactory.noneAuth(String baseUrl,
+  factory DioBuilder.noneAuth(String baseUrl,
           {bool enableLogging = false,
           required String userAgent,
           required String? appVersion,
           required String? osVersion,
           required String? appId,
           List<Interceptor>? interceptors}) =>
-      DioFactory._(baseUrl,
+      DioBuilder._(baseUrl,
           enableLogging: enableLogging,
           userAgent: userAgent,
           appVersion: appVersion,
@@ -304,6 +284,86 @@ class DioFactory extends IClientFactory<Dio> {
     });
 
     return http;
+  }
+
+  @override
+  Future<dynamic> delete(
+    String? path, {
+    IDto? data,
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build().delete<dynamic>(path ?? "",
+          data: data?.toJson, queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+    return res;
+  }
+
+  @override
+  Future<dynamic> get(
+    String? path, {
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build().get<dynamic>(path ?? "", queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+    return res;
+  }
+
+  @override
+  Future<dynamic> patch(
+    String? path, {
+    IDto? data,
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build().patch<dynamic>(path ?? "",
+          data: data?.toJson, queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+
+    return res;
+  }
+
+  @override
+  Future<dynamic> post(
+    String? path, {
+    IDto? data,
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build().post<dynamic>(path ?? "",
+          data: data?.toJson, queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+
+    return res;
   }
 }
 

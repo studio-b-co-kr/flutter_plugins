@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="16d1ac47-d817-42a7-87b2-6f1dd96de0b9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stacked_mvvm/lib/base_view_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/stacked_mvvm/lib/base_view_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_base/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R59N204EMJT]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@R59N204EMJT]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -36,9 +41,10 @@
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager" selected="Flutter.widget-example">
+  <component name="RunManager" selected="Flutter.base-example">
     <list>
       <item itemvalue="Flutter.base-example" />
       <item itemvalue="Flutter.widget-example" />
@@ -49,6 +55,7 @@
       <item itemvalue="Flutter.splash-exmaple" />
     </list>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -67,22 +74,30 @@
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
     <state x="185" y="-1049" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619765877544" />
-    <state width="2518" height="399" key="GridCell.Tab.0.bottom" timestamp="1619766278921">
+    <state x="409" y="-968" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1620264785242">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.bottom/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619766278921" />
-    <state width="2518" height="399" key="GridCell.Tab.0.center" timestamp="1619766278920">
+    <state x="409" y="-968" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264785242" />
+    <state width="2518" height="399" key="GridCell.Tab.0.bottom" timestamp="1620264833553">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.center/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619766278920" />
-    <state width="2518" height="399" key="GridCell.Tab.0.left" timestamp="1619766278919">
+    <state width="2518" height="399" key="GridCell.Tab.0.bottom/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833553" />
+    <state width="2518" height="399" key="GridCell.Tab.0.center" timestamp="1620264833552">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.left/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619766278919" />
-    <state width="2518" height="399" key="GridCell.Tab.0.right" timestamp="1619766278920">
+    <state width="2518" height="399" key="GridCell.Tab.0.center/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833552" />
+    <state width="2518" height="399" key="GridCell.Tab.0.left" timestamp="1620264833552">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.right/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619766278920" />
+    <state width="2518" height="399" key="GridCell.Tab.0.left/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833552" />
+    <state width="2518" height="399" key="GridCell.Tab.0.right" timestamp="1620264833553">
+      <screen x="-559" y="-1415" width="2560" height="1415" />
+    </state>
+    <state width="2518" height="399" key="GridCell.Tab.0.right/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833553" />
+    <state x="230" y="-1072" key="SettingsEditor" timestamp="1620265266512">
+      <screen x="-559" y="-1415" width="2560" height="1415" />
+    </state>
+    <state x="230" y="-1072" key="SettingsEditor/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620265266512" />
     <state x="413" y="-953" width="913" height="490" key="find.popup" timestamp="1620112793215">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>

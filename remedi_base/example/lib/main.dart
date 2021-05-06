@@ -80,8 +80,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 class GoogleApiService extends DioGetApiService<String> {
-  GoogleApiService({IClientFactory? clientFactory})
-      : super(clientFactory = DioFactory.auth(
+  GoogleApiService({IClientBuilder? clientFactory})
+      : super(clientFactory = DioBuilder.auth(
           AppConfig.baseUrl,
           userAgent: AppConfig.platform,
           appVersion: AppConfig.appVersion,
