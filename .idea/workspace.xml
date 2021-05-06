@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="16d1ac47-d817-42a7-87b2-6f1dd96de0b9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remedi_base/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/api_service.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,29 +76,40 @@
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
     <state x="409" y="-968" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264785242" />
-    <state width="2518" height="399" key="GridCell.Tab.0.bottom" timestamp="1620264833553">
+    <state width="2518" height="299" key="GridCell.Tab.0.bottom" timestamp="1620277277549">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.bottom/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833553" />
-    <state width="2518" height="399" key="GridCell.Tab.0.center" timestamp="1620264833552">
+    <state width="2518" height="299" key="GridCell.Tab.0.bottom/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620277277549" />
+    <state width="2518" height="299" key="GridCell.Tab.0.center" timestamp="1620277277548">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.center/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833552" />
-    <state width="2518" height="399" key="GridCell.Tab.0.left" timestamp="1620264833552">
+    <state width="2518" height="299" key="GridCell.Tab.0.center/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620277277548" />
+    <state width="2518" height="299" key="GridCell.Tab.0.left" timestamp="1620277277548">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.left/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833552" />
-    <state width="2518" height="399" key="GridCell.Tab.0.right" timestamp="1620264833553">
+    <state width="2518" height="299" key="GridCell.Tab.0.left/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620277277548" />
+    <state width="2518" height="299" key="GridCell.Tab.0.right" timestamp="1620277277549">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state width="2518" height="399" key="GridCell.Tab.0.right/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620264833553" />
+    <state width="2518" height="299" key="GridCell.Tab.0.right/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620277277549" />
     <state x="230" y="-1072" key="SettingsEditor" timestamp="1620265266512">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
     <state x="230" y="-1072" key="SettingsEditor/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620265266512" />
-    <state x="413" y="-953" width="913" height="548" key="find.popup" timestamp="1620267506417">
+    <state x="413" y="-953" width="913" height="548" key="find.popup" timestamp="1620277277529">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state x="413" y="-953" width="913" height="548" key="find.popup/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620267506417" />
+    <state x="413" y="-953" width="913" height="548" key="find.popup/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620277277529" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/remedi_base/lib/api_service/dio_api_service.dart</url>
+          <line>23</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

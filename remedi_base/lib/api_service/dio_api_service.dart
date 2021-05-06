@@ -23,7 +23,7 @@ abstract class PostApiService<R extends dynamic> extends IApiService
     return handleResponse(
         await clientBuilder.post(
           path,
-          data: data?.toJson,
+          data: data,
           query: query,
         ),
         onSuccess: onSuccess,
@@ -73,7 +73,7 @@ abstract class PatchApiService<R extends dynamic> extends IApiService
     return handleResponse(
         await clientBuilder.patch(
           path,
-          data: data?.toJson,
+          data: data,
           query: query,
         ),
         onSuccess: onSuccess,
