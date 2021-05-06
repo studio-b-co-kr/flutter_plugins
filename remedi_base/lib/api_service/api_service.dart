@@ -2,7 +2,7 @@
 ///
 /// C is Client in charge of http request/response. like Dio, Retrofit and etc.
 /// R is Response of api request.
-abstract class IApiService<C> {
+abstract class IApiService {
   final IClientBuilder clientBuilder;
 
   /// url path.

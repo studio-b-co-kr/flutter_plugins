@@ -7,12 +7,12 @@ import 'package:remedi_base/remedi_base.dart';
 import '../errors/app_error.dart';
 
 /// Post Api
-abstract class DioPostApiService<R extends dynamic> extends IApiService<Dio>
+abstract class PostApiService<R extends dynamic> extends IApiService
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
 
-  DioPostApiService(IClientBuilder<Dio> clientBuilder, {this.data, this.query})
+  PostApiService(IClientBuilder clientBuilder, {this.data, this.query})
       : super(clientBuilder);
 
   @override
@@ -33,11 +33,11 @@ abstract class DioPostApiService<R extends dynamic> extends IApiService<Dio>
 }
 
 /// Get Api
-abstract class DioGetApiService<R extends dynamic> extends IApiService<Dio>
+abstract class GetApiService<R extends dynamic> extends IApiService
     with _TransFormer<R> {
   final Map<String, dynamic>? query;
 
-  DioGetApiService(IClientBuilder<Dio> clientBuilder, {this.query})
+  GetApiService(IClientBuilder clientBuilder, {this.query})
       : super(clientBuilder);
 
   @override
@@ -57,12 +57,12 @@ abstract class DioGetApiService<R extends dynamic> extends IApiService<Dio>
 }
 
 /// Patch Api
-abstract class DioPatchApiService<R extends dynamic> extends IApiService<Dio>
+abstract class PatchApiService<R extends dynamic> extends IApiService
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
 
-  DioPatchApiService(IClientBuilder<Dio> clientBuilder, {this.data, this.query})
+  PatchApiService(IClientBuilder clientBuilder, {this.data, this.query})
       : super(clientBuilder);
 
   @override
@@ -83,13 +83,12 @@ abstract class DioPatchApiService<R extends dynamic> extends IApiService<Dio>
 }
 
 /// Delete Api
-abstract class DioDeleteApiService<R extends dynamic> extends IApiService<Dio>
+abstract class DeleteApiService<R extends dynamic> extends IApiService
     with _TransFormer<R> {
   final IDto? data;
   final Map<String, dynamic>? query;
 
-  DioDeleteApiService(IClientBuilder<Dio> clientBuilder,
-      {this.data, this.query})
+  DeleteApiService(IClientBuilder clientBuilder, {this.data, this.query})
       : super(clientBuilder);
 
   @override
@@ -119,13 +118,13 @@ class File extends IDto {
 }
 
 /// File Download Api
-class FileDownloadApiService extends IApiService<Dio> {
+class FileDownloadApiService extends IApiService {
   final url;
   final IDto? data;
   final String savePath;
 
   FileDownloadApiService(
-    IClientBuilder<Dio> clientBuilder,
+    IClientBuilder clientBuilder,
     this.url,
     this.savePath, {
     this.data,
@@ -198,7 +197,7 @@ abstract class _TransFormer<R> {
   }
 }
 
-class DioBuilder extends IClientBuilder<Dio> {
+class DioBuilder extends IClientBuilder {
   final String baseUrl;
   final bool enableLogging;
   final String? userAgent;
