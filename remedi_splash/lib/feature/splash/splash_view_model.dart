@@ -113,7 +113,7 @@ class SplashViewModel extends ISplashViewModel {
     var ret = await repository.isCompletedOnboarding();
 
     if (ret is AppError) {
-      if (ret.code == "401") {
+      if (ret.code == "401" || ret.code == "404") {
         update(state: SplashViewState.Login);
         return;
       }
@@ -143,7 +143,7 @@ class SplashViewModel extends ISplashViewModel {
     var ret = await repository.readyToService();
 
     if (ret is AppError) {
-      if (ret.code == "401") {
+      if (ret.code == "401" || ret.code == "404") {
         update(state: SplashViewState.Login);
         return;
       }
