@@ -187,7 +187,7 @@ abstract class _TransFormer<R> {
       if (onError != null) onError(res);
       return AppError(
           code: "${res.statusCode}",
-          message: res.data,
+          message: res.data == null ? null : "${res.data}",
           title: res.statusMessage);
     }
 
