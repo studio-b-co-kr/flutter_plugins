@@ -19,13 +19,13 @@ dependencies:
   stacked_mvvm:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
+      ref: achoo/0.2.0
       path: stacked_mvvm/
 
   remedi_widgets:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
+      ref: achoo/0.2.0
       path: remedi_widgets/
 
 dev_dependencies:
