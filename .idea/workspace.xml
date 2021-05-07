@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="16d1ac47-d817-42a7-87b2-6f1dd96de0b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_auth/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_auth/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_engage/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_engage/example/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_permission/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_permission/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/remedi_splash/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_splash/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remedi_update/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/remedi_update/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R59N204EMJT]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@R59N204EMJT]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -32,6 +38,7 @@
   </component>
   <component name="RunManager" selected="Flutter.base-example">
     <list>
+      <item itemvalue="Flutter.widget-example" />
       <item itemvalue="Flutter.base-example" />
       <item itemvalue="Flutter.engage-exmaple" />
       <item itemvalue="Flutter.auth-exmaple" />
@@ -54,9 +61,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="413" y="-953" width="913" height="490" key="find.popup" timestamp="1619587649991">
+    <state x="413" y="-953" width="913" height="490" key="find.popup" timestamp="1620365762847">
       <screen x="-559" y="-1415" width="2560" height="1415" />
     </state>
-    <state x="413" y="-953" width="913" height="490" key="find.popup/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1619587649991" />
+    <state x="413" y="-953" width="913" height="490" key="find.popup/0.25.1440.875/-559.-1415.2560.1415@-559.-1415.2560.1415" timestamp="1620365762847" />
   </component>
 </project>

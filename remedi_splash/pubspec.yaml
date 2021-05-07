@@ -17,20 +17,20 @@ dependencies:
   stacked_mvvm:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
+      ref: achoo/0.1.0
       path: stacked_mvvm/
 
   # multi-resolution support.
   multiscreen:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
+      ref: achoo/0.1.0
       path: multiscreen/
 
   remedi_base:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
+      ref: achoo/0.1.0
       path: remedi_base/
 
   #svg loader
