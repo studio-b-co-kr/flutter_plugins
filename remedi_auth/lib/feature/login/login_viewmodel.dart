@@ -81,7 +81,8 @@ class LoginViewModel extends ILoginViewModel {
         title = e.code.toString();
         code = e.message;
         message = e.message;
-        if (e.code == AuthorizationErrorCode.canceled) {
+        if (e.code == AuthorizationErrorCode.canceled ||
+            e.code == AuthorizationErrorCode.unknown) {
           update(state: LoginViewState.Idle);
           return;
         }
