@@ -21,7 +21,7 @@ dependencies:
   remedi_base:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: achoo/0.1.0
+      ref: achoo-release-0.1.0
       path: remedi_base/
 
 dev_dependencies:
