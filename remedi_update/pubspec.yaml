@@ -16,16 +16,10 @@ dependencies:
 
   #basic architecture of app
   stacked_mvvm:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
-      path: stacked_mvvm/
+    path: ../stacked_mvvm
 
   remedi_widgets:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
-      path: remedi_widgets/
+    path: ../remedi_widgets
 
   # go to store on force update page
   store_redirect:
@@ -39,10 +33,7 @@ dependencies:
 
   # multi-resolution support.
   multiscreen:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
-      path: multiscreen/
+    path: ../multiscreen
 
 dev_dependencies:
   flutter_test:
