@@ -16,9 +16,9 @@ import '../../auth_error.dart';
 
 class LoginViewModel extends ILoginViewModel {
   final String? kakaoAppId;
+  final ILoginRepository repository;
 
-  LoginViewModel({required ILoginRepository repository, this.kakaoAppId})
-      : super(repository: repository);
+  LoginViewModel({required this.repository, this.kakaoAppId}) : super();
 
   @override
   LoginViewState get initState => LoginViewState.Idle;
@@ -28,7 +28,7 @@ class LoginViewModel extends ILoginViewModel {
     update(state: LoginViewState.Loading);
     bool isAvailable = await SignInWithApple.isAvailable();
     if (!isAvailable) {
-      this.error = AuthError(
+      this.authError = AuthError(
           title: AppStrings.loginError,
           code: AppStrings.codeAppleLoginError,
           message: AppStrings.invalidVersionAppleLogin);
@@ -54,7 +54,7 @@ class LoginViewModel extends ILoginViewModel {
           await repository.loginWithApple(appleCredential);
 
       if (appCredential.isError) {
-        this.error = appCredential.error;
+        this.authError = appCredential.error;
         update(state: LoginViewState.Error);
         return;
       }
@@ -88,7 +88,7 @@ class LoginViewModel extends ILoginViewModel {
         }
       }
 
-      this.error =
+      this.authError =
           AuthError(title: title, code: code, message: message, error: e);
       update(state: LoginViewState.Error);
     }
@@ -116,7 +116,7 @@ class LoginViewModel extends ILoginViewModel {
           break;
         case KakaoLoginStatus.loggedOut:
         case KakaoLoginStatus.unlinked:
-          this.error = AuthError(
+          this.authError = AuthError(
               title: AppStrings.codeKakaoLoginError,
               code: AppStrings.codeKakaoLoginError,
               message: AppStrings.messageAuthError);
@@ -131,7 +131,7 @@ class LoginViewModel extends ILoginViewModel {
       try {
         id = int.parse(kakaoId);
       } catch (e) {
-        this.error = AuthError(
+        this.authError = AuthError(
             title: AppStrings.codeKakaoLoginError,
             code: AppStrings.codeKakaoLoginError,
             message: AppStrings.messageAuthError);
@@ -144,7 +144,7 @@ class LoginViewModel extends ILoginViewModel {
           KakaoCredential(accessToken: kakaoAccessToken, id: id));
 
       if (credential.isError) {
-        this.error = credential.error;
+        this.authError = credential.error;
         await kakaoSignIn.logOut();
         update(state: LoginViewState.Error);
         return;
@@ -175,7 +175,7 @@ class LoginViewModel extends ILoginViewModel {
         message = error.details;
       }
 
-      this.error =
+      this.authError =
           AuthError(title: title, code: code, message: message, error: error);
 
       if (message == "cancelled." ||

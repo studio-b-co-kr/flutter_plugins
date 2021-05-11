@@ -9,7 +9,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 import '../../remedi_auth.dart';
 import '../../resources/app_strings.dart';
 
-class LoginView extends BindingView<ILoginViewModel> {
+class LoginView extends IView<ILoginViewModel> {
   final String? logoApp;
   final String? logoCompany;
 
@@ -58,14 +58,14 @@ class LoginView extends BindingView<ILoginViewModel> {
       child: ListView(shrinkWrap: true, children: [
         FixedScaleText(
           text: Text(
-            "${viewModel.error?.title} (code : ${viewModel.error?.code})",
+            "${viewModel.authError?.title} (code : ${viewModel.authError?.code})",
             style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
           ),
         ),
         SizedBox(height: 8),
         FixedScaleText(
           text: Text(
-            "${viewModel.error?.message}",
+            "${viewModel.authError?.message}",
             style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
           ),
         ),
@@ -73,7 +73,7 @@ class LoginView extends BindingView<ILoginViewModel> {
         kReleaseMode
             ? Container()
             : FixedScaleText(
-                text: Text("${viewModel.error?.stackTrace}",
+                text: Text("${viewModel.authError?.stackTrace}",
                     style: TextStyle(fontSize: 16)),
               ),
       ]),

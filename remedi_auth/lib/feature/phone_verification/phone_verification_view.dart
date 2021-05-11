@@ -5,7 +5,7 @@ import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
 import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-class PhoneVerificationView extends BindingView<IPhoneVerificationViewModel> {
+class PhoneVerificationView extends IView<IPhoneVerificationViewModel> {
   final String information;
   final GlobalKey<FormFieldState> _textInputKey = GlobalKey<FormFieldState>();
 

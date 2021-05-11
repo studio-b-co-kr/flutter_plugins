@@ -1,6 +1,6 @@
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-abstract class IAuthRepository extends BaseRepository {
+abstract class IAuthRepository extends IRepository {
   Future<String?> get accessToken;
 
   Future writeAccessToken(String token);

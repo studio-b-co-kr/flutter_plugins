@@ -1,14 +1,11 @@
-import 'package:remedi_auth/repository/i_login_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import '../auth_error.dart';
 
-abstract class ILoginViewModel
-    extends BaseViewModel<LoginViewState, ILoginRepository> {
-  AuthError? error;
+abstract class ILoginViewModel extends IViewModel<LoginViewState> {
+  AuthError? authError;
 
-  ILoginViewModel({required ILoginRepository repository})
-      : super(repository: repository);
+  ILoginViewModel() : super();
 
   loginWithKakao();
 

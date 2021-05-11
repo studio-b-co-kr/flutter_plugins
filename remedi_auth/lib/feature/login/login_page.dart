@@ -5,7 +5,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'login_view.dart';
 
-class LoginPage extends BasePage<ILoginViewModel> {
+class LoginPage extends IPage<ILoginViewModel> {
   static const ROUTE_NAME_SPLASH = '/login_splash';
   static const ROUTE_NAME = '/login';
 
@@ -30,7 +30,7 @@ class LoginPage extends BasePage<ILoginViewModel> {
       : super(key: key, viewModel: viewModel);
 
   @override
-  BindingView<ILoginViewModel> body(
+  IView<ILoginViewModel> body(
       BuildContext context, ILoginViewModel viewModel, Widget? child) {
     return LoginView(
       logoApp: logoApp,
