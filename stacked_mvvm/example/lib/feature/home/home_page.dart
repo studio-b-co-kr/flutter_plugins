@@ -1,3 +1,4 @@
+import 'package:example/feature/home/home_repository.dart';
 import 'package:example/feature/home/home_view_model.dart';
 import 'package:example/viewmodel/i_home_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'home_view.dart';
 
-class HomePage extends BasePage<IHomeViewModel> {
+class HomePage extends IPage<IHomeViewModel> {
   static const ROUTE_NAME = "/";
 
   HomePage({Key? key, required HomeViewModel viewModel})
@@ -17,7 +18,7 @@ class HomePage extends BasePage<IHomeViewModel> {
       settings: settings,
       builder: (context) => HomePage(
         key: LabeledGlobalKey("HomePage"),
-        viewModel: HomeViewModel(),
+        viewModel: HomeViewModel(repository: HomeRepository()),
       ),
     );
   }
@@ -29,7 +30,7 @@ class HomePage extends BasePage<IHomeViewModel> {
   Future logScreenOpen(String screenName) async {}
 
   @override
-  BindingView<IHomeViewModel> body(
+  IView<IHomeViewModel> body(
       BuildContext context, IHomeViewModel viewModel, Widget? child) {
     return HomeView(key: LabeledGlobalKey("HomeView"));
   }

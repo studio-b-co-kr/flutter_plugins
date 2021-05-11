@@ -1,6 +1,6 @@
 part of 'stacked_mvvm.dart';
 
-class ListItemsBuilder<I extends BindingView> {
+class ListItemsBuilder<I extends IView> {
   final List<I> items = [];
 
   List<I> build() {
@@ -12,8 +12,8 @@ class ListItemsBuilder<I extends BindingView> {
   refresh() {}
 }
 
-abstract class ListBindingView<VM extends BaseViewModel>
-    extends BindingView<VM> {
+abstract class ListBindingView<VM extends IViewModel>
+    extends IView<VM> {
   final ListItemsBuilder itemsBuilder;
 
   ListBindingView({required this.itemsBuilder});

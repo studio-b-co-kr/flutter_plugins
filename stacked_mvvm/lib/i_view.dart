@@ -1,9 +1,9 @@
 part of 'stacked_mvvm.dart';
 
 /// Data binding view
-abstract class BindingView<VM extends BaseViewModel>
+abstract class IView<VM extends IViewModel>
     extends ViewModelWidget<VM> {
-  BindingView({Key? key}) : super(key: key);
+  IView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, VM viewModel);

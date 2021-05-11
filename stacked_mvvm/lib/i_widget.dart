@@ -1,9 +1,10 @@
 part of 'stacked_mvvm.dart';
 
-abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
+/// IView has to ui code, IWidget should be controller.
+abstract class IWidget<VM extends IViewModel> extends StatelessWidget {
   final VM viewModel;
 
-  BaseWidget({Key? key, required this.viewModel}) : super(key: key);
+  IWidget({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ abstract class BaseWidget<VM extends BaseViewModel> extends StatelessWidget {
     );
   }
 
-  BindingView<VM> body(BuildContext context, VM viewModel, Widget? child);
+  IView<VM> body(BuildContext context, VM viewModel, Widget? child);
 
   @mustCallSuper
   void onListen(BuildContext context, VM viewModel) {

@@ -1,12 +1,11 @@
-import 'package:flutter/foundation.dart';
-
 import '../../repository/i_home_repository.dart';
 import '../../viewmodel/i_home_viewmodel.dart';
 
 class HomeViewModel extends IHomeViewModel {
+  final IHomeRepository repository;
   int _count = 0;
 
-  HomeViewModel({IHomeRepository? repository}) : super(repository: repository);
+  HomeViewModel({required this.repository}) : super();
 
   @override
   int get count => _count;
@@ -14,12 +13,6 @@ class HomeViewModel extends IHomeViewModel {
   void increment() {
     _count++;
     update(state: HomeViewState.First);
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(IntProperty('count', count));
   }
 
   @override

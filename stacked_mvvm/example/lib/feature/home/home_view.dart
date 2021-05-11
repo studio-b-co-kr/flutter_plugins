@@ -5,7 +5,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'count_view.dart';
 
-class HomeView extends BindingView<IHomeViewModel> {
+class HomeView extends IView<IHomeViewModel> {
   HomeView({Key? key}) : super(key: key);
 
   @override

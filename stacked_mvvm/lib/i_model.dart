@@ -1,7 +1,7 @@
 part of 'stacked_mvvm.dart';
 
 ///
-abstract class BaseModel extends Equatable {
+abstract class IModel extends Equatable {
   @override
   List<Object> get props;
 }
