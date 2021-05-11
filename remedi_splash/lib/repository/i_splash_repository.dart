@@ -1,6 +1,6 @@
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-abstract class ISplashRepository extends BaseRepository {
+abstract class ISplashRepository extends IRepository {
   Future<dynamic> init();
 
   Future<bool> needToUpdate();

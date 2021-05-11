@@ -5,7 +5,7 @@ import 'package:multiscreen/multiscreen.dart';
 import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-class SplashView extends BindingView<ISplashViewModel> {
+class SplashView extends IView<ISplashViewModel> {
   final String? logoBrand;
   final String? logoCompany;
 
@@ -39,19 +39,19 @@ class SplashView extends BindingView<ISplashViewModel> {
                           shrinkWrap: true,
                           children: [
                             Text(
-                              "${viewModel.error.title} (code : ${viewModel.error.code})",
+                              "${viewModel.appError.title} (code : ${viewModel.appError.code})",
                               style: TextStyle(fontSize: 16),
                             ),
                             SizedBox(height: 8),
                             Text(
-                              "${viewModel.error.message}",
+                              "${viewModel.appError.message}",
                               style: TextStyle(fontSize: 16),
                             ),
                             SizedBox(height: 8),
                             kReleaseMode
                                 ? Container()
                                 : Text(
-                                    "${viewModel.error.stackTrace}",
+                                    "${viewModel.appError.stackTrace}",
                                     style: TextStyle(fontSize: 16),
                                   ),
                           ],

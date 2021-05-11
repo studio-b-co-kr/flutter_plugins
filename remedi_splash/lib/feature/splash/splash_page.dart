@@ -6,7 +6,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'splash_view.dart';
 
-class SplashPage extends BasePage<ISplashViewModel> {
+class SplashPage extends IPage<ISplashViewModel> {
   static const ROUTE_NAME_APP_OPEN = "/";
   static const ROUTE_NAME_AFTER_INTRO = "/after_intro";
   static const ROUTE_NAME_AFTER_PERMISSION = "/after_permission";
@@ -103,7 +103,7 @@ class SplashPage extends BasePage<ISplashViewModel> {
   }
 
   @override
-  BindingView<ISplashViewModel> body(
+  IView<ISplashViewModel> body(
       BuildContext context, ISplashViewModel viewModel, Widget? child) {
     return SplashView(
       logoBrand: imageLogoApp,
