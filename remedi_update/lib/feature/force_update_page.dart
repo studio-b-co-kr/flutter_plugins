@@ -5,7 +5,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'force_update_view.dart';
 
-class ForceUpdatePage extends BasePage<IForceUpdateViewModel> {
+class ForceUpdatePage extends IPage<IForceUpdateViewModel> {
   static const String ROUTE_NAME = "/force_update";
 
   final String? image;

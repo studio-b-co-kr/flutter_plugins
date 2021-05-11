@@ -7,7 +7,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 import '../remedi_update.dart';
 import '../resources/app_strings.dart';
 
-class ForceUpdateView extends BindingView<IForceUpdateViewModel> {
+class ForceUpdateView extends IView<IForceUpdateViewModel> {
   final String? image;
 
   ForceUpdateView({this.image});
