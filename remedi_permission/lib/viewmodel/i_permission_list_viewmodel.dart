@@ -1,10 +1,10 @@
-import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
+import '../remedi_permission.dart';
+
 abstract class IPermissionListViewModel
-    extends BaseViewModel<PermissionListViewState, IPermissionListRepository> {
-  IPermissionListViewModel({required IPermissionListRepository repository})
-      : super(repository: repository);
+    extends IViewModel<PermissionListViewState> {
+  IPermissionListViewModel() : super();
 
   bool hasError = false;
 
@@ -21,6 +21,8 @@ abstract class IPermissionListViewModel
   Future<bool> get showRequestAll;
 
   Future<dynamic> refresh();
+
+  List<AppPermission> get permissions;
 }
 
 enum PermissionListViewState { Init, Refresh, Error, Skip, AllGranted }

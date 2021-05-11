@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
+class PermissionPage<Permission> extends IPage<IPermissionViewModel> {
   static const ROUTE_NAME = "/permission";
 
   PermissionPage({Key? key, required IPermissionViewModel viewModel})
@@ -48,7 +48,7 @@ class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
   }
 }
 
-class PermissionView extends BindingView<IPermissionViewModel> {
+class PermissionView extends IView<IPermissionViewModel> {
   @override
   Widget build(BuildContext context, IPermissionViewModel viewModel) {
     return WillPopScope(
@@ -92,7 +92,7 @@ class PermissionView extends BindingView<IPermissionViewModel> {
   }
 
   Color _buttonColor(IPermissionViewModel viewModel) {
-    if (viewModel.repository.isPermanentlyDenied) {
+    if (viewModel.isPermanentlyDenied) {
       return Colors.red;
     }
     return Colors.blue;
@@ -101,9 +101,9 @@ class PermissionView extends BindingView<IPermissionViewModel> {
   Widget _buttonText(BuildContext context, IPermissionViewModel viewModel) {
     String text = "";
     Color color = Colors.white;
-    if (viewModel.repository.isPermanentlyDenied) {
+    if (viewModel.isPermanentlyDenied) {
       text = "세팅에서 권한 허용하기";
-    } else if (viewModel.repository.isGranted) {
+    } else if (viewModel.isGranted) {
       text = "허용됨";
       color = Colors.grey.shade700;
     } else
@@ -120,7 +120,7 @@ class PermissionView extends BindingView<IPermissionViewModel> {
   }
 
   Widget _errorMessage(IPermissionViewModel viewModel) {
-    if (viewModel.repository.isError) {
+    if (viewModel.isError) {
       return Container(
         margin: EdgeInsets.only(left: 16),
         alignment: Alignment.centerLeft,
@@ -142,19 +142,19 @@ class PermissionView extends BindingView<IPermissionViewModel> {
       BuildContext context, IPermissionViewModel viewModel) {
     List<Widget> ret = [];
 
-    if (viewModel.repository.isError) {
+    if (viewModel.isError) {
       return ret;
     }
 
     String title = "Skip";
-    if (viewModel.repository.isGranted) {
+    if (viewModel.isGranted) {
       title = "Next";
     }
 
     ret.add(Container(
         child: TextButton(
             onPressed: () async => await _onSkip(
-                context, viewModel.repository.isGranted ? "granted" : "skip"),
+                context, viewModel.isGranted ? "granted" : "skip"),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -177,7 +177,7 @@ class PermissionView extends BindingView<IPermissionViewModel> {
             color: _buttonColor(viewModel),
             height: 40,
             minWidth: double.maxFinite,
-            onPressed: viewModel.repository.isGranted
+            onPressed: viewModel.isGranted
                 ? null
                 : () async {
                     await viewModel.requestPermission();

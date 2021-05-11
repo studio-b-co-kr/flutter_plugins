@@ -12,7 +12,7 @@ import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 // ignore: must_be_immutable
-class PermissionListPage extends BasePage<IPermissionListViewModel> {
+class PermissionListPage extends IPage<IPermissionListViewModel> {
   static const ROUTE_NAME = "/permission_list";
 
   late final PermissionItemViewBuilder _permissionItemViewBuilder;
@@ -22,7 +22,7 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
       {Key? key, required IPermissionListViewModel viewModel, this.backTo})
       : super(key: key, viewModel: viewModel) {
     _permissionItemViewBuilder = PermissionItemViewBuilder(
-        permissions: viewModel.repository.permissions,
+        permissions: viewModel.permissions,
         onRefresh: () {
           this.viewModel.refresh();
         });
@@ -101,7 +101,7 @@ class PermissionItemViewBuilder {
   }
 }
 
-class PermissionListView extends BindingView<IPermissionListViewModel> {
+class PermissionListView extends IView<IPermissionListViewModel> {
   final PermissionItemViewBuilder builder;
 
   PermissionListView(this.builder);

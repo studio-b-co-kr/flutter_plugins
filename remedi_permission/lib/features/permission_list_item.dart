@@ -4,14 +4,14 @@ import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-class PermissionListItemWidget extends BaseWidget<IPermissionViewModel> {
+class PermissionListItemWidget extends IWidget<IPermissionViewModel> {
   final Function? onPressed;
 
   PermissionListItemWidget(IPermissionViewModel viewModel, {this.onPressed})
       : super(viewModel: viewModel);
 
   @override
-  BindingView<IPermissionViewModel> body(
+  IView<IPermissionViewModel> body(
       BuildContext context, IPermissionViewModel viewModel, Widget? child) {
     return PermissionListItemView(onPressed);
   }
@@ -22,7 +22,7 @@ class PermissionListItemWidget extends BaseWidget<IPermissionViewModel> {
   }
 }
 
-class PermissionListItemView extends BindingView<IPermissionViewModel> {
+class PermissionListItemView extends IView<IPermissionViewModel> {
   final Function? onPressed;
 
   PermissionListItemView(this.onPressed);
@@ -34,7 +34,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       elevation: viewModel.state == PermissionViewState.Granted ? 0 : 4,
       child: InkWell(
-        onTap: viewModel.repository.isGranted
+        onTap: viewModel.isGranted
             ? null
             : () async {
                 await viewModel.requestPermission();
@@ -80,7 +80,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                 ],
               ),
             ),
-            viewModel.repository.isPermanentlyDenied
+            viewModel.isPermanentlyDenied
                 ? Container(
                     margin: EdgeInsets.only(top: 16, left: 8),
                     child: Row(

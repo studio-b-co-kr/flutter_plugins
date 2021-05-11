@@ -5,8 +5,9 @@ import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 
 class PermissionViewModel extends IPermissionViewModel {
-  PermissionViewModel({required IPermissionRepository repository})
-      : super(repository: repository);
+  final IPermissionRepository repository;
+
+  PermissionViewModel({required this.repository}) : super();
 
   @override
   PermissionViewState get initState => PermissionViewState.Init;
@@ -214,6 +215,15 @@ class PermissionViewModel extends IPermissionViewModel {
 
   @override
   Future<bool> get canSkip async => false;
+
+  @override
+  bool get isError => repository.isError;
+
+  @override
+  bool get isGranted => repository.isGranted;
+
+  @override
+  bool get isPermanentlyDenied => repository.isPermanentlyDenied;
 }
 
 /// refer to below permission status.

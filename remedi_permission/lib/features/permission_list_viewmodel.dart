@@ -8,8 +8,9 @@ import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';
 
 class PermissionListViewModel extends IPermissionListViewModel {
-  PermissionListViewModel({required IPermissionListRepository repository})
-      : super(repository: repository);
+  final IPermissionListRepository repository;
+
+  PermissionListViewModel({required this.repository}) : super();
 
   @override
   PermissionListViewState get initState => PermissionListViewState.Init;
@@ -79,4 +80,8 @@ class PermissionListViewModel extends IPermissionListViewModel {
   Future<bool> get showNext async => false;
 
   Future<bool> get showRequestAll async => false;
+
+  @override
+  // TODO: implement permissions
+  List<AppPermission> get permissions => repository.permissions;
 }

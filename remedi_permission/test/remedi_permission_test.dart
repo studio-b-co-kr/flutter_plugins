@@ -56,8 +56,9 @@ class TestRepository extends IPermissionRepository {
 }
 
 class TestViewModel extends IPermissionViewModel {
-  TestViewModel(IPermissionRepository repository)
-      : super(repository: repository);
+  IPermissionRepository repository;
+
+  TestViewModel(this.repository) : super();
 
   @override
   String get description => "DESCRIPTION";
@@ -99,14 +100,26 @@ class TestViewModel extends IPermissionViewModel {
     // TODO: implement goToSettings
     throw UnimplementedError();
   }
+
+  @override
+  // TODO: implement isError
+  bool get isError => throw UnimplementedError();
+
+  @override
+  // TODO: implement isGranted
+  bool get isGranted => throw UnimplementedError();
+
+  @override
+  // TODO: implement isPermanentlyDenied
+  bool get isPermanentlyDenied => throw UnimplementedError();
 }
 
-class TestWidget extends BaseWidget<IPermissionViewModel> {
+class TestWidget extends IWidget<IPermissionViewModel> {
   TestWidget({required IPermissionViewModel viewModel})
       : super(viewModel: viewModel);
 
   @override
-  BindingView<IPermissionViewModel> body(
+  IView<IPermissionViewModel> body(
       BuildContext context, IPermissionViewModel viewModel, Widget? child) {
     return PermissionListItemView(() {});
   }
