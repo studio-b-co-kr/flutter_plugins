@@ -4,9 +4,8 @@
 /// R is Response of api request.
 abstract class IApiService {
   final IClientBuilder clientBuilder;
-  final Method method;
 
-  IApiService({required this.clientBuilder, required this.method});
+  IApiService({required this.clientBuilder});
 
   String get path;
 

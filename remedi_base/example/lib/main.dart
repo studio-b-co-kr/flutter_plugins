@@ -90,8 +90,7 @@ class GoogleApiService extends DioApiService<String> {
                   osVersion: AppConfig.osVersion,
                   appId: AppConfig.appId,
                   authHeaderInterceptors: [AuthHeaderInterceptor(getToken())],
-                ),
-            method: Method.get);
+                ));
 
   Future<dynamic> get() async {
     return super.requestGet();
