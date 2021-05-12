@@ -86,12 +86,6 @@ abstract class DioApiService<R extends dynamic> extends IApiService
         onError: onError,
         onFail: onFail);
   }
-
-  @override
-  R jsonToObject(json) {
-    // TODO: implement jsonToObject
-    throw UnimplementedError();
-  }
 }
 
 abstract class _TransFormer<R> {
