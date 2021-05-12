@@ -1,8 +1,8 @@
 part of 'stacked_mvvm.dart';
 
-class ViewData<D, S> {
+class StateData<D, S> {
   D? data;
   S state;
 
-  ViewData({this.data, required this.state});
+  StateData({this.data, required this.state});
 }
