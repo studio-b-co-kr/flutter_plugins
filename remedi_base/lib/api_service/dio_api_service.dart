@@ -6,18 +6,18 @@ import 'package:remedi_base/remedi_base.dart';
 
 import '../errors/app_error.dart';
 
-/// Post Api
-abstract class PostApiService<R extends dynamic> extends IApiService
+abstract class DioApiService<R extends dynamic> extends IApiService
     with _TransFormer<R> {
-  final IDto? data;
-  final Map<String, dynamic>? query;
-
-  PostApiService(IClientBuilder clientBuilder, {this.data, this.query})
-      : super(clientBuilder);
+  DioApiService(
+      {required IClientBuilder clientBuilder, required RestfulMethod method})
+      : super(clientBuilder: clientBuilder, method: method);
 
   @override
-  Future<dynamic> request(
-      {Function(dynamic)? onSuccess,
+  Future<dynamic> requestPost(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     return handleResponse(
@@ -30,19 +30,13 @@ abstract class PostApiService<R extends dynamic> extends IApiService
         onError: onError,
         onFail: onFail);
   }
-}
-
-/// Get Api
-abstract class GetApiService<R extends dynamic> extends IApiService
-    with _TransFormer<R> {
-  final Map<String, dynamic>? query;
-
-  GetApiService(IClientBuilder clientBuilder, {this.query})
-      : super(clientBuilder);
 
   @override
-  Future<dynamic> request(
-      {Function(dynamic)? onSuccess,
+  Future<dynamic> requestGet(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     return handleResponse(
@@ -54,20 +48,13 @@ abstract class GetApiService<R extends dynamic> extends IApiService
         onError: onError,
         onFail: onFail);
   }
-}
-
-/// Patch Api
-abstract class PatchApiService<R extends dynamic> extends IApiService
-    with _TransFormer<R> {
-  final IDto? data;
-  final Map<String, dynamic>? query;
-
-  PatchApiService(IClientBuilder clientBuilder, {this.data, this.query})
-      : super(clientBuilder);
 
   @override
-  Future<dynamic> request(
-      {Function(dynamic)? onSuccess,
+  Future<dynamic> requestPatch(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     return handleResponse(
@@ -80,20 +67,13 @@ abstract class PatchApiService<R extends dynamic> extends IApiService
         onError: onError,
         onFail: onFail);
   }
-}
-
-/// Delete Api
-abstract class DeleteApiService<R extends dynamic> extends IApiService
-    with _TransFormer<R> {
-  final IDto? data;
-  final Map<String, dynamic>? query;
-
-  DeleteApiService(IClientBuilder clientBuilder, {this.data, this.query})
-      : super(clientBuilder);
 
   @override
-  Future<dynamic> request(
-      {Function(dynamic)? onSuccess,
+  Future<dynamic> requestDelete(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
       Function(dynamic)? onFail,
       Function(dynamic)? onError}) async {
     return handleResponse(
@@ -106,45 +86,12 @@ abstract class DeleteApiService<R extends dynamic> extends IApiService
         onError: onError,
         onFail: onFail);
   }
-}
-
-class File extends IDto {
-  final String path;
-
-  File({required this.path});
 
   @override
-  Map<String, dynamic>? get toJson => null;
-}
-
-/// File Download Api
-class FileDownloadApiService extends IApiService {
-  final url;
-  final IDto? data;
-  final String savePath;
-
-  FileDownloadApiService(
-    IClientBuilder clientBuilder,
-    this.url,
-    this.savePath, {
-    this.data,
-  }) : super(clientBuilder);
-
-  @override
-  Future<dynamic> request(
-      {Function(Response response)? onSuccess,
-      Function(dynamic)? onFail,
-      Function(dynamic)? onError}) async {
-    try {
-      await clientBuilder.build().download(url, savePath, data: data?.toJson);
-      return File(path: savePath);
-    } catch (error) {
-      return null;
-    }
+  R jsonToObject(json) {
+    // TODO: implement jsonToObject
+    throw UnimplementedError();
   }
-
-  @override
-  String get path => "";
 }
 
 abstract class _TransFormer<R> {

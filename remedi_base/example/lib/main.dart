@@ -79,17 +79,19 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class GoogleApiService extends GetApiService<String> {
-  GoogleApiService({IClientBuilder? clientFactory})
-      : super(clientFactory ??
-            DioBuilder.auth(
-              AppConfig.baseUrl,
-              userAgent: AppConfig.platform,
-              appVersion: AppConfig.appVersion,
-              osVersion: AppConfig.osVersion,
-              appId: AppConfig.appId,
-              authHeaderInterceptors: [AuthHeaderInterceptor(getToken())],
-            ));
+class GoogleApiService extends DioApiService<String> {
+  GoogleApiService({IClientBuilder? clientBuilder})
+      : super(
+            clientBuilder: clientBuilder ??
+                DioBuilder.auth(
+                  AppConfig.baseUrl,
+                  userAgent: AppConfig.platform,
+                  appVersion: AppConfig.appVersion,
+                  osVersion: AppConfig.osVersion,
+                  appId: AppConfig.appId,
+                  authHeaderInterceptors: [AuthHeaderInterceptor(getToken())],
+                ),
+            method: RestfulMethod.get);
 
   @override
   String get path => "";

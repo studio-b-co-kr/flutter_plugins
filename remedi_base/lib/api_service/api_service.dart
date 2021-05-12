@@ -4,24 +4,98 @@
 /// R is Response of api request.
 abstract class IApiService {
   final IClientBuilder clientBuilder;
+  final RestfulMethod method;
 
-  /// url path.
+  IApiService({required this.clientBuilder, required this.method});
+
   String get path;
 
-  // request body
-  final dynamic body;
-
-  //request queries
-  final Map<String, dynamic>? query;
-
-  IApiService(this.clientBuilder, {this.body, this.query});
-
   Future<dynamic> request({
-    Function(dynamic) onSuccess,
-    Function(dynamic) onFail,
-    Function(dynamic) onError,
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  }) {
+    switch (method) {
+      case RestfulMethod.post:
+        return requestPost(
+          path: path ?? this.path,
+          data: data,
+          query: query,
+          onSuccess: onSuccess,
+          onFail: onFail,
+          onError: onError,
+        );
+      case RestfulMethod.get:
+        return requestGet(
+          path: path ?? this.path,
+          data: data,
+          query: query,
+          onSuccess: onSuccess,
+          onFail: onFail,
+          onError: onError,
+        );
+      case RestfulMethod.patch:
+        return requestPatch(
+          path: path ?? this.path,
+          data: data,
+          query: query,
+          onSuccess: onSuccess,
+          onFail: onFail,
+          onError: onError,
+        );
+      case RestfulMethod.delete:
+        return requestDelete(
+          path: path ?? this.path,
+          data: data,
+          query: query,
+          onSuccess: onSuccess,
+          onFail: onFail,
+          onError: onError,
+        );
+    }
+  }
+
+  Future<dynamic> requestPost({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
+
+  Future<dynamic> requestGet({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
+
+  Future<dynamic> requestPatch({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
+
+  Future<dynamic> requestDelete({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
   });
 }
+
+enum RestfulMethod { post, get, patch, delete }
 
 /// Factory create a http client instance.
 /// C is should be dio or other http clients.
