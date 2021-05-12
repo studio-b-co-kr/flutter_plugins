@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: FutureBuilder(
-            future: GoogleApiService().request(),
+            future: GoogleApiService().get(),
             builder: (context, snapshot) {
               String htmlString = 'about:blank';
               if (snapshot.hasData) {
@@ -92,6 +92,10 @@ class GoogleApiService extends DioApiService<String> {
                   authHeaderInterceptors: [AuthHeaderInterceptor(getToken())],
                 ),
             method: RestfulMethod.get);
+
+  Future<dynamic> get() async {
+    return super.requestGet();
+  }
 
   @override
   String get path => "";

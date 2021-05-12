@@ -10,54 +10,6 @@ abstract class IApiService {
 
   String get path;
 
-  Future<dynamic> request({
-    String? path,
-    dynamic data,
-    Map<String, dynamic>? query,
-    Function(dynamic)? onSuccess,
-    Function(dynamic)? onFail,
-    Function(dynamic)? onError,
-  }) {
-    switch (method) {
-      case RestfulMethod.post:
-        return requestPost(
-          path: path ?? this.path,
-          data: data,
-          query: query,
-          onSuccess: onSuccess,
-          onFail: onFail,
-          onError: onError,
-        );
-      case RestfulMethod.get:
-        return requestGet(
-          path: path ?? this.path,
-          data: data,
-          query: query,
-          onSuccess: onSuccess,
-          onFail: onFail,
-          onError: onError,
-        );
-      case RestfulMethod.patch:
-        return requestPatch(
-          path: path ?? this.path,
-          data: data,
-          query: query,
-          onSuccess: onSuccess,
-          onFail: onFail,
-          onError: onError,
-        );
-      case RestfulMethod.delete:
-        return requestDelete(
-          path: path ?? this.path,
-          data: data,
-          query: query,
-          onSuccess: onSuccess,
-          onFail: onFail,
-          onError: onError,
-        );
-    }
-  }
-
   Future<dynamic> requestPost({
     String? path,
     dynamic data,
