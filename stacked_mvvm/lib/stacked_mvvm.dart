@@ -14,4 +14,4 @@ part 'i_view_model.dart';
 part 'i_widget.dart';
 part 'i_view.dart';
 part 'list_view.dart';
-part 'view_data.dart';
+part 'state_data.dart';
