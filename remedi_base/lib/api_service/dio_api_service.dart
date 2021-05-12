@@ -8,8 +8,7 @@ import '../errors/app_error.dart';
 
 abstract class DioApiService<R extends dynamic> extends IApiService
     with _TransFormer<R> {
-  DioApiService(
-      {required IClientBuilder clientBuilder, required RestfulMethod method})
+  DioApiService({required IClientBuilder clientBuilder, required Method method})
       : super(clientBuilder: clientBuilder, method: method);
 
   @override

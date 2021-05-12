@@ -4,7 +4,7 @@
 /// R is Response of api request.
 abstract class IApiService {
   final IClientBuilder clientBuilder;
-  final RestfulMethod method;
+  final Method method;
 
   IApiService({required this.clientBuilder, required this.method});
 
@@ -47,7 +47,7 @@ abstract class IApiService {
   });
 }
 
-enum RestfulMethod { post, get, patch, delete }
+enum Method { post, get, patch, delete }
 
 /// Factory create a http client instance.
 /// C is should be dio or other http clients.
