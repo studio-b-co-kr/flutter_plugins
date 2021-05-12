@@ -5,4 +5,8 @@ class StateData<D, S> {
   S state;
 
   StateData({this.data, required this.state});
+
+  StateData<D, S> clone() {
+    return StateData(data: this.data, state: this.state)
+  }
 }
