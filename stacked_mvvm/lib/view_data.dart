@@ -4,5 +4,5 @@ class ViewData<D, S> {
   D? data;
   S state;
 
-  ViewData({required this.state});
+  ViewData({this.data, required this.state});
 }
