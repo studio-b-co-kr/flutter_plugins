@@ -168,6 +168,9 @@
       <excludeFolder url="file://$MODULE_DIR$/remedi_splash/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_splash/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_splash/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_splash/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_splash/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_splash/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_update/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_update/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_update/build" />
