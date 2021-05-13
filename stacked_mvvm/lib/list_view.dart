@@ -12,8 +12,7 @@ class ListItemsBuilder<I extends IView> {
   refresh() {}
 }
 
-abstract class ListBindingView<VM extends IViewModel>
-    extends IView<VM> {
+abstract class ListBindingView<VM extends IViewModel> extends IView<VM> {
   final ListItemsBuilder itemsBuilder;
 
   ListBindingView({required this.itemsBuilder});

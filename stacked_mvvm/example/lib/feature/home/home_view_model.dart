@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import '../../repository/i_home_repository.dart';
 import '../../viewmodel/i_home_viewmodel.dart';
 
@@ -19,5 +21,8 @@ class HomeViewModel extends IHomeViewModel {
   get initState => HomeViewState.Init;
 
   @override
-  init() {}
+  init() {
+    dev.log("count = $_count", name: "HomeViewModel");
+    super.init();
+  }
 }

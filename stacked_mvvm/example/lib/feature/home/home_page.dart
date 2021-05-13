@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:example/feature/home/home_repository.dart';
 import 'package:example/feature/home/home_view_model.dart';
 import 'package:example/viewmodel/i_home_viewmodel.dart';
@@ -33,5 +35,11 @@ class HomePage extends IPage<IHomeViewModel> {
   IView<IHomeViewModel> body(
       BuildContext context, IHomeViewModel viewModel, Widget? child) {
     return HomeView(key: LabeledGlobalKey("HomeView"));
+  }
+
+  @override
+  void onListen(BuildContext context, IHomeViewModel viewModel) {
+    dev.log("count = ${viewModel.count}", name: "HomePage");
+    super.onListen(context, viewModel);
   }
 }

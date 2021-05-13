@@ -11,6 +11,9 @@ abstract class IWidget<VM extends IViewModel> extends StatelessWidget {
     return ViewModelBuilder<VM>.reactive(
       viewModelBuilder: () {
         dev.log("viewModelBuilder", name: "$this");
+        viewModel.stream.listen((data) {
+          onListen(context, viewModel);
+        });
         return viewModel;
       },
       onModelReady: (model) async {
@@ -19,9 +22,6 @@ abstract class IWidget<VM extends IViewModel> extends StatelessWidget {
       },
       builder: (context, model, child) {
         dev.log("builder : child = $child", name: "$this");
-        try {
-          Future.microtask(() => onListen(context, model));
-        } catch (e) {}
         return body(context, model, child);
       },
     );

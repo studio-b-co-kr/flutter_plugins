@@ -1,5 +1,6 @@
 library stacked_mvvm;
 
+import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:equatable/equatable.dart';
