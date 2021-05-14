@@ -16,7 +16,9 @@ class SplashViewModel extends ISplashViewModel {
   @override
   AppError get appError => _error;
 
+  @override
   init() {
+    super.init();
     dev.log(routeName ?? "", name: "SplashViewModel Started by");
     switch (routeName) {
       case SplashPage.ROUTE_NAME_AFTER_INTRO:

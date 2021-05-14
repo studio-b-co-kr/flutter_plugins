@@ -18,7 +18,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
   @override
   init() async {
     hasError = await checkError;
-    update();
+    super.init();
   }
 
   @override

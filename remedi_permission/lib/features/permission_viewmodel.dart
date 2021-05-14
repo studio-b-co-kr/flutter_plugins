@@ -17,6 +17,7 @@ class PermissionViewModel extends IPermissionViewModel {
     // await Future.delayed(Duration(milliseconds: 100));
     await repository.init();
     _handleStatus(repository.status);
+    super.init();
   }
 
   @override
