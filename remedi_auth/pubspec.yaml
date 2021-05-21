@@ -24,10 +24,10 @@ dependencies:
   sign_in_with_apple: ^3.0.0
 
   # phone verification
-  firebase_auth: ^1.1.2
+  firebase_auth: ^1.2.0
 
   # phone number input.
-  flutter_multi_formatter: ^2.0.3
+  flutter_multi_formatter: ^2.1.0
 
   #basic architecture of app
   stacked_mvvm:

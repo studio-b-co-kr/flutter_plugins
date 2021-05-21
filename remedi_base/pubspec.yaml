@@ -36,7 +36,7 @@ dependencies:
   package_info: ^2.0.0
 
   # device info, os version, os type
-  device_info: ^2.0.0
+  device_info: ^2.0.1
 
   # uuid generator
   flutter_udid: ^2.0.0
