@@ -87,18 +87,21 @@ abstract class DioApiService<R extends dynamic> extends IApiService
   }
 
   @override
-  Future<dynamic> requestUpload(
-      {String? path,
-      dynamic data,
-      Map<String, dynamic>? query,
-      Function(dynamic)? onSuccess,
-      Function(dynamic)? onFail,
-      Function(dynamic)? onError}) async {
+  Future<dynamic> requestUpload({
+    required String filePath,
+    dynamic data,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  }) async {
+    var formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(filePath),
+    });
+
     return handleResponse(
-        await clientBuilder.post(
+        await clientBuilder.upload(
           path,
-          data: data,
-          query: query,
+          data: formData,
         ),
         onSuccess: onSuccess,
         onError: onError,
@@ -106,22 +109,18 @@ abstract class DioApiService<R extends dynamic> extends IApiService
   }
 
   @override
-  Future<dynamic> requestDownload(
-      {String? path,
-      dynamic data,
-      Map<String, dynamic>? query,
-      Function(dynamic)? onSuccess,
-      Function(dynamic)? onFail,
-      Function(dynamic)? onError}) async {
-    return handleResponse(
-        await clientBuilder.post(
-          path,
-          data: data,
-          query: query,
-        ),
-        onSuccess: onSuccess,
-        onError: onError,
-        onFail: onFail);
+  Future<dynamic> requestDownload({
+    required String urlPath,
+    required String savePath,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    return await clientBuilder.download(
+      urlPath,
+      savePath,
+      data: data,
+      queryParameters: queryParameters,
+    );
   }
 }
 
@@ -259,7 +258,6 @@ class DioBuilder extends IClientBuilder {
     interceptors?.forEach((Interceptor interceptor) {
       http.interceptors.add(interceptor);
     });
-
     return http;
   }
 
@@ -344,12 +342,17 @@ class DioBuilder extends IClientBuilder {
   }
 
   @override
-  Future<dynamic> download(String? path,
-      {IDto? data, Map<String, dynamic>? query}) async {}
+  Future<dynamic> download(String urlPath, savePath,
+      {Map<String, dynamic>? queryParameters, data}) async {
+    return await build().download(urlPath, savePath,
+        queryParameters: queryParameters, data: data);
+  }
 
   @override
-  Future<dynamic> upload(String? path,
-      {IDto? data, Map<String, dynamic>? query}) async {}
+  Future<dynamic> upload(String path, {dynamic data}) async {
+    
+    return await build().post(path, data: data);
+  }
 }
 
 class FlutterTransformer extends DefaultTransformer {

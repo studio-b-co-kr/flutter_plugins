@@ -46,21 +46,18 @@ abstract class IApiService {
   });
 
   Future<dynamic> requestUpload({
-    String? path,
+    required String filePath,
     dynamic data,
-    Map<String, dynamic>? query,
     Function(dynamic)? onSuccess,
     Function(dynamic)? onFail,
     Function(dynamic)? onError,
   });
 
   Future<dynamic> requestDownload({
-    String? path,
+    required String urlPath,
+    required String savePath,
     dynamic data,
-    Map<String, dynamic>? query,
-    Function(dynamic)? onSuccess,
-    Function(dynamic)? onFail,
-    Function(dynamic)? onError,
+    Map<String, dynamic>? queryParameters,
   });
 }
 
@@ -86,11 +83,10 @@ abstract class IClientBuilder<C> {
   Future<dynamic> delete(String? path,
       {IDto? data, Map<String, dynamic>? query});
 
-  Future<dynamic> upload(String? path,
-      {IDto? data, Map<String, dynamic>? query});
+  Future<dynamic> upload(String path, {dynamic data});
 
-  Future<dynamic> download(String? path,
-      {IDto? data, Map<String, dynamic>? query});
+  Future<dynamic> download(String urlPath, savePath,
+      {Map<String, dynamic>? queryParameters, data});
 }
 
 /// Data transfer object.
