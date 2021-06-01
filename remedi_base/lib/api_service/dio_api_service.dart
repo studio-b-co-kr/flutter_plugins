@@ -85,6 +85,44 @@ abstract class DioApiService<R extends dynamic> extends IApiService
         onError: onError,
         onFail: onFail);
   }
+
+  @override
+  Future<dynamic> requestUpload(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
+    return handleResponse(
+        await clientBuilder.post(
+          path,
+          data: data,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
+  }
+
+  @override
+  Future<dynamic> requestDownload(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
+    return handleResponse(
+        await clientBuilder.post(
+          path,
+          data: data,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
+  }
 }
 
 abstract class _TransFormer<R> {
@@ -195,7 +233,7 @@ class DioBuilder extends IClientBuilder {
   Dio build() {
     Dio http = Dio();
     http.options.baseUrl = baseUrl;
-    http.options.connectTimeout = 5000;
+    http.options.connectTimeout = 15000;
 
     if (userAgent != null)
       http.options.headers.addAll({'User-Agent': userAgent});
@@ -304,6 +342,14 @@ class DioBuilder extends IClientBuilder {
 
     return res;
   }
+
+  @override
+  Future<dynamic> download(String? path,
+      {IDto? data, Map<String, dynamic>? query}) async {}
+
+  @override
+  Future<dynamic> upload(String? path,
+      {IDto? data, Map<String, dynamic>? query}) async {}
 }
 
 class FlutterTransformer extends DefaultTransformer {

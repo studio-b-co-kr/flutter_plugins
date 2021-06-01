@@ -44,9 +44,27 @@ abstract class IApiService {
     Function(dynamic)? onFail,
     Function(dynamic)? onError,
   });
+
+  Future<dynamic> requestUpload({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
+
+  Future<dynamic> requestDownload({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
 }
 
-enum Method { post, get, patch, delete }
+enum Method { post, get, patch, delete, upload, download }
 
 /// Factory create a http client instance.
 /// C is should be dio or other http clients.
@@ -66,6 +84,12 @@ abstract class IClientBuilder<C> {
       {IDto? data, Map<String, dynamic>? query});
 
   Future<dynamic> delete(String? path,
+      {IDto? data, Map<String, dynamic>? query});
+
+  Future<dynamic> upload(String? path,
+      {IDto? data, Map<String, dynamic>? query});
+
+  Future<dynamic> download(String? path,
       {IDto? data, Map<String, dynamic>? query});
 }
 
