@@ -29,7 +29,7 @@ abstract class IViewModel<S> extends BaseViewModel {
     _streamController.add(initState);
   }
 
-  get stream => _stream;
+  get stream => _stream.asBroadcastStream;
 
   @override
   void dispose() {
