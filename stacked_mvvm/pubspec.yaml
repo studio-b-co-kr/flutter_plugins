@@ -2,7 +2,6 @@ name: stacked_mvvm
 description: MVVM architecture implementation
 version: 2.1.0
 author:
-homepage:
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
