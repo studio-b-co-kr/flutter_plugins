@@ -17,3 +17,4 @@ part 'i_widget.dart';
 part 'i_view.dart';
 part 'list_view.dart';
 part 'state_data.dart';
+part 'viewmodel_factory.dart';
