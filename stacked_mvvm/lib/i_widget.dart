@@ -33,6 +33,6 @@ abstract class IWidget<VM extends IViewModel> extends StatelessWidget {
   void onListen(BuildContext context, VM viewModel) {
     /// Do not update ui here.
     /// Only for route other page or show dialog.
-    dev.log("onListen:${viewModel.state}", name: "$this");
+    dev.log("onListen:${viewModel.state}", name: "$this:${this.hashCode}");
   }
 }
