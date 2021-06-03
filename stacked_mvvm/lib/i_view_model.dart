@@ -16,7 +16,7 @@ abstract class IViewModel<S> extends BaseViewModel {
 
   /// use this method to move other screen or show popup
   update({required S state}) {
-    _streamController.add(state);
+    _add(state: initState);
     this.state = state;
 
     try {
@@ -26,7 +26,7 @@ abstract class IViewModel<S> extends BaseViewModel {
 
   @mustCallSuper
   init() async {
-    _streamController.add(initState);
+    _add(state: initState);
   }
 
   get stream => _stream;
@@ -35,5 +35,13 @@ abstract class IViewModel<S> extends BaseViewModel {
   void dispose() {
     _streamController.close();
     super.dispose();
+  }
+
+  void _add({required S state}) {
+    if (_streamController.isClosed) {
+      _streamController = BehaviorSubject<S>();
+      _stream = _streamController.stream;
+    }
+    _streamController.add(state);
   }
 }
