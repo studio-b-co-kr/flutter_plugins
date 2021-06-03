@@ -8,7 +8,7 @@ abstract class IViewModel<S> extends BaseViewModel {
   @mustCallSuper
   IViewModel() {
     state = initState;
-    _streamController = StreamController<S>.broadcast();
+    _streamController = BehaviorSubject<S>();
     _stream = _streamController.stream;
   }
 
@@ -29,7 +29,7 @@ abstract class IViewModel<S> extends BaseViewModel {
     _streamController.add(initState);
   }
 
-  get stream => _stream.asBroadcastStream;
+  get stream => _stream;
 
   @override
   void dispose() {

@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  rxdart: ^0.27.1
   equatable: ^2.0.2
   stacked: ^2.1.6
 
