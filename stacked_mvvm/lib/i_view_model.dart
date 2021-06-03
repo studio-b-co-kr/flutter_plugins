@@ -31,12 +31,6 @@ abstract class IViewModel<S> extends BaseViewModel {
 
   get stream => _stream;
 
-  @override
-  void dispose() {
-    _streamController.close();
-    super.dispose();
-  }
-
   void _add({required S state}) {
     if (_streamController.isClosed) {
       _streamController = BehaviorSubject<S>();
