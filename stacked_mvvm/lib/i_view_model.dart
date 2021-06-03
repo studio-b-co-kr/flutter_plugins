@@ -8,7 +8,7 @@ abstract class IViewModel<S> extends BaseViewModel {
   @mustCallSuper
   IViewModel() {
     state = initState;
-    _streamController = StreamController<S>();
+    _streamController = StreamController<S>.broadcast();
     _stream = _streamController.stream;
   }
 
