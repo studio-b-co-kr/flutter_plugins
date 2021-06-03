@@ -1,5 +1,7 @@
 part of 'stacked_mvvm.dart';
 
-abstract class ViewModelFactory<T extends IViewModel> {
-  T build();
+class ViewModelFactory<T extends IViewModel> {
+  T Function() build;
+
+  ViewModelFactory({required this.build});
 }
