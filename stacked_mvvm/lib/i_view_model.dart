@@ -33,7 +33,7 @@ abstract class IViewModel<S> extends BaseViewModel {
 
   @override
   void dispose() {
-    _streamController.close();
+    // _streamController.close();
     super.dispose();
   }
 }
