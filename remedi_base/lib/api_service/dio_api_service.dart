@@ -246,6 +246,7 @@ class DioBuilder extends IClientBuilder {
     http.transformer = FlutterTransformer();
 
     http.interceptors.add(LogInterceptor(
+        request: enableLogging,
         requestBody: enableLogging,
         responseBody: enableLogging,
         requestHeader: enableLogging,
@@ -350,7 +351,6 @@ class DioBuilder extends IClientBuilder {
 
   @override
   Future<dynamic> upload(String path, {dynamic data}) async {
-    
     return await build().post(path, data: data);
   }
 }
