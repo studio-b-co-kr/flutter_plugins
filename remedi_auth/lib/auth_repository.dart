@@ -10,6 +10,7 @@ class AuthRepository extends IAuthRepository {
   AuthRepository._();
 
   static const String _KEY_USER_ID = "USER_ID";
+  static const String _KEY_USER_CODE = "USER_CODE";
   static const String _KEY_ACCESS_TOKEN = "ACCESS_TOKEN";
   static const String _KEY_REFRESH_TOKEN = "REFRESH_TOKEN";
 
@@ -43,6 +44,15 @@ class AuthRepository extends IAuthRepository {
     return await AuthManager.storage.write(key: _KEY_USER_ID, value: "$userId");
   }
 
+  Future writeUserCode(String userCode) async {
+    if ("$userId".isEmpty) {
+      return;
+    }
+
+    return await AuthManager.storage
+        .write(key: _KEY_USER_CODE, value: "$userCode");
+  }
+
   Future<String?> get accessToken async =>
       await AuthManager.storage.read(key: _KEY_ACCESS_TOKEN);
 
@@ -52,6 +62,9 @@ class AuthRepository extends IAuthRepository {
   Future<String?> get userId async =>
       await AuthManager.storage.read(key: _KEY_USER_ID);
 
+  Future<String?> get userCode async =>
+      await AuthManager.storage.read(key: _KEY_USER_CODE);
+
   Future deleteAccessToken() async =>
       await AuthManager.storage.delete(key: _KEY_ACCESS_TOKEN);
 
@@ -60,4 +73,7 @@ class AuthRepository extends IAuthRepository {
 
   Future deleteUserId() async =>
       await AuthManager.storage.delete(key: _KEY_USER_ID);
+
+  Future deleteUserCode() async =>
+      await AuthManager.storage.delete(key: _KEY_USER_CODE);
 }

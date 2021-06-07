@@ -61,10 +61,8 @@ class LoginViewModel extends ILoginViewModel {
 
       await Future.wait([
         AuthRepository.instance().writeUserId(appCredential.userId),
-        Future.microtask(() async => {
-              await AuthRepository.instance()
-                  .writeAccessToken(appCredential.accessToken)
-            }),
+        AuthRepository.instance().writeUserCode(appCredential.userCode),
+        AuthRepository.instance().writeAccessToken(appCredential.accessToken),
         AuthRepository.instance()
             .writeRefreshToken(appCredential.refreshToken ?? "")
       ]);
@@ -151,10 +149,8 @@ class LoginViewModel extends ILoginViewModel {
 
       await Future.wait([
         AuthRepository.instance().writeUserId(credential.userId),
-        Future.microtask(() async => {
-              await AuthRepository.instance()
-                  .writeAccessToken(credential.accessToken)
-            }),
+        AuthRepository.instance().writeUserCode(credential.userCode),
+        AuthRepository.instance().writeAccessToken(credential.accessToken),
         AuthRepository.instance()
             .writeRefreshToken(credential.refreshToken ?? "")
       ]);
