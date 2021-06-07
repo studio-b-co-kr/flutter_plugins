@@ -37,13 +37,6 @@ dependencies:
   #svg loader
   flutter_svg: ^0.22.0
 
-  # multi-resolution support.
-  multiscreen:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
-      path: multiscreen/
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
