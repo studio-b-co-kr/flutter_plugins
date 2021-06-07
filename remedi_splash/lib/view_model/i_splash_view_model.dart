@@ -25,7 +25,7 @@ abstract class ISplashViewModel extends IViewModel<SplashViewState> {
 
   showError(AppError error);
 
-  AppError get appError;
+  AppError? get appError;
 }
 
 enum SplashViewState {
