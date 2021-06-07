@@ -152,7 +152,7 @@ class FcmManager {
     });
   }
 
-  Future<String?> getFcmToken() async {
+  static Future<String?> getFcmToken() async {
     return await FirebaseMessaging.instance.getToken();
   }
 }
