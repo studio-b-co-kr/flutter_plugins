@@ -12,8 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  firebase_messaging: ^10.0.0
-  flutter_local_notifications: ^5.0.0+4
+  firebase_messaging: ^10.0.1
+  flutter_local_notifications: ^6.0.0
 
 dev_dependencies:
   flutter_test:

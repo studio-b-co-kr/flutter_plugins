@@ -18,16 +18,16 @@ dependencies:
   flutter_svg: ^0.22.0
 
   # kakao login
-  flutter_kakao_login: ^3.2.1
+  flutter_kakao_login: ^3.3.0
 
   # sign in with apple
   sign_in_with_apple: ^3.0.0
 
   # phone verification
-  firebase_auth: ^1.2.0
+  firebase_auth: ^1.3.0
 
   # phone number input.
-  flutter_multi_formatter: ^2.1.0
+  flutter_multi_formatter: ^2.2.0
 
   #basic architecture of app
   stacked_mvvm:
