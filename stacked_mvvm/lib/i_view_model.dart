@@ -15,9 +15,8 @@ abstract class IViewModel<S> extends BaseViewModel {
   S get initState;
 
   /// use this method to move other screen or show popup
-  update({required S state}) {
-    _add(state: initState);
-    this.state = state;
+  update({S? state}) {
+    _add(state: state);
 
     try {
       notifyListeners();
@@ -31,11 +30,16 @@ abstract class IViewModel<S> extends BaseViewModel {
 
   get stream => _stream;
 
-  void _add({required S state}) {
+  void _add({S? state}) {
+    // if _streamController is null, create the instance again.
     if (_streamController.isClosed) {
       _streamController = BehaviorSubject<S>();
       _stream = _streamController.stream;
     }
-    _streamController.add(state);
+
+    // if state is null, keep prev state.
+    this.state = state ?? this.state;
+    // if state is null, do not add state to the stream.
+    if (state != null) _streamController.add(this.state);
   }
 }
