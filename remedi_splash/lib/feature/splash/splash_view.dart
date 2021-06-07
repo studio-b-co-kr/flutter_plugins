@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:multiscreen/multiscreen.dart';
 import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
@@ -24,7 +23,7 @@ class SplashView extends IView<ISplashViewModel> {
             _images(
               buildContext,
               image: logoBrand,
-              width: resize(200),
+              width: 200,
             ),
             Expanded(
               flex: 3,
@@ -33,8 +32,9 @@ class SplashView extends IView<ISplashViewModel> {
                 viewModel.state == SplashViewState.Error
                     ? Container(
                         padding: EdgeInsets.all(16),
+                        margin: EdgeInsets.all(16),
                         color: Colors.grey.shade200,
-                        width: resize(320),
+                        width: double.infinity,
                         child: ListView(
                           shrinkWrap: true,
                           children: [
@@ -58,8 +58,8 @@ class SplashView extends IView<ISplashViewModel> {
                         ),
                       )
                     : Container(
-                        width: resize(40),
-                        height: resize(40),
+                        width: 40,
+                        height: 40,
                         child: CircularProgressIndicator(),
                       ),
                 Spacer(flex: 1),
@@ -70,7 +70,7 @@ class SplashView extends IView<ISplashViewModel> {
               image: logoCompany,
               width: 100,
             ),
-            SizedBox(height: resize(16)),
+            SizedBox(height: 16),
           ]),
         ),
       ),
@@ -86,12 +86,12 @@ class SplashView extends IView<ISplashViewModel> {
     if (image.contains("svg")) {
       return SvgPicture.asset(
         image,
-        width: resize(width),
+        width: width,
       );
     }
     return Image.asset(
       image,
-      width: resize(width),
+      width: width,
     );
   }
 }

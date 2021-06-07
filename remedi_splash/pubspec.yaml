@@ -20,13 +20,6 @@ dependencies:
       ref: null-safety
       path: stacked_mvvm/
 
-  # multi-resolution support.
-  multiscreen:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
-      path: multiscreen/
-
   remedi_base:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
