@@ -151,6 +151,10 @@ class FcmManager {
       handler(message);
     });
   }
+
+  Future<String?> getFcmToken() async {
+    return await FirebaseMessaging.instance.getToken();
+  }
 }
 
 class AndroidNotificationChannelWrapperList {
