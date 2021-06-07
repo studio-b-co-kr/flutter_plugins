@@ -142,6 +142,8 @@ class MyAppCredential extends ICredential {
     AuthError? error,
   }) : super(
           userId: userId,
+          userCode: "",
+          userRole: "",
           accessToken: accessToken,
           refreshToken: refreshToken,
           error: error,
