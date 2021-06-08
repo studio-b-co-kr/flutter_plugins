@@ -114,12 +114,11 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
   Color _background(IPermissionViewModel viewModel) {
     Color ret = Colors.amber.shade50;
     switch (viewModel.state) {
-      case PermissionViewState.Init:
-        break;
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
         ret = Colors.grey.shade50;
         break;
+      case PermissionViewState.Init:
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:
         ret = Colors.grey.shade50;
@@ -141,12 +140,11 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
     IconData icon = Icons.check_circle_outline;
     Color iconColor = Colors.grey;
     switch (viewModel.state) {
-      case PermissionViewState.Init:
-        break;
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
         iconColor = Colors.green;
         break;
+      case PermissionViewState.Init:
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:
         icon = Icons.error_outline_sharp;

@@ -43,5 +43,7 @@
 	<false/>
 	<key>NSCameraUsageDescription</key>
     <string>camera</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>location</string>
 </dict>
 </plist>
