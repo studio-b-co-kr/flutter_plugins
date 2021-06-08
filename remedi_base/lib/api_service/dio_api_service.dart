@@ -265,13 +265,13 @@ class DioBuilder extends IClientBuilder {
   @override
   Future<dynamic> delete(
     String? path, {
-    IDto? data,
+    dynamic data,
     Map<String, dynamic>? query,
   }) async {
     var res;
     try {
       res = await build().delete<dynamic>(path ?? "",
-          data: data?.toJson, queryParameters: query);
+          data: _data(data), queryParameters: query);
     } catch (e) {
       if (e is DioError) {
         res = e.response;
@@ -303,13 +303,13 @@ class DioBuilder extends IClientBuilder {
   @override
   Future<dynamic> patch(
     String? path, {
-    IDto? data,
+    dynamic data,
     Map<String, dynamic>? query,
   }) async {
     var res;
     try {
       res = await build().patch<dynamic>(path ?? "",
-          data: data?.toJson, queryParameters: query);
+          data: _data(data), queryParameters: query);
     } catch (e) {
       if (e is DioError) {
         res = e.response;
@@ -324,13 +324,13 @@ class DioBuilder extends IClientBuilder {
   @override
   Future<dynamic> post(
     String? path, {
-    IDto? data,
+    dynamic data,
     Map<String, dynamic>? query,
   }) async {
     var res;
     try {
-      res = await build().post<dynamic>(path ?? "",
-          data: data?.toJson, queryParameters: query);
+      res = await build()
+          .post<dynamic>(path ?? "", data: _data(data), queryParameters: query);
     } catch (e) {
       if (e is DioError) {
         res = e.response;
@@ -352,6 +352,32 @@ class DioBuilder extends IClientBuilder {
   @override
   Future<dynamic> upload(String path, {dynamic data}) async {
     return await build().post(path, data: data);
+  }
+
+  dynamic _data(dynamic data) {
+    if (data == null) {
+      return null;
+    }
+
+    if (data is Map<String, dynamic>) {
+      return data;
+    }
+
+    if (data is int) {
+      return data;
+    }
+
+    if (data is String) {
+      return data;
+    }
+
+    if (data is bool) {
+      return data;
+    }
+
+    if (data is IDto) {
+      return data.toJson;
+    }
   }
 }
 
