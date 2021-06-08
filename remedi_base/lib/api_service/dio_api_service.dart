@@ -378,6 +378,8 @@ class DioBuilder extends IClientBuilder {
     if (data is IDto) {
       return data.toJson;
     }
+
+    assert(false);
   }
 }
 
