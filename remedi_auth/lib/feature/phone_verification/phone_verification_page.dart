@@ -5,18 +5,24 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   static const routeName = "/phone_verification";
-  final String information;
 
-  PhoneVerificationPage(
-      {Key? key,
-      required IPhoneVerificationViewModel viewModel,
-      required this.information})
-      : super(key: key, viewModel: viewModel);
+  final String title;
+  final String description;
+
+  PhoneVerificationPage({
+    Key? key,
+    required IPhoneVerificationViewModel viewModel,
+    required this.title,
+    required this.description,
+  }) : super(key: key, viewModel: viewModel);
 
   @override
-  IView<IPhoneVerificationViewModel> body(BuildContext context,
+  PhoneVerificationView body(BuildContext context,
       IPhoneVerificationViewModel viewModel, Widget? child) {
-    return PhoneVerificationView(information: information);
+    return PhoneVerificationView(
+      title: title,
+      description: description,
+    );
   }
 
   @override

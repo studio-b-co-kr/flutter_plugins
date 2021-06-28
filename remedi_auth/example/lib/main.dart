@@ -1,19 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:remedi_auth/feature/login/login_page.dart';
 import 'package:remedi_auth/feature/login/login_viewmodel.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
-import 'package:remedi_auth/feature/phone_verification/phone_verification_repository.dart';
-import 'package:remedi_auth/feature/phone_verification/phone_verification_viewmodel.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_view_model.dart';
 import 'package:remedi_auth/remedi_auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   AuthManager.init(
       storage: MyStorage(),
       enableKakao: true,
       kakaoAppId: "2d097d3c402c32951f7cb13e87f63b8c",
       enableApple: true,
       enableEmailPassword: false);
+
   runApp(MyApp());
 }
 
@@ -60,9 +64,9 @@ class MyApp extends StatelessWidget {
                 settings: settings,
                 builder: (context) {
                   return PhoneVerificationPage(
-                    information: "서비스를 사용하기 위해 전화번호를 인증해주세요.",
-                    viewModel: PhoneVerificationViewModel(
-                        repository: PhoneVerificationRepository()),
+                    title:"전화번호 인증",
+                    description: "서비스를 사용하기 위해 전화번호를 인증해주세요.",
+                    viewModel: PhoneVerificationViewModel(),
                   );
                 });
             break;

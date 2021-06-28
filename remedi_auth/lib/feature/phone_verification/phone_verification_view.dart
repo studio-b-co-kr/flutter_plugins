@@ -1,32 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:remedi_auth/feature/phone_verification/input_phone_number_widget.dart';
 import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
 import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-class PhoneVerificationView extends IView<IPhoneVerificationViewModel> {
-  final String information;
-  final GlobalKey<FormFieldState> _textInputKey = GlobalKey<FormFieldState>();
+import 'input_code_widget.dart';
 
-  PhoneVerificationView({Key? key, required this.information})
-      : super(key: key);
+class PhoneVerificationView extends IView<IPhoneVerificationViewModel> {
+  final String title;
+  final String description;
+
+  PhoneVerificationView({
+    Key? key,
+    required this.title,
+    required this.description,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, IPhoneVerificationViewModel viewModel) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        title: FixedScaleText(
-          text: Text("전화번호 인증"),
-        ),
-      ),
+          backgroundColor: Colors.white,
+          elevation: 1,
+          leadingWidth: 0,
+          automaticallyImplyLeading: false,
+          centerTitle: false,
+          toolbarHeight: 40,
+          title: FixedScaleText(
+            text: Text(
+              title,
+              style: TextStyle(
+                color: Colors.grey.shade800,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                padding: EdgeInsets.all(8),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.grey.shade800,
+                  size: 20,
+                ),
+              ),
+            )
+          ]),
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(children: [
             _textGuide(),
-            _textInput(context),
-            _textError(),
+            PhoneNumberInputWidget(
+              onRequestVerification: (phoneNumber) {},
+            ),
+            InputCodeWidget(
+              inputPhoneVerificationCode: '',
+              confirmVerificationCode: '',
+            ),
+            SizedBox(height: 40)
           ]),
         ),
       ),
@@ -35,72 +71,16 @@ class PhoneVerificationView extends IView<IPhoneVerificationViewModel> {
 
   Widget _textGuide() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      margin: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       child: FixedScaleText(
         text: Text(
-          information,
-          style: TextStyle(fontSize: 16),
+          description,
+          style: TextStyle(
+            color: Colors.grey.shade700,
+            fontSize: 14,
+          ),
         ),
       ),
     );
-  }
-
-  final PhoneInputFormatter phoneInputFormatter = PhoneInputFormatter(
-      onCountrySelected: (PhoneCountryData? phoneCountryData) {},
-      allowEndlessPhone: false);
-
-  Widget _textInput(BuildContext context) {
-    PhoneNumberFormatter.modFormatter();
-    return Container(
-        margin: EdgeInsets.all(16),
-        child: MediaQuery(
-          data: MediaQueryData(textScaleFactor: 1),
-          child: TextFormField(
-              key: _textInputKey,
-              initialValue: "+82",
-              autofocus: true,
-              enableInteractiveSelection: false,
-              onFieldSubmitted: (submitted) {
-                print("[REMEDI] onFieldSubmitted:$submitted");
-              },
-              onEditingComplete: () {
-                print("[REMEDI] onEditingComplete");
-              },
-              keyboardType: TextInputType.phone,
-              onSaved: (saved) {
-                print("[REMEDI] onSaved:$saved");
-              },
-              onChanged: (changed) {
-                print("[REMEDI] onChanged:$changed");
-                _textInputKey.currentState?.validate();
-              },
-              validator: (input) {
-                String phoneNumber = phoneInputFormatter.unmasked;
-                return null;
-              },
-              inputFormatters: [
-                // phoneInputFormatter,
-                // PhoneNumberFormatter(),
-                MaskedInputFormatter('###-0000-#####',
-                    anyCharMatcher: RegExp(r'[0-9]'))
-              ]),
-        ));
-  }
-
-  Widget _textError() {
-    return Container();
-  }
-}
-
-class PhoneNumberFormatter {
-  static modFormatter() {
-    PhoneInputFormatter.replacePhoneMask(
-        countryCode: "KR", newMask: "+00 (0)00 0000 0000");
-    PhoneInputFormatter.addAlternativePhoneMasks(
-        countryCode: "KR",
-        alternativeMasks: [
-          "+00 (0)00 000 0000",
-          "+00 (0)00 000 0000",
-        ]);
   }
 }
