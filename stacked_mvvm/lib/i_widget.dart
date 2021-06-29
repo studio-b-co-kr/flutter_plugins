@@ -27,7 +27,7 @@ abstract class IWidget<VM extends IViewModel> extends StatelessWidget {
     );
   }
 
-  IView<VM> body(BuildContext context, VM viewModel, Widget? child);
+  Widget body(BuildContext context, VM viewModel, Widget? child);
 
   @mustCallSuper
   void onListen(BuildContext context, VM viewModel) {
