@@ -26,6 +26,9 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
       title: title,
       description: description,
       state: state,
+      requestVerify: (verification) {
+        viewModel.requestVerify(verification);
+      },
     );
   }
 

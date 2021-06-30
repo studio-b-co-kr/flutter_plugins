@@ -6,9 +6,5 @@ abstract class IPhoneVerificationViewModel
     extends IViewModel<PhoneVerificationState> {
   IPhoneVerificationRepository get repository;
 
-  int? get forceResendingToken;
-
-  bool get showRequestButton;
-
-  changePhoneNumber();
+  requestVerify(PhoneVerification verification);
 }

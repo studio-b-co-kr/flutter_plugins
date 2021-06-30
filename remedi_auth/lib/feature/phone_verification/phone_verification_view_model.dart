@@ -4,23 +4,18 @@ import 'package:remedi_auth/repository/i_phone_verification_repository.dart';
 import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
 
 class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
-  bool _showRequestButton = false;
+  @override
+  // TODO: implement initState
+  PhoneVerificationState get initState => throw UnimplementedError();
 
   @override
-  int? get forceResendingToken => null;
+  // TODO: implement repository
+  IPhoneVerificationRepository get repository => throw UnimplementedError();
 
   @override
-  PhoneVerificationState get initState =>
-      PhoneVerificationState.inputPhoneNumber;
-
-  @override
-  IPhoneVerificationRepository get repository =>
-      PhoneVerificationRepository.instance();
-
-  @override
-  bool get showRequestButton => _showRequestButton;
-
-  changePhoneNumber() {
-    update();
+  requestVerify(PhoneVerification verification) {
+    // TODO: implement requestVerify
+    throw UnimplementedError();
   }
+  
 }

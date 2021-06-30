@@ -13,12 +13,14 @@ class PhoneVerificationView extends StatefulWidget {
   final String title;
   final String description;
   final StateData<PhoneVerification, PhoneVerificationState> state;
+  final Function(PhoneVerification verfication) requestVerify;
 
   PhoneVerificationView({
     Key? key,
     required this.title,
     required this.description,
     required this.state,
+    required this.requestVerify,
   }) : super(key: key);
 
   @override
@@ -227,14 +229,10 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
             setState(() {
               _showVerifyButton = code.length == 6;
             });
-
             _setStateVerifying(context);
-
-            await Future.delayed(Duration(seconds: 3));
-
-            // _setStateErrorOnVerifying();
-
-            _setStateVerified(context);
+            widget.requestVerify(PhoneVerification(
+                phoneNumber: _phoneNumber!.phoneNumber!,
+                verificationCode: code!));
           }
         },
       ),
