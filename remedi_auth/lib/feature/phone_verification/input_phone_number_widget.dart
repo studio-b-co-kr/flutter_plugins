@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -41,26 +43,28 @@ class PhoneNumberInputState extends State<InputPhoneNumberWidget> {
       child: InternationalPhoneNumberInput(
         focusNode: widget.focusNode,
         textFieldController: widget.controller,
-        autoFocus: false,
+        autoFocus: true,
         isEnabled: true,
         onInputChanged: (number) {
           _phoneNumber = number;
-          print(number.phoneNumber);
+          dev.log(number.phoneNumber ?? "");
         },
         onInputValidated: (bool value) async {
           if (value == _showRequest) {
             return;
           }
 
-          print(value);
+          dev.log("valid = $value");
 
           if (widget.onInputValidated != null) {
             widget.onInputValidated!(value);
           }
 
-          setState(() {
-            _showRequest = value;
-          });
+          _showRequest = value;
+
+          if (_showRequest) {
+            widget.onSubmitted(_phoneNumber!);
+          }
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.DIALOG,
@@ -89,6 +93,4 @@ class PhoneNumberInputState extends State<InputPhoneNumberWidget> {
   String hintText(BuildContext context) {
     return "10-1234-5678";
   }
-
-  bool get showRequest => widget.onInputValidated != null && _showRequest;
 }

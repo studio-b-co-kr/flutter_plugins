@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -62,7 +64,7 @@ class MyApp extends StatelessWidget {
                 });
             break;
           case PhoneVerificationPage.routeName:
-            ret = MaterialPageRoute(
+            ret = MaterialPageRoute<String>(
                 settings: settings,
                 builder: (context) {
                   return PhoneVerificationPage(
@@ -131,9 +133,10 @@ class MyHomePage extends StatelessWidget {
                   color: Colors.red,
                   minWidth: double.infinity,
                   textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.of(context)
+                  onPressed: () async {
+                    String? phoneNumber = await Navigator.of(context)
                         .pushNamed(PhoneVerificationPage.routeName);
+                    dev.log(phoneNumber ?? "", name: "Phone Number");
                   },
                   child: Text("Phone Verification")),
             ),

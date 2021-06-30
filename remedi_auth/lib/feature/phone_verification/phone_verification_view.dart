@@ -60,10 +60,12 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
 
   PhoneNumber? _phoneNumber;
 
+  late PhoneVerificationState _state;
+
   @override
   void initState() {
     // _setState(widget.state.state);
-    _phoneNumberInputFocus.requestFocus();
+    _state = widget.state.state;
     super.initState();
   }
 
@@ -91,7 +93,11 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
           actions: [
             InkWell(
               onTap: () {
-                Navigator.of(context).pop();
+                String? result;
+                if (_state == PhoneVerificationState.verified) {
+                  result = _phoneNumber?.phoneNumber;
+                }
+                Navigator.of(context).pop(result);
               },
               child: Container(
                 padding: EdgeInsets.all(8),
@@ -158,8 +164,7 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
           onTap: () {
             _inputCodeController.text = "";
             _inputPhoneNumberController.text = "";
-            _setStateInputPhoneNumber();
-            _phoneNumberInputFocus.requestFocus();
+            _setStateInputPhoneNumber(context);
           },
           child: Container(
             height: double.maxFinite,
@@ -215,13 +220,21 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
       expanded: InputCodeWidget(
         controller: _inputCodeController,
         focusNode: _codeInputFocus,
-        onCodeChanged: (code) {
+        onCodeChanged: (code) async {
           bool before = _showVerifyButton;
 
           if (before != (code.length == 6)) {
             setState(() {
               _showVerifyButton = code.length == 6;
             });
+
+            _setStateVerifying(context);
+
+            await Future.delayed(Duration(seconds: 3));
+
+            // _setStateErrorOnVerifying();
+
+            _setStateVerified(context);
           }
         },
       ),
@@ -232,10 +245,10 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
 
   Widget _message(BuildContext context) {
     Widget child;
-    switch (widget.state.state) {
-      case PhoneVerificationState.verifying:
+    switch (_state) {
+      case PhoneVerificationState.inputCode:
         child = Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
@@ -243,8 +256,10 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
                 height: 28,
                 width: 28,
                 alignment: Alignment.center,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
+                child: Icon(
+                  Icons.circle_notifications,
+                  color: Colors.yellow.shade900,
+                  size: 28,
                 ),
               ),
               SizedBox(width: 8),
@@ -252,6 +267,7 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
                 child: FixedScaleText(
                   text: Text(
                     "인증코드를 발송했습니다.\n코드를 입력 후 인증을 완료해주세요.",
+                    maxLines: 2,
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey.shade900,
@@ -263,7 +279,7 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
         break;
       case PhoneVerificationState.errorOnVerifying:
         child = Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
@@ -281,7 +297,7 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
               Container(
                 child: FixedScaleText(
                   text: Text(
-                    "오류가 발생했습니다.",
+                    "오류가 발생했습니다.\n인증코드를 다시 확인해주세요.",
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey.shade900,
@@ -293,7 +309,7 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
         break;
       case PhoneVerificationState.verified:
         child = Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
@@ -321,12 +337,41 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
               ),
             ]);
         break;
+      case PhoneVerificationState.verifying:
+        child = Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 2),
+                height: 28,
+                width: 28,
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
+              ),
+              SizedBox(width: 8),
+              Container(
+                child: FixedScaleText(
+                  text: Text(
+                    "확인 중입니다.",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ),
+              ),
+            ]);
+        break;
       default:
         child = Container();
         break;
     }
     return Expanded(
       child: Container(
+        alignment: Alignment.topLeft,
         padding: EdgeInsets.all(16),
         child: child,
       ),
@@ -335,12 +380,11 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
 
   Widget _buttons(BuildContext context) {
     if (_showRequestButton &&
-        widget.state.state == PhoneVerificationState.inputPhoneNumber) {
+        _state == PhoneVerificationState.inputPhoneNumber) {
       return InkWell(
         onTap: () {
           _showRequestButton = false;
-          _setStateInputCode();
-          _codeInputFocus.requestFocus();
+          _setStateInputCode(context);
         },
         child: Container(
           alignment: Alignment.center,
@@ -359,12 +403,11 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
       );
     }
 
-    if (_showVerifyButton &&
-        widget.state.state == PhoneVerificationState.inputCode) {
+    if (_showVerifyButton && _state == PhoneVerificationState.inputCode) {
       return InkWell(
         onTap: () {
           _showVerifyButton = false;
-          _setStateVerifying();
+          _setStateVerifying(context);
           _codeInputFocus.unfocus();
         },
         child: Container(
@@ -374,6 +417,32 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
           child: FixedScaleText(
             text: Text(
               "인증하기",
+              style: TextStyle(
+                  color: Colors.blue.shade50,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+          ),
+        ),
+      );
+    }
+
+    if (_state == PhoneVerificationState.verified) {
+      return InkWell(
+        onTap: () {
+          String? result;
+          if (_state == PhoneVerificationState.verified) {
+            result = _phoneNumber?.phoneNumber;
+          }
+          Navigator.of(context).pop(result);
+        },
+        child: Container(
+          alignment: Alignment.center,
+          color: Colors.green,
+          height: 48,
+          child: FixedScaleText(
+            text: Text(
+              "완료",
               style: TextStyle(
                   color: Colors.blue.shade50,
                   fontWeight: FontWeight.bold,
@@ -399,64 +468,54 @@ class PhoneVerificationViewState extends State<PhoneVerificationView> {
     super.dispose();
   }
 
-  // void _setState(PhoneVerificationState state) {
-  //   switch (state) {
-  //     case PhoneVerificationState.inputPhoneNumber:
-  //       _setStateInputPhoneNumber();
-  //       break;
-  //     case PhoneVerificationState.inputCode:
-  //       _setStateInputCode();
-  //       break;
-  //     case PhoneVerificationState.verifying:
-  //       _setStateVerifying();
-  //       break;
-  //     case PhoneVerificationState.errorOnVerifying:
-  //       _setStateErrorOnVerifying();
-  //       break;
-  //     case PhoneVerificationState.verified:
-  //       _setStateVerified();
-  //       break;
-  //   }
-  // }
-
-  void _setStateInputPhoneNumber() async {
+  void _setStateInputPhoneNumber(BuildContext context) async {
     setState(() {
-      widget.state.state = PhoneVerificationState.inputPhoneNumber;
+      _state = widget.state.state = PhoneVerificationState.inputPhoneNumber;
     });
     _expandableCodeController.expanded = false;
     _expandablePhoneNumberController.expanded = true;
+    _phoneNumberInputFocus.requestFocus();
   }
 
-  void _setStateInputCode() async {
+  void _setStateInputCode(BuildContext context) async {
     setState(() {
-      widget.state.state = PhoneVerificationState.inputCode;
+      _state = widget.state.state = PhoneVerificationState.inputCode;
     });
     _expandableCodeController.expanded = true;
     _expandablePhoneNumberController.expanded = false;
+    _codeInputFocus.requestFocus();
   }
 
-  void _setStateVerifying() {
+  void _setStateVerifying(BuildContext context) {
     setState(() {
-      widget.state.state = PhoneVerificationState.verifying;
-      _expandableCodeController.expanded = true;
-      _expandablePhoneNumberController.expanded = false;
+      _showVerifyButton = false;
+      _state = widget.state.state = PhoneVerificationState.verifying;
     });
+    _expandableCodeController.expanded = true;
+    _expandablePhoneNumberController.expanded = false;
+    _codeInputFocus.unfocus();
   }
 
-  void _setStateErrorOnVerifying() {
+  void _setStateErrorOnVerifying(BuildContext context) {
     setState(() {
-      widget.state.state = PhoneVerificationState.errorOnVerifying;
-      _expandableCodeController.expanded = true;
-      _expandablePhoneNumberController.expanded = false;
+      _inputCodeController.text = "";
+      _state = widget.state.state = PhoneVerificationState.errorOnVerifying;
     });
+    _expandableCodeController.expanded = true;
+    _expandablePhoneNumberController.expanded = false;
+    _codeInputFocus.requestFocus();
   }
 
-  void _setStateVerified() {
+  void _setStateVerified(BuildContext context) {
     setState(() {
-      widget.state.state = PhoneVerificationState.verified;
-      _expandableCodeController.expanded = false;
-      _expandablePhoneNumberController.expanded = false;
+      _state = widget.state.state = PhoneVerificationState.verified;
     });
+    _expandableCodeController.expanded = true;
+    _expandablePhoneNumberController.expanded = false;
+    _codeInputFocus.unfocus();
+
+    // String? result = _phoneNumber?.phoneNumber;
+    // Navigator.of(context).pop(result);
   }
 }
 

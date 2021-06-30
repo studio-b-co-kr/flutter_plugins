@@ -9,12 +9,14 @@ class InputCodeWidget extends StatefulWidget {
   final FocusNode focusNode;
   final Function(String) onCodeChanged;
   final TextEditingController controller;
+  bool enabled;
 
-  const InputCodeWidget({
+  InputCodeWidget({
     Key? key,
     required this.focusNode,
     required this.onCodeChanged,
     required this.controller,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -30,12 +32,12 @@ class InputCodeState extends State<InputCodeWidget> {
   void initState() {
     super.initState();
     inputs.addAll([
-      _InputCodeBox(focused: true),
-      _InputCodeBox(),
-      _InputCodeBox(),
-      _InputCodeBox(),
-      _InputCodeBox(),
-      _InputCodeBox(),
+      _InputCodeBox(focused: true, enabled: widget.enabled),
+      _InputCodeBox(enabled: widget.enabled),
+      _InputCodeBox(enabled: widget.enabled),
+      _InputCodeBox(enabled: widget.enabled),
+      _InputCodeBox(enabled: widget.enabled),
+      _InputCodeBox(enabled: widget.enabled),
     ]);
 
     widget.controller.addListener(() {
@@ -50,7 +52,7 @@ class InputCodeState extends State<InputCodeWidget> {
             text: i < widget.controller.text.length ? "${strings[i]}" : "",
             focused: i == widget.controller.text.length ||
                 (i == 5 && widget.controller.text.length == 6),
-            enabled: false,
+            enabled: widget.enabled,
           );
           i++;
           return ret;
@@ -98,9 +100,11 @@ class InputCodeState extends State<InputCodeWidget> {
           ),
         ),
         InkWell(
-          onTap: () {
-            widget.focusNode.requestFocus();
-          },
+          onTap: widget.enabled
+              ? () {
+                  widget.focusNode.requestFocus();
+                }
+              : null,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(children: inputs),
@@ -112,18 +116,6 @@ class InputCodeState extends State<InputCodeWidget> {
 
   String getCode() {
     return "";
-  }
-
-  _disableAll() {
-    setState(() {
-      inputs = inputs
-          .map((e) => _InputCodeBox(
-                text: e.text,
-                focused: e.focused,
-                enabled: false,
-              ))
-          .toList();
-    });
   }
 
   @override
@@ -148,6 +140,7 @@ class _InputCodeBox extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
+          color: enabled ? null : Colors.grey.shade50,
           shape: BoxShape.rectangle,
           border: Border.fromBorderSide(BorderSide(
             width: _borderWidth(),
@@ -174,6 +167,10 @@ class _InputCodeBox extends StatelessWidget {
   }
 
   Color _borderColor() {
+    if (!enabled) {
+      return Colors.transparent;
+    }
+
     if (focused) {
       return Colors.red;
     }
@@ -185,6 +182,10 @@ class _InputCodeBox extends StatelessWidget {
   }
 
   double _borderWidth() {
+    if (!enabled) {
+      return 0;
+    }
+
     if (focused) {
       return 2;
     }
