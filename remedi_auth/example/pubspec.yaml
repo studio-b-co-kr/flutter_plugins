@@ -36,6 +36,12 @@ dependencies:
   remedi_auth:
     path: ../
 
+  stacked_mvvm:
+    git:
+      url: https://github.com/studio-b-co-kr/remedi_flutter.git
+      ref: null-safety
+      path: stacked_mvvm/
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

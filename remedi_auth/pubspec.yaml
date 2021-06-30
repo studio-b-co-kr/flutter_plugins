@@ -30,6 +30,7 @@ dependencies:
 #  flutter_libphonenumber: ^1.0.4
 #  flutter_multi_formatter: ^2.2.0
   intl_phone_number_input: ^0.7.0+2
+  expandable: ^5.0.1
 
   #basic architecture of app
   stacked_mvvm:

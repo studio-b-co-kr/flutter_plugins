@@ -4,8 +4,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:remedi_auth/feature/login/login_page.dart';
 import 'package:remedi_auth/feature/login/login_viewmodel.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_view.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_view_model.dart';
 import 'package:remedi_auth/remedi_auth.dart';
+import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +66,11 @@ class MyApp extends StatelessWidget {
                 settings: settings,
                 builder: (context) {
                   return PhoneVerificationPage(
-                    title:"전화번호 인증",
+                    state: StateData<PhoneVerification, PhoneVerificationState>(
+                      data: PhoneVerification(),
+                      state: PhoneVerificationState.inputPhoneNumber,
+                    ),
+                    title: "전화번호 인증",
                     description: "서비스를 사용하기 위해 전화번호를 인증해주세요.",
                     viewModel: PhoneVerificationViewModel(),
                   );

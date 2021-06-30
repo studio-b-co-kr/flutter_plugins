@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_view.dart';
 import 'package:remedi_auth/repository/i_phone_verification_repository.dart';
-import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
 
 class PhoneVerificationRepository extends IPhoneVerificationRepository {
   static final PhoneVerificationRepository _instance =
@@ -20,7 +20,7 @@ class PhoneVerificationRepository extends IPhoneVerificationRepository {
       },
       verificationFailed: (FirebaseAuthException e) {
         if (onStateChanged != null)
-          onStateChanged(PhoneVerificationState.error);
+          onStateChanged(PhoneVerificationState.errorOnVerifying);
       },
       codeSent: (String verificationId, int? resendToken) {
         if (onStateChanged != null)
@@ -28,10 +28,9 @@ class PhoneVerificationRepository extends IPhoneVerificationRepository {
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         if (onStateChanged != null)
-          onStateChanged(PhoneVerificationState.error);
+          onStateChanged(PhoneVerificationState.errorOnVerifying);
       },
     );
   }
 }
 
-// enum PhoneVerificationState { completed, failed, codeSent, timeout }
