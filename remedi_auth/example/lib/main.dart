@@ -6,10 +6,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:remedi_auth/feature/login/login_page.dart';
 import 'package:remedi_auth/feature/login/login_viewmodel.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
-import 'package:remedi_auth/feature/phone_verification/phone_verification_view.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_view_model.dart';
 import 'package:remedi_auth/remedi_auth.dart';
-import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,13 +66,21 @@ class MyApp extends StatelessWidget {
                 settings: settings,
                 builder: (context) {
                   return PhoneVerificationPage(
-                    state: StateData<PhoneVerification, PhoneVerificationState>(
-                      data: PhoneVerification(),
-                      state: PhoneVerificationState.inputPhoneNumber,
-                    ),
                     title: "전화번호 인증",
                     description: "서비스를 사용하기 위해 전화번호를 인증해주세요.",
                     viewModel: PhoneVerificationViewModel(),
+                    messageRequestVerificationCode: "인증코드 요청",
+                    messageOnErrorVerifying: "오류가 발생했습니다.\n인증코드를 다시 확인해주세요.",
+                    messageVerify: '인증하기',
+                    messageChecking: "확인 중입니다.",
+                    messageChangePhoneNumber: '변경하기',
+                    messageCompleted: "완료",
+                    messageVerified: "인증이 완료되었습니다.",
+                    messageWaitingAndInputVerificationCode:
+                        "인증코드를 발송했습니다.\n코드를 입력 후 인증을 완료해주세요.",
+                    onVerified: (phoneNumber) {
+                      Navigator.of(context).pop(phoneNumber);
+                    },
                   );
                 });
             break;

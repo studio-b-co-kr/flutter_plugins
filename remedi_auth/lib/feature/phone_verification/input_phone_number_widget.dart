@@ -20,10 +20,10 @@ class InputPhoneNumberWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  PhoneNumberInputState createState() => PhoneNumberInputState();
+  _PhoneNumberInputState createState() => _PhoneNumberInputState();
 }
 
-class PhoneNumberInputState extends State<InputPhoneNumberWidget> {
+class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
   bool _showRequest = false;
   PhoneNumber? _phoneNumber;
 
