@@ -13,7 +13,7 @@ dependencies:
 
   rxdart: ^0.27.1
   equatable: ^2.0.2
-  stacked: ^2.1.6
+  stackted: ^2.1.9
 
 dev_dependencies:
   flutter_test:
