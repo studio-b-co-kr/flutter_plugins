@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: ^8.0.1
+  permission_handler: ^8.1.2
 
   flutter_secure_storage: ^4.2.0
 
