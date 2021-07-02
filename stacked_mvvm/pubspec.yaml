@@ -8,12 +8,13 @@ environment:
   flutter: ">=2.0.0"
 
 dependencies:
+
   flutter:
     sdk: flutter
 
   rxdart: ^0.27.1
-  equatable: ^2.0.2
-  stackted: ^2.1.9
+  equatable: ^2.0.3
+  stacked: ^2.2.1
 
 dev_dependencies:
   flutter_test:
