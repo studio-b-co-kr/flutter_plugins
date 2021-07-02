@@ -627,6 +627,13 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
       case PhoneVerificationState.timeoutWaitingCodeReceive:
       case PhoneVerificationState.errorVerifyingCodeExpired:
       case PhoneVerificationState.errorVerifyingCodeInvalid:
+        if (viewModel.state ==
+                PhoneVerificationState.errorVerifyingCodeInvalid ||
+            viewModel.state ==
+                PhoneVerificationState.errorVerifyingCodeExpired) {
+          _inputCodeController.text = "";
+        }
+
         if (!_codeInputFocus.hasFocus) {
           _codeInputFocus.requestFocus();
         }
