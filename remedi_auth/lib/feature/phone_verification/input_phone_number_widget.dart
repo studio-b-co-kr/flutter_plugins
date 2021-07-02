@@ -26,7 +26,6 @@ class InputPhoneNumberWidget extends StatefulWidget {
 }
 
 class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
-  bool _showRequest = false;
   PhoneNumber? _phoneNumber;
 
   @override
@@ -52,21 +51,13 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
           dev.log(number.phoneNumber ?? "");
         },
         onInputValidated: (bool value) async {
-          if (value == _showRequest) {
-            return;
-          }
-
           dev.log("valid = $value");
 
           if (widget.onInputValidated != null) {
             widget.onInputValidated!(value);
           }
 
-          _showRequest = value;
-
-          if (_showRequest) {
-            widget.onSubmitted(_phoneNumber!);
-          }
+          if (value) widget.onSubmitted(_phoneNumber!);
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.DIALOG,
@@ -83,7 +74,9 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         cursorColor: Colors.grey,
         spaceBetweenSelectorAndTextField: 0,
         keyboardAction: TextInputAction.go,
-        onSubmit: (){},
+        onSubmit: () {
+          // TODO somethings...
+        },
       ),
     );
   }
