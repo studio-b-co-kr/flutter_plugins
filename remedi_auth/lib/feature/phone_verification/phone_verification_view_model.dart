@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
@@ -11,24 +13,20 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
 
   @override
   requestVerify() async {
-    update(state: PhoneVerificationState.readyToVerify);
-    update(state: PhoneVerificationState.verifying);
-    await Future.delayed(Duration(seconds: 2));
+    update(state: PhoneVerificationState.verifyingCode);
 
-    update(state: PhoneVerificationState.errorOnVerifying);
+    PhoneAuthCredential credential = await PhoneAuthProvider.credential(
+      verificationId: _phoneVerification.verificationId!,
+      smsCode: _phoneVerification.verificationCode!,
+    );
 
-    // PhoneAuthCredential credential = await PhoneAuthProvider.credential(
-    //   verificationId: _verificationId!,
-    //   smsCode: phoneVerification.verificationCode!,
-    // );
-    // UserCredential userCredential;
-    // try {
-    //   userCredential =
-    //       await FirebaseAuth.instance.signInWithCredential(credential);
-    // } catch (e) {
-    //   _handleError(e as FirebaseAuthException);
-    //   return;
-    // }
+    try {
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signOut();
+      update(state: PhoneVerificationState.verifiedCode);
+    } catch (e) {
+      _handleError(e as FirebaseAuthException);
+    }
   }
 
   @override
@@ -50,6 +48,7 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
       update(state: PhoneVerificationState.readyToVerify);
       requestVerify();
     } else if (_prevCode?.length == 6 && code.length != 6) {
+      _phoneVerification.verificationCode = code;
       update(state: PhoneVerificationState.inputCode);
     }
     _prevCode = code;
@@ -58,36 +57,50 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
   @override
   requestSendCode() async {
     update(state: PhoneVerificationState.requestingSendCode);
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phoneNumber.phoneNumber!,
+      timeout: Duration(seconds: 30),
+      forceResendingToken: _phoneVerification.resendToken,
+      verificationCompleted: (PhoneAuthCredential credential) {
+        update(state: PhoneVerificationState.verifiedCode);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        _handleError(e);
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        _phoneVerification.verificationId = verificationId;
+        _phoneVerification.resendToken = resendToken;
+        update(state: PhoneVerificationState.inputCode);
+        if (Platform.isAndroid) {
+          update(state: PhoneVerificationState.waitingCodeReceive);
+        }
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        _phoneVerification.verificationId = verificationId;
+        if (Platform.isAndroid) {
+          update(state: PhoneVerificationState.timeoutWaitingCodeReceive);
+        }
+      },
+    );
+  }
 
-    await Future.delayed(Duration(seconds: 2));
-    _phoneVerification.resendToken = 123456;
-    _phoneVerification.verificationId = "1230";
-    update(state: PhoneVerificationState.inputCode);
-    // update(state: PhoneVerificationState.errorOnVerifying);
-    // update(state: PhoneVerificationState.errorOnRequest);
-    // update(state: PhoneVerificationState.timeout);
+  _handleError(FirebaseAuthException exception) {
+    if (exception.code == "too-many-requests") {
+      update(state: PhoneVerificationState.errorRequestingSendCode);
+      return;
+    }
 
-    // FirebaseAuth.instance.verifyPhoneNumber(
-    //   phoneNumber: phoneNumber.phoneNumber!,
-    //   timeout: Duration(minutes: 3),
-    //   forceResendingToken: _resendToken,
-    //   verificationCompleted: (PhoneAuthCredential credential) {
-    //     update(state: PhoneVerificationState.verified);
-    //   },
-    //   verificationFailed: (FirebaseAuthException e) {
-    //     update(state: PhoneVerificationState.errorOnRequest);
-    //   },
-    //   codeSent: (String verificationId, int? resendToken) {
-    //     int i = 0;
-    //     _verificationId = verificationId;
-    //     _resendToken = resendToken;
-    //     update(state: PhoneVerificationState.inputCode);
-    //   },
-    //   codeAutoRetrievalTimeout: (String verificationId) {
-    //     _verificationId = verificationId;
-    //     update(state: PhoneVerificationState.timeout);
-    //   },
-    // );
+    if ((exception).code == "session-expired") {
+      _phoneVerification.verificationCode = "";
+      update(state: PhoneVerificationState.errorVerifyingCodeExpired);
+      return;
+    }
+
+    if ((exception).code == "invalid-verification-code") {
+      _phoneVerification.verificationCode = "";
+      update(state: PhoneVerificationState.errorVerifyingCodeInvalid);
+      return;
+    }
   }
 
   @override
@@ -99,16 +112,6 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
   _reset() {
     phoneNumber = PhoneNumber();
     _phoneVerification = _PhoneVerification();
-  }
-
-  _handleError(FirebaseAuthException exception) async* {
-    if (exception.code == "too-many-requests") {
-      return;
-    }
-
-    if ((exception).code == "session-expired") {
-      return;
-    }
   }
 
   @override

@@ -14,7 +14,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   final String title;
   final String description;
   final String messageWaitingAndInputVerificationCode;
-  final String messageOnErrorVerifying;
+  final String messageOnErrorVerifyingInvalid;
+  final String messageOnErrorVerifyingExpired;
   final String messageCompleted;
   final String messageChecking;
   final String messageVerify;
@@ -22,6 +23,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   final String messageChangePhoneNumber;
   final String messageRequestVerificationCode;
   final String messageErrorCodeSent;
+  final String messageErrorExit;
   final Function(String phoneNumber) onVerified;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -43,7 +45,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     required this.title,
     required this.description,
     required this.messageWaitingAndInputVerificationCode,
-    required this.messageOnErrorVerifying,
+    required this.messageOnErrorVerifyingInvalid,
+    required this.messageOnErrorVerifyingExpired,
     required this.messageCompleted,
     required this.messageChecking,
     required this.messageVerify,
@@ -52,6 +55,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     required this.messageRequestVerificationCode,
     required this.messageErrorCodeSent,
     required this.onVerified,
+    required this.messageErrorExit,
   }) : super(key: key, viewModel: viewModel) {}
 
   @override
@@ -87,7 +91,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
             InkWell(
               onTap: () {
                 String? result;
-                if (viewModel.state == PhoneVerificationState.verified) {
+                if (viewModel.state == PhoneVerificationState.verifiedCode) {
                   result = viewModel.phoneNumber.phoneNumber;
                 }
                 Navigator.of(context).pop(result);
@@ -220,10 +224,17 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
         onCodeChanged: (code) async {
           viewModel.verificationCodeChanged(code);
         },
+        disabled: _enabledInputCode(),
       ),
       collapsed: Container(),
       controller: _expandableCodeController,
     );
+  }
+
+  bool _enabledInputCode() {
+    bool ret = viewModel.state == PhoneVerificationState.verifyingCode ||
+        viewModel.state == PhoneVerificationState.verifiedCode;
+    return ret;
   }
 
   Widget _message(BuildContext context) {
@@ -258,7 +269,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               ),
             ]);
         break;
-      case PhoneVerificationState.errorOnRequest:
+      case PhoneVerificationState.errorRequestingSendCode:
         child = Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -288,7 +299,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               ),
             ]);
         break;
-      case PhoneVerificationState.errorOnVerifying:
+      case PhoneVerificationState.errorVerifyingCodeInvalid:
         child = Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -308,7 +319,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               Container(
                 child: FixedScaleText(
                   text: Text(
-                    messageOnErrorVerifying,
+                    messageOnErrorVerifyingInvalid,
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey.shade900,
@@ -318,7 +329,37 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               ),
             ]);
         break;
-      case PhoneVerificationState.verified:
+      case PhoneVerificationState.errorVerifyingCodeExpired:
+        child = Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 2),
+                height: 28,
+                width: 28,
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 28,
+                ),
+              ),
+              SizedBox(width: 8),
+              Container(
+                child: FixedScaleText(
+                  text: Text(
+                    messageOnErrorVerifyingExpired,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ),
+              ),
+            ]);
+        break;
+      case PhoneVerificationState.verifiedCode:
         child = Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -348,7 +389,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               ),
             ]);
         break;
-      case PhoneVerificationState.verifying:
+      case PhoneVerificationState.verifyingCode:
         child = Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -390,7 +431,29 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   }
 
   Widget _buttons(BuildContext context) {
-    if (viewModel.state == PhoneVerificationState.readyToSendCode) {
+    if (viewModel.state == PhoneVerificationState.errorRequestingSendCode) {
+      return InkWell(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: Container(
+          alignment: Alignment.center,
+          color: Colors.red,
+          height: 48,
+          child: FixedScaleText(
+            text: Text(
+              messageErrorExit,
+              style: TextStyle(
+                  color: Colors.red.shade50,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+          ),
+        ),
+      );
+    }
+    if (viewModel.state == PhoneVerificationState.readyToSendCode ||
+        viewModel.state == PhoneVerificationState.errorVerifyingCodeExpired) {
       return InkWell(
         onTap: () {
           viewModel.requestSendCode();
@@ -416,7 +479,6 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
       return InkWell(
         onTap: () {
           viewModel.requestVerify();
-          _codeInputFocus.unfocus();
         },
         child: Container(
           alignment: Alignment.center,
@@ -435,12 +497,12 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
       );
     }
 
-    if (viewModel.state == PhoneVerificationState.verified) {
+    if (viewModel.state == PhoneVerificationState.verifiedCode) {
       return InkWell(
         onTap: () {
           String? result;
-          if (viewModel.state == PhoneVerificationState.verified) {
-            // result = viewModel.phoneNumber.phoneNumber;
+          if (viewModel.state == PhoneVerificationState.verifiedCode) {
+            result = viewModel.phoneNumber.phoneNumber;
           }
           Navigator.of(context).pop(result);
         },
@@ -470,15 +532,18 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
       case PhoneVerificationState.inputPhoneNumber:
       case PhoneVerificationState.readyToSendCode:
       case PhoneVerificationState.requestingSendCode:
-      case PhoneVerificationState.errorOnRequest:
+      case PhoneVerificationState.errorRequestingSendCode:
         ret = true;
         break;
+      case PhoneVerificationState.requestingResendingCode:
       case PhoneVerificationState.inputCode:
       case PhoneVerificationState.readyToVerify:
-      case PhoneVerificationState.verifying:
-      case PhoneVerificationState.errorOnVerifying:
-      case PhoneVerificationState.verified:
-      case PhoneVerificationState.timeout:
+      case PhoneVerificationState.verifyingCode:
+      case PhoneVerificationState.errorVerifyingCodeExpired:
+      case PhoneVerificationState.errorVerifyingCodeInvalid:
+      case PhoneVerificationState.verifiedCode:
+      case PhoneVerificationState.waitingCodeReceive:
+      case PhoneVerificationState.timeoutWaitingCodeReceive:
         ret = false;
         break;
     }
@@ -491,15 +556,18 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
       case PhoneVerificationState.inputPhoneNumber:
       case PhoneVerificationState.readyToSendCode:
       case PhoneVerificationState.requestingSendCode:
-      case PhoneVerificationState.errorOnRequest:
+      case PhoneVerificationState.errorRequestingSendCode:
         ret = false;
         break;
+      case PhoneVerificationState.requestingResendingCode:
       case PhoneVerificationState.inputCode:
       case PhoneVerificationState.readyToVerify:
-      case PhoneVerificationState.verifying:
-      case PhoneVerificationState.errorOnVerifying:
-      case PhoneVerificationState.verified:
-      case PhoneVerificationState.timeout:
+      case PhoneVerificationState.verifyingCode:
+      case PhoneVerificationState.errorVerifyingCodeExpired:
+      case PhoneVerificationState.errorVerifyingCodeInvalid:
+      case PhoneVerificationState.verifiedCode:
+      case PhoneVerificationState.waitingCodeReceive:
+      case PhoneVerificationState.timeoutWaitingCodeReceive:
         ret = true;
         break;
     }
@@ -511,16 +579,19 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     switch (viewModel.state) {
       case PhoneVerificationState.inputPhoneNumber:
       case PhoneVerificationState.readyToSendCode:
-      case PhoneVerificationState.verifying:
-      case PhoneVerificationState.verified:
+      case PhoneVerificationState.verifyingCode:
+      case PhoneVerificationState.verifiedCode:
       case PhoneVerificationState.requestingSendCode:
         ret = false;
         break;
+      case PhoneVerificationState.requestingResendingCode:
       case PhoneVerificationState.inputCode:
       case PhoneVerificationState.readyToVerify:
-      case PhoneVerificationState.errorOnVerifying:
-      case PhoneVerificationState.errorOnRequest:
-      case PhoneVerificationState.timeout:
+      case PhoneVerificationState.errorVerifyingCodeExpired:
+      case PhoneVerificationState.errorVerifyingCodeInvalid:
+      case PhoneVerificationState.errorRequestingSendCode:
+      case PhoneVerificationState.waitingCodeReceive:
+      case PhoneVerificationState.timeoutWaitingCodeReceive:
         ret = true;
         break;
     }
@@ -532,52 +603,36 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     super.onListen(context, viewModel);
 
     switch (viewModel.state) {
-      case PhoneVerificationState.inputCode:
-        if (!_codeInputFocus.hasFocus) {
-          _codeInputFocus.requestFocus();
-        }
-        break;
-      case PhoneVerificationState.verified:
+      case PhoneVerificationState.requestingResendingCode:
+      case PhoneVerificationState.verifyingCode:
+      case PhoneVerificationState.verifiedCode:
+      case PhoneVerificationState.waitingCodeReceive:
         if (_codeInputFocus.hasFocus) {
           _codeInputFocus.unfocus();
         }
-        this.onVerified(viewModel.phoneNumber.phoneNumber!);
+        if (PhoneVerificationState.verifiedCode == viewModel.state) {
+          this.onVerified(viewModel.phoneNumber.phoneNumber!);
+        }
         break;
+
       case PhoneVerificationState.requestingSendCode:
+      case PhoneVerificationState.errorRequestingSendCode:
         if (_phoneNumberInputFocus.hasFocus) {
           _phoneNumberInputFocus.unfocus();
         }
         break;
-      case PhoneVerificationState.errorOnRequest:
-        if (_phoneNumberInputFocus.hasFocus) {
-          _phoneNumberInputFocus.unfocus();
-        }
-        break;
-      case PhoneVerificationState.timeout:
-        if (_codeInputFocus.hasFocus) {
-          _codeInputFocus.unfocus();
-        }
-        break;
+
+      case PhoneVerificationState.inputCode:
       case PhoneVerificationState.readyToVerify:
-        if (_codeInputFocus.hasFocus) {
-          _codeInputFocus.unfocus();
-        }
-        break;
-      case PhoneVerificationState.verifying:
-        if (_codeInputFocus.hasFocus) {
-          _codeInputFocus.unfocus();
-        }
-        break;
-      case PhoneVerificationState.errorOnVerifying:
+      case PhoneVerificationState.timeoutWaitingCodeReceive:
+      case PhoneVerificationState.errorVerifyingCodeExpired:
+      case PhoneVerificationState.errorVerifyingCodeInvalid:
         if (!_codeInputFocus.hasFocus) {
           _codeInputFocus.requestFocus();
         }
         break;
+
       case PhoneVerificationState.inputPhoneNumber:
-        if (!_phoneNumberInputFocus.hasFocus) {
-          _phoneNumberInputFocus.requestFocus();
-        }
-        break;
       case PhoneVerificationState.readyToSendCode:
         if (!_phoneNumberInputFocus.hasFocus) {
           _phoneNumberInputFocus.requestFocus();

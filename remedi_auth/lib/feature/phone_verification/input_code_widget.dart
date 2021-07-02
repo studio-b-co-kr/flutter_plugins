@@ -10,7 +10,7 @@ class InputCodeWidget extends StatefulWidget {
   final Function(String) onCodeChanged;
   final TextEditingController controller;
   String code;
-  bool enabled;
+  bool disabled;
 
   InputCodeWidget({
     Key? key,
@@ -18,7 +18,7 @@ class InputCodeWidget extends StatefulWidget {
     required this.onCodeChanged,
     required this.controller,
     required this.code,
-    this.enabled = true,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -109,14 +109,14 @@ class InputCodeState extends State<InputCodeWidget> {
       _InputCodeBox box = _InputCodeBox(
         text: text,
         focused: focused,
-        enabled: widget.enabled,
+        disabled: widget.disabled || (index != 5 && text.isNotEmpty),
       );
 
       inputs.add(box);
     }
 
     return InkWell(
-      onTap: widget.enabled
+      onTap: widget.disabled
           ? () {
               widget.focusNode.requestFocus();
             }
@@ -132,12 +132,12 @@ class InputCodeState extends State<InputCodeWidget> {
 class _InputCodeBox extends StatelessWidget {
   final String? text;
   final bool focused;
-  final bool enabled;
+  final bool disabled;
 
   _InputCodeBox({
     this.text = "",
     this.focused = false,
-    this.enabled = true,
+    this.disabled = false,
   });
 
   Widget build(BuildContext context) {
@@ -145,7 +145,7 @@ class _InputCodeBox extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: enabled ? null : Colors.grey.shade50,
+          color: disabled ? Colors.grey.shade50 : null,
           shape: BoxShape.rectangle,
           border: Border.fromBorderSide(BorderSide(
             width: _borderWidth(),
@@ -172,7 +172,7 @@ class _InputCodeBox extends StatelessWidget {
   }
 
   Color _borderColor() {
-    if (!enabled) {
+    if (disabled) {
       return Colors.transparent;
     }
 
@@ -183,11 +183,12 @@ class _InputCodeBox extends StatelessWidget {
     if (text?.isNotEmpty ?? false) {
       return Colors.blue;
     }
+
     return Colors.grey;
   }
 
   double _borderWidth() {
-    if (!enabled) {
+    if (disabled) {
       return 0;
     }
 

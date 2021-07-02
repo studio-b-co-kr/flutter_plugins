@@ -22,11 +22,14 @@ enum PhoneVerificationState {
   inputPhoneNumber,
   readyToSendCode,
   requestingSendCode,
-  errorOnRequest,
+  requestingResendingCode,
+  errorRequestingSendCode,
   inputCode,
   readyToVerify,
-  verifying,
-  errorOnVerifying,
-  timeout,
-  verified,
+  verifyingCode,
+  errorVerifyingCodeInvalid,
+  errorVerifyingCodeExpired,
+  waitingCodeReceive, // android only
+  timeoutWaitingCodeReceive, // android only
+  verifiedCode,
 }

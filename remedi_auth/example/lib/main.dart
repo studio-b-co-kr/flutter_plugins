@@ -70,7 +70,10 @@ class MyApp extends StatelessWidget {
                     description: "서비스를 사용하기 위해 전화번호를 인증해주세요.",
                     viewModel: PhoneVerificationViewModel(),
                     messageRequestVerificationCode: "인증코드 요청",
-                    messageOnErrorVerifying: "오류가 발생했습니다.\n인증코드를 다시 확인해주세요.",
+                    messageOnErrorVerifyingInvalid:
+                        "잘못된 인증코드입니다.\n인증코드를 다시 입력해주세요.",
+                    messageOnErrorVerifyingExpired:
+                        "입력시간이 초과되었습니다.\n인증코드를 다시 요청해주세요.",
                     messageVerify: '인증하기',
                     messageChecking: "확인 중입니다.",
                     messageChangePhoneNumber: '변경하기',
@@ -79,10 +82,11 @@ class MyApp extends StatelessWidget {
                     messageWaitingAndInputVerificationCode:
                         "인증코드를 발송했습니다.\n코드를 입력 후 인증을 완료해주세요.",
                     messageErrorCodeSent:
-                    "전화번호 인증 오류가 발생했습니다.\n30분 후 다시 시도해주세요.",
+                        "전화번호 인증 오류가 발생했습니다.\n30분 후 다시 시도해주세요.",
                     onVerified: (phoneNumber) {
                       Navigator.of(context).pop(phoneNumber);
                     },
+                    messageErrorExit: '나가기',
                   );
                 });
             break;
