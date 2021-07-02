@@ -21,6 +21,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   final String messageVerified;
   final String messageChangePhoneNumber;
   final String messageRequestVerificationCode;
+  final String messageErrorCodeSent;
   final Function(String phoneNumber) onVerified;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -49,6 +50,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     required this.messageVerified,
     required this.messageChangePhoneNumber,
     required this.messageRequestVerificationCode,
+    required this.messageErrorCodeSent,
     required this.onVerified,
   }) : super(key: key, viewModel: viewModel) {}
 
@@ -102,7 +104,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
           ]),
       body: SafeArea(
         child: Column(children: [
-          _inputPhoneNumber(context),
+          _inputPhoneNumber(context, viewModel),
           _inputCode(context),
           _message(context),
           _buttons(context),
@@ -184,13 +186,16 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     );
   }
 
-  Widget _inputPhoneNumber(BuildContext context) {
+  Widget _inputPhoneNumber(
+      BuildContext context, IPhoneVerificationViewModel viewModel) {
     return Expandable(
       controller: _expandablePhoneNumberController,
       expanded: Column(
         children: [
           _textGuide(),
           InputPhoneNumberWidget(
+            enabled:
+                viewModel.state != PhoneVerificationState.requestingSendCode,
             controller: _inputPhoneNumberController,
             onSubmitted: (phoneNumber) {
               viewModel.phoneNumber = phoneNumber;
@@ -209,6 +214,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   Widget _inputCode(BuildContext context) {
     return Expandable(
       expanded: InputCodeWidget(
+        code: viewModel.verificationCode,
         controller: _inputCodeController,
         focusNode: _codeInputFocus,
         onCodeChanged: (code) async {
@@ -223,7 +229,36 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   Widget _message(BuildContext context) {
     Widget child;
     switch (viewModel.state) {
-      case PhoneVerificationState.inputCode:
+      case PhoneVerificationState.requestingSendCode:
+        child = Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 2),
+                height: 28,
+                width: 28,
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
+              ),
+              SizedBox(width: 8),
+              Container(
+                child: FixedScaleText(
+                  text: Text(
+                    messageWaitingAndInputVerificationCode,
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ),
+              ),
+            ]);
+        break;
+      case PhoneVerificationState.errorOnRequest:
         child = Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -234,8 +269,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                 width: 28,
                 alignment: Alignment.center,
                 child: Icon(
-                  Icons.circle_notifications,
-                  color: Colors.yellow.shade900,
+                  Icons.error_outline,
+                  color: Colors.red,
                   size: 28,
                 ),
               ),
@@ -243,8 +278,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               Container(
                 child: FixedScaleText(
                   text: Text(
-                    messageWaitingAndInputVerificationCode,
-                    maxLines: 2,
+                    messageErrorCodeSent,
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey.shade900,
@@ -360,7 +394,6 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
       return InkWell(
         onTap: () {
           viewModel.requestSendCode();
-          // _codeInputFocus.requestFocus();
         },
         child: Container(
           alignment: Alignment.center,
@@ -499,24 +532,56 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     super.onListen(context, viewModel);
 
     switch (viewModel.state) {
-
       case PhoneVerificationState.inputCode:
         if (!_codeInputFocus.hasFocus) {
           _codeInputFocus.requestFocus();
         }
         break;
-
       case PhoneVerificationState.verified:
+        if (_codeInputFocus.hasFocus) {
+          _codeInputFocus.unfocus();
+        }
         this.onVerified(viewModel.phoneNumber.phoneNumber!);
         break;
       case PhoneVerificationState.requestingSendCode:
+        if (_phoneNumberInputFocus.hasFocus) {
+          _phoneNumberInputFocus.unfocus();
+        }
+        break;
       case PhoneVerificationState.errorOnRequest:
+        if (_phoneNumberInputFocus.hasFocus) {
+          _phoneNumberInputFocus.unfocus();
+        }
+        break;
       case PhoneVerificationState.timeout:
+        if (_codeInputFocus.hasFocus) {
+          _codeInputFocus.unfocus();
+        }
+        break;
       case PhoneVerificationState.readyToVerify:
+        if (_codeInputFocus.hasFocus) {
+          _codeInputFocus.unfocus();
+        }
+        break;
       case PhoneVerificationState.verifying:
+        if (_codeInputFocus.hasFocus) {
+          _codeInputFocus.unfocus();
+        }
+        break;
       case PhoneVerificationState.errorOnVerifying:
+        if (!_codeInputFocus.hasFocus) {
+          _codeInputFocus.requestFocus();
+        }
+        break;
       case PhoneVerificationState.inputPhoneNumber:
+        if (!_phoneNumberInputFocus.hasFocus) {
+          _phoneNumberInputFocus.requestFocus();
+        }
+        break;
       case PhoneVerificationState.readyToSendCode:
+        if (!_phoneNumberInputFocus.hasFocus) {
+          _phoneNumberInputFocus.requestFocus();
+        }
         break;
     }
   }

@@ -10,6 +10,7 @@ class InputPhoneNumberWidget extends StatefulWidget {
   Function(bool)? onInputValidated;
   final TextEditingController controller;
   final FocusNode focusNode;
+  bool enabled;
 
   InputPhoneNumberWidget({
     Key? key,
@@ -17,6 +18,7 @@ class InputPhoneNumberWidget extends StatefulWidget {
     required this.onSubmitted,
     required this.controller,
     required this.focusNode,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -44,7 +46,7 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         focusNode: widget.focusNode,
         textFieldController: widget.controller,
         autoFocus: true,
-        isEnabled: true,
+        isEnabled: widget.enabled,
         onInputChanged: (number) {
           _phoneNumber = number;
           dev.log(number.phoneNumber ?? "");
@@ -75,9 +77,8 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         initialValue: PhoneNumber(isoCode: "KR"),
         formatInput: true,
         hintText: hintText(context),
-        // keyboardType: TextInputType.phone,
-        keyboardType:
-            TextInputType.numberWithOptions(signed: true, decimal: false),
+        keyboardType: TextInputType.phone,
+        // keyboardType: TextInputType.numberWithOptions(signed: true, decimal: false),
         inputBorder: UnderlineInputBorder(),
         spaceBetweenSelectorAndTextField: 0,
       ),

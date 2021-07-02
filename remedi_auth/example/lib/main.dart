@@ -78,6 +78,8 @@ class MyApp extends StatelessWidget {
                     messageVerified: "인증이 완료되었습니다.",
                     messageWaitingAndInputVerificationCode:
                         "인증코드를 발송했습니다.\n코드를 입력 후 인증을 완료해주세요.",
+                    messageErrorCodeSent:
+                    "전화번호 인증 오류가 발생했습니다.\n30분 후 다시 시도해주세요.",
                     onVerified: (phoneNumber) {
                       Navigator.of(context).pop(phoneNumber);
                     },

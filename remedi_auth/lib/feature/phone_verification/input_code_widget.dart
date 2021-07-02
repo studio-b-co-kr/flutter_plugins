@@ -9,6 +9,7 @@ class InputCodeWidget extends StatefulWidget {
   final FocusNode focusNode;
   final Function(String) onCodeChanged;
   final TextEditingController controller;
+  String code;
   bool enabled;
 
   InputCodeWidget({
@@ -16,6 +17,7 @@ class InputCodeWidget extends StatefulWidget {
     required this.focusNode,
     required this.onCodeChanged,
     required this.controller,
+    required this.code,
     this.enabled = true,
   }) : super(key: key);
 
@@ -26,41 +28,10 @@ class InputCodeWidget extends StatefulWidget {
 }
 
 class InputCodeState extends State<InputCodeWidget> {
-  List<_InputCodeBox> inputs = [];
-
   @override
   void initState() {
+    widget.controller.text = widget.code;
     super.initState();
-    inputs.addAll([
-      _InputCodeBox(focused: true, enabled: widget.enabled),
-      _InputCodeBox(enabled: widget.enabled),
-      _InputCodeBox(enabled: widget.enabled),
-      _InputCodeBox(enabled: widget.enabled),
-      _InputCodeBox(enabled: widget.enabled),
-      _InputCodeBox(enabled: widget.enabled),
-    ]);
-
-    widget.controller.addListener(() {
-      dev.log(widget.controller.text, name: "input code");
-      setState(() {
-        int i = 0;
-        List<String> strings =
-            widget.controller.text.characters.toList(growable: false);
-
-        inputs = inputs.map<_InputCodeBox>((w) {
-          var ret = _InputCodeBox(
-            text: i < widget.controller.text.length ? "${strings[i]}" : "",
-            focused: i == widget.controller.text.length ||
-                (i == 5 && widget.controller.text.length == 6),
-            enabled: widget.enabled,
-          );
-          i++;
-          return ret;
-        }).toList(growable: false);
-
-        widget.onCodeChanged(widget.controller.text);
-      });
-    });
   }
 
   @override
@@ -78,6 +49,8 @@ class InputCodeState extends State<InputCodeWidget> {
                 child: MediaQuery(
                   data: MediaQueryData(textScaleFactor: 0.1),
                   child: TextField(
+                    enableSuggestions: false,
+                    enableInteractiveSelection: false,
                     autofocus: false,
                     style: TextStyle(fontSize: 1),
                     focusNode: widget.focusNode,
@@ -87,7 +60,15 @@ class InputCodeState extends State<InputCodeWidget> {
                     ],
                     // keyboardType: TextInputType.number,
                     keyboardType: TextInputType.numberWithOptions(
-                        signed: true, decimal: false),
+                        signed: false, decimal: false),
+                    onChanged: (code) {
+                      dev.log(widget.controller.text, name: "input code");
+                      setState(() {
+                        widget.code = code;
+                      });
+
+                      widget.onCodeChanged(code);
+                    },
                   ),
                 ),
               ),
@@ -99,17 +80,7 @@ class InputCodeState extends State<InputCodeWidget> {
             ],
           ),
         ),
-        InkWell(
-          onTap: widget.enabled
-              ? () {
-                  widget.focusNode.requestFocus();
-                }
-              : null,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Row(children: inputs),
-          ),
-        ),
+        _buildCodeBoxes(context, widget.code),
       ]),
     );
   }
@@ -122,6 +93,40 @@ class InputCodeState extends State<InputCodeWidget> {
   void dispose() {
     super.dispose();
   }
+
+  Widget _buildCodeBoxes(BuildContext context, String code) {
+    int focusedIndex = widget.code.length == 6 ? (6 - 1) : widget.code.length;
+    var codeUnits = code.split("");
+    List<_InputCodeBox> inputs = [];
+    for (int index = 0; index < 6; index++) {
+      String text = "";
+      if (index < codeUnits.length) {
+        text = "${codeUnits[index]}";
+      }
+
+      bool focused = index == focusedIndex;
+
+      _InputCodeBox box = _InputCodeBox(
+        text: text,
+        focused: focused,
+        enabled: widget.enabled,
+      );
+
+      inputs.add(box);
+    }
+
+    return InkWell(
+      onTap: widget.enabled
+          ? () {
+              widget.focusNode.requestFocus();
+            }
+          : null,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Row(children: inputs),
+      ),
+    );
+  }
 }
 
 class _InputCodeBox extends StatelessWidget {
@@ -130,7 +135,7 @@ class _InputCodeBox extends StatelessWidget {
   final bool enabled;
 
   _InputCodeBox({
-    this.text,
+    this.text = "",
     this.focused = false,
     this.enabled = true,
   });
