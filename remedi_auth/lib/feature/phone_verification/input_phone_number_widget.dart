@@ -82,6 +82,8 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         inputBorder: UnderlineInputBorder(),
         cursorColor: Colors.grey,
         spaceBetweenSelectorAndTextField: 0,
+        keyboardAction: TextInputAction.go,
+        onSubmit: (){},
       ),
     );
   }

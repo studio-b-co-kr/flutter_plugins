@@ -69,6 +69,10 @@ class InputCodeState extends State<InputCodeWidget> {
 
                       widget.onCodeChanged(code);
                     },
+                    onSubmitted: (code) {
+
+                    },
+                    textInputAction: TextInputAction.go,
                   ),
                 ),
               ),
