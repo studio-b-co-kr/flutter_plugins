@@ -20,12 +20,14 @@ class LoginPage extends IPage<ILoginViewModel> {
   final String? logoApp;
   final String? logoCompany;
   final String? routeBackTo;
+  final Color? color;
 
   LoginPage(
       {Key? key,
       this.logoApp,
       this.logoCompany,
       this.routeBackTo,
+      this.color,
       required ILoginViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
@@ -34,6 +36,7 @@ class LoginPage extends IPage<ILoginViewModel> {
       BuildContext context, ILoginViewModel viewModel, Widget? child) {
     return LoginView(
       logoApp: logoApp,
+      colors: color,
       logoCompany: logoCompany,
     );
   }
