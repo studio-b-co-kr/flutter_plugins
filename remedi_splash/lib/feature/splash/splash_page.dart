@@ -21,6 +21,7 @@ class SplashPage extends IPage<ISplashViewModel> {
   final String contentsPageRouteName;
   final String? imageLogoCompany;
   final String? imageLogoApp;
+  final Color? color;
 
   SplashPage({
     Key? key,
@@ -32,6 +33,7 @@ class SplashPage extends IPage<ISplashViewModel> {
     required this.contentsPageRouteName,
     this.imageLogoApp,
     this.imageLogoCompany,
+    this.color,
     required ISplashViewModel viewModel,
   }) : super(key: key, viewModel: viewModel);
 
@@ -108,6 +110,7 @@ class SplashPage extends IPage<ISplashViewModel> {
     return SplashView(
       logoBrand: imageLogoApp,
       logoCompany: imageLogoCompany,
+      color: color,
     );
   }
 }

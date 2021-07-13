@@ -7,13 +7,14 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 class SplashView extends IView<ISplashViewModel> {
   final String? logoBrand;
   final String? logoCompany;
+  final Color? color;
 
-  SplashView({this.logoBrand, this.logoCompany});
+  SplashView({this.logoBrand, this.logoCompany, this.color});
 
   @override
   Widget build(BuildContext buildContext, ISplashViewModel viewModel) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: color ?? Colors.white,
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
