@@ -12,14 +12,15 @@ import '../../resources/app_strings.dart';
 class LoginView extends IView<ILoginViewModel> {
   final String? logoApp;
   final String? logoCompany;
+  final Color? colors;
 
-  LoginView({this.logoApp, this.logoCompany}) : super();
+  LoginView({this.logoApp, this.logoCompany, this.colors}) : super();
 
   @override
   Widget build(BuildContext context, ILoginViewModel viewModel) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: colors ?? Colors.white,
         elevation: 0,
         automaticallyImplyLeading: true,
         iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
