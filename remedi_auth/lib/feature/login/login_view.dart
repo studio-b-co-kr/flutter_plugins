@@ -158,7 +158,7 @@ class LoginView extends IView<ILoginViewModel> {
             disabledColor: Colors.grey.shade300,
             disabledTextColor: Colors.grey.shade500,
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.white),
+              side: BorderSide(color: Colors.yellow),
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
