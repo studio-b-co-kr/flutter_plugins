@@ -119,7 +119,7 @@ class LoginView extends IView<ILoginViewModel> {
           child: MaterialButton(
             height: 48,
             minWidth: double.infinity,
-            elevation: 1,
+            elevation: 0,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.white),
               borderRadius: BorderRadius.all(
@@ -152,7 +152,7 @@ class LoginView extends IView<ILoginViewModel> {
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
           child: MaterialButton(
             height: 48,
-            elevation: 1,
+            elevation: 0,
             minWidth: double.infinity,
             color: Colors.yellow,
             disabledColor: Colors.grey.shade300,
@@ -170,7 +170,11 @@ class LoginView extends IView<ILoginViewModel> {
             child: FixedScaleText(
               text: Text(
                 AppStrings.loginWithKakao,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.yellow.shade50,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
