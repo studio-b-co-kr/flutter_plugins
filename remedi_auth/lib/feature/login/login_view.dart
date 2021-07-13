@@ -119,8 +119,9 @@ class LoginView extends IView<ILoginViewModel> {
           child: MaterialButton(
             height: 48,
             minWidth: double.infinity,
-            elevation: 0,
+            elevation: 1,
             shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.white),
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
@@ -145,18 +146,22 @@ class LoginView extends IView<ILoginViewModel> {
     }
 
     if (AuthManager.enableKakao) {
-      buttons.add(Container(
+      buttons.add(
+        Container(
           margin: EdgeInsets.symmetric(vertical: 4),
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
           child: MaterialButton(
             height: 48,
-            elevation: 0,
+            elevation: 1,
             minWidth: double.infinity,
             color: Colors.yellow,
             disabledColor: Colors.grey.shade300,
             disabledTextColor: Colors.grey.shade500,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              side: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
             ),
             onPressed: viewModel.state == LoginViewState.Loading ||
                     viewModel.state == LoginViewState.Success
@@ -168,7 +173,9 @@ class LoginView extends IView<ILoginViewModel> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-          )));
+          ),
+        ),
+      );
     }
     return Column(children: buttons);
   }
