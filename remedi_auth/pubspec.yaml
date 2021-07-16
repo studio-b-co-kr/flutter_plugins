@@ -24,7 +24,7 @@ dependencies:
   sign_in_with_apple: ^3.0.0
 
   # phone verification
-  firebase_auth: ^2.0.0
+  firebase_auth: ^3.0.0
 
   # phone number input.
 #  flutter_libphonenumber: ^1.0.4
