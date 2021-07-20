@@ -183,57 +183,74 @@ class DioBuilder extends IClientBuilder {
   final String? appId;
   final List<Interceptor>? authHeaderInterceptors;
   final List<Interceptor>? interceptors;
+  final Map<String, dynamic>? otherHeaders;
 
   // final bool enableFirebasePerformance;
 
-  DioBuilder._(this.baseUrl,
-      {this.enableLogging = false,
-      this.userAgent,
-      this.appVersion,
-      this.osVersion,
-      this.appId,
-      this.authHeaderInterceptors,
-      this.interceptors})
-      : super(baseUrl: baseUrl);
+  DioBuilder._(
+    this.baseUrl, {
+    this.enableLogging = false,
+    this.userAgent,
+    this.appVersion,
+    this.osVersion,
+    this.appId,
+    this.authHeaderInterceptors,
+    this.interceptors,
+    this.otherHeaders,
+  }) : super(baseUrl: baseUrl);
 
-  factory DioBuilder.auth(String baseUrl,
-          {bool enableLogging = false,
-          required String userAgent,
-          required String? appVersion,
-          required String? osVersion,
-          required String? appId,
-          required List<Interceptor> authHeaderInterceptors,
-          List<Interceptor>? interceptors}) =>
-      DioBuilder._(baseUrl,
-          enableLogging: enableLogging,
-          userAgent: userAgent,
-          appVersion: appVersion,
-          osVersion: osVersion,
-          appId: appId,
-          authHeaderInterceptors: authHeaderInterceptors,
-          interceptors: interceptors);
+  factory DioBuilder.auth(
+    String baseUrl, {
+    bool enableLogging = false,
+    required String userAgent,
+    required String? appVersion,
+    required String? osVersion,
+    required String? appId,
+    required List<Interceptor> authHeaderInterceptors,
+    List<Interceptor>? interceptors,
+    Map<String, dynamic>? otherHeaders,
+  }) =>
+      DioBuilder._(
+        baseUrl,
+        enableLogging: enableLogging,
+        userAgent: userAgent,
+        appVersion: appVersion,
+        osVersion: osVersion,
+        appId: appId,
+        authHeaderInterceptors: authHeaderInterceptors,
+        interceptors: interceptors,
+        otherHeaders: otherHeaders,
+      );
 
-  factory DioBuilder.noneAuth(String baseUrl,
-          {bool enableLogging = false,
-          required String userAgent,
-          required String? appVersion,
-          required String? osVersion,
-          required String? appId,
-          List<Interceptor>? interceptors}) =>
-      DioBuilder._(baseUrl,
-          enableLogging: enableLogging,
-          userAgent: userAgent,
-          appVersion: appVersion,
-          osVersion: osVersion,
-          appId: appId,
-          interceptors: interceptors);
+  factory DioBuilder.noneAuth(
+    String baseUrl, {
+    bool enableLogging = false,
+    required String userAgent,
+    required String? appVersion,
+    required String? osVersion,
+    required String? appId,
+    List<Interceptor>? interceptors,
+    Map<String, dynamic>? otherHeaders,
+  }) =>
+      DioBuilder._(
+        baseUrl,
+        enableLogging: enableLogging,
+        userAgent: userAgent,
+        appVersion: appVersion,
+        osVersion: osVersion,
+        appId: appId,
+        interceptors: interceptors,
+        otherHeaders: otherHeaders,
+      );
 
   @override
   Dio build() {
     Dio http = Dio();
     http.options.baseUrl = baseUrl;
     http.options.connectTimeout = 15000;
-
+    if (otherHeaders?.isNotEmpty ?? false) {
+      http.options.headers.addAll(otherHeaders!);
+    }
     if (userAgent != null)
       http.options.headers.addAll({'User-Agent': userAgent});
     if (appVersion != null)
