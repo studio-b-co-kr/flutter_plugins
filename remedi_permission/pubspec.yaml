@@ -14,7 +14,7 @@ dependencies:
 
   permission_handler: ^8.1.2
 
-  flutter_secure_storage: ^4.2.0
+  shared_preferences: ^2.0.6
 
   stacked_mvvm:
     git:
