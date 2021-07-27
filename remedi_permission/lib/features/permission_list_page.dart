@@ -27,6 +27,7 @@ class PermissionListPage extends IPage<IPermissionListViewModel> {
   }) : super(key: key, viewModel: viewModel) {
     _permissionItemViewBuilder = PermissionItemViewBuilder(
         permissions: viewModel.permissions,
+        color: color,
         onRefresh: () {
           this.viewModel.refresh();
         });
@@ -81,13 +82,18 @@ class PermissionListPage extends IPage<IPermissionListViewModel> {
 }
 
 class PermissionItemViewBuilder {
+  final Color? color;
   final List<AppPermission> permissions;
   late List<PermissionListItemWidget> _listItems;
   final Function? onRefresh;
 
   List<PermissionListItemWidget> get listItems => _listItems;
 
-  PermissionItemViewBuilder({required this.permissions, this.onRefresh}) {
+  PermissionItemViewBuilder({
+    required this.permissions,
+    this.onRefresh,
+    this.color,
+  }) {
     _listItems = _build(permissions);
   }
 
@@ -103,6 +109,7 @@ class PermissionItemViewBuilder {
     }).map<PermissionListItemWidget>((appPermission) =>
         PermissionListItemWidget(
           PermissionViewModel(repository: PermissionRepository(appPermission)),
+          color: color,
           onPressed: onRefresh,
         )));
   }

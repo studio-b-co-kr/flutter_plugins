@@ -82,6 +82,7 @@ class HomePage extends StatelessWidget {
   MaterialPageRoute allRoute() {
     return MaterialPageRoute(
       builder: (context) => PermissionListPage(
+        color: Colors.black,
         viewModel: PermissionListViewModel(
             repository: PermissionListRepository(
           [

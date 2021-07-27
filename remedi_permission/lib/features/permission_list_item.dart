@@ -6,14 +6,19 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 class PermissionListItemWidget extends IWidget<IPermissionViewModel> {
   final Function? onPressed;
+  final Color? color;
 
-  PermissionListItemWidget(IPermissionViewModel viewModel, {this.onPressed})
+  PermissionListItemWidget(IPermissionViewModel viewModel,
+      {this.color, this.onPressed})
       : super(viewModel: viewModel);
 
   @override
   IView<IPermissionViewModel> body(
       BuildContext context, IPermissionViewModel viewModel, Widget? child) {
-    return PermissionListItemView(onPressed);
+    return PermissionListItemView(
+      onPressed: onPressed,
+      color: color,
+    );
   }
 
   @override
@@ -24,8 +29,9 @@ class PermissionListItemWidget extends IWidget<IPermissionViewModel> {
 
 class PermissionListItemView extends IView<IPermissionViewModel> {
   final Function? onPressed;
+  final Color? color;
 
-  PermissionListItemView(this.onPressed);
+  PermissionListItemView({required this.onPressed, this.color});
 
   @override
   Widget build(BuildContext context, IPermissionViewModel viewModel) {
@@ -116,16 +122,16 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
     switch (viewModel.state) {
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
-        ret = Colors.grey.shade50;
+        ret = color ?? Colors.grey.shade50;
         break;
       case PermissionViewState.Init:
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:
-        ret = Colors.grey.shade50;
+        ret = color ?? Colors.grey.shade50;
         break;
       case PermissionViewState.Restricted:
       case PermissionViewState.Disabled:
-        ret = Colors.grey.shade50;
+        ret = color ?? Colors.grey.shade50;
         break;
       case PermissionViewState.Error:
         ret = Colors.red.shade50;
@@ -166,16 +172,4 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
       color: iconColor,
     );
   }
-//
-// String _resultMessage(IPermissionViewModel viewModel) {
-//   String message = "";
-//
-//   return message;
-// }
-//
-// Color _textColor(IPermissionViewModel viewModel) {
-//   Color ret = Colors.blueGrey.shade700;
-//
-//   return ret;
-// }
 }
