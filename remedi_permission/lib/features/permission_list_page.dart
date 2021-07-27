@@ -17,10 +17,14 @@ class PermissionListPage extends IPage<IPermissionListViewModel> {
 
   late final PermissionItemViewBuilder _permissionItemViewBuilder;
   final String? backTo;
+  final Color? color;
 
-  PermissionListPage(
-      {Key? key, required IPermissionListViewModel viewModel, this.backTo})
-      : super(key: key, viewModel: viewModel) {
+  PermissionListPage({
+    Key? key,
+    required IPermissionListViewModel viewModel,
+    this.backTo,
+    this.color,
+  }) : super(key: key, viewModel: viewModel) {
     _permissionItemViewBuilder = PermissionItemViewBuilder(
         permissions: viewModel.permissions,
         onRefresh: () {
@@ -31,7 +35,10 @@ class PermissionListPage extends IPage<IPermissionListViewModel> {
   @override
   PermissionListView body(
       BuildContext context, IPermissionListViewModel viewModel, Widget? child) {
-    return PermissionListView(_permissionItemViewBuilder);
+    return PermissionListView(
+      builder: _permissionItemViewBuilder,
+      color: color,
+    );
   }
 
   @override
@@ -103,16 +110,17 @@ class PermissionItemViewBuilder {
 
 class PermissionListView extends IView<IPermissionListViewModel> {
   final PermissionItemViewBuilder builder;
+  final Color? color;
 
-  PermissionListView(this.builder);
+  PermissionListView({required this.builder, this.color});
 
   @override
   Widget build(BuildContext context, IPermissionListViewModel viewModel) {
     return WillPopScope(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: color ?? Colors.white,
           appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: color ?? Colors.white,
               automaticallyImplyLeading: false,
               iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
               elevation: 0,
