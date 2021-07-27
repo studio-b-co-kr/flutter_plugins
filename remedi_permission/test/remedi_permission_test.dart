@@ -121,6 +121,6 @@ class TestWidget extends IWidget<IPermissionViewModel> {
   @override
   IView<IPermissionViewModel> body(
       BuildContext context, IPermissionViewModel viewModel, Widget? child) {
-    return PermissionListItemView(() {});
+    return PermissionListItemView(onPressed: () {});
   }
 }

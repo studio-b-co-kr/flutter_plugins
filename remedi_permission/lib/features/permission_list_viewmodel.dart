@@ -82,6 +82,5 @@ class PermissionListViewModel extends IPermissionListViewModel {
   Future<bool> get showRequestAll async => false;
 
   @override
-  // TODO: implement permissions
   List<AppPermission> get permissions => repository.permissions;
 }
