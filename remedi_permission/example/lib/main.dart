@@ -4,8 +4,7 @@ import 'package:remedi_permission/remedi_permission.dart';
 void main() {
   PermissionManager.init([
     Permission.camera,
-    Permission.location,
-    Permission.storage,
+    Permission.notification,
   ]);
   runApp(MyApp());
 }
@@ -93,12 +92,13 @@ class HomePage extends StatelessWidget {
               description: "Please grant camera permission.",
               mandatory: false,
             ),
-            AppPermission(Permission.location,
-                title: "location",
-                description: "Please grant location permission."),
-            AppPermission(Permission.storage,
-                title: "Storage",
-                description: "Please grant storage permission."),
+
+            // AppPermission(Permission.location,
+            //     title: "location",
+            //     description: "Please grant location permission."),
+            // AppPermission(Permission.storage,
+            //     title: "Storage",
+            //     description: "Please grant storage permission."),
             // AppPermission(Permission.calendar,
             //     title: "calendar",
             //     description: "Please grant calendar permission."),
@@ -142,9 +142,9 @@ class HomePage extends StatelessWidget {
             // AppPermission(Permission.reminders,
             //     title: "reminders",
             //     description: "Please grant reminders permission."),
-            // AppPermission(Permission.notification,
-            //     title: "notification",
-            //     description: "Please grant notification permission."),
+            AppPermission(Permission.notification,
+                title: "notification",
+                description: "Please grant notification permission."),
             // AppPermission(Permission.bluetooth,
             //     title: "bluetooth",
             //     description: "Please grant bluetooth permission."),

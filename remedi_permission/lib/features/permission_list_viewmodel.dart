@@ -40,7 +40,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
   @override
   Future requestAll() async {
-    await repository.requestAll();
+    var ret = await repository.requestAll();
 
     update(state: PermissionListViewState.Refresh);
 

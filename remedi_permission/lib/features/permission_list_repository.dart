@@ -16,8 +16,12 @@ class PermissionListRepository extends IPermissionListRepository {
 
   @override
   Future<Map<Permission, PermissionStatus>> requestAll() async {
-    return await List<Permission>.of(permissions.map((e) => e.permission))
-        .request();
+    Map<Permission, PermissionStatus> ret = {};
+    await Future.forEach<AppPermission>(permissions, (permission) async {
+      PermissionStatus status = await permission.permission.request();
+      ret.addAll({permission.permission: status});
+    });
+    return ret;
   }
 
   @override
