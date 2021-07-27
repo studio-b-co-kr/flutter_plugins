@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:notification_permissions/notification_permissions.dart'
+    as notification;
 import 'package:permission_handler/permission_handler.dart';
 
 class AppPermission {
@@ -67,14 +69,63 @@ class AppPermission {
 
     return ret;
   }
+
+  Future<PermissionStatus> request() async {
+    if (permission == Permission.notification) {
+      var status = await notification.NotificationPermissions
+          .requestNotificationPermissions(
+              iosSettings: const notification.NotificationSettingsIos(
+                  sound: true, badge: true, alert: true));
+
+      switch (status) {
+        case notification.PermissionStatus.granted:
+          return PermissionStatus.granted;
+        case notification.PermissionStatus.denied:
+          return PermissionStatus.denied;
+        case notification.PermissionStatus.provisional:
+          return PermissionStatus.limited;
+        case notification.PermissionStatus.unknown:
+        default:
+          return PermissionStatus.denied;
+      }
+    }
+
+    return await permission.request();
+  }
+
+  Future<PermissionStatus> get status async {
+    if (permission == Permission.notification) {
+      var status = await notification.NotificationPermissions
+          .getNotificationPermissionStatus();
+      switch (status) {
+        case notification.PermissionStatus.granted:
+          return PermissionStatus.granted;
+        case notification.PermissionStatus.denied:
+          return PermissionStatus.denied;
+        case notification.PermissionStatus.provisional:
+          return PermissionStatus.limited;
+        case notification.PermissionStatus.unknown:
+        default:
+          return PermissionStatus.denied;
+      }
+    }
+    return await permission.status;
+  }
 }
 
 extension PermissionEx on AppPermission {
-  Future<bool> get isError async => mandatory && !await permission.isGranted;
+  Future<bool> get isError async {
+    return mandatory && !await isGranted;
+  }
 
-  Future<bool> get isGranted async => await permission.isGranted;
-
-  Future<PermissionStatus> get status async => await permission.status;
+  Future<bool> get isGranted async {
+    if (permission == Permission.notification) {
+      var permissionStatus = await status;
+      return (permissionStatus == PermissionStatus.granted ||
+          permissionStatus == PermissionStatus.limited);
+    }
+    return await permission.isGranted;
+  }
 }
 
 enum PermissionPlatform {

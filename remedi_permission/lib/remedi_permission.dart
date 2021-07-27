@@ -39,9 +39,4 @@ class PermissionManager {
     dev.log("allGranted = $ret", name: "PermissionManager");
     return ret;
   }
-
-  static Future<PermissionStatus> requestPermission(
-      Permission permission) async {
-    return await permission.request();
-  }
 }

@@ -16,7 +16,7 @@ dependencies:
 
   shared_preferences: ^2.0.6
 
-  firebase_messaging: ^10.0.4
+  notification_permissions: ^0.5.0
 
   stacked_mvvm:
     git:

@@ -18,7 +18,7 @@ class PermissionListRepository extends IPermissionListRepository {
   Future<Map<Permission, PermissionStatus>> requestAll() async {
     Map<Permission, PermissionStatus> ret = {};
     await Future.forEach<AppPermission>(permissions, (permission) async {
-      PermissionStatus status = await permission.permission.request();
+      PermissionStatus status = await permission.request();
       ret.addAll({permission.permission: status});
     });
     return ret;
@@ -28,11 +28,9 @@ class PermissionListRepository extends IPermissionListRepository {
   Future<bool> get isAllGranted async {
     bool ret = true;
     await Future.forEach<AppPermission>(permissions, (appPermission) async {
-      await appPermission.status.then((status) {
-        ret = ret &&
-            (status == PermissionStatus.granted ||
-                status == PermissionStatus.limited);
-      });
+      bool ret = true;
+      ret = ret && await appPermission.isGranted;
+      return ret;
     });
     return ret;
   }
