@@ -101,6 +101,12 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
       update(state: PhoneVerificationState.errorVerifyingCodeInvalid);
       return;
     }
+
+    if ((exception).code == "unknown") {
+      _phoneVerification.verificationCode = "";
+      update(state: PhoneVerificationState.errorRequestingSendCode);
+      return;
+    }
   }
 
   @override
