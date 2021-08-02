@@ -19,3 +19,7 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+.idea/modules.xml
+.idea/remedi_flutter.iml
+.idea/vcs.xml
+.idea/workspace.xml
