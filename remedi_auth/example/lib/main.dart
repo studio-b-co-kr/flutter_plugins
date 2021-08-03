@@ -87,6 +87,7 @@ class MyApp extends StatelessWidget {
                       Navigator.of(context).pop(phoneNumber);
                     },
                     messageErrorExit: '나가기',
+                    theme: Colors.black,
                   );
                 });
             break;

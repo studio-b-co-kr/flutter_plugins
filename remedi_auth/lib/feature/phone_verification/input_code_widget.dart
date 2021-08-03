@@ -3,6 +3,7 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
 
 // ignore: must_be_immutable
 class InputCodeWidget extends StatefulWidget {
@@ -11,6 +12,7 @@ class InputCodeWidget extends StatefulWidget {
   final TextEditingController controller;
   String code;
   bool disabled;
+  Color? theme;
 
   InputCodeWidget({
     Key? key,
@@ -19,6 +21,7 @@ class InputCodeWidget extends StatefulWidget {
     required this.controller,
     required this.code,
     this.disabled = false,
+    this.theme,
   }) : super(key: key);
 
   @override
@@ -37,11 +40,11 @@ class InputCodeState extends State<InputCodeWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: widget.theme ?? Colors.white,
       alignment: Alignment.bottomCenter,
       child: Column(children: [
         SizedBox(
-          height: (16),
+          height: 16,
           child: Stack(
             children: [
               Container(
@@ -76,8 +79,8 @@ class InputCodeState extends State<InputCodeWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: 16,
-                color: Colors.white,
+                height: 24,
+                color: widget.theme ?? Colors.white,
               )
             ],
           ),
@@ -112,6 +115,7 @@ class InputCodeState extends State<InputCodeWidget> {
         text: text,
         focused: focused,
         disabled: widget.disabled || (index != 5 && text.isNotEmpty),
+        theme: widget.theme,
       );
 
       inputs.add(box);
@@ -135,11 +139,13 @@ class _InputCodeBox extends StatelessWidget {
   final String? text;
   final bool focused;
   final bool disabled;
+  final Color? theme;
 
   _InputCodeBox({
     this.text = "",
     this.focused = false,
     this.disabled = false,
+    this.theme,
   });
 
   Widget build(BuildContext context) {
@@ -147,7 +153,7 @@ class _InputCodeBox extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: disabled ? Colors.grey.shade50 : null,
+          color: disabled ? (theme ?? Colors.grey.shade50) : null,
           shape: BoxShape.rectangle,
           border: Border.fromBorderSide(BorderSide(
             width: _borderWidth(),
@@ -163,7 +169,8 @@ class _InputCodeBox extends StatelessWidget {
             text ?? "",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.grey.shade800,
+              color:
+                  theme == null ? Colors.grey.shade800 : complementary(theme!),
               height: 1.3,
               fontSize: 24,
             ),

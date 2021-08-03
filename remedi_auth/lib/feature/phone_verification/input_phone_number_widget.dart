@@ -3,6 +3,7 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
 
 // ignore: must_be_immutable
 class InputPhoneNumberWidget extends StatefulWidget {
@@ -11,6 +12,7 @@ class InputPhoneNumberWidget extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   bool enabled;
+  final Color? theme;
 
   InputPhoneNumberWidget({
     Key? key,
@@ -19,6 +21,7 @@ class InputPhoneNumberWidget extends StatefulWidget {
     required this.controller,
     required this.focusNode,
     this.enabled = true,
+    this.theme,
   }) : super(key: key);
 
   @override
@@ -64,8 +67,16 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         ),
         ignoreBlank: false,
         autoValidateMode: AutovalidateMode.disabled,
-        selectorTextStyle: TextStyle(color: Colors.black, fontSize: 14),
-        textStyle: TextStyle(color: Colors.black, fontSize: 20),
+        selectorTextStyle: TextStyle(
+            color: widget.theme == null
+                ? Colors.black
+                : complementary(widget.theme!),
+            fontSize: 16),
+        textStyle: TextStyle(
+            color: widget.theme == null
+                ? Colors.black
+                : complementary(widget.theme!),
+            fontSize: 20),
         initialValue: PhoneNumber(isoCode: "KR"),
         formatInput: true,
         hintText: hintText(context),

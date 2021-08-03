@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
-import 'package:remedi_widgets/text.dart';
+import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'input_code_widget.dart';
@@ -25,6 +25,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   final String messageErrorCodeSent;
   final String messageErrorExit;
   final Function(String phoneNumber) onVerified;
+
+  final Color? theme;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final FocusNode _codeInputFocus = FocusNode();
@@ -56,6 +58,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     required this.messageErrorCodeSent,
     required this.onVerified,
     required this.messageErrorExit,
+    this.theme,
   }) : super(key: key, viewModel: viewModel) {}
 
   @override
@@ -70,9 +73,9 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.white,
+      backgroundColor: theme ?? Colors.white,
       appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: theme ?? Colors.white,
           elevation: 1,
           leadingWidth: 0,
           automaticallyImplyLeading: false,
@@ -82,7 +85,9 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
             text: Text(
               title,
               style: TextStyle(
-                color: Colors.grey.shade800,
+                color: theme != null
+                    ? complementary(theme!)
+                    : Colors.grey.shade800,
                 fontSize: 16,
               ),
             ),
@@ -155,6 +160,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
             text: Text(
               viewModel.phoneNumber.phoneNumber ?? "",
               style: TextStyle(
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey.shade700,
               ),
@@ -176,10 +182,13 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                 text: Text(
                   messageChangePhoneNumber,
                   style: TextStyle(
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: _showChangePhoneNumber(viewModel)
                         ? Colors.blue.shade700
-                        : Colors.grey.shade300,
+                        : theme == null
+                            ? Colors.grey.shade300
+                            : Colors.grey.shade700,
                   ),
                 ),
               ),
@@ -198,6 +207,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
         children: [
           _textGuide(),
           InputPhoneNumberWidget(
+            theme: theme,
             enabled:
                 viewModel.state != PhoneVerificationState.requestingSendCode,
             controller: _inputPhoneNumberController,
@@ -225,6 +235,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
           viewModel.verificationCodeChanged(code);
         },
         disabled: _enabledInputCode(),
+        theme: theme,
       ),
       collapsed: Container(),
       controller: _expandableCodeController,
@@ -261,8 +272,10 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                     messageWaitingAndInputVerificationCode,
                     maxLines: 2,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade900,
+                      fontSize: 16,
+                      color: theme == null
+                          ? Colors.grey.shade900
+                          : complementary(theme!),
                     ),
                   ),
                 ),
@@ -291,8 +304,10 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                   text: Text(
                     messageErrorCodeSent,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade900,
+                      fontSize: 16,
+                      color: theme == null
+                          ? Colors.grey.shade900
+                          : complementary(theme!),
                     ),
                   ),
                 ),
@@ -321,8 +336,10 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                   text: Text(
                     messageOnErrorVerifyingInvalid,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade900,
+                      fontSize: 16,
+                      color: theme == null
+                          ? Colors.grey.shade900
+                          : complementary(theme!),
                     ),
                   ),
                 ),
@@ -351,8 +368,10 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                   text: Text(
                     messageOnErrorVerifyingExpired,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade900,
+                      fontSize: 16,
+                      color: theme == null
+                          ? Colors.grey.shade900
+                          : complementary(theme!),
                     ),
                   ),
                 ),
@@ -381,8 +400,10 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                   text: Text(
                     messageVerified,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade900,
+                      fontSize: 16,
+                      color: theme == null
+                          ? Colors.grey.shade900
+                          : complementary(theme!),
                     ),
                   ),
                 ),
@@ -409,8 +430,10 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
                   text: Text(
                     messageChecking,
                     style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade900,
+                      fontSize: 16,
+                      color: theme == null
+                          ? Colors.grey.shade900
+                          : complementary(theme!),
                     ),
                   ),
                 ),
@@ -647,4 +670,12 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
         break;
     }
   }
+}
+
+Color complementary(Color color) {
+  int red = 255 - color.red;
+  int green = 255 - color.green;
+  int blue = 255 - color.blue;
+
+  return Color.fromARGB(color.alpha, red, green, blue);
 }
