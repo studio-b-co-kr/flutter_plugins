@@ -1,4 +1,5 @@
 library remedi_widgets;
 
-export 'text.dart';
+export 'color.dart';
 export 'multi_format_image.dart';
+export 'text.dart';
