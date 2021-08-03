@@ -6,6 +6,6 @@ extension ExtenstionColor on Color {
     int green = 255 - this.green;
     int blue = 255 - this.blue;
 
-    return Color.fromARGB(255, red, green, blue);
+    return Color.fromARGB(this.alpha, red, green, blue);
   }
 }
