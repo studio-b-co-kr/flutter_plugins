@@ -29,8 +29,8 @@ dependencies:
   # phone number input.
   #  flutter_libphonenumber: ^1.0.4
   #  flutter_multi_formatter: ^2.2.0
-  intl_phone_number_input:
-    path: intl_phone_number_input
+  phone_number_input:
+    path: phone_number_input
   expandable: ^5.0.1
 
   #basic architecture of app

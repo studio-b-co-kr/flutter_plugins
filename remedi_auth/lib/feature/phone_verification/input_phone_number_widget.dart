@@ -2,7 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:phone_number_input/intl_phone_number_input.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
 
 // ignore: must_be_immutable

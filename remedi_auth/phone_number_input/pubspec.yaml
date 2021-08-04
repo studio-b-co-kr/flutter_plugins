@@ -1,4 +1,4 @@
-name: intl_phone_number_input
+name: phone_number_input
 description: A simple and customizable flutter package for inputting phone number in intl / international format uses Google's libphonenumber.
 publish_to: 'none'
 version: 0.0.1+1
