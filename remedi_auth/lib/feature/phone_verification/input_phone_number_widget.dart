@@ -13,6 +13,7 @@ class InputPhoneNumberWidget extends StatefulWidget {
   final FocusNode focusNode;
   bool enabled;
   final Color? theme;
+  final String? initialCountryCode;
 
   InputPhoneNumberWidget({
     Key? key,
@@ -22,6 +23,7 @@ class InputPhoneNumberWidget extends StatefulWidget {
     required this.focusNode,
     this.enabled = true,
     this.theme,
+    this.initialCountryCode,
   }) : super(key: key);
 
   @override
@@ -47,6 +49,7 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
       child: InternationalPhoneNumberInput(
         focusNode: widget.focusNode,
         textFieldController: widget.controller,
+        locale: widget.initialCountryCode,
         autoFocus: true,
         isEnabled: widget.enabled,
         onInputChanged: (number) {
@@ -65,7 +68,6 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.DIALOG,
         ),
-        ignoreBlank: false,
         autoValidateMode: AutovalidateMode.disabled,
         selectorTextStyle: TextStyle(
             color: widget.theme == null
@@ -87,6 +89,7 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         keyboardAction: TextInputAction.go,
         onSubmit: () {
           // TODO somethings...
+          int i = 0;
         },
       ),
     );

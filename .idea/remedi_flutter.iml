@@ -99,6 +99,12 @@
       <excludeFolder url="file://$MODULE_DIR$/remedi_auth/example/ios/.symlinks/plugins/sign_in_with_apple/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_auth/example/ios/.symlinks/plugins/sign_in_with_apple/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_auth/example/ios/.symlinks/plugins/sign_in_with_apple/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_auth/intl_phone_number_input/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_auth/intl_phone_number_input/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_auth/intl_phone_number_input/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_auth/intl_phone_number_input/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_auth/intl_phone_number_input/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_auth/intl_phone_number_input/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_base/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_base/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_base/build" />
@@ -201,6 +207,12 @@
       <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/firebase_messaging/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/firebase_messaging/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/firebase_messaging/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/notification_permissions/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/notification_permissions/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/notification_permissions/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/notification_permissions/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/notification_permissions/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/notification_permissions/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/path_provider/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/path_provider/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_permission/example/ios/.symlinks/plugins/path_provider/build" />

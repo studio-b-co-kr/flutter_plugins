@@ -92,6 +92,8 @@ class PhoneNumberFormatter {
 
 Map<String, String> countryCode2CountryNumber = {
   "KR": "+82",
+  "CN": "+86",
+  "US": "+1",
 };
 
 class PhoneNumberValidator {

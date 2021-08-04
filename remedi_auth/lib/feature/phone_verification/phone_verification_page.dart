@@ -25,6 +25,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   final String messageErrorCodeSent;
   final String messageErrorExit;
   final Function(String phoneNumber) onVerified;
+  final String? initialCountryCode;
 
   final Color? theme;
 
@@ -59,6 +60,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     required this.onVerified,
     required this.messageErrorExit,
     this.theme,
+    this.initialCountryCode,
   }) : super(key: key, viewModel: viewModel) {}
 
   @override
@@ -218,6 +220,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               viewModel.onPhoneNumberValidated(value);
             },
             focusNode: _phoneNumberInputFocus,
+            // initialCountryCode: initialCountryCode,
+            initialCountryCode: 'US',
           )
         ],
       ),

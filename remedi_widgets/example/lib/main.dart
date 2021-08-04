@@ -41,7 +41,8 @@ class MyHomePage extends StatelessWidget {
             child: Column(
               children: [
                 PhoneNumberInput(
-                  countryCode: Localizations.localeOf(context).countryCode,
+                  // countryCode: Localizations.localeOf(context).countryCode,
+                  countryCode: 'US',
                 ),
                 SizedBox(height: 32),
                 Expanded(

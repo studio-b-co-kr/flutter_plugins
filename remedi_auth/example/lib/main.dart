@@ -88,6 +88,7 @@ class MyApp extends StatelessWidget {
                     },
                     messageErrorExit: '나가기',
                     theme: Colors.black,
+                    initialCountryCode: settings.arguments as String?,
                   );
                 });
             break;
@@ -148,7 +149,7 @@ class MyHomePage extends StatelessWidget {
                   textColor: Colors.white,
                   onPressed: () async {
                     String? phoneNumber = await Navigator.of(context)
-                        .pushNamed(PhoneVerificationPage.routeName);
+                        .pushNamed(PhoneVerificationPage.routeName, arguments: '+81');
                     dev.log(phoneNumber ?? "", name: "Phone Number");
                   },
                   child: Text("Phone Verification")),
