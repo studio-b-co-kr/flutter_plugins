@@ -54,7 +54,6 @@ dependencies:
       ref: null-safety
       path: remedi_base/
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
