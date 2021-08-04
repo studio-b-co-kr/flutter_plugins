@@ -29,9 +29,11 @@ dependencies:
   # phone number input.
   #  flutter_libphonenumber: ^1.0.4
   #  flutter_multi_formatter: ^2.2.0
-  phone_number_input:
-    path: phone_number_input
   expandable: ^5.0.1
+
+  libphonenumber_plugin: ^0.2.3
+  equatable: ^2.0.0
+  collection: ^1.15.0
 
   #basic architecture of app
   stacked_mvvm:
@@ -57,5 +59,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/flags/

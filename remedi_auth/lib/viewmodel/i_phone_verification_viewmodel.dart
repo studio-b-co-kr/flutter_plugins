@@ -1,4 +1,5 @@
-import 'package:phone_number_input/intl_phone_number_input.dart';
+import 'package:remedi_auth/phone_number_input/utils/phone_number.dart';
+
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class IPhoneVerificationViewModel

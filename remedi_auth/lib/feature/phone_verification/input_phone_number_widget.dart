@@ -2,8 +2,10 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:phone_number_input/intl_phone_number_input.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
+import 'package:remedi_auth/phone_number_input/utils/phone_number.dart';
+import 'package:remedi_auth/phone_number_input/utils/selector_config.dart';
+import 'package:remedi_auth/phone_number_input/widgets/input_widget.dart';
 
 // ignore: must_be_immutable
 class InputPhoneNumberWidget extends StatefulWidget {

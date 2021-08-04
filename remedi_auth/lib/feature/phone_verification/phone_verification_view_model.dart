@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:phone_number_input/intl_phone_number_input.dart';
+import 'package:remedi_auth/phone_number_input/utils/phone_number.dart';
 import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
 
 class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
