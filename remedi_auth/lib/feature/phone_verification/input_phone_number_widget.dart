@@ -61,9 +61,7 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         autoFocus: true,
         isEnabled: widget.enabled,
         onInputChanged: (number) {
-          setState(() {
-            _phoneNumber = number;
-          });
+          _phoneNumber = number;
           dev.log(number.phoneNumber ?? "");
         },
         onInputValidated: (bool value) async {
@@ -73,7 +71,9 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
             widget.onInputValidated!(value);
           }
 
-          if (value) widget.onSubmitted(_phoneNumber!);
+          if (value) {
+            widget.onSubmitted(_phoneNumber!);
+          }
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.DIALOG,
@@ -97,10 +97,6 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         cursorColor: Colors.grey,
         spaceBetweenSelectorAndTextField: 0,
         keyboardAction: TextInputAction.go,
-        onSubmit: () {
-          // TODO somethings...
-          int i = 0;
-        },
       ),
     );
   }

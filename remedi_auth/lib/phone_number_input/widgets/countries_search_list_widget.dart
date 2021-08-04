@@ -187,7 +187,7 @@ class _Flag extends StatelessWidget {
                         backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
                           country!.flagUri,
-                          package: 'intl_phone_number_input',
+                          package: 'remedi_auth',
                         ),
                       )
                     : SizedBox.shrink(),

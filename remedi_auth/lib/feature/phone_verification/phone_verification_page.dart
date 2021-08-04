@@ -220,7 +220,6 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
               viewModel.onPhoneNumberValidated(value);
             },
             focusNode: _phoneNumberInputFocus,
-            // initialCountryCode: initialCountryCode,
             initialCountryCode: initialCountryCode,
           )
         ],
