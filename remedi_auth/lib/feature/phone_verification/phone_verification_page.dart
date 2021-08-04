@@ -221,7 +221,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
             },
             focusNode: _phoneNumberInputFocus,
             // initialCountryCode: initialCountryCode,
-            initialCountryCode: 'US',
+            initialCountryCode: initialCountryCode,
           )
         ],
       ),

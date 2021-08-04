@@ -12,13 +12,18 @@ class CountrySearchListWidget extends StatefulWidget {
   final bool autoFocus;
   final bool? showFlags;
   final bool? useEmoji;
+  final Color? color;
 
-  CountrySearchListWidget(this.countries, this.locale,
-      {this.searchBoxDecoration,
-      this.scrollController,
-      this.showFlags,
-      this.useEmoji,
-      this.autoFocus = false});
+  CountrySearchListWidget(
+    this.countries,
+    this.locale, {
+    this.searchBoxDecoration,
+    this.scrollController,
+    this.showFlags,
+    this.useEmoji,
+    this.autoFocus = false,
+    this.color = Colors.white,
+  });
 
   @override
   _CountrySearchListWidgetState createState() =>
@@ -44,7 +49,20 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
   /// Returns [InputDecoration] of the search box
   InputDecoration getSearchBoxDecoration() {
     return widget.searchBoxDecoration ??
-        InputDecoration(labelText: 'Search by country name or dial code');
+        InputDecoration(
+          focusColor: Colors.white,
+          helperStyle: TextStyle(color: Colors.white),
+          hintStyle: TextStyle(color: Colors.grey.shade700),
+          suffixStyle: TextStyle(color: Colors.white),
+          counterStyle: TextStyle(color: Colors.white),
+          errorStyle: TextStyle(color: Colors.white),
+          labelStyle: TextStyle(color: Colors.grey.shade700),
+          prefixStyle: TextStyle(color: Colors.white),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          labelText: 'Search by country name or dial code',
+        );
   }
 
   /// Filters the list of Country by text from the search box.
@@ -91,6 +109,8 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: TextFormField(
             key: Key(TestHelper.CountrySearchInputKeyValue),
+            style: TextStyle(color: Colors.white),
+            cursorColor: Colors.white,
             decoration: getSearchBoxDecoration(),
             controller: _searchController,
             autofocus: widget.autoFocus,
@@ -111,15 +131,29 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
                     ? _Flag(country: country, useEmoji: widget.useEmoji)
                     : null,
                 title: Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text('${getCountryName(country)}',
-                        textAlign: TextAlign.start)),
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    '${getCountryName(country)}',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.grey.shade50,
+                    ),
+                  ),
+                ),
                 subtitle: Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text('${country.dialCode ?? ''}',
-                        textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.start)),
-                onTap: () => Navigator.of(context).pop(country),
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    '${country.dialCode ?? ''}',
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop<Country>(country);
+                },
               );
             },
           ),
@@ -153,6 +187,7 @@ class _Flag extends StatelessWidget {
                   )
                 : country?.flagUri != null
                     ? CircleAvatar(
+                        backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
                           country!.flagUri,
                           package: 'intl_phone_number_input',

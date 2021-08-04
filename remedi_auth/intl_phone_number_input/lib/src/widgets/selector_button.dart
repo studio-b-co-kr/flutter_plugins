@@ -118,12 +118,18 @@ class SelectorButton extends StatelessWidget {
   /// shows a Dialog with list [countries] if the [PhoneInputSelectorType.DIALOG] is selected
   Future<Country?> showCountrySelectorDialog(
       BuildContext context, List<Country> countries) {
-    return showDialog(
+    return showDialog<Country>(
       context: context,
       barrierDismissible: true,
-      builder: (BuildContext context) => AlertDialog(
-        content: Container(
-          width: double.maxFinite,
+      builder: (BuildContext context) => Material(
+        color: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              border: Border.all(color: Colors.grey.shade900, width: 4)),
+          margin: EdgeInsets.symmetric(vertical: 40, horizontal: 16),
           child: CountrySearchListWidget(
             countries,
             locale,
@@ -131,6 +137,7 @@ class SelectorButton extends StatelessWidget {
             showFlags: selectorConfig.showFlags,
             useEmoji: selectorConfig.useEmoji,
             autoFocus: autoFocusSearchField,
+            color: Colors.black,
           ),
         ),
       ),

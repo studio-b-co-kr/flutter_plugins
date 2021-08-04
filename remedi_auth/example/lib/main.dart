@@ -148,8 +148,9 @@ class MyHomePage extends StatelessWidget {
                   minWidth: double.infinity,
                   textColor: Colors.white,
                   onPressed: () async {
-                    String? phoneNumber = await Navigator.of(context)
-                        .pushNamed(PhoneVerificationPage.routeName, arguments: '+81');
+                    String? phoneNumber = await Navigator.of(context).pushNamed(
+                        PhoneVerificationPage.routeName,
+                        arguments: 'KR');
                     dev.log(phoneNumber ?? "", name: "Phone Number");
                   },
                   child: Text("Phone Verification")),

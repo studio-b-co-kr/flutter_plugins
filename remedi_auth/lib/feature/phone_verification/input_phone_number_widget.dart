@@ -34,6 +34,12 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
   PhoneNumber? _phoneNumber;
 
   @override
+  initState() {
+    super.initState();
+    _phoneNumber = PhoneNumber(isoCode: widget.initialCountryCode);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(children: [
@@ -53,7 +59,9 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
         autoFocus: true,
         isEnabled: widget.enabled,
         onInputChanged: (number) {
-          _phoneNumber = number;
+          setState(() {
+            _phoneNumber = number;
+          });
           dev.log(number.phoneNumber ?? "");
         },
         onInputValidated: (bool value) async {
@@ -79,7 +87,7 @@ class _PhoneNumberInputState extends State<InputPhoneNumberWidget> {
                 ? Colors.black
                 : complementary(widget.theme!),
             fontSize: 20),
-        initialValue: PhoneNumber(isoCode: "KR"),
+        initialValue: _phoneNumber,
         formatInput: true,
         hintText: hintText(context),
         keyboardType: TextInputType.phone,
