@@ -73,6 +73,7 @@ class _Flag extends StatelessWidget {
                 : Image.asset(
                     country!.flagUri,
                     width: 32.0,
+                    package: 'remedi_auth',
                     errorBuilder: (context, error, stackTrace) {
                       return SizedBox.shrink();
                     },
