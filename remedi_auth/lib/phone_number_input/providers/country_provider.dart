@@ -1,4 +1,3 @@
-
 import 'package:remedi_auth/phone_number_input/models/country_list.dart';
 import 'package:remedi_auth/phone_number_input/models/country_model.dart';
 

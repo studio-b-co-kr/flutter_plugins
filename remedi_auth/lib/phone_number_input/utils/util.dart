@@ -1,4 +1,3 @@
-
 import 'package:remedi_auth/phone_number_input/models/country_model.dart';
 
 /// [Utils] class contains utility methods for `intl_phone_number_input` library
