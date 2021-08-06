@@ -73,15 +73,16 @@ abstract class IClientBuilder<C> {
 
   C build();
 
-  Future<dynamic> post(String? path, {IDto? data, Map<String, dynamic>? query});
+  Future<dynamic> post(String? path,
+      {dynamic data, Map<String, dynamic>? query});
 
   Future<dynamic> get(String? path, {Map<String, dynamic>? query});
 
   Future<dynamic> patch(String? path,
-      {IDto? data, Map<String, dynamic>? query});
+      {dynamic data, Map<String, dynamic>? query});
 
   Future<dynamic> delete(String? path,
-      {IDto? data, Map<String, dynamic>? query});
+      {dynamic data, Map<String, dynamic>? query});
 
   Future<dynamic> upload(String path, {dynamic data});
 
