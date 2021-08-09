@@ -136,7 +136,11 @@ abstract class _TransFormer<R> {
   }) {
     if (res == null) {
       if (onFail != null) onFail(res);
-      return AppError(code: "FAIL", message: "response is null", title: "FAIL");
+      return AppError(
+          code: "FAIL",
+          message: "response is null",
+          title: "FAIL",
+          body: "response is null");
     }
 
     if (!"${res.statusCode}".startsWith("20")) {
@@ -144,7 +148,8 @@ abstract class _TransFormer<R> {
       return AppError(
           code: "${res.statusCode}",
           message: res.data == null ? null : "${res.data}",
-          title: res.statusMessage);
+          title: res.statusMessage,
+          body: res.data);
     }
 
     if (onSuccess != null) {
