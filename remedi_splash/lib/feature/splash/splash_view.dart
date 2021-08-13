@@ -88,11 +88,13 @@ class SplashView extends IView<ISplashViewModel> {
     if (image.contains("svg")) {
       return SvgPicture.asset(
         image,
+        height: width / 4,
         width: width,
       );
     }
     return Image.asset(
       image,
+      height: width / 4,
       width: width,
     );
   }
