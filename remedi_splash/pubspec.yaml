@@ -17,13 +17,13 @@ dependencies:
   stacked_mvvm:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
+      ref: drtunes/0.0.1
       path: stacked_mvvm/
 
   remedi_base:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter.git
-      ref: null-safety
+      ref: drtunes/0.0.1
       path: remedi_base/
 
   #svg loader
