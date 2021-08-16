@@ -59,7 +59,7 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
     update(state: PhoneVerificationState.requestingSendCode);
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneNumber.phoneNumber!,
-      timeout: Duration(seconds: 30),
+      timeout: Duration(seconds: 0),
       forceResendingToken: _phoneVerification.resendToken,
       verificationCompleted: (PhoneAuthCredential credential) {
         update(state: PhoneVerificationState.verifiedCode);
