@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="update-example" type="FlutterRunConfigurationType" factoryName="Flutter">
+  <configuration default="false" name="remedi-example-update" type="FlutterRunConfigurationType" factoryName="Flutter">
     <option name="filePath" value="$PROJECT_DIR$/remedi_update/example/lib/main.dart" />
     <method v="2" />
   </configuration>

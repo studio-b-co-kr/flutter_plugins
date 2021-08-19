@@ -1,10 +1,8 @@
 name: remedi_update
-description: A new Flutter project.
-version: 2.0.0
-author:
-homepage:
-
-publish_to: 'none'
+description: force_update
+version: 0.0.1
+homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
+repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -15,24 +13,12 @@ dependencies:
     sdk: flutter
 
   #basic architecture of app
-  stacked_mvvm:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
-      ref: null-safety
-      path: stacked_mvvm/
+  stacked_mvvm: ^0.0.3
 
-  remedi_widgets:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
-      ref: null-safety
-      path: remedi_widgets/
+  remedi_widgets: ^0.0.1
 
   # go to store on force update page
-  store_redirect:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_plugin_mirror.git
-      ref: master
-      path: store_redirect/
+  store_redirect: ^2.0.0
 
   #svg loader
   flutter_svg: ^0.22.0
