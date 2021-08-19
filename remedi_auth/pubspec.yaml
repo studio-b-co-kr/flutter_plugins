@@ -38,19 +38,19 @@ dependencies:
   #basic architecture of app
   stacked_mvvm:
     git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_compoments.git
+      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
       ref: null-safety
       path: stacked_mvvm/
 
   remedi_widgets:
     git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_compoments.git
+      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
       ref: null-safety
       path: remedi_widgets/
 
   remedi_base:
     git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_compoments.git
+      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
       ref: null-safety
       path: remedi_base/
 
