@@ -1,8 +1,8 @@
 name: remedi_widgets
 description: A new Flutter package.
-version: 2.0.0
-homepage:
-publish_to: 'none'
+version: 0.0.1
+homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
+repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
