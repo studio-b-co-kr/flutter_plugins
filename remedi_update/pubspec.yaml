@@ -17,13 +17,13 @@ dependencies:
   #basic architecture of app
   stacked_mvvm:
     git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter.git
+      url: https://github.com/studio-b-co-kr/remedi_flutter_app_compoments.git
       ref: null-safety
       path: stacked_mvvm/
 
   remedi_widgets:
     git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter.git
+      url: https://github.com/studio-b-co-kr/remedi_flutter_app_compoments.git
       ref: null-safety
       path: remedi_widgets/
 
