@@ -1,10 +1,9 @@
 name: remedi_auth
 description: Remedi Plugin Auth
-version: 2.0.0
-author:
-homepage:
 
-publish_to: 'none'
+version: 0.0.1
+homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
+repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -36,23 +35,11 @@ dependencies:
   collection: ^1.15.0
 
   #basic architecture of app
-  stacked_mvvm:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
-      ref: null-safety
-      path: stacked_mvvm/
+  stacked_mvvm: ^0.0.3
 
-  remedi_widgets:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
-      ref: null-safety
-      path: remedi_widgets/
+  remedi_widgets: ^0.0.1
 
-  remedi_base:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
-      ref: null-safety
-      path: remedi_base/
+  remedi_base: ^0.0.1
 
 dev_dependencies:
   flutter_test:
