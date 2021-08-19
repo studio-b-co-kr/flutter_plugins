@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:remedi_permission/remedi_permission.dart';
 
 void main() {
+  PermissionManager.init([
+    Permission.camera,
+    Permission.notification,
+  ]);
   runApp(MyApp());
 }
 
@@ -15,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: HomePage.ROUTE_NAME,
         onGenerateRoute: (settings) {
-          MaterialPageRoute ret;
+          MaterialPageRoute? ret;
           switch (settings.name) {
             case HomePage.ROUTE_NAME:
               ret = MaterialPageRoute(
@@ -85,14 +89,15 @@ class HomePage extends StatelessWidget {
               title: "camera",
               errorDescription: "앱 사용에 꼭 필요한 권한입니다.",
               description: "Please grant camera permission.",
-              mandatory: true,
+              mandatory: false,
             ),
-            AppPermission(Permission.location,
-                title: "location",
-                description: "Please grant location permission."),
-            AppPermission(Permission.storage,
-                title: "Storage",
-                description: "Please grant storage permission."),
+
+            // AppPermission(Permission.location,
+            //     title: "location",
+            //     description: "Please grant location permission."),
+            // AppPermission(Permission.storage,
+            //     title: "Storage",
+            //     description: "Please grant storage permission."),
             // AppPermission(Permission.calendar,
             //     title: "calendar",
             //     description: "Please grant calendar permission."),
@@ -136,9 +141,9 @@ class HomePage extends StatelessWidget {
             // AppPermission(Permission.reminders,
             //     title: "reminders",
             //     description: "Please grant reminders permission."),
-            // AppPermission(Permission.notification,
-            //     title: "notification",
-            //     description: "Please grant notification permission."),
+            AppPermission(Permission.notification,
+                title: "notification",
+                description: "Please grant notification permission."),
             // AppPermission(Permission.bluetooth,
             //     title: "bluetooth",
             //     description: "Please grant bluetooth permission."),
@@ -163,7 +168,7 @@ class HomePage extends StatelessWidget {
           repository: PermissionRepository(
             AppPermission(Permission.location,
                 title: "location",
-                mandatory: true,
+                mandatory: false,
                 errorDescription: "위치권한 없이는 앱을 사용할 수 없습니다.",
                 description:
                     "Please grant location permission to use this app."),

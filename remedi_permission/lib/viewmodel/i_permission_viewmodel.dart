@@ -1,12 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-abstract class IPermissionViewModel
-    extends BaseViewModel<PermissionViewState, IPermissionRepository> {
-  IPermissionViewModel({IPermissionRepository repository})
-      : super(repository: repository);
+abstract class IPermissionViewModel extends IViewModel<PermissionViewState> {
+  IPermissionViewModel() : super();
 
   Future<PermissionStatus> requestPermission();
 
@@ -25,6 +22,12 @@ abstract class IPermissionViewModel
   Future<bool> get canSkip;
 
   Future goToSettings();
+
+  bool get isGranted;
+
+  bool get isError;
+
+  bool get isPermanentlyDenied;
 }
 
 enum PermissionViewState {
@@ -55,4 +58,5 @@ enum PermissionViewState {
   /// Mandatory but denied or permanently denied.
   Error,
   Disabled,
+  grantedAndExit,
 }

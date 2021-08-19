@@ -1,24 +1,25 @@
 import 'dart:developer' as dev;
 
-import 'package:remedi_splash/error/app_error.dart';
+import 'package:remedi_base/errors/app_error.dart';
 import 'package:remedi_splash/repository/i_splash_repository.dart';
 import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 
 import 'splash_page.dart';
 
 class SplashViewModel extends ISplashViewModel {
-  final ISplashRepository repo;
+  final ISplashRepository repository;
 
-  SplashViewModel(String routeName, {this.repo})
-      : assert(repo != null),
-        super(routeName);
-  AppError _error;
+  SplashViewModel(String? routeName, {required this.repository})
+      : super(routeName);
+  late AppError _error;
 
   @override
-  AppError get error => _error;
+  AppError get appError => _error;
 
+  @override
   init() {
-    dev.log(routeName, name: "SplashViewModel Started by");
+    super.init();
+    dev.log(routeName ?? "", name: "SplashViewModel Started by");
     switch (routeName) {
       case SplashPage.ROUTE_NAME_AFTER_INTRO:
         afterIntro();
@@ -41,7 +42,7 @@ class SplashViewModel extends ISplashViewModel {
 
   @override
   appOpen() async {
-    dev.log("appOpen",name: "SplashViewModel : run");
+    dev.log("appOpen", name: "SplashViewModel : run");
     var ret = await repository.init();
     if (ret is AppError) {
       _error = ret;
@@ -54,7 +55,7 @@ class SplashViewModel extends ISplashViewModel {
 
   @override
   afterAppOpen() async {
-    dev.log("afterAppOpen",name: "SplashViewModel : run");
+    dev.log("afterAppOpen", name: "SplashViewModel : run");
     var ret = await repository.needToUpdate();
 
     if (ret) {
@@ -67,8 +68,15 @@ class SplashViewModel extends ISplashViewModel {
 
   @override
   afterForceUpdate() async {
-    dev.log("afterForceUpdate",name: "SplashViewModel : run");
+    dev.log("afterForceUpdate", name: "SplashViewModel : run");
     var ret = await repository.isCompletedIntro();
+
+    if (ret is AppError) {
+      _error = ret;
+      update(state: SplashViewState.Error);
+      return;
+    }
+
     if (ret) {
       afterIntro();
       return;
@@ -79,7 +87,7 @@ class SplashViewModel extends ISplashViewModel {
 
   @override
   afterIntro() async {
-    dev.log("afterIntro",name: "SplashViewModel : run");
+    dev.log("afterIntro", name: "SplashViewModel : run");
     var ret = await repository.isCompletedPermissionGrant();
     if (ret) {
       afterPermission();
@@ -91,7 +99,9 @@ class SplashViewModel extends ISplashViewModel {
 
   @override
   afterPermission() async {
-    dev.log("afterPermission",name: "SplashViewModel : run");
+    dev.log("afterPermission", name: "SplashViewModel : run");
+    await repository.afterPermission();
+
     var ret = await repository.isLoggedIn();
     if (ret) {
       afterLogin();
@@ -103,8 +113,20 @@ class SplashViewModel extends ISplashViewModel {
 
   @override
   afterLogin() async {
-    dev.log("afterLogin",name: "SplashViewModel : run");
+    dev.log("afterLogin", name: "SplashViewModel : run");
     var ret = await repository.isCompletedOnboarding();
+
+    if (ret is AppError) {
+      if (ret.code == "401" || ret.code == "404") {
+        update(state: SplashViewState.Login);
+        return;
+      }
+
+      _error = ret;
+      update(state: SplashViewState.Error);
+      return;
+    }
+
     if (ret) {
       afterOnboarding();
       return;
@@ -115,16 +137,21 @@ class SplashViewModel extends ISplashViewModel {
 
   @override
   afterOnboarding() async {
-    dev.log("afterOnboarding",name: "SplashViewModel : run");
+    dev.log("afterOnboarding", name: "SplashViewModel : run");
     readyToService();
   }
 
   @override
   readyToService() async {
-    dev.log("readyToService",name: "SplashViewModel : run");
+    dev.log("readyToService", name: "SplashViewModel : run");
     var ret = await repository.readyToService();
 
     if (ret is AppError) {
+      if (ret.code == "401" || ret.code == "404") {
+        update(state: SplashViewState.Login);
+        return;
+      }
+
       _error = ret;
       update(state: SplashViewState.Error);
       return;
@@ -133,14 +160,11 @@ class SplashViewModel extends ISplashViewModel {
     update(state: SplashViewState.GoContentsPage);
   }
 
-  showError(AppError error) {
-    dev.log("showError",name: "SplashViewModel : run");
+  showError(AppError error) async {
+    dev.log("showError", name: "SplashViewModel : run");
     update(state: SplashViewState.Error);
   }
 
   @override
   get initState => SplashViewState.Init;
-
-  @override
-  ISplashRepository get repository => repo;
 }

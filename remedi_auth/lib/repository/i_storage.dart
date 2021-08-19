@@ -1,7 +1,7 @@
 abstract class IStorage {
-  Future write({String key, String value});
+  Future<void> write({required String key, required String value});
 
-  Future<String> read(String key);
+  Future<String?> read({required String key});
 
-  Future delete(String key);
+  Future delete({required String key});
 }

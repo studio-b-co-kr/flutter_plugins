@@ -5,8 +5,9 @@ import 'package:remedi_permission/repository/i_permission_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 
 class PermissionViewModel extends IPermissionViewModel {
-  PermissionViewModel({IPermissionRepository repository})
-      : super(repository: repository);
+  final IPermissionRepository repository;
+
+  PermissionViewModel({required this.repository}) : super();
 
   @override
   PermissionViewState get initState => PermissionViewState.Init;
@@ -16,6 +17,7 @@ class PermissionViewModel extends IPermissionViewModel {
     // await Future.delayed(Duration(milliseconds: 100));
     await repository.init();
     _handleStatus(repository.status);
+    super.init();
   }
 
   @override
@@ -25,7 +27,7 @@ class PermissionViewModel extends IPermissionViewModel {
 
   @override
   Future<PermissionStatus> requestPermission() async {
-    switch (repository.status) {
+    switch (repository.status ?? PermissionStatus.granted) {
       case PermissionStatus.granted:
       case PermissionStatus.limited:
         // close permission page and back to the screen to request permission.
@@ -33,6 +35,10 @@ class PermissionViewModel extends IPermissionViewModel {
       case PermissionStatus.denied:
         // if the permission is mandatory to use app, keep permission page.
         await repository.request();
+        if (repository.status == PermissionStatus.limited ||
+            repository.status == PermissionStatus.granted) {
+          update(state: PermissionViewState.grantedAndExit);
+        }
         break;
 
       case PermissionStatus.permanentlyDenied:
@@ -50,10 +56,10 @@ class PermissionViewModel extends IPermissionViewModel {
 
     _handleStatus(repository.status);
 
-    return repository.status;
+    return repository.status ?? PermissionStatus.granted;
   }
 
-  _handleStatus(PermissionStatus status) {
+  _handleStatus(PermissionStatus? status) {
     if (status == null) {
       return;
     }
@@ -88,13 +94,13 @@ class PermissionViewModel extends IPermissionViewModel {
   }
 
   @override
-  String get description => repository.permission.description;
+  String get description => repository.permission.description ?? "";
 
   @override
-  String get errorDescription => repository.permission.errorDescription;
+  String get errorDescription => repository.permission.errorDescription ?? "";
 
   @override
-  String get title => repository.permission.title;
+  String get title => repository.permission.title ?? "";
 
   @override
   String get statusMessage {
@@ -102,19 +108,19 @@ class PermissionViewModel extends IPermissionViewModel {
     switch (state) {
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
-        ret = "Granted!";
+        ret = "허용됨";
         break;
+      case PermissionViewState.Init:
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:
-        ret = "Please grant this permission";
+        ret = "해당 권한을 허용해주세요.";
         break;
       case PermissionViewState.Error:
         ret = errorDescription;
         break;
       case PermissionViewState.Disabled:
-      case PermissionViewState.Init:
       case PermissionViewState.Restricted:
-        ret = "Not possible";
+        ret = "사용 불가능합니다.";
         break;
       default:
         break;
@@ -129,12 +135,11 @@ class PermissionViewModel extends IPermissionViewModel {
   }
 
   @override
-  // Widget get icon => repository.permission.icon;
   Widget icon({double size = 24}) {
-    if (repository.permission.icon != null) {
-      return repository.permission.icon;
-    }
+    return repository.permission.icon ?? _generateIcon(size: size);
+  }
 
+  Widget _generateIcon({double size = 24}) {
     IconData iconData;
     switch (repository.permission.permission.value) {
       case 0: //calendar
@@ -211,6 +216,15 @@ class PermissionViewModel extends IPermissionViewModel {
 
   @override
   Future<bool> get canSkip async => false;
+
+  @override
+  bool get isError => repository.isError;
+
+  @override
+  bool get isGranted => repository.isGranted;
+
+  @override
+  bool get isPermanentlyDenied => repository.isPermanentlyDenied;
 }
 
 /// refer to below permission status.

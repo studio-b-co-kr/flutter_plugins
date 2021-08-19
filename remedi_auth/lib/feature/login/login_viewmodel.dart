@@ -15,11 +15,10 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../auth_error.dart';
 
 class LoginViewModel extends ILoginViewModel {
-  final String kakaoAppId;
+  final String? kakaoAppId;
+  final ILoginRepository repository;
 
-  LoginViewModel({ILoginRepository repo, this.kakaoAppId})
-      : assert(repo != null),
-        super(repo: repo);
+  LoginViewModel({required this.repository, this.kakaoAppId}) : super();
 
   @override
   LoginViewState get initState => LoginViewState.Idle;
@@ -29,7 +28,7 @@ class LoginViewModel extends ILoginViewModel {
     update(state: LoginViewState.Loading);
     bool isAvailable = await SignInWithApple.isAvailable();
     if (!isAvailable) {
-      this.error = AuthError(
+      this.authError = AuthError(
           title: AppStrings.loginError,
           code: AppStrings.codeAppleLoginError,
           message: AppStrings.invalidVersionAppleLogin);
@@ -55,15 +54,17 @@ class LoginViewModel extends ILoginViewModel {
           await repository.loginWithApple(appleCredential);
 
       if (appCredential.isError) {
-        this.error = appCredential.error;
+        this.authError = appCredential.error;
         update(state: LoginViewState.Error);
         return;
       }
 
       await Future.wait([
-        AuthRepository.instance.writeUserId(appCredential.userId),
-        AuthRepository.instance.writeAccessToken(appCredential.accessToken),
-        AuthRepository.instance.writeRefreshToken(appCredential.refreshToken)
+        AuthRepository.instance().writeUserId(appCredential.userId),
+        AuthRepository.instance().writeUserCode(appCredential.userCode),
+        AuthRepository.instance().writeAccessToken(appCredential.accessToken),
+        AuthRepository.instance()
+            .writeRefreshToken(appCredential.refreshToken ?? "")
       ]);
 
       update(state: LoginViewState.Success);
@@ -77,13 +78,14 @@ class LoginViewModel extends ILoginViewModel {
         title = e.code.toString();
         code = e.message;
         message = e.message;
-        if (e.code == AuthorizationErrorCode.canceled) {
+        if (e.code == AuthorizationErrorCode.canceled ||
+            e.code == AuthorizationErrorCode.unknown) {
           update(state: LoginViewState.Idle);
           return;
         }
       }
 
-      this.error =
+      this.authError =
           AuthError(title: title, code: code, message: message, error: e);
       update(state: LoginViewState.Error);
     }
@@ -91,46 +93,46 @@ class LoginViewModel extends ILoginViewModel {
 
   @override
   loginWithKakao() async {
-    assert(kakaoAppId != null);
     update(state: LoginViewState.Loading);
 
     final FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
-    await kakaoSignIn.init(kakaoAppId);
+    await kakaoSignIn.init(kakaoAppId!);
 
     final String hashKey = await (kakaoSignIn.hashKey);
     dev.log(hashKey, name: "Kakao HASH");
     String kakaoAccessToken;
-    String kakaoId;
+    String? kakaoId;
     try {
       var login = await kakaoSignIn.logIn();
 
       switch (login.status) {
         case KakaoLoginStatus.loggedIn:
-          dev.log("${login.token.accessToken}", name: "Kakao Login Success");
-          kakaoAccessToken = login.token.accessToken;
+          dev.log("${login.token?.accessToken}", name: "Kakao Login Success");
+          kakaoAccessToken = login.token!.accessToken!;
           login = await kakaoSignIn.getUserMe();
-
           break;
         case KakaoLoginStatus.loggedOut:
         case KakaoLoginStatus.unlinked:
-          this.error = AuthError(
+          this.authError = AuthError(
               title: AppStrings.codeKakaoLoginError,
               code: AppStrings.codeKakaoLoginError,
               message: AppStrings.messageAuthError);
+          await kakaoSignIn.logOut();
           update(state: LoginViewState.Error);
           return;
       }
 
-      kakaoId = login.account.userID;
+      kakaoId = login.account?.userID ?? "";
 
       int id = 0;
       try {
-        id = int.tryParse(kakaoId);
+        id = int.parse(kakaoId);
       } catch (e) {
-        this.error = AuthError(
+        this.authError = AuthError(
             title: AppStrings.codeKakaoLoginError,
             code: AppStrings.codeKakaoLoginError,
             message: AppStrings.messageAuthError);
+        await kakaoSignIn.logOut();
         update(state: LoginViewState.Error);
         return;
       }
@@ -141,34 +143,44 @@ class LoginViewModel extends ILoginViewModel {
       await kakaoSignIn.logOut();
 
       if (credential.isError) {
-        this.error = credential.error;
+        this.authError = credential.error;
+        await kakaoSignIn.logOut();
         update(state: LoginViewState.Error);
         return;
       }
 
       await Future.wait([
-        AuthRepository.instance.writeUserId(credential.userId),
-        AuthRepository.instance.writeAccessToken(credential.accessToken),
-        AuthRepository.instance.writeRefreshToken(credential.refreshToken)
+        AuthRepository.instance().writeUserId(credential.userId),
+        AuthRepository.instance().writeUserCode(credential.userCode),
+        AuthRepository.instance().writeAccessToken(credential.accessToken),
+        AuthRepository.instance()
+            .writeRefreshToken(credential.refreshToken ?? "")
       ]);
+
+      await kakaoSignIn.logOut();
       update(state: LoginViewState.Success);
       return;
     } catch (error) {
-      String title = AppStrings.codeKakaoLoginError;
+      String? title = AppStrings.codeKakaoLoginError;
       String code = AppStrings.codeKakaoLoginError;
-      String message = AppStrings.messageAuthError;
+      String? message = AppStrings.messageAuthError;
 
       if (error is PlatformException) {
-        title = error.message;
+        title = error.message ?? "";
         code = error.code;
         message = error.details;
       }
 
-      this.error =
+      this.authError =
           AuthError(title: title, code: code, message: message, error: error);
 
-      update(state: LoginViewState.Idle);
-      return;
+      if (message == "cancelled." ||
+          title ==
+              "The operation couldn’t be completed. (KakaoSDKCommon.SdkError error 0.)") {
+        update(state: LoginViewState.Idle);
+      } else {
+        update(state: LoginViewState.Error);
+      }
     }
   }
 }

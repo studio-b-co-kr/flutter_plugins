@@ -15,24 +15,26 @@ class PermissionRepository extends IPermissionRepository {
   }
 
   @override
-  bool get isDenied => status.isDenied || status.isRestricted;
+  bool get isDenied =>
+      (status?.isDenied ?? false) || (status?.isRestricted ?? false);
 
   @override
   bool get isError => !isGranted && permission.mandatory;
 
   @override
-  bool get isGranted => status.isGranted || status.isLimited;
+  bool get isGranted =>
+      (status?.isGranted ?? true) || (status?.isLimited ?? true);
 
   @override
-  bool get isPermanentlyDenied => status.isPermanentlyDenied;
+  bool get isPermanentlyDenied => status?.isPermanentlyDenied ?? false;
 
   @override
   Future<PermissionStatus> request() async {
-    return status = await permission.permission.request();
+    return status = await permission.request();
   }
 
   @override
   Future<PermissionStatus> readPermissionStatus() async {
-    return status = await permission.permission.status;
+    return status = await permission.status;
   }
 }

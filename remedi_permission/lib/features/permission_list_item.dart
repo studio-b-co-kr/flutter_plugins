@@ -4,14 +4,21 @@ import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-class PermissionListItemWidget extends BaseWidget<IPermissionViewModel> {
-  PermissionListItemWidget(IPermissionViewModel viewModel)
+class PermissionListItemWidget extends IWidget<IPermissionViewModel> {
+  final Function? onPressed;
+  final Color? color;
+
+  PermissionListItemWidget(IPermissionViewModel viewModel,
+      {this.color, this.onPressed})
       : super(viewModel: viewModel);
 
   @override
-  BindingView<IPermissionViewModel> body(
-      BuildContext context, IPermissionViewModel viewModel, Widget child) {
-    return PermissionListItemView();
+  IView<IPermissionViewModel> body(
+      BuildContext context, IPermissionViewModel viewModel, Widget? child) {
+    return PermissionListItemView(
+      onPressed: onPressed,
+      color: color,
+    );
   }
 
   @override
@@ -20,7 +27,12 @@ class PermissionListItemWidget extends BaseWidget<IPermissionViewModel> {
   }
 }
 
-class PermissionListItemView extends BindingView<IPermissionViewModel> {
+class PermissionListItemView extends IView<IPermissionViewModel> {
+  final Function? onPressed;
+  final Color? color;
+
+  PermissionListItemView({required this.onPressed, this.color});
+
   @override
   Widget build(BuildContext context, IPermissionViewModel viewModel) {
     return Card(
@@ -28,10 +40,13 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       elevation: viewModel.state == PermissionViewState.Granted ? 0 : 4,
       child: InkWell(
-        onTap: viewModel.repository.isGranted
+        onTap: viewModel.isGranted
             ? null
-            : () {
-                viewModel.requestPermission();
+            : () async {
+                await viewModel.requestPermission();
+                if (onPressed != null) {
+                  onPressed!();
+                }
               },
         child: Container(
           padding: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 16),
@@ -46,7 +61,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
               Container(
                   child: FixedScaleText(
                       text: Text(
-                viewModel.title ?? "",
+                viewModel.title,
                 style: TextStyle(
                     color: Colors.blueGrey.shade700,
                     fontSize: 16,
@@ -56,7 +71,7 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
             SizedBox(height: 16),
             Container(
                 margin: EdgeInsets.only(left: 8),
-                child: Text(viewModel.description ?? "")),
+                child: Text(viewModel.description)),
             SizedBox(height: 16),
             Container(
               margin: EdgeInsets.only(left: 8),
@@ -67,11 +82,11 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
                   SizedBox(width: 8),
                   Expanded(
                       child:
-                          FixedScaleText(text: Text(viewModel.statusMessage ?? "")))
+                          FixedScaleText(text: Text(viewModel.statusMessage)))
                 ],
               ),
             ),
-            viewModel.repository.isPermanentlyDenied
+            viewModel.isPermanentlyDenied
                 ? Container(
                     margin: EdgeInsets.only(top: 16, left: 8),
                     child: Row(
@@ -105,22 +120,23 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
   Color _background(IPermissionViewModel viewModel) {
     Color ret = Colors.amber.shade50;
     switch (viewModel.state) {
-      case PermissionViewState.Init:
-        break;
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
-        ret = Colors.grey.shade50;
+        ret = color ?? Colors.grey.shade50;
         break;
+      case PermissionViewState.Init:
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:
-        ret = Colors.grey.shade50;
+        ret = color ?? Colors.grey.shade50;
         break;
       case PermissionViewState.Restricted:
       case PermissionViewState.Disabled:
-        ret = Colors.grey.shade50;
+        ret = color ?? Colors.grey.shade50;
         break;
       case PermissionViewState.Error:
         ret = Colors.red.shade50;
+        break;
+      case PermissionViewState.grantedAndExit:
         break;
     }
     return ret;
@@ -130,12 +146,11 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
     IconData icon = Icons.check_circle_outline;
     Color iconColor = Colors.grey;
     switch (viewModel.state) {
-      case PermissionViewState.Init:
-        break;
       case PermissionViewState.Granted:
       case PermissionViewState.Limited:
         iconColor = Colors.green;
         break;
+      case PermissionViewState.Init:
       case PermissionViewState.Denied:
       case PermissionViewState.PermanentlyDenied:
         icon = Icons.error_outline_sharp;
@@ -148,23 +163,13 @@ class PermissionListItemView extends BindingView<IPermissionViewModel> {
       case PermissionViewState.Restricted:
       case PermissionViewState.Disabled:
         break;
+      case PermissionViewState.grantedAndExit:
+        break;
     }
     return Icon(
       icon,
       size: 20,
       color: iconColor,
     );
-  }
-
-  String _resultMessage(IPermissionViewModel viewModel) {
-    String message = "";
-
-    return message;
-  }
-
-  Color _textColor(IPermissionViewModel viewModel) {
-    Color ret = Colors.blueGrey.shade700;
-
-    return ret;
   }
 }

@@ -2,47 +2,97 @@
 ///
 /// C is Client in charge of http request/response. like Dio, Retrofit and etc.
 /// R is Response of api request.
-abstract class IApiService<C, R> {
-  C _client;
+abstract class IApiService {
+  final IClientBuilder clientBuilder;
 
-  C get client => _client;
+  IApiService({required this.clientBuilder});
 
-  /// url path.
   String get path;
 
-  // request body
-  final dynamic body;
+  Future<dynamic> requestPost({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
 
-  //request queries
-  final Map<String, dynamic> query;
+  Future<dynamic> requestGet({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
 
-  IApiService(IClientFactory clientFactory, {this.body, this.query}) {
-    _client = clientFactory.build();
-  }
+  Future<dynamic> requestPatch({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
 
-  Future<R> request({
-    Function(dynamic) onSuccess,
-    Function(dynamic) onFail,
-    Function(dynamic) onError,
+  Future<dynamic> requestDelete({
+    String? path,
+    dynamic data,
+    Map<String, dynamic>? query,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
+
+  Future<dynamic> requestUpload({
+    required String filePath,
+    dynamic data,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  });
+
+  Future<dynamic> requestDownload({
+    required String urlPath,
+    required String savePath,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
   });
 }
+
+enum Method { post, get, patch, delete, upload, download }
 
 /// Factory create a http client instance.
 /// C is should be dio or other http clients.
 
-abstract class IClientFactory<C> {
+abstract class IClientBuilder<C> {
   final String baseUrl;
 
-  IClientFactory({this.baseUrl});
+  IClientBuilder({required this.baseUrl});
 
   C build();
+
+  Future<dynamic> post(String? path,
+      {dynamic data, Map<String, dynamic>? query});
+
+  Future<dynamic> get(String? path, {Map<String, dynamic>? query});
+
+  Future<dynamic> patch(String? path,
+      {dynamic data, Map<String, dynamic>? query});
+
+  Future<dynamic> delete(String? path,
+      {dynamic data, Map<String, dynamic>? query});
+
+  Future<dynamic> upload(String path, {dynamic data});
+
+  Future<dynamic> download(String urlPath, savePath,
+      {Map<String, dynamic>? queryParameters, data});
 }
 
 /// Data transfer object.
 abstract class IDto {
   IDto();
 
-  IDto.fromJson(Map<String, dynamic> jsonMap);
-
-  Map<String, dynamic> get toJson;
+  dynamic get toJson;
 }

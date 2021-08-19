@@ -3,15 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
+class PermissionPage<Permission> extends IPage<IPermissionViewModel> {
   static const ROUTE_NAME = "/permission";
 
-  PermissionPage({Key key, IPermissionViewModel viewModel})
+  PermissionPage({Key? key, required IPermissionViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
   PermissionView body(
-      BuildContext context, IPermissionViewModel viewModel, Widget child) {
+      BuildContext context, IPermissionViewModel viewModel, Widget? child) {
     return PermissionView();
   }
 
@@ -41,11 +41,14 @@ class PermissionPage<Permission> extends BasePage<IPermissionViewModel> {
         break;
       case PermissionViewState.Disabled:
         break;
+      case PermissionViewState.grantedAndExit:
+        Navigator.of(context).pop("granted");
+        break;
     }
   }
 }
 
-class PermissionView extends BindingView<IPermissionViewModel> {
+class PermissionView extends IView<IPermissionViewModel> {
   @override
   Widget build(BuildContext context, IPermissionViewModel viewModel) {
     return WillPopScope(
@@ -56,51 +59,32 @@ class PermissionView extends BindingView<IPermissionViewModel> {
             elevation: 0,
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
-            actions: [
-              Container(
-                  child: TextButton(
-                      onPressed: () async => await _onSkip(context),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "SKIP",
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                          Icon(Icons.arrow_forward_ios_sharp,
-                              size: 16, color: Colors.blue)
-                        ],
-                      )))
-            ],
+            actions: [..._buildSkip(context, viewModel)],
           ),
           body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Spacer(flex: 1),
-                viewModel.icon(size: 60),
-                Container(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    child:
-                        Text(viewModel.title, style: TextStyle(fontSize: 28))),
-                Expanded(
-                    flex: 2, child: Center(child: Text(viewModel.description))),
-                _errorMessage(viewModel),
-                Container(
-                    margin: EdgeInsets.only(
-                        right: 16, left: 16, bottom: 32, top: 8),
-                    child: MaterialButton(
-                        color: _buttonColor(viewModel),
-                        height: 40,
-                        minWidth: double.maxFinite,
-                        onPressed: () async {
-                          await viewModel.requestPermission();
-                        },
-                        child: Text(
-                          _buttonText(viewModel),
-                          style: TextStyle(color: Colors.white),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Spacer(flex: 1),
+                    viewModel.icon(size: 60),
+                    Container(
+                        margin: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(viewModel.title,
+                            style: TextStyle(
+                                fontSize: 28, color: Colors.grey.shade700))),
+                    Expanded(
+                        flex: 2,
+                        child: Center(
+                            child: Text(
+                          viewModel.description,
+                          style: TextStyle(
+                              fontSize: 16, color: Colors.grey.shade900),
                         ))),
-              ],
+                    _errorMessage(viewModel),
+                    _buildButton(context, viewModel),
+                  ]),
             ),
           ),
         ),
@@ -108,25 +92,35 @@ class PermissionView extends BindingView<IPermissionViewModel> {
   }
 
   Color _buttonColor(IPermissionViewModel viewModel) {
-    if (viewModel.repository.isPermanentlyDenied) {
+    if (viewModel.isPermanentlyDenied) {
       return Colors.red;
     }
     return Colors.blue;
   }
 
-  String _buttonText(IPermissionViewModel viewModel) {
-    if (viewModel.repository.isPermanentlyDenied) {
-      return "세팅에서 권한 허용하기";
-    }
-    return "권한 요청하기";
+  Widget _buttonText(BuildContext context, IPermissionViewModel viewModel) {
+    String text = "";
+    Color color = Colors.white;
+    if (viewModel.isPermanentlyDenied) {
+      text = "세팅에서 권한 허용하기";
+    } else if (viewModel.isGranted) {
+      text = "허용됨";
+      color = Colors.grey.shade700;
+    } else
+      text = "권한 요청하기";
+
+    return Text(
+      text,
+      style: TextStyle(color: color),
+    );
   }
 
-  _onSkip(BuildContext context) async {
-    Navigator.of(context).pop("skip");
+  _onSkip(BuildContext context, String result) async {
+    Navigator.of(context).pop(result);
   }
 
   Widget _errorMessage(IPermissionViewModel viewModel) {
-    if (viewModel.repository.isError) {
+    if (viewModel.isError) {
       return Container(
         margin: EdgeInsets.only(left: 16),
         alignment: Alignment.centerLeft,
@@ -142,5 +136,52 @@ class PermissionView extends BindingView<IPermissionViewModel> {
     }
 
     return Container();
+  }
+
+  List<Widget> _buildSkip(
+      BuildContext context, IPermissionViewModel viewModel) {
+    List<Widget> ret = [];
+
+    if (viewModel.isError) {
+      return ret;
+    }
+
+    String title = "Skip";
+    if (viewModel.isGranted) {
+      title = "Next";
+    }
+
+    ret.add(Container(
+        child: TextButton(
+            onPressed: () async => await _onSkip(
+                context, viewModel.isGranted ? "granted" : "skip"),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title.toUpperCase(),
+                  style: TextStyle(color: Colors.blue),
+                ),
+                Icon(Icons.arrow_forward_ios_sharp,
+                    size: 16, color: Colors.blue)
+              ],
+            ))));
+
+    return ret;
+  }
+
+  Widget _buildButton(BuildContext context, IPermissionViewModel viewModel) {
+    return Container(
+        margin: EdgeInsets.only(right: 16, left: 16, bottom: 32, top: 8),
+        child: MaterialButton(
+            color: _buttonColor(viewModel),
+            height: 40,
+            minWidth: double.maxFinite,
+            onPressed: viewModel.isGranted
+                ? null
+                : () async {
+                    await viewModel.requestPermission();
+                  },
+            child: _buttonText(context, viewModel)));
   }
 }

@@ -1,227 +1,434 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:remedi_base/remedi_base.dart';
 
-/// Post Api
-abstract class DioPostApiService<R extends IDto> extends IApiService<Dio, R>
+import '../errors/app_error.dart';
+
+abstract class DioApiService<R extends dynamic> extends IApiService
     with _TransFormer<R> {
-  final IDto data;
-  final Map<String, dynamic> query;
-
-  DioPostApiService(IClientFactory clientFactory, {this.data, this.query})
-      : super(clientFactory);
+  DioApiService({required IClientBuilder clientBuilder})
+      : super(clientBuilder: clientBuilder);
 
   @override
-  Future<R> request(
-      {Function(Response) onSuccess,
-      Function(dynamic) onFail,
-      Function(dynamic) onError}) async {
-    var res = await client.post<Map<String, dynamic>>(path,
-        data: data.toJson, queryParameters: query);
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
-  }
-}
-
-/// Get Api
-abstract class DioGetApiService<R> extends IApiService<Dio, R>
-    with _TransFormer<R> {
-  final Map<String, dynamic> query;
-
-  DioGetApiService(IClientFactory clientFactory, {this.query})
-      : super(clientFactory);
-
-  @override
-  Future<R> request(
-      {Function(Response) onSuccess,
-      Function(dynamic) onFail,
-      Function(dynamic) onError}) async {
-    var res = await client.get<dynamic>(path, queryParameters: query);
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
-  }
-}
-
-/// Patch Api
-abstract class DioPatchApiService<R extends IDto> extends IApiService<Dio, R>
-    with _TransFormer<R> {
-  final IDto data;
-  final Map<String, dynamic> query;
-
-  DioPatchApiService(IClientFactory clientFactory, {this.data, this.query})
-      : super(clientFactory);
-
-  @override
-  Future<R> request(
-      {Function(Response) onSuccess,
-      Function(dynamic) onFail,
-      Function(dynamic) onError}) async {
-    var res = await client.patch<Map<String, dynamic>>(path,
-        data: data.toJson, queryParameters: query);
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
-  }
-}
-
-/// Delete Api
-abstract class DioDeleteApiService<R extends IDto> extends IApiService<Dio, R>
-    with _TransFormer<R> {
-  final IDto data;
-  final Map<String, dynamic> query;
-
-  DioDeleteApiService(IClientFactory clientFactory, {this.data, this.query})
-      : super(clientFactory);
-
-  @override
-  Future<R> request(
-      {Function(Response response) onSuccess,
-      Function(dynamic) onFail,
-      Function(dynamic) onError}) async {
-    var res = await client.delete<Map<String, dynamic>>(path,
-        data: data.toJson, queryParameters: query);
-    return handleResponse(res,
-        onSuccess: onSuccess, onError: onError, onFail: onFail);
-  }
-}
-
-class File extends IDto {
-  final String path;
-
-  File({this.path});
-
-  @override
-  Map<String, dynamic> get toJson => null;
-}
-
-/// File Download Api
-class FileDownloadApiService extends IApiService<Dio, File> {
-  final url;
-  final IDto data;
-  final String savePath;
-
-  FileDownloadApiService(
-    IClientFactory clientFactory,
-    this.url,
-    this.savePath, {
-    this.data,
-  }) : super(clientFactory);
-
-  @override
-  Future<File> request(
-      {Function(Response response) onSuccess,
-      Function(dynamic) onFail,
-      Function(dynamic) onError}) async {
-    try {
-      await client.download(url, savePath, data: data.toJson);
-      return File(path: savePath);
-    } catch (error) {
-      return File();
-    }
+  Future<dynamic> requestPost(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
+    return handleResponse(
+        await clientBuilder.post(
+          path,
+          data: data,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
   }
 
   @override
-  String get path => "";
+  Future<dynamic> requestGet(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
+    return handleResponse(
+        await clientBuilder.get(
+          path,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
+  }
+
+  @override
+  Future<dynamic> requestPatch(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
+    return handleResponse(
+        await clientBuilder.patch(
+          path,
+          data: data,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
+  }
+
+  @override
+  Future<dynamic> requestDelete(
+      {String? path,
+      dynamic data,
+      Map<String, dynamic>? query,
+      Function(dynamic)? onSuccess,
+      Function(dynamic)? onFail,
+      Function(dynamic)? onError}) async {
+    return handleResponse(
+        await clientBuilder.delete(
+          path,
+          data: data,
+          query: query,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
+  }
+
+  @override
+  Future<dynamic> requestUpload({
+    required String filePath,
+    dynamic data,
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
+  }) async {
+    var formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(filePath),
+    });
+
+    return handleResponse(
+        await clientBuilder.upload(
+          path,
+          data: formData,
+        ),
+        onSuccess: onSuccess,
+        onError: onError,
+        onFail: onFail);
+  }
+
+  @override
+  Future<dynamic> requestDownload({
+    required String urlPath,
+    required String savePath,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    return await clientBuilder.download(
+      urlPath,
+      savePath,
+      data: data,
+      queryParameters: queryParameters,
+    );
+  }
 }
 
 abstract class _TransFormer<R> {
   /// json should be map<string,dynamic> or int, string, bool
-  R jsonTo(dynamic json);
+  R jsonToObject(dynamic json);
 
-  handleResponse(
-    Response res, {
-    Function(Response response) onSuccess,
-    Function(dynamic) onFail,
-    Function(dynamic) onError,
+  dynamic handleResponse(
+    Response? res, {
+    Function(dynamic)? onSuccess,
+    Function(dynamic)? onFail,
+    Function(dynamic)? onError,
   }) {
-    if (res is DioError) {
+    if (res == null) {
       if (onFail != null) onFail(res);
-      return null;
+      return AppError(
+          code: "FAIL",
+          message: "response is null",
+          title: "FAIL",
+          body: "response is null");
     }
 
-    if (res.statusCode / 200 != 1) {
+    if (!"${res.statusCode}".startsWith("20")) {
       if (onError != null) onError(res);
-      return null;
+      return AppError(
+          code: "${res.statusCode}",
+          message: res.data == null ? null : "${res.data}",
+          title: res.statusMessage,
+          body: res.data);
     }
 
     if (onSuccess != null) {
       onSuccess(res);
     }
 
-    return jsonTo(res.data);
+    if (res.statusCode == 204) {
+      return null;
+    }
+
+    // support json as String
+    if (res.data is String) {
+      return res.data;
+    }
+
+    // support json as bool
+    if (res.data is bool) {
+      return res.data;
+    }
+
+    // 204(no-content) code - response data is null
+    if (res.data == null) {
+      return res.data;
+    }
+
+    return jsonToObject(res.data);
   }
 }
 
-class DioFactory extends IClientFactory<Dio> {
+class DioBuilder extends IClientBuilder {
   final String baseUrl;
-  final String accessToken;
   final bool enableLogging;
-  final String userAgent;
-  final String appVersion;
-  final List<Interceptor> interceptors;
+  final String? userAgent;
+  final String? appVersion;
+  final String? osVersion;
+  final String? appId;
+  final List<Interceptor>? authHeaderInterceptors;
+  final List<Interceptor>? interceptors;
+  final Map<String, dynamic>? otherHeaders;
 
   // final bool enableFirebasePerformance;
 
-  DioFactory._(this.baseUrl,
-      {this.accessToken,
-      this.enableLogging,
-      this.userAgent,
-      this.appVersion,
-      this.interceptors});
+  DioBuilder._(
+    this.baseUrl, {
+    this.enableLogging = false,
+    this.userAgent,
+    this.appVersion,
+    this.osVersion,
+    this.appId,
+    this.authHeaderInterceptors,
+    this.interceptors,
+    this.otherHeaders,
+  }) : super(baseUrl: baseUrl);
 
-  factory DioFactory.auth(String baseUrl, String accessToken,
-          {bool enableLogging,
-          String userAgent,
-          String appVersion,
-          List<Interceptor> interceptors}) =>
-      DioFactory._(baseUrl,
-          accessToken: accessToken,
-          enableLogging: enableLogging = false,
-          userAgent: userAgent,
-          appVersion: appVersion,
-          interceptors: interceptors);
+  factory DioBuilder.auth(
+    String baseUrl, {
+    bool enableLogging = false,
+    required String userAgent,
+    required String? appVersion,
+    required String? osVersion,
+    required String? appId,
+    required List<Interceptor> authHeaderInterceptors,
+    List<Interceptor>? interceptors,
+    Map<String, dynamic>? otherHeaders,
+  }) =>
+      DioBuilder._(
+        baseUrl,
+        enableLogging: enableLogging,
+        userAgent: userAgent,
+        appVersion: appVersion,
+        osVersion: osVersion,
+        appId: appId,
+        authHeaderInterceptors: authHeaderInterceptors,
+        interceptors: interceptors,
+        otherHeaders: otherHeaders,
+      );
 
-  factory DioFactory.noneAuth(String baseUrl,
-          {bool enableLogging,
-          String userAgent,
-          String appVersion,
-          List<Interceptor> interceptors}) =>
-      DioFactory._(baseUrl,
-          enableLogging: enableLogging = false,
-          userAgent: userAgent,
-          appVersion: appVersion,
-          interceptors: interceptors);
+  factory DioBuilder.noneAuth(
+    String baseUrl, {
+    bool enableLogging = false,
+    required String userAgent,
+    required String? appVersion,
+    required String? osVersion,
+    required String? appId,
+    List<Interceptor>? interceptors,
+    Map<String, dynamic>? otherHeaders,
+  }) =>
+      DioBuilder._(
+        baseUrl,
+        enableLogging: enableLogging,
+        userAgent: userAgent,
+        appVersion: appVersion,
+        osVersion: osVersion,
+        appId: appId,
+        interceptors: interceptors,
+        otherHeaders: otherHeaders,
+      );
 
   @override
   Dio build() {
     Dio http = Dio();
     http.options.baseUrl = baseUrl;
+    http.options.connectTimeout = 15000;
+    if (otherHeaders?.isNotEmpty ?? false) {
+      http.options.headers.addAll(otherHeaders!);
+    }
+    if (userAgent != null)
+      http.options.headers.addAll({'User-Agent': userAgent});
+    if (appVersion != null)
+      http.options.headers.addAll({'App-Version': appVersion});
+    if (osVersion != null)
+      http.options.headers.addAll({'Os-Version': osVersion});
+    if (appId != null) http.options.headers.addAll({'App-Id': appId});
+    http.options.headers.addAll({'Accept': 'application/json'});
+
     http.transformer = FlutterTransformer();
 
     http.interceptors.add(LogInterceptor(
+        request: enableLogging,
         requestBody: enableLogging,
         responseBody: enableLogging,
         requestHeader: enableLogging,
         responseHeader: enableLogging));
 
-    http.interceptors.add(InterceptorsWrapper(onRequest: (options) async {
-      options.headers['Accept'] = 'application/json';
-      if (accessToken != null)
-        options.headers["Authorization"] = "Bearer $accessToken";
-      if (userAgent != null) options.headers['User-Agent'] = userAgent;
-      if (appVersion != null) options.headers['App-Version'] = appVersion;
-      return options;
-    }, onResponse: (Response<dynamic> response) {
-      return response;
-    }, onError: (DioError error) {
-      return error;
-    }));
-
-    interceptors?.map((interceptor) {
-      if (interceptor != null) {
-        http.interceptors.add(interceptor);
-      }
+    authHeaderInterceptors?.forEach((Interceptor interceptor) {
+      http.interceptors.add(interceptor);
     });
 
+    interceptors?.forEach((Interceptor interceptor) {
+      http.interceptors.add(interceptor);
+    });
     return http;
+  }
+
+  @override
+  Future<dynamic> delete(
+    String? path, {
+    dynamic data,
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build().delete<dynamic>(path ?? "",
+          data: _data(data), queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+    return res;
+  }
+
+  @override
+  Future<dynamic> get(
+    String? path, {
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build().get<dynamic>(path ?? "", queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+    return res;
+  }
+
+  @override
+  Future<dynamic> patch(
+    String? path, {
+    dynamic data,
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build().patch<dynamic>(path ?? "",
+          data: _data(data), queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+
+    return res;
+  }
+
+  @override
+  Future<dynamic> post(
+    String? path, {
+    dynamic data,
+    Map<String, dynamic>? query,
+  }) async {
+    var res;
+    try {
+      res = await build()
+          .post<dynamic>(path ?? "", data: _data(data), queryParameters: query);
+    } catch (e) {
+      if (e is DioError) {
+        res = e.response;
+      } else {
+        res = e;
+      }
+    }
+
+    return res;
+  }
+
+  @override
+  Future<dynamic> download(String urlPath, savePath,
+      {Map<String, dynamic>? queryParameters, data}) async {
+    return await build().download(urlPath, savePath,
+        queryParameters: queryParameters, data: data);
+  }
+
+  @override
+  Future<dynamic> upload(String path, {dynamic data}) async {
+    return await build().post(path, data: data);
+  }
+
+  dynamic _data(dynamic data) {
+    if (data == null) {
+      return null;
+    }
+
+    if (data is Map<String, dynamic>) {
+      return data;
+    }
+
+    if (data is int) {
+      return data;
+    }
+
+    if (data is String) {
+      return data;
+    }
+
+    if (data is bool) {
+      return data;
+    }
+
+    if (data is IDto) {
+      return data.toJson;
+    }
+
+    assert(false);
+  }
+}
+
+class FlutterTransformer extends DefaultTransformer {
+  FlutterTransformer() : super(jsonDecodeCallback: _parseJson);
+}
+
+// Must be top-level function
+_parseAndDecode(String response) {
+  return jsonDecode(response);
+}
+
+_parseJson(String text) {
+  return compute(_parseAndDecode, text);
+}
+
+class AuthHeaderInterceptor extends Interceptor {
+  final Future<String?> token;
+
+  AuthHeaderInterceptor(this.token);
+
+  @override
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    options.headers.addAll({
+      "Authorization": "Bearer ${await token}",
+    });
+    return super.onRequest(options, handler);
   }
 }

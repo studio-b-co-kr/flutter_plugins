@@ -12,21 +12,34 @@ import 'package:remedi_widgets/remedi_widgets.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 // ignore: must_be_immutable
-class PermissionListPage extends BasePage<IPermissionListViewModel> {
+class PermissionListPage extends IPage<IPermissionListViewModel> {
   static const ROUTE_NAME = "/permission_list";
 
-  PermissionItemViewBuilder _permissionItemViewBuilder;
+  late final PermissionItemViewBuilder _permissionItemViewBuilder;
+  final String? backTo;
+  final Color? color;
 
-  PermissionListPage({Key key, IPermissionListViewModel viewModel})
-      : super(key: key, viewModel: viewModel) {
-    _permissionItemViewBuilder =
-        PermissionItemViewBuilder(viewModel.repository.permissions);
+  PermissionListPage({
+    Key? key,
+    required IPermissionListViewModel viewModel,
+    this.backTo,
+    this.color,
+  }) : super(key: key, viewModel: viewModel) {
+    _permissionItemViewBuilder = PermissionItemViewBuilder(
+        permissions: viewModel.permissions,
+        color: color,
+        onRefresh: () {
+          this.viewModel.refresh();
+        });
   }
 
   @override
   PermissionListView body(
-      BuildContext context, IPermissionListViewModel viewModel, Widget child) {
-    return PermissionListView(_permissionItemViewBuilder);
+      BuildContext context, IPermissionListViewModel viewModel, Widget? child) {
+    return PermissionListView(
+      builder: _permissionItemViewBuilder,
+      color: color,
+    );
   }
 
   @override
@@ -49,19 +62,38 @@ class PermissionListPage extends BasePage<IPermissionListViewModel> {
       case PermissionListViewState.Error:
         break;
       case PermissionListViewState.Skip:
-        Navigator.pop(context, "skip");
+        if (backTo == null) {
+          Navigator.of(context).pop("skip");
+        } else {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(backTo!, (route) => false);
+        }
+        break;
+      case PermissionListViewState.AllGranted:
+        if (backTo == null) {
+          Navigator.of(context).pop('all_granted');
+        } else {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(backTo!, (route) => false);
+        }
         break;
     }
   }
 }
 
 class PermissionItemViewBuilder {
+  final Color? color;
   final List<AppPermission> permissions;
-  List<PermissionListItemWidget> _listItems;
+  late List<PermissionListItemWidget> _listItems;
+  final Function? onRefresh;
 
   List<PermissionListItemWidget> get listItems => _listItems;
 
-  PermissionItemViewBuilder(this.permissions) {
+  PermissionItemViewBuilder({
+    required this.permissions,
+    this.onRefresh,
+    this.color,
+  }) {
     _listItems = _build(permissions);
   }
 
@@ -75,41 +107,31 @@ class PermissionItemViewBuilder {
       }
       return ret;
     }).map<PermissionListItemWidget>((appPermission) =>
-        PermissionListItemWidget(PermissionViewModel(
-            repository: PermissionRepository(appPermission)))));
+        PermissionListItemWidget(
+          PermissionViewModel(repository: PermissionRepository(appPermission)),
+          color: color,
+          onPressed: onRefresh,
+        )));
   }
 }
 
-class PermissionListView extends BindingView<IPermissionListViewModel> {
+class PermissionListView extends IView<IPermissionListViewModel> {
   final PermissionItemViewBuilder builder;
+  final Color? color;
 
-  PermissionListView(this.builder);
+  PermissionListView({required this.builder, this.color});
 
   @override
   Widget build(BuildContext context, IPermissionListViewModel viewModel) {
     return WillPopScope(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: color ?? Colors.white,
           appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: color ?? Colors.white,
               automaticallyImplyLeading: false,
               iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
               elevation: 0,
-              actions: [
-                Center(
-                  child: InkWell(
-                      onTap: () async {
-                        await viewModel.skipOrNext();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 16),
-                        child: FixedScaleText(
-                            text: Text("SKIP",
-                                style: TextStyle(
-                                    color: Colors.blue, fontSize: 16))),
-                      )),
-                )
-              ]),
+              actions: _buildActions(context, viewModel)),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -153,30 +175,6 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
 
     ret.addAll(_buildPermissionItem(viewModel));
 
-    ret.add(Container(
-        margin: EdgeInsets.all(16),
-        alignment: Alignment.topRight,
-        child: TextButton(
-          onPressed: () {
-            //_requestAllPermissions();
-          },
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () async {
-                    await viewModel.skipOrNext();
-                  },
-                  child: Text(
-                    "Next",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                Icon(Icons.arrow_forward_ios_sharp, size: 20)
-              ]),
-        )));
-
     return ret;
   }
 
@@ -187,5 +185,34 @@ class PermissionListView extends BindingView<IPermissionListViewModel> {
   List<PermissionListItemWidget> _buildPermissionItem(
       IPermissionListViewModel viewModel) {
     return builder.listItems;
+  }
+
+  List<Widget> _buildActions(
+      BuildContext context, IPermissionListViewModel viewModel) {
+    List<Widget> ret = [];
+
+    if (viewModel.hasError) {
+      return [];
+    }
+    ret.add(Center(
+      child: InkWell(
+          onTap: () async {
+            await viewModel.skipOrNext();
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            child: Row(children: [
+              FixedScaleText(
+                  text: Text("건너뛰기",
+                      style: TextStyle(color: Colors.blue, fontSize: 14))),
+              Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: Colors.blue,
+                size: 16,
+              )
+            ]),
+          )),
+    ));
+    return ret;
   }
 }

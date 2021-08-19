@@ -1,21 +1,23 @@
 name: stacked_mvvm
 description: MVVM architecture implementation
-version: 1.0.0
-author:
-homepage:
+version: 0.0.3
+homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
+repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=2.0.0"
 
 dependencies:
+
   flutter:
     sdk: flutter
 
-  equatable: ^2.0.0
-  stacked: ^1.9.5
+  rxdart: ^0.27.1
+  equatable: ^2.0.3
+  stacked: ^2.2.4
 
 dev_dependencies:
   flutter_test:

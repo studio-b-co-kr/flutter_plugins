@@ -9,22 +9,26 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 import '../../remedi_auth.dart';
 import '../../resources/app_strings.dart';
 
-class LoginView extends BindingView<ILoginViewModel> {
-  final String logoApp;
-  final String logoCompany;
+class LoginView extends IView<ILoginViewModel> {
+  final String? logoApp;
+  final String? logoCompany;
+  final Color? backgroundColors;
+  final Color? appbarColor;
 
-  LoginView({this.logoApp, this.logoCompany}) : super();
+  LoginView(
+      {this.logoApp, this.logoCompany, this.appbarColor, this.backgroundColors})
+      : super();
 
   @override
   Widget build(BuildContext context, ILoginViewModel viewModel) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: appbarColor ?? Colors.white,
         elevation: 0,
         automaticallyImplyLeading: true,
         iconTheme: IconThemeData(color: Colors.blueGrey.shade700),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColors ?? Colors.white,
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
@@ -58,22 +62,22 @@ class LoginView extends BindingView<ILoginViewModel> {
       child: ListView(shrinkWrap: true, children: [
         FixedScaleText(
           text: Text(
-            "${viewModel.error?.title} (code : ${viewModel.error?.code})",
-            style: TextStyle(fontSize: 16),
+            "${viewModel.authError?.title} (code : ${viewModel.authError?.code})",
+            style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
           ),
         ),
         SizedBox(height: 8),
         FixedScaleText(
           text: Text(
-            "${viewModel.error?.message}",
-            style: TextStyle(fontSize: 16),
+            "${viewModel.authError?.message}",
+            style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
           ),
         ),
         SizedBox(height: 8),
         kReleaseMode
             ? Container()
             : FixedScaleText(
-                text: Text("${viewModel.error?.stackTrace}",
+                text: Text("${viewModel.authError?.stackTrace}",
                     style: TextStyle(fontSize: 16)),
               ),
       ]),
@@ -117,6 +121,7 @@ class LoginView extends BindingView<ILoginViewModel> {
             minWidth: double.infinity,
             elevation: 0,
             shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.white),
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
@@ -141,7 +146,8 @@ class LoginView extends BindingView<ILoginViewModel> {
     }
 
     if (AuthManager.enableKakao) {
-      buttons.add(Container(
+      buttons.add(
+        Container(
           margin: EdgeInsets.symmetric(vertical: 4),
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
           child: MaterialButton(
@@ -152,7 +158,10 @@ class LoginView extends BindingView<ILoginViewModel> {
             disabledColor: Colors.grey.shade300,
             disabledTextColor: Colors.grey.shade500,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              side: BorderSide(color: Colors.yellow),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
             ),
             onPressed: viewModel.state == LoginViewState.Loading ||
                     viewModel.state == LoginViewState.Success
@@ -161,15 +170,21 @@ class LoginView extends BindingView<ILoginViewModel> {
             child: FixedScaleText(
               text: Text(
                 AppStrings.loginWithKakao,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.yellow.shade50,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          )));
+          ),
+        ),
+      );
     }
     return Column(children: buttons);
   }
 
-  Widget _buildImage(String image, {double width}) {
+  Widget _buildImage(String? image, {double width = 200}) {
     if (image == null) {
       return Container(
         height: 64,

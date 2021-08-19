@@ -5,8 +5,8 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'count_view.dart';
 
-class HomeView extends BindingView<IHomeViewModel> {
-  HomeView({Key key}) : super(key: key);
+class HomeView extends IView<IHomeViewModel> {
+  HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, IHomeViewModel viewModel) {

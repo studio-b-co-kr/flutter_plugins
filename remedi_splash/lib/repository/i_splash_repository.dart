@@ -1,17 +1,19 @@
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-abstract class ISplashRepository extends BaseRepository {
+abstract class ISplashRepository extends IRepository {
   Future<dynamic> init();
 
   Future<bool> needToUpdate();
 
   Future<bool> isCompletedPermissionGrant();
 
-  Future<bool> isCompletedIntro();
+  Future<dynamic> isCompletedIntro();
 
   Future<bool> isLoggedIn();
 
-  Future<bool> isCompletedOnboarding();
+  Future<dynamic> isCompletedOnboarding();
 
   Future<dynamic> readyToService();
+
+  Future<dynamic> afterPermission();
 }

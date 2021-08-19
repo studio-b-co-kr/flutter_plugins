@@ -5,7 +5,7 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'login_view.dart';
 
-class LoginPage extends BasePage<ILoginViewModel> {
+class LoginPage extends IPage<ILoginViewModel> {
   static const ROUTE_NAME_SPLASH = '/login_splash';
   static const ROUTE_NAME = '/login';
 
@@ -17,23 +17,29 @@ class LoginPage extends BasePage<ILoginViewModel> {
     return Navigator.pushNamed(context, ROUTE_NAME);
   }
 
-  final String logoApp;
-  final String logoCompany;
-  final String routeBackTo;
+  final String? logoApp;
+  final String? logoCompany;
+  final String? routeBackTo;
+  final Color? backgroundColors;
+  final Color? appbarColor;
 
   LoginPage(
-      {Key key,
+      {Key? key,
       this.logoApp,
       this.logoCompany,
       this.routeBackTo,
-      ILoginViewModel viewModel})
+      this.appbarColor,
+      this.backgroundColors,
+      required ILoginViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
-  BindingView<ILoginViewModel> body(
-      BuildContext context, ILoginViewModel viewModel, Widget child) {
+  IView<ILoginViewModel> body(
+      BuildContext context, ILoginViewModel viewModel, Widget? child) {
     return LoginView(
       logoApp: logoApp,
+      appbarColor: appbarColor,
+      backgroundColors: backgroundColors,
       logoCompany: logoCompany,
     );
   }
@@ -50,7 +56,7 @@ class LoginPage extends BasePage<ILoginViewModel> {
         break;
       case LoginViewState.Success:
         if (routeBackTo != null) {
-          Navigator.pushReplacementNamed(context, routeBackTo);
+          Navigator.pushReplacementNamed(context, routeBackTo!);
         } else {
           Navigator.pop(context);
         }

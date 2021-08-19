@@ -1,31 +1,30 @@
 import 'package:remedi_base/api_service/api_service.dart';
 
 class AppleCredential extends IDto {
-  final String email;
-  final String identityToken;
-  final String userIdentifier;
+  final String? email;
+  final String? identityToken;
+  final String? userIdentifier;
   final String authorizationCode;
+  String? fcmToken;
 
   AppleCredential(
       {this.email,
       this.identityToken,
       this.userIdentifier,
-      this.authorizationCode});
+      required this.authorizationCode});
 
   @override
   Map<String, dynamic> get toJson => {
-        "email": email,
-        "identity_token": identityToken,
-        "user_identifier": userIdentifier,
-        "authorization_code": authorizationCode,
-        "provider": "apple"
+        "sso_token": identityToken,
+        "sso_provider": "apple",
+        "fcm_token": fcmToken
       };
 
   factory AppleCredential.fromJson(
-      {String email,
-      String identityToken,
-      String userIdentifier,
-      String authorizationCode}) {
+      {String? email,
+      String? identityToken,
+      String? userIdentifier,
+      required String authorizationCode}) {
     return AppleCredential(
         email: email,
         identityToken: identityToken,

@@ -1,19 +1,19 @@
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
-abstract class IAuthRepository extends BaseRepository {
-  Future<String> get accessToken;
+abstract class IAuthRepository extends IRepository {
+  Future<String?> get accessToken;
 
   Future writeAccessToken(String token);
 
   Future deleteAccessToken();
 
-  Future<String> get refreshToken;
+  Future<String?> get refreshToken;
 
   Future writeRefreshToken(String token);
 
   Future deleteRefreshToken();
 
-  Future<String> get userId;
+  Future<String?> get userId;
 
   Future writeUserId(String userId);
 
@@ -25,7 +25,7 @@ abstract class IAuthRepository extends BaseRepository {
   }
 
   Future<bool> get isLoggedIn async {
-    String token = await accessToken;
+    String? token = await accessToken;
     return token != null && token.isNotEmpty;
   }
 
@@ -33,4 +33,3 @@ abstract class IAuthRepository extends BaseRepository {
     await _deleteAll();
   }
 }
-

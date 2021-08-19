@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="auth-exmaple" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="additionalArgs" value="--debug" />
+    <option name="filePath" value="$PROJECT_DIR$/remedi_auth/example/lib/main.dart" />
+    <method v="2" />
+  </configuration>
+</component>

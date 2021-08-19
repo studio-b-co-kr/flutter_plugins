@@ -1,13 +1,15 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer' as dev;
 
 import '../../repository/i_home_repository.dart';
 import '../../viewmodel/i_home_viewmodel.dart';
 
 class HomeViewModel extends IHomeViewModel {
+  final IHomeRepository repository;
   int _count = 0;
 
-  HomeViewModel({IHomeRepository repository}) : super(repository: repository);
+  HomeViewModel({required this.repository}) : super();
 
+  @override
   int get count => _count;
 
   void increment() {
@@ -16,14 +18,11 @@ class HomeViewModel extends IHomeViewModel {
   }
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(IntProperty('count', count));
-  }
-
-  @override
   get initState => HomeViewState.Init;
 
   @override
-  init() {}
+  init() {
+    dev.log("count = $_count", name: "HomeViewModel");
+    super.init();
+  }
 }

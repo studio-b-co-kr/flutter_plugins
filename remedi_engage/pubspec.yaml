@@ -1,0 +1,22 @@
+name: remedi_engage
+description: Push notification, Deeplink and other tools for interaction with user.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  firebase_messaging: ^10.0.4
+  flutter_local_notifications: ^8.1.1+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
