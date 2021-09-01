@@ -140,8 +140,6 @@ class LoginViewModel extends ILoginViewModel {
       ICredential credential = await repository.loginWithKakao(
           KakaoCredential(accessToken: kakaoAccessToken, id: id));
 
-      await kakaoSignIn.logOut();
-
       if (credential.isError) {
         this.authError = credential.error;
         await kakaoSignIn.logOut();
