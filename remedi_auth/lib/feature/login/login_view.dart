@@ -154,11 +154,11 @@ class LoginView extends IView<ILoginViewModel> {
             height: 48,
             elevation: 0,
             minWidth: double.infinity,
-            color: Colors.yellow,
+            color: Colors.yellow.shade700,
             disabledColor: Colors.grey.shade300,
             disabledTextColor: Colors.grey.shade500,
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.yellow),
+              side: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
