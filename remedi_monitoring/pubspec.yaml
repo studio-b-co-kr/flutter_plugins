@@ -1,8 +1,8 @@
 name: remedi_monitoring
 description: crashlytics and performence
 version: 0.0.1
-author:
-homepage:
+homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
+repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

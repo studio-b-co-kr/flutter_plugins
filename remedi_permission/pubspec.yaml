@@ -4,8 +4,6 @@ version: 0.0.1
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
-publish_to: 'none'
-
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=2.0.0"
@@ -20,11 +18,7 @@ dependencies:
 
   notification_permissions: ^0.5.0
 
-  stacked_mvvm:
-    git:
-      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components.git
-      path: stacked_mvvm
-      ref: doctor-know/null-safety
+  stacked_mvvm: ^0.0.3
 
   remedi_widgets: ^0.0.1
 
