@@ -1,6 +1,7 @@
 
 ## [0.0.4]
- * init#4
+ * change StateData scheme.
+ - data can be always be null
 
 ## [0.0.3]
  * init#3
