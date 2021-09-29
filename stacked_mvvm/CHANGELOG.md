@@ -1,4 +1,7 @@
 
+## [0.0.5]
+ * update plugin
+
 ## [0.0.4]
  * change StateData scheme.
  - data can be always be null
