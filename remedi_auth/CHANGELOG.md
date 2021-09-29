@@ -1,3 +1,9 @@
+## 0.0.4
+* update plugins
+
+## 0.0.3
+* fix a bug : minor bugs
+
 ## 0.0.2
 
 * fix a bug : cannot login kakao.
