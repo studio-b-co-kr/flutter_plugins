@@ -1,6 +1,6 @@
 name: remedi_permission
 description: A new Flutter package.
-version: 0.0.2
+version: 0.0.3
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -18,9 +18,9 @@ dependencies:
 
   notification_permissions: ^0.6.1
 
-  stacked_mvvm: ^0.0.4
+  stacked_mvvm: ^0.0.5
 
-  remedi_widgets: ^0.0.1
+  remedi_widgets: ^0.0.2
 
 dev_dependencies:
   flutter_test:
