@@ -13,9 +13,9 @@ dependencies:
     sdk: flutter
 
   #basic architecture of app
-  stacked_mvvm: ^0.0.3
+  stacked_mvvm: ^0.0.5
 
-  remedi_widgets: ^0.0.1
+  remedi_widgets: ^0.0.2
 
   # go to store on force update page
   store_redirect: ^2.0.0
