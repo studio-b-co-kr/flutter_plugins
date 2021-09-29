@@ -13,11 +13,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  webview_flutter: ^2.0.2
+  webview_flutter: ^2.1.1
   remedi_base:
     path: ../
-
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.3
 
 dev_dependencies:
   flutter_test:
