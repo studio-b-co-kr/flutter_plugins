@@ -1,6 +1,6 @@
 name: remedi_splash
 description: A new Flutter package.
-version: 0.0.2
+version: 0.0.3
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
 
 
-  stacked_mvvm: ^0.0.4
+  stacked_mvvm: ^0.0.5
 
   remedi_base: ^0.0.2
 
