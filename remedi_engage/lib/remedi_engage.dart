@@ -41,7 +41,6 @@ class FcmManager {
           ?.createNotificationChannel(AndroidNotificationChannel(
             channels.defaultChannelId, // id
             channels.defaultChannelTitle, // title
-            channels.defaultChannelBody, //// description
             importance: Importance.high,
           ));
     } else {
@@ -107,7 +106,6 @@ class FcmManager {
                       android: AndroidNotificationDetails(
                         channel.id,
                         channel.name,
-                        channel.description,
                         icon: channel.icon,
                       ),
                     ));
@@ -124,7 +122,6 @@ class FcmManager {
                 android: AndroidNotificationDetails(
                   channels.defaultChannelId,
                   channels.defaultChannelTitle,
-                  channels.defaultChannelBody,
                   icon: channels.defaultIcon,
                 ),
               ));
@@ -182,8 +179,6 @@ class AndroidNotificationChannelWrapper {
   String get id => channel.id;
 
   String get name => channel.name;
-
-  String get description => channel.description;
 }
 
 class BranchIoManager {}
