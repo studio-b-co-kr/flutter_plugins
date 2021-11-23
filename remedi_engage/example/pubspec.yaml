@@ -18,7 +18,7 @@ dependencies:
   remedi_engage:
     path: ../
 
-  remedi_base: ^0.0.1
+  remedi_base: ^0.0.3
 
 dev_dependencies:
   flutter_test:
