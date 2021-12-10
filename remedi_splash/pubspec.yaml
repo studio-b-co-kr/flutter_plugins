@@ -1,12 +1,12 @@
 name: remedi_splash
 description: A new Flutter package.
-version: 0.0.4
+version: 0.0.5
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
   flutter: ">=2.0.0"
 
 dependencies:
@@ -14,12 +14,12 @@ dependencies:
     sdk: flutter
 
 
-  stacked_mvvm: ^0.0.6
+  stacked_mvvm: ^0.0.7
 
-  remedi_base: ^0.0.3
+  remedi_base: ^0.0.4
 
   #svg loader
-  flutter_svg: ^0.23.0+1
+  flutter_svg: ^1.0.0
 
 dev_dependencies:
   flutter_test:
