@@ -1,3 +1,12 @@
+## 0.0.9
+* update plugin
+
+## 0.0.8
+* update plugin
+
+## 0.0.6
+* update plugin
+
 ## 0.0.5
 * update plugin
 

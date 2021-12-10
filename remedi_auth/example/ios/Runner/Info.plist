@@ -27,18 +27,18 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao2d097d3c402c32951f7cb13e87f63b8c</string>
-				<string>app-1-322376422652-ios-24d56c48073614c0b53379</string>
+				<string>""</string>
+				<string>""</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>KAKAO_APP_KEY</key>
-	<string>2d097d3c402c32951f7cb13e87f63b8c</string>
+	<string>""</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>kakao2d097d3c402c32951f7cb13e87f63b8c</string>
+		<string>""</string>
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
