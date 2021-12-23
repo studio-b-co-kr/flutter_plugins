@@ -2,7 +2,6 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
 
 // ignore: must_be_immutable
@@ -13,6 +12,7 @@ class InputCodeWidget extends StatefulWidget {
   String code;
   bool disabled;
   Color? theme;
+  bool autoFocus;
 
   InputCodeWidget({
     Key? key,
@@ -20,6 +20,7 @@ class InputCodeWidget extends StatefulWidget {
     required this.onCodeChanged,
     required this.controller,
     required this.code,
+    this.autoFocus = false,
     this.disabled = false,
     this.theme,
   }) : super(key: key);
@@ -54,7 +55,7 @@ class InputCodeState extends State<InputCodeWidget> {
                   child: TextField(
                     enableSuggestions: false,
                     enableInteractiveSelection: false,
-                    autofocus: false,
+                    autofocus: widget.autoFocus,
                     style: TextStyle(fontSize: 1),
                     focusNode: widget.focusNode,
                     controller: widget.controller,

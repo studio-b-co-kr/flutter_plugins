@@ -1,8 +1,6 @@
 import 'dart:developer' as dev;
 
-import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/data/local_storage.dart';
-import 'package:remedi_permission/model/app_permission.dart';
 import 'package:remedi_permission/remedi_permission.dart';
 import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';

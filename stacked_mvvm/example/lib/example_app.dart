@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'app_routes.dart' as routes;
 import 'feature/home/home_page.dart';

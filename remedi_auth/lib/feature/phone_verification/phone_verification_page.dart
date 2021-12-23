@@ -235,6 +235,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
         code: viewModel.verificationCode,
         controller: _inputCodeController,
         focusNode: _codeInputFocus,
+        autoFocus: true,
         onCodeChanged: (code) async {
           viewModel.verificationCodeChanged(code);
         },
