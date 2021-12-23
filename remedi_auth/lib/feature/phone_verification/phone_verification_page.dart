@@ -238,7 +238,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
         onCodeChanged: (code) async {
           viewModel.verificationCodeChanged(code);
         },
-        disabled: _enabledInputCode(),
+        disabled: _disabledInputCode(),
         theme: theme,
       ),
       collapsed: Container(),
@@ -246,10 +246,9 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     );
   }
 
-  bool _enabledInputCode() {
+  bool _disabledInputCode() {
     bool ret = viewModel.state == PhoneVerificationState.verifyingCode ||
-        viewModel.state == PhoneVerificationState.verifiedCode ||
-        viewModel.state == PhoneVerificationState.inputCode;
+        viewModel.state == PhoneVerificationState.verifiedCode;
     dev.log("enabledInputCode = $ret\nviewModel.state = ${viewModel.state}",
         name: 'PhoneVerificationPage');
     return ret;
