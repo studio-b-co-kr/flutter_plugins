@@ -1,3 +1,6 @@
+## 0.0.10
+* fix a bug.
+
 ## 0.0.9
 * update plugin
 
