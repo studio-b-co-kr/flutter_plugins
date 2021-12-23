@@ -125,6 +125,7 @@ class InputCodeState extends State<InputCodeWidget> {
     return InkWell(
       onTap: widget.disabled
           ? () {
+              dev.log('onTap', name: 'InputCodeWidget');
               widget.focusNode.requestFocus();
             }
           : null,
