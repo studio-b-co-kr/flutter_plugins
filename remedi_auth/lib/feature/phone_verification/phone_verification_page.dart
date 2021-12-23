@@ -249,7 +249,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   bool _disabledInputCode() {
     bool ret = viewModel.state == PhoneVerificationState.verifyingCode ||
         viewModel.state == PhoneVerificationState.verifiedCode;
-    dev.log("enabledInputCode = $ret\nviewModel.state = ${viewModel.state}",
+    dev.log("disabledInputCode = $ret\nviewModel.state = ${viewModel.state}",
         name: 'PhoneVerificationPage');
     return ret;
   }
@@ -665,6 +665,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
 
         if (!_codeInputFocus.hasFocus) {
           _codeInputFocus.requestFocus();
+          dev.log("_codeInputFocus.requestFocus()",
+              name: 'PhoneVerificationPage');
         }
         break;
 
