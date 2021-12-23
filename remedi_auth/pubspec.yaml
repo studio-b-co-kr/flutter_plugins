@@ -22,7 +22,7 @@ dependencies:
   sign_in_with_apple: ^3.3.0
 
   # phone verification
-  firebase_auth: ^3.3.3
+  firebase_auth: ^3.3.4
 
   # phone number input.
   expandable: ^5.0.1
