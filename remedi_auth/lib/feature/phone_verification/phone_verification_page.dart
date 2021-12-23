@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
@@ -247,6 +249,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   bool _enabledInputCode() {
     bool ret = viewModel.state == PhoneVerificationState.verifyingCode ||
         viewModel.state == PhoneVerificationState.verifiedCode;
+    dev.log("enabledInputCode = $ret\nviewModel.state = ${viewModel.state}",
+        name: 'PhoneVerificationPage');
     return ret;
   }
 
