@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:remedi_auth/phone_number_input/utils/phone_number/phone_number_util.dart';
 

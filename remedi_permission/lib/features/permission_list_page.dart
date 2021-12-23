@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:remedi_permission/features/permission_list_item.dart';
 import 'package:remedi_permission/features/permission_repository.dart';
 import 'package:remedi_permission/features/permission_viewmodel.dart';

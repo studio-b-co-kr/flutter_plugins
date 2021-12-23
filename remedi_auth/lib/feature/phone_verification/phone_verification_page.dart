@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_auth/viewmodel/i_phone_verification_viewmodel.dart';
@@ -233,10 +235,11 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
         code: viewModel.verificationCode,
         controller: _inputCodeController,
         focusNode: _codeInputFocus,
+        autoFocus: true,
         onCodeChanged: (code) async {
           viewModel.verificationCodeChanged(code);
         },
-        disabled: _enabledInputCode(),
+        disabled: _disabledInputCode(),
         theme: theme,
       ),
       collapsed: Container(),
@@ -244,9 +247,11 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
     );
   }
 
-  bool _enabledInputCode() {
+  bool _disabledInputCode() {
     bool ret = viewModel.state == PhoneVerificationState.verifyingCode ||
         viewModel.state == PhoneVerificationState.verifiedCode;
+    dev.log("disabledInputCode = $ret\nviewModel.state = ${viewModel.state}",
+        name: 'PhoneVerificationPage');
     return ret;
   }
 
@@ -661,6 +666,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
 
         if (!_codeInputFocus.hasFocus) {
           _codeInputFocus.requestFocus();
+          dev.log("_codeInputFocus.requestFocus()",
+              name: 'PhoneVerificationPage');
         }
         break;
 

@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,12 +63,17 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
       timeout: Duration(seconds: 0),
       forceResendingToken: _phoneVerification.resendToken,
       verificationCompleted: (PhoneAuthCredential credential) {
+        dev.log('verificationCompleted',
+            name: 'FirebaseAuth.instance.verifyPhoneNumber()');
         update(state: PhoneVerificationState.verifiedCode);
       },
       verificationFailed: (FirebaseAuthException e) {
+        dev.log('verificationFailed',
+            name: 'FirebaseAuth.instance.verifyPhoneNumber()');
         _handleError(e);
       },
       codeSent: (String verificationId, int? resendToken) {
+        dev.log('codeSent', name: 'FirebaseAuth.instance.verifyPhoneNumber()');
         _phoneVerification.verificationId = verificationId;
         _phoneVerification.resendToken = resendToken;
         update(state: PhoneVerificationState.inputCode);
@@ -76,6 +82,8 @@ class PhoneVerificationViewModel extends IPhoneVerificationViewModel {
         }
       },
       codeAutoRetrievalTimeout: (String verificationId) {
+        dev.log('codeAutoRetrievalTimeout',
+            name: 'FirebaseAuth.instance.verifyPhoneNumber()');
         _phoneVerification.verificationId = verificationId;
         if (Platform.isAndroid) {
           update(state: PhoneVerificationState.timeoutWaitingCodeReceive);

@@ -1,7 +1,6 @@
 import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:remedi_auth/feature/phone_verification/phone_verification_page.dart';
 import 'package:remedi_auth/phone_number_input/utils/phone_number.dart';
 import 'package:remedi_auth/phone_number_input/utils/selector_config.dart';
