@@ -1,3 +1,6 @@
+## 0.0.11
+* show keyboard on input phone verification code.
+
 ## 0.0.10
 * fix a bug.
 
