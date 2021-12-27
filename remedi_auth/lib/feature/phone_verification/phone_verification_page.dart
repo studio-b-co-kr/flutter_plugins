@@ -629,7 +629,8 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   }
 
   @override
-  void onListen(BuildContext context, IPhoneVerificationViewModel viewModel) {
+  void onListen(
+      BuildContext context, IPhoneVerificationViewModel viewModel) async {
     super.onListen(context, viewModel);
 
     switch (viewModel.state) {
@@ -665,6 +666,9 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
         }
 
         if (!_codeInputFocus.hasFocus) {
+          // to show keyboard
+          // TODO need to improve.
+          await Future.delayed(Duration(seconds: 1));
           _codeInputFocus.requestFocus();
           dev.log("_codeInputFocus.requestFocus()",
               name: 'PhoneVerificationPage');
