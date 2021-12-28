@@ -6,12 +6,12 @@ import 'package:stacked_mvvm/stacked_mvvm.dart';
 class SplashView extends IView<ISplashViewModel> {
   final Widget widget;
   final Color? color;
-  bool? showLoading;
+  final bool? showLoading;
 
   SplashView({
     required this.widget,
     this.color,
-    this.showLoading,
+    this.showLoading = true,
   });
 
   @override
@@ -63,11 +63,13 @@ class SplashView extends IView<ISplashViewModel> {
                                   ],
                                 ),
                               )
-                            : Container(
-                                width: 40,
-                                height: 40,
-                                child: CircularProgressIndicator(),
-                              ),
+                            : (showLoading ?? true)
+                                ? Container(
+                                    width: 40,
+                                    height: 40,
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : Container(),
                         Spacer(flex: 1),
                       ]),
                     ),
