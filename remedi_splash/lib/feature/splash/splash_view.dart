@@ -12,7 +12,6 @@ class SplashView extends IView<ISplashViewModel> {
   @override
   Widget build(BuildContext buildContext, ISplashViewModel viewModel) {
     return Scaffold(
-      backgroundColor: color ?? Colors.white,
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
