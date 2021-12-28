@@ -21,9 +21,11 @@ class SplashPage extends IPage<ISplashViewModel> {
   final String contentsPageRouteName;
   final Widget widget;
   final Color? color;
+  bool? showLoading;
 
   SplashPage({
     Key? key,
+    this.showLoading = true,
     this.forceUpdatePageRouteName,
     this.permissionPageRouteName,
     this.loginPageRouteName,
