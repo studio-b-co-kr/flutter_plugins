@@ -1,3 +1,16 @@
+## 0.1.
+
+* update interface.
+ - remove images and replace widget
+
+## 0.0.5
+
+* update plugins
+
+## 0.0.4
+
+* update plugins
+
 ## 0.0.3
 
 * update plugins

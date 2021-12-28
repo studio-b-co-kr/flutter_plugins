@@ -19,8 +19,7 @@ class SplashPage extends IPage<ISplashViewModel> {
   final String? introPageRouteName;
   final String? onBoardingPageRouteName;
   final String contentsPageRouteName;
-  final String? imageLogoCompany;
-  final String? imageLogoApp;
+  final Widget widget;
   final Color? color;
 
   SplashPage({
@@ -31,8 +30,7 @@ class SplashPage extends IPage<ISplashViewModel> {
     this.introPageRouteName,
     this.onBoardingPageRouteName,
     required this.contentsPageRouteName,
-    this.imageLogoApp,
-    this.imageLogoCompany,
+    required this.widget,
     this.color,
     required ISplashViewModel viewModel,
   }) : super(key: key, viewModel: viewModel);
@@ -108,8 +106,7 @@ class SplashPage extends IPage<ISplashViewModel> {
   IView<ISplashViewModel> body(
       BuildContext context, ISplashViewModel viewModel, Widget? child) {
     return SplashView(
-      logoBrand: imageLogoApp,
-      logoCompany: imageLogoCompany,
+      widget: widget,
       color: color,
     );
   }

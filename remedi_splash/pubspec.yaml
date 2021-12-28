@@ -1,5 +1,5 @@
 name: remedi_splash
-description: A new Flutter package.
+description: Splash job module
 version: 0.0.5
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
@@ -12,7 +12,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
 
   stacked_mvvm: ^0.0.7
 
