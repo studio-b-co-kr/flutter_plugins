@@ -16,6 +16,7 @@ class SplashView extends IView<ISplashViewModel> {
         child: Container(
           alignment: Alignment.center,
           child: Stack(children: [
+            widget,
             Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Spacer(flex: 1),
               Expanded(
