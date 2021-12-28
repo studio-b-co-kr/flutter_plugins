@@ -1,4 +1,4 @@
-## 0.1.
+## 0.1.0
 
 * update interface.
  - remove images and replace widget
