@@ -108,6 +108,7 @@ class SplashPage extends IPage<ISplashViewModel> {
   IView<ISplashViewModel> body(
       BuildContext context, ISplashViewModel viewModel, Widget? child) {
     return SplashView(
+      showLoading: showLoading,
       widget: widget,
       color: color,
     );
