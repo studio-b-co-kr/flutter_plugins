@@ -1,3 +1,9 @@
+## 0.0.13
+support dart sdk from 2.12.0
+
+## 0.0.12
+fix bugs
+
 ## 0.0.11
 * show keyboard on input phone verification code.
 
