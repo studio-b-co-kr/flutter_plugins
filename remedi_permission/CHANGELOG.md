@@ -1,6 +1,18 @@
-## 0.0.3
+## 0.0.6
 
-* update plugins
+* support dart sdk from 2.12.0
+
+## 0.0.5
+
+* fix bugs
+
+## 0.0.4
+
+* fix bugs
+
+## 0.0.4
+
+* fix bugs
 
 ## 0.0.2
 
