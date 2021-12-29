@@ -1,6 +1,6 @@
 name: remedi_widgets
 description: A new Flutter package.
-version: 0.0.5
+version: 0.0.6
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -20,7 +20,7 @@ dependencies:
 
   # network image
   flutter_svg: ^1.0.0
-  extended_image: ^6.0.1
+  extended_image: ^5.1.3
 
 dev_dependencies:
   flutter_test:

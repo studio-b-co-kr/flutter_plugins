@@ -1,5 +1,8 @@
+## 0.0.6
+ support dart sdk from 2.12.0#2
+
 ## 0.0.5
- remedi_widgets
+ support dart sdk from 2.12.0
 
 ## 0.0.4
  * fix bugs
