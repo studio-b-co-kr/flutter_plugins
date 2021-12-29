@@ -1,3 +1,8 @@
+
+## 0.1.1
+
+ - support dart sdk from 2.12.0
+
 ## 0.1.0
 
 * update interface.
