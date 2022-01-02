@@ -127,7 +127,6 @@ class InputCodeState extends State<InputCodeWidget> {
           ? null
           : () {
               dev.log('onTap', name: 'InputCodeWidget');
-              FocusScopeNode().requestFocus(widget.focusNode);
               widget.focusNode.requestFocus();
             },
       child: Container(
