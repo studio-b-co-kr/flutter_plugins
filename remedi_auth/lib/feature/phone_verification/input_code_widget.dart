@@ -22,7 +22,7 @@ class InputCodeWidget extends StatefulWidget {
     required this.onCodeChanged,
     required this.controller,
     required this.code,
-    this.autoFocus = false,
+    this.autoFocus = true,
     this.disabled = false,
     this.theme,
   }) : super(key: key);
@@ -128,12 +128,13 @@ class InputCodeState extends State<InputCodeWidget> {
     return InkWell(
       onTap: widget.disabled
           ? null
-          : () {
+          : () async {
               dev.log('onTap', name: 'InputCodeWidget');
               dev.log(
                   'widget.focusNode.hasFocus = ${widget.focusNode.hasFocus}',
                   name: 'InputCodeWidget');
               if (!widget.focusNode.hasFocus) {
+                await Future.delayed(Duration(milliseconds: 200));
                 widget.focusNode.requestFocus();
               }
             },
