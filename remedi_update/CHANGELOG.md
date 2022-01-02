@@ -1,3 +1,6 @@
+## 0.0.6
+export store redirect
+
 ## 0.0.5
 support dart sdk from 2.12.0
 
