@@ -43,6 +43,9 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   final ExpandableController _expandableCodeController =
       ExpandableController(initialExpanded: false);
 
+  static final GlobalKey<EditableTextState> _inputCodeKey =
+      GlobalKey<EditableTextState>();
+
   PhoneVerificationPage({
     Key? key,
     required IPhoneVerificationViewModel viewModel,
@@ -232,6 +235,7 @@ class PhoneVerificationPage extends IPage<IPhoneVerificationViewModel> {
   Widget _inputCode(BuildContext context) {
     return Expandable(
       expanded: InputCodeWidget(
+        inputCodeKey: _inputCodeKey,
         code: viewModel.verificationCode,
         controller: _inputCodeController,
         focusNode: _codeInputFocus,
