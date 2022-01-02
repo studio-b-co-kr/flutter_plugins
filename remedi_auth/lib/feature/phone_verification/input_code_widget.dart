@@ -6,6 +6,7 @@ import 'package:remedi_auth/feature/phone_verification/phone_verification_page.d
 
 // ignore: must_be_immutable
 class InputCodeWidget extends StatefulWidget {
+  final GlobalKey<EditableTextState> inputCodeKey;
   final FocusNode focusNode;
   final Function(String) onCodeChanged;
   final TextEditingController controller;
@@ -16,6 +17,7 @@ class InputCodeWidget extends StatefulWidget {
 
   InputCodeWidget({
     Key? key,
+    required this.inputCodeKey,
     required this.focusNode,
     required this.onCodeChanged,
     required this.controller,
@@ -38,8 +40,6 @@ class InputCodeState extends State<InputCodeWidget> {
     super.initState();
   }
 
-  static final GlobalKey<EditableTextState> _inputCodeKey =
-      GlobalKey<EditableTextState>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,7 +55,7 @@ class InputCodeState extends State<InputCodeWidget> {
                 child: MediaQuery(
                   data: MediaQueryData(textScaleFactor: 0.1),
                   child: TextField(
-                    key: _inputCodeKey,
+                    key: widget.inputCodeKey,
                     enableSuggestions: false,
                     enableInteractiveSelection: false,
                     autofocus: widget.autoFocus,
