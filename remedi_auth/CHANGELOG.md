@@ -1,3 +1,6 @@
+## 0.0.14
+fix a bug cannot focus to input code text
+
 ## 0.0.13
 support dart sdk from 2.12.0
 
