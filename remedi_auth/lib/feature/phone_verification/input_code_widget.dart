@@ -38,6 +38,8 @@ class InputCodeState extends State<InputCodeWidget> {
     super.initState();
   }
 
+  static final GlobalKey<EditableTextState> _inputCodeKey =
+      GlobalKey<EditableTextState>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,6 +55,7 @@ class InputCodeState extends State<InputCodeWidget> {
                 child: MediaQuery(
                   data: MediaQueryData(textScaleFactor: 0.1),
                   child: TextField(
+                    key: _inputCodeKey,
                     enableSuggestions: false,
                     enableInteractiveSelection: false,
                     autofocus: widget.autoFocus,
