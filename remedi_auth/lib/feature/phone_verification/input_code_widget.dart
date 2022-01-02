@@ -133,10 +133,11 @@ class InputCodeState extends State<InputCodeWidget> {
               dev.log(
                   'widget.focusNode.hasFocus = ${widget.focusNode.hasFocus}',
                   name: 'InputCodeWidget');
-              if (!widget.focusNode.hasFocus) {
-                await Future.delayed(Duration(milliseconds: 200));
-                widget.focusNode.requestFocus();
+              if (widget.focusNode.hasFocus) {
+                FocusScope.of(context).unfocus();
               }
+              await Future.delayed(Duration(milliseconds: 200));
+              widget.focusNode.requestFocus();
             },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8),
