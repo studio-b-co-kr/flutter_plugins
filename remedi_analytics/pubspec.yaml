@@ -1,6 +1,6 @@
 name: remedi_analytics
 description: A new Flutter package.
-version: 0.0.3
+version: 0.0.4
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  firebase_analytics: ^9.0.4
 
 dev_dependencies:
   flutter_test:
