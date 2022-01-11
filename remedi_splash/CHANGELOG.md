@@ -1,3 +1,6 @@
+## 0.1.2
+
+ - update stacked_mvvm
 
 ## 0.1.1
 

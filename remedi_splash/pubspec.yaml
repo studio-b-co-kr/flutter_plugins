@@ -1,6 +1,6 @@
 name: remedi_splash
 description: Splash job module
-version: 0.1.1
+version: 0.1.2
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  stacked_mvvm: ^0.0.8
+  stacked_mvvm: ^0.0.9
 
   remedi_base: ^0.0.5
 
