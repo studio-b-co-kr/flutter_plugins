@@ -1,3 +1,5 @@
+## [0.0.9]
+export provider
 
 ## [0.0.8]
 support dart sdk from 2.12.0
