@@ -8,6 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked/stacked.dart';
 
+export 'package:provider/provider.dart';
+
 part 'i_model.dart';
 part 'i_page.dart';
 part 'i_repository.dart';
