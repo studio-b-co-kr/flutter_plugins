@@ -1,4 +1,7 @@
 ## 0.0.14
+update stacked_mvvm
+
+## 0.0.14
 fix a bug cannot focus to input code text
 
 ## 0.0.13
