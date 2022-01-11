@@ -1,3 +1,6 @@
+## 0.0.7
+update stacked_mvvm
+
 ## 0.0.6
 export store redirect
 
