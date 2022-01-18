@@ -12,6 +12,26 @@ class DioRequest {
     dio = await dioBuilder.build();
   }
 
+  Future<dynamic> _request({
+    required Dio dio,
+    required String method,
+    String? path,
+    Map<String, dynamic>? queries,
+    dynamic data,
+  }) async {
+    try {
+      var ret = await dio.request(
+        path ?? "",
+        data: data,
+        options: Options(method: method),
+        queryParameters: queries,
+      );
+      return ret;
+    } on DioError catch (e) {
+      return HttpError.fromDioError(e);
+    }
+  }
+
   requestGet({String? path, Map<String, dynamic>? queries}) async {
     assert(dio == null);
     await _createDio();
