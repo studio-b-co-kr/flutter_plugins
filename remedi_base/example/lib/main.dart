@@ -63,57 +63,16 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: FutureBuilder(
-            future: GoogleApiService().get(),
-            builder: (context, snapshot) {
-              String htmlString = 'about:blank';
-              if (snapshot.hasData) {
-                htmlString = "${snapshot.data}";
-              }
-              return ListView(
-                children: [Text(htmlString)],
-              );
-            }),
+        body: FutureBuilder(builder: (context, snapshot) {
+          String htmlString = 'about:blank';
+          if (snapshot.hasData) {
+            htmlString = "${snapshot.data}";
+          }
+          return ListView(
+            children: [Text(htmlString)],
+          );
+        }),
       ),
     );
   }
-}
-
-class GoogleApiService extends DioApiService<String> {
-  GoogleApiService({IClientBuilder? clientBuilder})
-      : super(
-            clientBuilder: clientBuilder ??
-                DioBuilder.auth(
-                  AppConfig.baseUrl,
-                  userAgent: AppConfig.platform,
-                  appVersion: AppConfig.appVersion,
-                  osVersion: AppConfig.osVersion,
-                  appId: AppConfig.appId,
-                  authHeaderInterceptors: [AuthHeaderInterceptor(getToken())],
-                ));
-
-  Future<dynamic> get() async {
-    return super.requestGet();
-  }
-
-  @override
-  String get path => "";
-
-  @override
-  String jsonToObject(dynamic json) {
-    return json;
-  }
-}
-
-class GoogleApiDto extends IDto {
-  final String html;
-
-  GoogleApiDto({required this.html});
-
-  @override
-  Map<String, dynamic> get toJson => {"data": html};
-}
-
-Future<String> getToken() async {
-  return "";
 }
