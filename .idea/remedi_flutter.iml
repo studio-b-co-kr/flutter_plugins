@@ -279,6 +279,24 @@
       <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/device_info/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/device_info/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/device_info/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/package_info/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/package_info/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/package_info/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/package_info/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/package_info/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/package_info/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/device_info/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/device_info/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/device_info/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/example/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

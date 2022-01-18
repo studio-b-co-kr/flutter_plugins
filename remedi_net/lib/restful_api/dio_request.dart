@@ -1,25 +1,30 @@
 part of 'remedi_restful_api.dart';
 
+/// this class request to server something using [DioBuilder].
+/// before requesting to remote, should make a dio instance from [createDio].
 class DioRequest {
   final DioBuilder dioBuilder;
-  late Dio dio;
+  Dio? dio;
 
   DioRequest(this.dioBuilder);
 
-  createDio() async {
+  _createDio() async {
     dio = await dioBuilder.build();
-    return this;
   }
 
   requestGet({String? path, Map<String, dynamic>? queries}) async {
-    return dio.get(
+    assert(dio == null);
+    await _createDio();
+    return dio?.get(
       path ?? "",
       queryParameters: queries,
     );
   }
 
   requestPost({String? path, Map<String, dynamic>? queries, data}) async {
-    return dio.post(
+    assert(dio == null);
+    await _createDio();
+    return dio?.post(
       path ?? "",
       data: data,
       queryParameters: queries,
@@ -27,7 +32,9 @@ class DioRequest {
   }
 
   requestPut({String? path, Map<String, dynamic>? queries, data}) async {
-    return dio.put(
+    assert(dio == null);
+    await _createDio();
+    return dio?.put(
       path ?? "",
       data: data,
       queryParameters: queries,
@@ -35,7 +42,9 @@ class DioRequest {
   }
 
   requestHead({String? path, Map<String, dynamic>? queries, data}) async {
-    return dio.head(
+    assert(dio == null);
+    await _createDio();
+    return dio?.head(
       path ?? "",
       data: data,
       queryParameters: queries,
@@ -43,7 +52,9 @@ class DioRequest {
   }
 
   requestDelete({String? path, Map<String, dynamic>? queries, data}) async {
-    return dio.delete(
+    assert(dio == null);
+    await _createDio();
+    return dio?.delete(
       path ?? "",
       data: data,
       queryParameters: queries,
@@ -51,7 +62,9 @@ class DioRequest {
   }
 
   requestPatch({String? path, Map<String, dynamic>? queries, data}) async {
-    return dio.patch(
+    assert(dio == null);
+    await _createDio();
+    return dio?.patch(
       path ?? "",
       data: data,
       queryParameters: queries,
@@ -59,7 +72,7 @@ class DioRequest {
   }
 
   cancel() {
-    dio.close();
-    dio.clear();
+    dio?.close();
+    dio?.clear();
   }
 }

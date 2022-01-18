@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:remedi_net/remedi_net.dart';
 
@@ -47,8 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  getGoogle() async {
-    return GoogleApiService().get();
+  Future<dynamic> getGoogle() async {
+    var ret = await GoogleApiService().get();
+    dev.log("$ret", name: 'getGoogle');
+    return ret;
   }
 }
 
@@ -58,6 +62,13 @@ class GoogleApiService extends ApiService {
   }
 
   @override
-  DioRequest get client => DioRequest(
-      DioBuilder.fromUrl(baseUrl: 'https://google.com', enableLogging: true));
+  DioRequest get client => DioRequest(DioBuilder.fromUrl(
+      baseUrl: 'https://google.com',
+      enableLogging: true,
+      futureHeaders: {'accessKey': accessKey()}));
+}
+
+Future<String> accessKey() async {
+  await Future.delayed(const Duration(seconds: 1));
+  return "abcde";
 }

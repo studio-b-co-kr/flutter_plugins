@@ -5,65 +5,58 @@ abstract class ApiService<T> {
 
   Future<dynamic> requestGet(
       {String? path, Map<String, dynamic>? queries}) async {
-    await client.createDio();
-    return client.dio.get(
-      path ?? "",
-      queryParameters: queries,
+    return client.requestGet(
+      path: path ?? "",
+      queries: queries,
     );
   }
 
   Future<dynamic> requestPost(
       {String? path, Map<String, dynamic>? queries, data}) async {
-    await client.createDio();
-    return client.dio.post(
-      path ?? "",
+    return client.requestPost(
+      path: path ?? "",
       data: data,
-      queryParameters: queries,
+      queries: queries,
     );
   }
 
   Future<dynamic> requestPut(
       {String? path, Map<String, dynamic>? queries, data}) async {
-    await client.createDio();
-    return client.dio.put(
-      path ?? "",
+    return client.requestPut(
+      path: path ?? "",
       data: data,
-      queryParameters: queries,
+      queries: queries,
     );
   }
 
   Future<dynamic> requestHead(
       {String? path, Map<String, dynamic>? queries, data}) async {
-    await client.createDio();
-    return client.dio.head(
-      path ?? "",
+    return client.requestHead(
+      path: path ?? "",
       data: data,
-      queryParameters: queries,
+      queries: queries,
     );
   }
 
   Future<dynamic> requestDelete(
       {String? path, Map<String, dynamic>? queries, data}) async {
-    await client.createDio();
-    return client.dio.delete(
-      path ?? "",
+    return client.requestDelete(
+      path: path ?? "",
       data: data,
-      queryParameters: queries,
+      queries: queries,
     );
   }
 
   Future<dynamic> requestPatch(
       {String? path, Map<String, dynamic>? queries, data}) async {
-    await client.createDio();
-    return client.dio.patch(
-      path ?? "",
+    return client.requestPatch(
+      path: path ?? "",
       data: data,
-      queryParameters: queries,
+      queries: queries,
     );
   }
 
   cancel() {
-    client.dio.close();
-    client.dio.clear();
+    client.cancel();
   }
 }
