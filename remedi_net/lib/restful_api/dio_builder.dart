@@ -9,6 +9,7 @@ class DioBuilder {
   Map<String, dynamic>? headers;
   bool enableLogging;
   Map<String, Future<dynamic>>? futureHeaders;
+  HttpClientAdapter? httpClientAdapter; // For test
 
   DioBuilder._({
     required this.baseUrl,
@@ -17,10 +18,14 @@ class DioBuilder {
     this.headers,
     this.enableLogging = false,
     this.futureHeaders,
+    this.httpClientAdapter,
   });
 
   Future<Dio> build() async {
     Dio dio = Dio();
+    if (httpClientAdapter != null) {
+      dio.httpClientAdapter = httpClientAdapter!;
+    }
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = connectTimeout;
     dio.options.contentType = contentType;
@@ -48,6 +53,8 @@ class DioBuilder {
       error: enableLogging,
     ));
 
+    dio.transformer = FlutterTransformer();
+
     return dio;
   }
 
@@ -57,6 +64,7 @@ class DioBuilder {
     Map<String, dynamic>? headers,
     bool enableLogging = false,
     Map<String, Future<dynamic>>? futureHeaders,
+    HttpClientAdapter? httpClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -65,6 +73,7 @@ class DioBuilder {
       contentType: Headers.jsonContentType,
       enableLogging: enableLogging,
       futureHeaders: futureHeaders,
+      httpClientAdapter: httpClientAdapter,
     );
   }
 
@@ -74,6 +83,7 @@ class DioBuilder {
     Map<String, dynamic>? headers,
     bool enableLogging = false,
     Map<String, Future<dynamic>>? futureHeaders,
+    HttpClientAdapter? httpClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -82,6 +92,7 @@ class DioBuilder {
       contentType: Headers.formUrlEncodedContentType,
       enableLogging: enableLogging,
       futureHeaders: futureHeaders,
+      httpClientAdapter: httpClientAdapter,
     );
   }
 
@@ -91,6 +102,7 @@ class DioBuilder {
     Map<String, dynamic>? headers,
     bool enableLogging = false,
     Map<String, Future<dynamic>>? futureHeaders,
+    HttpClientAdapter? httpClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -99,6 +111,20 @@ class DioBuilder {
       contentType: Headers.textPlainContentType,
       enableLogging: enableLogging,
       futureHeaders: futureHeaders,
+      httpClientAdapter: httpClientAdapter,
     );
   }
+}
+
+class FlutterTransformer extends DefaultTransformer {
+  FlutterTransformer() : super(jsonDecodeCallback: _parseJson);
+}
+
+// Must be top-level function
+_parseAndDecode(String response) {
+  return jsonDecode(response);
+}
+
+_parseJson(String text) {
+  return compute(_parseAndDecode, text);
 }
