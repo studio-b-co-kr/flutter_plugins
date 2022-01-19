@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class GoogleApiService extends ApiService {
+class GoogleApiService extends ApiService<String> {
   get() async {
     return requestGet();
   }
@@ -66,6 +66,9 @@ class GoogleApiService extends ApiService {
       baseUrl: 'https://google.com',
       enableLogging: true,
       futureHeaders: {'accessKey': accessKey()}));
+
+  @override
+  String? fromJson(json) {}
 }
 
 Future<String> accessKey() async {

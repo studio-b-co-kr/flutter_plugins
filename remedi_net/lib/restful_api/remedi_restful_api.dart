@@ -7,3 +7,4 @@ part 'api_service.dart';
 part 'dio_builder.dart';
 part 'dio_request.dart';
 part 'http_error.dart';
+part 'i_dto.dart';

@@ -7,23 +7,12 @@ import 'package:remedi_net/remedi_net.dart';
 void main() {
   group('fetchAlbum', () {
     test('returns an Album if the http call completes successfully', () async {
-      try {
-        var ret = await TestApiService().get();
-        int i = 0;
-      } on DioError catch (e) {
-        // that falls out of the range of 2xx and is also not 304.
-        if (e.response != null) {
-          int i = 0;
-        } else {
-          // Something happened in setting up or sending the request that triggered an Error
-          int i = 0;
-        }
-      }
+      var ret = await TestApiService().get();
     });
   });
 }
 
-class TestApiService extends ApiService {
+class TestApiService extends ApiService<TestResponse> {
   get() async {
     return requestGet();
   }
@@ -32,6 +21,9 @@ class TestApiService extends ApiService {
   DioRequest get client => DioRequest(DioBuilder.json(
       baseUrl: "https://test.test.com",
       httpClientAdapter: SuccessHttpClientAdapter()));
+
+  @override
+  TestResponse? fromJson(json) {}
 }
 
 class SuccessHttpClientAdapter extends HttpClientAdapter {
@@ -43,5 +35,12 @@ class SuccessHttpClientAdapter extends HttpClientAdapter {
       Stream<Uint8List>? requestStream, Future? cancelFuture) async {
     Map<String, dynamic> ret = {'value': 900};
     return ResponseBody.fromString(jsonEncode(ret), 200);
+  }
+}
+
+class TestResponse extends IDto {
+  @override
+  TestResponse fromJson(json) {
+    return TestResponse();
   }
 }

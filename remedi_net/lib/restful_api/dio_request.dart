@@ -12,7 +12,7 @@ class DioRequest {
     dio = await dioBuilder.build();
   }
 
-  Future<dynamic> _request({
+  Future<dynamic> request({
     required String method,
     String? path,
     Map<String, dynamic>? queries,
@@ -21,70 +21,16 @@ class DioRequest {
     assert(dio == null);
     try {
       await _createDio();
-      var ret = await dio!.request(
+      var response = await dio!.request(
         path ?? "",
         data: data,
         options: Options(method: method),
         queryParameters: queries,
       );
-      return ret;
+      return response;
     } on DioError catch (e) {
       return HttpError.fromDioError(e);
     }
-  }
-
-  requestGet({String? path, Map<String, dynamic>? queries}) async {
-    return await _request(method: 'GET', path: path, queries: queries);
-  }
-
-  requestPost({String? path, Map<String, dynamic>? queries, data}) async {
-    assert(dio == null);
-    await _createDio();
-    return dio?.post(
-      path ?? "",
-      data: data,
-      queryParameters: queries,
-    );
-  }
-
-  requestPut({String? path, Map<String, dynamic>? queries, data}) async {
-    assert(dio == null);
-    await _createDio();
-    return dio?.put(
-      path ?? "",
-      data: data,
-      queryParameters: queries,
-    );
-  }
-
-  requestHead({String? path, Map<String, dynamic>? queries, data}) async {
-    assert(dio == null);
-    await _createDio();
-    return dio?.head(
-      path ?? "",
-      data: data,
-      queryParameters: queries,
-    );
-  }
-
-  requestDelete({String? path, Map<String, dynamic>? queries, data}) async {
-    assert(dio == null);
-    await _createDio();
-    return dio?.delete(
-      path ?? "",
-      data: data,
-      queryParameters: queries,
-    );
-  }
-
-  requestPatch({String? path, Map<String, dynamic>? queries, data}) async {
-    assert(dio == null);
-    await _createDio();
-    return dio?.patch(
-      path ?? "",
-      data: data,
-      queryParameters: queries,
-    );
   }
 
   cancel() {
