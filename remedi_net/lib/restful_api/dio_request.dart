@@ -13,14 +13,15 @@ class DioRequest {
   }
 
   Future<dynamic> _request({
-    required Dio dio,
     required String method,
     String? path,
     Map<String, dynamic>? queries,
     dynamic data,
   }) async {
+    assert(dio == null);
     try {
-      var ret = await dio.request(
+      await _createDio();
+      var ret = await dio!.request(
         path ?? "",
         data: data,
         options: Options(method: method),
@@ -33,12 +34,7 @@ class DioRequest {
   }
 
   requestGet({String? path, Map<String, dynamic>? queries}) async {
-    assert(dio == null);
-    await _createDio();
-    return dio?.get(
-      path ?? "",
-      queryParameters: queries,
-    );
+    return await _request(method: 'GET', path: path, queries: queries);
   }
 
   requestPost({String? path, Map<String, dynamic>? queries, data}) async {

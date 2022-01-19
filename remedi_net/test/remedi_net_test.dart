@@ -42,6 +42,6 @@ class SuccessHttpClientAdapter extends HttpClientAdapter {
   Future<ResponseBody> fetch(RequestOptions options,
       Stream<Uint8List>? requestStream, Future? cancelFuture) async {
     Map<String, dynamic> ret = {'value': 900};
-    return ResponseBody.fromString(jsonEncode(ret), 400);
+    return ResponseBody.fromString(jsonEncode(ret), 200);
   }
 }
