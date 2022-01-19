@@ -10,6 +10,11 @@ abstract class ApiService<T> {
 
   DioRequest get client;
 
+  Future<Dio?> testDio() async {
+    await client._createDio();
+    return client.dio;
+  }
+
   Future<dynamic> _request({
     required String method,
     String? path,

@@ -58,12 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class GoogleApiService extends ApiService<String> {
   get() async {
-    return requestGet();
+    return requestGet(path: '/books/v1/volumes', queries: {'q': '{http}'});
   }
 
   @override
   DioRequest get client => DioRequest(DioBuilder.fromUrl(
-      baseUrl: 'https://google.com',
+      baseUrl: 'https://www.googleapis.com',
       enableLogging: true,
       futureHeaders: {'accessKey': accessKey()}));
 

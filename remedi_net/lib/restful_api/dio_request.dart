@@ -18,9 +18,10 @@ class DioRequest {
     Map<String, dynamic>? queries,
     dynamic data,
   }) async {
-    assert(dio == null);
-    try {
+    if (dio == null) {
       await _createDio();
+    }
+    try {
       var response = await dio!.request(
         path ?? "",
         data: data,

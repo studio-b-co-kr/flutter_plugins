@@ -2,19 +2,35 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:remedi_net/remedi_net.dart';
 
 void main() {
-  group('fetchAlbum', () {
-    test('returns an Album if the http call completes successfully', () async {
-      var ret = await TestApiService().get();
+  group('', () {
+    test('', () async {
+      TestApiService testApiService = TestApiService();
+      Dio? dio = await testApiService.testDio();
+      int i = 0;
+      DioAdapter dioAdapter = DioAdapter(dio: dio!);
+
+      var ret = await testApiService.get();
+      int i2 = 0;
     });
   });
+
+  // group('fetchAlbum', () {
+  //   test('returns an Album if the http call completes successfully', () async {
+  //     TestApiService testApiService = TestApiService();
+  //     Dio? dio = await testApiService.testDio();
+  //     var ret = await testApiService.get();
+  //     int i = 0;
+  //   });
+  // });
 }
 
 class TestApiService extends ApiService<TestResponse> {
   get() async {
-    return requestGet();
+    return await requestGet();
   }
 
   @override
