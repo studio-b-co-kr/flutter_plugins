@@ -14,11 +14,14 @@ dependencies:
 
   # http api.
   dio: ^4.0.4
+#  json_annotation: ^4.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
   http_mock_adapter: ^0.3.2
+#  build_runner:
+#  json_serializable:
 
 flutter:
