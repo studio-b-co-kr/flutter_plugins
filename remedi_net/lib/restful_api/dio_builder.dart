@@ -8,40 +8,39 @@ class DioBuilder {
   int connectTimeout;
   Map<String, dynamic>? headers;
   bool enableLogging;
-  Map<String, Future<dynamic>>? futureHeaders;
-  HttpClientAdapter? httpClientAdapter; // For test
+  List<Interceptor>? interceptors;
+  HttpClientAdapter? testClientAdapter;
+  late final Dio dio;
 
   DioBuilder._({
     required this.baseUrl,
     required this.contentType,
-    this.connectTimeout = 1500,
+    this.connectTimeout = 15000,
     this.headers,
     this.enableLogging = false,
-    this.futureHeaders,
-    this.httpClientAdapter,
-  });
+    this.interceptors,
+    this.testClientAdapter,
+  }) {
+    dio = _build();
+  }
 
-  Future<Dio> build() async {
-    Dio dio = Dio();
-    if (httpClientAdapter != null) {
-      dio.httpClientAdapter = httpClientAdapter!;
-    }
-    dio.options.baseUrl = baseUrl;
-    dio.options.connectTimeout = connectTimeout;
-    dio.options.contentType = contentType;
-    if (headers?.isNotEmpty ?? false) {
-      dio.options.headers.addAll(headers!);
-    }
+  Dio _build() {
+    // dio.options.baseUrl = baseUrl;
+    // dio.options.connectTimeout = connectTimeout;
+    // dio.options.contentType = contentType;
+    // if (headers?.isNotEmpty ?? false) {
+    //   dio.options.headers.addAll(headers!);
+    // }
 
-    if (futureHeaders?.isNotEmpty ?? false) {
-      Map<String, dynamic> extraHeaders = {};
-      for (String element in futureHeaders!.keys) {
-        extraHeaders.addAll({element: await futureHeaders![element]});
-      }
+    Dio dio = Dio(BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: connectTimeout,
+      contentType: contentType,
+      headers: headers,
+    ));
 
-      if (extraHeaders.isNotEmpty) {
-        dio.options.headers.addAll(extraHeaders);
-      }
+    if (testClientAdapter != null) {
+      dio.httpClientAdapter = testClientAdapter!;
     }
 
     dio.interceptors.add(LogInterceptor(
@@ -53,6 +52,10 @@ class DioBuilder {
       error: enableLogging,
     ));
 
+    if (interceptors?.isNotEmpty ?? false) {
+      dio.interceptors.addAll(interceptors!);
+    }
+
     dio.transformer = FlutterTransformer();
 
     return dio;
@@ -60,11 +63,11 @@ class DioBuilder {
 
   factory DioBuilder.json({
     required String baseUrl,
-    int connectTimeout = 1500,
+    int connectTimeout = 15000,
     Map<String, dynamic>? headers,
     bool enableLogging = false,
-    Map<String, Future<dynamic>>? futureHeaders,
-    HttpClientAdapter? httpClientAdapter,
+    List<Interceptor>? interceptors,
+    HttpClientAdapter? testClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -72,18 +75,18 @@ class DioBuilder {
       headers: headers,
       contentType: Headers.jsonContentType,
       enableLogging: enableLogging,
-      futureHeaders: futureHeaders,
-      httpClientAdapter: httpClientAdapter,
+      interceptors: interceptors,
+      testClientAdapter: testClientAdapter,
     );
   }
 
   factory DioBuilder.fromUrl({
     required String baseUrl,
-    int connectTimeout = 1500,
+    int connectTimeout = 15000,
     Map<String, dynamic>? headers,
     bool enableLogging = false,
-    Map<String, Future<dynamic>>? futureHeaders,
-    HttpClientAdapter? httpClientAdapter,
+    List<Interceptor>? interceptors,
+    HttpClientAdapter? testClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -91,18 +94,18 @@ class DioBuilder {
       headers: headers,
       contentType: Headers.formUrlEncodedContentType,
       enableLogging: enableLogging,
-      futureHeaders: futureHeaders,
-      httpClientAdapter: httpClientAdapter,
+      interceptors: interceptors,
+      testClientAdapter: testClientAdapter,
     );
   }
 
   factory DioBuilder.textPain({
     required String baseUrl,
-    int connectTimeout = 1500,
+    int connectTimeout = 15000,
     Map<String, dynamic>? headers,
     bool enableLogging = false,
-    Map<String, Future<dynamic>>? futureHeaders,
-    HttpClientAdapter? httpClientAdapter,
+    List<Interceptor>? interceptors,
+    HttpClientAdapter? testClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -110,8 +113,8 @@ class DioBuilder {
       headers: headers,
       contentType: Headers.textPlainContentType,
       enableLogging: enableLogging,
-      futureHeaders: futureHeaders,
-      httpClientAdapter: httpClientAdapter,
+      interceptors: interceptors,
+      testClientAdapter: testClientAdapter,
     );
   }
 }

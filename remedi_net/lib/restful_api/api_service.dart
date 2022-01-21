@@ -8,12 +8,9 @@ abstract class ApiService<T> {
   static const String methodDelete = 'DELETE';
   static const String methodPatch = 'PATCH';
 
-  DioRequest get client;
+  DioRequest get request;
 
-  Future<Dio?> testDio() async {
-    await client._createDio();
-    return client.dio;
-  }
+  Dio get dio => request.dio;
 
   Future<dynamic> _request({
     required String method,
@@ -21,7 +18,7 @@ abstract class ApiService<T> {
     Map<String, dynamic>? queries,
     dynamic data,
   }) async {
-    var response = await client.request(
+    var response = await request.request(
         method: method, path: path, queries: queries, data: data);
     if (response is HttpError) {
       return response;
@@ -91,6 +88,6 @@ abstract class ApiService<T> {
   T? fromJson(dynamic json);
 
   cancel() {
-    client.cancel();
+    request.cancel();
   }
 }

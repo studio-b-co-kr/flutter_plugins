@@ -62,16 +62,13 @@ class GoogleApiService extends ApiService<String> {
   }
 
   @override
-  DioRequest get client => DioRequest(DioBuilder.fromUrl(
-      baseUrl: 'https://www.googleapis.com',
-      enableLogging: true,
-      futureHeaders: {'accessKey': accessKey()}));
+  DioRequest get request => DioRequest(
+        DioBuilder.fromUrl(
+          baseUrl: 'https://www.googleapis.com',
+          enableLogging: true,
+        ),
+      );
 
   @override
   String? fromJson(json) {}
-}
-
-Future<String> accessKey() async {
-  await Future.delayed(const Duration(seconds: 1));
-  return "abcde";
 }

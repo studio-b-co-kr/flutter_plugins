@@ -6,26 +6,34 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:remedi_net/remedi_net.dart';
 
 void main() {
-  group('', () {
-    test('', () async {
+  group('Test restful api', () {
+    // test('get', () async {
+    //   final dio = Dio(BaseOptions());
+    //   final dioAdapter = DioAdapter(dio: dio);
+    //
+    //   const path = 'https://example.com';
+    //
+    //   dioAdapter.onGet(
+    //     path,
+    //     (server) => server.reply(200, {'message': 'Success!'}),
+    //   );
+    //
+    //   final response = await dio.get(path);
+    //
+    //   print(response.data);
+    // });
+    test('get', () async {
       TestApiService testApiService = TestApiService();
-      Dio? dio = await testApiService.testDio();
-      int i = 0;
-      DioAdapter dioAdapter = DioAdapter(dio: dio!);
+      final dioAdapter = DioAdapter(dio: testApiService.dio);
+
+      dioAdapter.onGet("http://test.com", (server) {
+        server.reply(200, {'message': 'Success!'});
+      });
 
       var ret = await testApiService.get();
-      int i2 = 0;
+      expect(ret, ret is TestResponse);
     });
   });
-
-  // group('fetchAlbum', () {
-  //   test('returns an Album if the http call completes successfully', () async {
-  //     TestApiService testApiService = TestApiService();
-  //     Dio? dio = await testApiService.testDio();
-  //     var ret = await testApiService.get();
-  //     int i = 0;
-  //   });
-  // });
 }
 
 class TestApiService extends ApiService<TestResponse> {
@@ -34,29 +42,43 @@ class TestApiService extends ApiService<TestResponse> {
   }
 
   @override
-  DioRequest get client => DioRequest(DioBuilder.json(
-      baseUrl: "https://test.test.com",
-      httpClientAdapter: SuccessHttpClientAdapter()));
+  DioRequest get request => DioRequest(
+        DioBuilder.json(
+          baseUrl: "http://test.com",
+          enableLogging: true,
+        ),
+      );
 
   @override
-  TestResponse? fromJson(json) {}
+  TestResponse? fromJson(json) {
+    return TestResponse.fromJson(json);
+  }
 }
 
-class SuccessHttpClientAdapter extends HttpClientAdapter {
+class TestResponse extends IDto {
+  final String message;
+
+  TestResponse({
+    required this.message,
+  });
+
+  factory TestResponse.fromJson(json) {
+    return TestResponse(message: json['message']);
+  }
+
+  Map<String, dynamic> get toJson => {
+        'message': message,
+      };
+}
+
+class TestApiHttpClientAdapter extends HttpClientAdapter {
   @override
   void close({bool force = false}) {}
 
   @override
   Future<ResponseBody> fetch(RequestOptions options,
       Stream<Uint8List>? requestStream, Future? cancelFuture) async {
-    Map<String, dynamic> ret = {'value': 900};
-    return ResponseBody.fromString(jsonEncode(ret), 200);
-  }
-}
-
-class TestResponse extends IDto {
-  @override
-  TestResponse fromJson(json) {
-    return TestResponse();
+    var ret = {'message': "This is test response."};
+    return ResponseBody.fromBytes(utf8.encode(jsonEncode(ret)), 200);
   }
 }
