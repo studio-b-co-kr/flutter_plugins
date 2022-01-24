@@ -1,7 +1,5 @@
 part of 'remedi_restful_api.dart';
 
-/// this class request to server something using [DioBuilder].
-/// before requesting to remote, should make a dio instance from [createDio].
 class DioRequest {
   final DioBuilder builder;
 

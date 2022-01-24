@@ -1,7 +1,5 @@
 part of 'remedi_restful_api.dart';
 
-/// This class build a Dio using build() method
-/// This class build some env. to requesting [headers], [contentType], [connectTimeout], [baseUrl] and [enableLogging]
 class DioBuilder {
   final String baseUrl;
   final String contentType;
