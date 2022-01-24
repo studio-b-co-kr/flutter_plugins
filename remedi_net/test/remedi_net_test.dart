@@ -42,7 +42,7 @@ class TestApiService extends ApiService<TestResponse> {
   }
 
   @override
-  TestResponse? fromJson(json) {
+  TestResponse? onSuccess(json) {
     return TestResponse.fromJson(json);
   }
 }
@@ -58,6 +58,7 @@ class TestResponse extends IDto {
     return TestResponse(message: json['message']);
   }
 
+  @override
   Map<String, dynamic> get toJson => {
         'message': message,
       };

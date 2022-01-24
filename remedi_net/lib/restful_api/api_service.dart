@@ -25,7 +25,7 @@ abstract class ApiService<T> {
     if (response is HttpError) {
       return onError(response);
     }
-    return fromJson((response as Response).data);
+    return onSuccess((response as Response).data);
   }
 
   Future<dynamic> requestGet({
@@ -104,7 +104,7 @@ abstract class ApiService<T> {
     );
   }
 
-  T? fromJson(dynamic json);
+  T? onSuccess(dynamic json);
 
   HttpError onError(HttpError error) {
     return error;

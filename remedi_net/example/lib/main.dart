@@ -71,7 +71,7 @@ class GoogleApiService extends ApiService<GoogleData> {
   }
 
   @override
-  GoogleData? fromJson(json) {
+  GoogleData? onSuccess(json) {
     return GoogleData.fromJson(json);
   }
 
@@ -88,4 +88,7 @@ class GoogleData extends IDto {
   static GoogleData? fromJson(json) {
     return GoogleData();
   }
+
+  @override
+  get toJson => "";
 }

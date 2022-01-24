@@ -1,3 +1,8 @@
+## 0.1.2
+
+- add toJson to IDto
+- change callback name
+
 ## 0.1.1
 
 remove unused code
