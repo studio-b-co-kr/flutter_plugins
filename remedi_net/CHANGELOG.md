@@ -1,3 +1,7 @@
+## 0.1.3
+
+- change toJson function to no-abstract function in IDto
+
 ## 0.1.2
 
 - add toJson to IDto
