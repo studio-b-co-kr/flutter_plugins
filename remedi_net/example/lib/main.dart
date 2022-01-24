@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
         future: getGoogle(),
         builder: (context, snapshot) => Center(
           child: Text(
-            '${snapshot.data}',
+            '${(snapshot.data is GoogleData) ? (snapshot.data as GoogleData).toJson : ""}',
           ),
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
