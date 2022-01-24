@@ -8,13 +8,15 @@ abstract class ApiService<T> {
   static const String methodDelete = 'DELETE';
   static const String methodPatch = 'PATCH';
 
-  DioRequest get request;
+  late final DioRequest request;
+
+  ApiService({required this.request});
 
   Dio get dio => request.dio;
 
   Future<dynamic> _request({
     required String method,
-    String? path,
+    required String path,
     Map<String, dynamic>? queries,
     dynamic data,
   }) async {
@@ -26,27 +28,35 @@ abstract class ApiService<T> {
     return fromJson((response as Response).data);
   }
 
-  Future<dynamic> requestGet(
-      {String? path, Map<String, dynamic>? queries}) async {
+  Future<dynamic> requestGet({
+    required String path,
+    Map<String, dynamic>? queries,
+  }) async {
     return await _request(
       method: methodGet,
-      path: path ?? "",
+      path: path,
       queries: queries,
     );
   }
 
-  Future<dynamic> requestPost(
-      {String? path, Map<String, dynamic>? queries, data}) async {
+  Future<dynamic> requestPost({
+    required String path,
+    Map<String, dynamic>? queries,
+    data,
+  }) async {
     return await _request(
       method: methodPost,
-      path: path ?? "",
+      path: path,
       data: data,
       queries: queries,
     );
   }
 
-  Future<dynamic> requestPut(
-      {String? path, Map<String, dynamic>? queries, data}) async {
+  Future<dynamic> requestPut({
+    String? path,
+    Map<String, dynamic>? queries,
+    data,
+  }) async {
     return await _request(
       method: methodPut,
       path: path ?? "",
@@ -55,31 +65,40 @@ abstract class ApiService<T> {
     );
   }
 
-  Future<dynamic> requestHead(
-      {String? path, Map<String, dynamic>? queries, data}) async {
+  Future<dynamic> requestHead({
+    required String path,
+    Map<String, dynamic>? queries,
+    data,
+  }) async {
     return await _request(
       method: methodHead,
-      path: path ?? "",
+      path: path,
       data: data,
       queries: queries,
     );
   }
 
-  Future<dynamic> requestDelete(
-      {String? path, Map<String, dynamic>? queries, data}) async {
+  Future<dynamic> requestDelete({
+    required String path,
+    Map<String, dynamic>? queries,
+    data,
+  }) async {
     return await _request(
       method: methodDelete,
-      path: path ?? "",
+      path: path,
       data: data,
       queries: queries,
     );
   }
 
-  Future<dynamic> requestPatch(
-      {String? path, Map<String, dynamic>? queries, data}) async {
+  Future<dynamic> requestPatch({
+    required String path,
+    Map<String, dynamic>? queries,
+    data,
+  }) async {
     return await _request(
       method: methodPatch,
-      path: path ?? "",
+      path: path,
       data: data,
       queries: queries,
     );

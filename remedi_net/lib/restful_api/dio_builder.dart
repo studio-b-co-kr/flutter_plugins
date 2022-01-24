@@ -9,7 +9,6 @@ class DioBuilder {
   Map<String, dynamic>? headers;
   bool enableLogging;
   List<Interceptor>? interceptors;
-  HttpClientAdapter? testClientAdapter;
   late final Dio dio;
 
   DioBuilder._({
@@ -19,29 +18,17 @@ class DioBuilder {
     this.headers,
     this.enableLogging = false,
     this.interceptors,
-    this.testClientAdapter,
   }) {
     dio = _build();
   }
 
   Dio _build() {
-    // dio.options.baseUrl = baseUrl;
-    // dio.options.connectTimeout = connectTimeout;
-    // dio.options.contentType = contentType;
-    // if (headers?.isNotEmpty ?? false) {
-    //   dio.options.headers.addAll(headers!);
-    // }
-
     Dio dio = Dio(BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
       contentType: contentType,
       headers: headers,
     ));
-
-    if (testClientAdapter != null) {
-      dio.httpClientAdapter = testClientAdapter!;
-    }
 
     dio.interceptors.add(LogInterceptor(
       request: enableLogging,
@@ -76,7 +63,7 @@ class DioBuilder {
       contentType: Headers.jsonContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
-      testClientAdapter: testClientAdapter,
+      // testClientAdapter: testClientAdapter,
     );
   }
 
@@ -95,7 +82,6 @@ class DioBuilder {
       contentType: Headers.formUrlEncodedContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
-      testClientAdapter: testClientAdapter,
     );
   }
 
@@ -114,7 +100,6 @@ class DioBuilder {
       contentType: Headers.textPlainContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
-      testClientAdapter: testClientAdapter,
     );
   }
 }

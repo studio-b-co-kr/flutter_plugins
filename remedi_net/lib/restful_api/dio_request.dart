@@ -9,15 +9,14 @@ class DioRequest {
 
   Future<dynamic> request({
     required String method,
-    String? path,
+    required String path,
     Map<String, dynamic>? queries,
     dynamic data,
   }) async {
     try {
       var response = await dio.request(
-        path ?? "",
+        path,
         data: data,
-        options: Options(method: method),
         queryParameters: queries,
       );
       return response;

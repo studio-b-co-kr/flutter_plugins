@@ -7,22 +7,7 @@ import 'package:remedi_net/remedi_net.dart';
 
 void main() {
   group('Test restful api', () {
-    // test('get', () async {
-    //   final dio = Dio(BaseOptions());
-    //   final dioAdapter = DioAdapter(dio: dio);
-    //
-    //   const path = 'https://example.com';
-    //
-    //   dioAdapter.onGet(
-    //     path,
-    //     (server) => server.reply(200, {'message': 'Success!'}),
-    //   );
-    //
-    //   final response = await dio.get(path);
-    //
-    //   print(response.data);
-    // });
-    test('get', () async {
+    test('GET Method Test', () async {
       TestApiService testApiService = TestApiService();
       final dioAdapter = DioAdapter(dio: testApiService.dio);
 
@@ -31,23 +16,18 @@ void main() {
       });
 
       var ret = await testApiService.get();
-      expect(ret, ret is TestResponse);
+      expect(ret is TestResponse, true);
     });
   });
 }
 
 class TestApiService extends ApiService<TestResponse> {
+  TestApiService()
+      : super(request: DioRequest(DioBuilder.json(baseUrl: 'http://test.com')));
+
   get() async {
     return await requestGet();
   }
-
-  @override
-  DioRequest get request => DioRequest(
-        DioBuilder.json(
-          baseUrl: "http://test.com",
-          enableLogging: true,
-        ),
-      );
 
   @override
   TestResponse? fromJson(json) {
