@@ -24,7 +24,7 @@ class DioBuilder {
     Dio dio = Dio(BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
-      contentType: contentType,
+      // contentType: contentType,
       headers: headers,
     ));
 
