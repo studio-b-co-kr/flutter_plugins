@@ -1,13 +1,10 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:remedi_net/remedi_net.dart';
 
 void main() {
   group('Test restful api', () {
-    test('GET Method Test', () async {
+    test('Fetch Success Method Test', () async {
       TestApiService testApiService = TestApiService();
       final dioAdapter = DioAdapter(dio: testApiService.dio);
 
@@ -17,6 +14,19 @@ void main() {
 
       var ret = await testApiService.get();
       expect(ret is TestResponse, true);
+      expect(ret.message, 'Success!');
+    });
+
+    test('Fetch Error Method Test', () async {
+      TestApiService testApiService = TestApiService();
+      final dioAdapter = DioAdapter(dio: testApiService.dio);
+
+      dioAdapter.onGet("", (server) {
+        server.reply(400, {'message': 'Success!'});
+      });
+
+      var ret = await testApiService.get();
+      expect(ret is HttpError, true);
     });
   });
 }
@@ -51,16 +61,4 @@ class TestResponse extends IDto {
   Map<String, dynamic> get toJson => {
         'message': message,
       };
-}
-
-class TestApiHttpClientAdapter extends HttpClientAdapter {
-  @override
-  void close({bool force = false}) {}
-
-  @override
-  Future<ResponseBody> fetch(RequestOptions options,
-      Stream<Uint8List>? requestStream, Future? cancelFuture) async {
-    var ret = {'message': "This is test response."};
-    return ResponseBody.fromBytes(utf8.encode(jsonEncode(ret)), 200);
-  }
 }

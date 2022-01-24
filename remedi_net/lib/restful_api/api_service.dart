@@ -23,7 +23,7 @@ abstract class ApiService<T> {
     var response = await request.request(
         method: method, path: path ?? "", queries: queries, data: data);
     if (response is HttpError) {
-      return response;
+      return onError(response);
     }
     return fromJson((response as Response).data);
   }
@@ -105,6 +105,10 @@ abstract class ApiService<T> {
   }
 
   T? fromJson(dynamic json);
+
+  HttpError onError(HttpError error) {
+    return error;
+  }
 
   cancel() {
     request.cancel();

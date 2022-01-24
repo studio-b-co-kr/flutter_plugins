@@ -57,18 +57,18 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GoogleApiService extends ApiService<String> {
+  GoogleApiService()
+      : super(
+            request: DioRequest(
+                builder:
+                    DioBuilder.json(baseUrl: 'https://www.googleapis.com')));
+
   get() async {
     return requestGet(path: '/books/v1/volumes', queries: {'q': '{http}'});
   }
 
   @override
-  DioRequest get request => DioRequest(
-        DioBuilder.fromUrl(
-          baseUrl: 'https://www.googleapis.com',
-          enableLogging: true,
-        ),
-      );
-
-  @override
-  String? fromJson(json) {}
+  String? fromJson(json) {
+    return json.toString();
+  }
 }
