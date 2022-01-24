@@ -1,7 +1,6 @@
 import 'package:remedi_auth/auth_error.dart';
-import 'package:remedi_base/remedi_base.dart';
 
-abstract class ICredential extends IDto {
+abstract class ICredential {
   final String userId;
   final String userCode;
   final String userRole;

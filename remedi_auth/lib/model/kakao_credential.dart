@@ -1,6 +1,4 @@
-import 'package:remedi_base/remedi_base.dart';
-
-class KakaoCredential extends IDto {
+class KakaoCredential {
   final String? accessToken;
   final int? id;
   String? fcmToken;

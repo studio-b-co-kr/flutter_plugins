@@ -1,6 +1,4 @@
-import 'package:remedi_base/api_service/api_service.dart';
-
-class AppleCredential extends IDto {
+class AppleCredential {
   final String? email;
   final String? identityToken;
   final String? userIdentifier;
