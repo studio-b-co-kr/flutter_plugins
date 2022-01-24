@@ -1,4 +1,4 @@
-import 'package:remedi_base/errors/app_error.dart';
+import 'package:remedi_splash/feature/splash/splash_error.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 abstract class ISplashViewModel extends IViewModel<SplashViewState> {
@@ -23,9 +23,9 @@ abstract class ISplashViewModel extends IViewModel<SplashViewState> {
   // Ready to show main contents.
   readyToService();
 
-  showError(AppError error);
+  showError(SplashError error);
 
-  AppError? get appError;
+  SplashError? get splashError;
 }
 
 enum SplashViewState {

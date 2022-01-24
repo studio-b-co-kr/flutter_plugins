@@ -35,7 +35,7 @@ class SplashView extends IView<ISplashViewModel> {
                       child: Column(children: [
                         Spacer(flex: 1),
                         viewModel.state == SplashViewState.Error &&
-                                viewModel.appError != null
+                                viewModel.splashError != null
                             ? Container(
                                 padding: EdgeInsets.all(16),
                                 margin: EdgeInsets.all(16),
@@ -45,19 +45,19 @@ class SplashView extends IView<ISplashViewModel> {
                                   shrinkWrap: true,
                                   children: [
                                     Text(
-                                      "${viewModel.appError!.title} (code : ${viewModel.appError!.code})",
+                                      "${viewModel.splashError!.title} (code : ${viewModel.splashError!.code})",
                                       style: TextStyle(fontSize: 16),
                                     ),
                                     SizedBox(height: 8),
                                     Text(
-                                      "${viewModel.appError!.message}",
+                                      "${viewModel.splashError!.message}",
                                       style: TextStyle(fontSize: 16),
                                     ),
                                     SizedBox(height: 8),
                                     kReleaseMode
                                         ? Container()
                                         : Text(
-                                            "${viewModel.appError!.stackTrace}",
+                                            "${viewModel.splashError!.body}",
                                             style: TextStyle(fontSize: 16),
                                           ),
                                   ],

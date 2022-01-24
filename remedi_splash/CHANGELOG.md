@@ -1,3 +1,6 @@
+## 0.2.0
+ - remove remedi_base dependency.
+
 ## 0.1.2
 
  - update stacked_mvvm
