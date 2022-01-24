@@ -50,25 +50,29 @@ class LoginViewModel extends ILoginViewModel {
           authorizationCode: credential.authorizationCode,
           email: credential.email);
 
-      ICredential appCredential =
-          await repository.loginWithApple(appleCredential);
+      var appCredential = await repository.loginWithApple(appleCredential);
 
-      if (appCredential.isError) {
-        this.authError = appCredential.error;
-        update(state: LoginViewState.Error);
+      if (appleCredential is ICredential) {
+        if (appCredential.isError) {
+          this.authError = appCredential.error;
+          update(state: LoginViewState.Error);
+          return;
+        }
+
+        await Future.wait([
+          AuthRepository.instance().writeUserId(appCredential.userId),
+          AuthRepository.instance().writeUserCode(appCredential.userCode),
+          AuthRepository.instance().writeAccessToken(appCredential.accessToken),
+          AuthRepository.instance()
+              .writeRefreshToken(appCredential.refreshToken ?? "")
+        ]);
+
+        update(state: LoginViewState.Success);
         return;
+      } else {
+        throw AuthError(
+            title: AppStrings.loginError, code: AppStrings.codeAppleLoginError);
       }
-
-      await Future.wait([
-        AuthRepository.instance().writeUserId(appCredential.userId),
-        AuthRepository.instance().writeUserCode(appCredential.userCode),
-        AuthRepository.instance().writeAccessToken(appCredential.accessToken),
-        AuthRepository.instance()
-            .writeRefreshToken(appCredential.refreshToken ?? "")
-      ]);
-
-      update(state: LoginViewState.Success);
-      return;
     } catch (e) {
       String title = AppStrings.loginError;
       String code = AppStrings.codeAppleLoginError;
