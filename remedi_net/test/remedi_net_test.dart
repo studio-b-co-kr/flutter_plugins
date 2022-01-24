@@ -11,7 +11,7 @@ void main() {
       TestApiService testApiService = TestApiService();
       final dioAdapter = DioAdapter(dio: testApiService.dio);
 
-      dioAdapter.onGet("http://test.com", (server) {
+      dioAdapter.onGet("", (server) {
         server.reply(200, {'message': 'Success!'});
       });
 
@@ -23,7 +23,9 @@ void main() {
 
 class TestApiService extends ApiService<TestResponse> {
   TestApiService()
-      : super(request: DioRequest(DioBuilder.json(baseUrl: 'http://test.com')));
+      : super(
+            request: DioRequest(
+                builder: DioBuilder.json(baseUrl: 'http://test.com')));
 
   get() async {
     return await requestGet();

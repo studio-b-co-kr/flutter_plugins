@@ -3,19 +3,19 @@ part of 'remedi_restful_api.dart';
 /// this class request to server something using [DioBuilder].
 /// before requesting to remote, should make a dio instance from [createDio].
 class DioRequest {
-  final DioBuilder dioBuilder;
+  final DioBuilder builder;
 
-  DioRequest(this.dioBuilder);
+  DioRequest({required this.builder});
 
   Future<dynamic> request({
     required String method,
-    required String path,
+    String? path,
     Map<String, dynamic>? queries,
     dynamic data,
   }) async {
     try {
       var response = await dio.request(
-        path,
+        path ?? "",
         data: data,
         queryParameters: queries,
       );
@@ -30,5 +30,5 @@ class DioRequest {
     dio.clear();
   }
 
-  Dio get dio => dioBuilder.dio;
+  Dio get dio => builder.dio;
 }
