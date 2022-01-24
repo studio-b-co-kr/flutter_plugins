@@ -56,19 +56,36 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class GoogleApiService extends ApiService<String> {
+class GoogleApiService extends ApiService<GoogleData> {
   GoogleApiService()
       : super(
-            request: DioRequest(
-                builder:
-                    DioBuilder.json(baseUrl: 'https://www.googleapis.com')));
+          request: DioRequest(
+            builder: DioBuilder.json(
+              baseUrl: 'https://www.googleapis.com',
+            ),
+          ),
+        );
 
   get() async {
     return requestGet(path: '/books/v1/volumes', queries: {'q': '{http}'});
   }
 
   @override
-  String? fromJson(json) {
-    return json.toString();
+  GoogleData? fromJson(json) {
+    return GoogleData.fromJson(json);
+  }
+
+  @override
+  HttpError onError(HttpError error) {
+    // TODO: customize error data.
+    return super.onError(error);
+  }
+}
+
+class GoogleData extends IDto {
+  GoogleData();
+
+  static GoogleData? fromJson(json) {
+    return GoogleData();
   }
 }
