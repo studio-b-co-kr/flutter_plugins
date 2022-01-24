@@ -52,7 +52,6 @@ class DioBuilder {
     Map<String, dynamic>? headers,
     bool enableLogging = false,
     List<Interceptor>? interceptors,
-    HttpClientAdapter? testClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -61,7 +60,6 @@ class DioBuilder {
       contentType: Headers.jsonContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
-      // testClientAdapter: testClientAdapter,
     );
   }
 
@@ -71,7 +69,6 @@ class DioBuilder {
     Map<String, dynamic>? headers,
     bool enableLogging = false,
     List<Interceptor>? interceptors,
-    HttpClientAdapter? testClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
@@ -89,7 +86,6 @@ class DioBuilder {
     Map<String, dynamic>? headers,
     bool enableLogging = false,
     List<Interceptor>? interceptors,
-    HttpClientAdapter? testClientAdapter,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
