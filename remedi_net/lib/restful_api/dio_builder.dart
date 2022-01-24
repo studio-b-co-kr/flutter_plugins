@@ -28,7 +28,7 @@ class DioBuilder {
       headers: headers,
     ));
 
-    dio.options.headers.addAll({Headers.acceptHeader: contentType});
+    dio.options.headers.addAll({'Accept': contentType});
 
     dio.interceptors.add(LogInterceptor(
       request: enableLogging,
