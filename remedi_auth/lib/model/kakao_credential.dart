@@ -7,7 +7,6 @@ class KakaoCredential {
       : assert(accessToken != null && accessToken.isNotEmpty),
         assert(id != null);
 
-  @override
   Map<String, dynamic> get toJson => {
         "sso_token": accessToken,
         "sso_id": id,

@@ -18,4 +18,6 @@ abstract class ICredential {
   });
 
   get isError => error != null;
+
+  get toJson;
 }

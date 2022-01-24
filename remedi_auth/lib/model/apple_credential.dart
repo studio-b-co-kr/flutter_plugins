@@ -5,13 +5,13 @@ class AppleCredential {
   final String authorizationCode;
   String? fcmToken;
 
-  AppleCredential(
-      {this.email,
-      this.identityToken,
-      this.userIdentifier,
-      required this.authorizationCode});
+  AppleCredential({
+    this.email,
+    this.identityToken,
+    this.userIdentifier,
+    required this.authorizationCode,
+  });
 
-  @override
   Map<String, dynamic> get toJson => {
         "sso_token": identityToken,
         "sso_provider": "apple",
