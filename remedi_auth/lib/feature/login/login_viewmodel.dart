@@ -52,7 +52,7 @@ class LoginViewModel extends ILoginViewModel {
 
       var appCredential = await repository.loginWithApple(appleCredential);
 
-      if (appleCredential is ICredential) {
+      if (appCredential is ICredential) {
         if (appCredential.isError) {
           this.authError = appCredential.error;
           update(state: LoginViewState.Error);
@@ -141,27 +141,32 @@ class LoginViewModel extends ILoginViewModel {
         return;
       }
 
-      ICredential credential = await repository.loginWithKakao(
+      var credential = await repository.loginWithKakao(
           KakaoCredential(accessToken: kakaoAccessToken, id: id));
 
-      if (credential.isError) {
-        this.authError = credential.error;
+      if (credential is ICredential) {
+        if (credential.isError) {
+          this.authError = credential.error;
+          await kakaoSignIn.logOut();
+          update(state: LoginViewState.Error);
+          return;
+        }
+
+        await Future.wait([
+          AuthRepository.instance().writeUserId(credential.userId),
+          AuthRepository.instance().writeUserCode(credential.userCode),
+          AuthRepository.instance().writeAccessToken(credential.accessToken),
+          AuthRepository.instance()
+              .writeRefreshToken(credential.refreshToken ?? "")
+        ]);
+
         await kakaoSignIn.logOut();
-        update(state: LoginViewState.Error);
+        update(state: LoginViewState.Success);
         return;
+      } else {
+        throw AuthError(
+            title: AppStrings.loginError, code: AppStrings.codeAppleLoginError);
       }
-
-      await Future.wait([
-        AuthRepository.instance().writeUserId(credential.userId),
-        AuthRepository.instance().writeUserCode(credential.userCode),
-        AuthRepository.instance().writeAccessToken(credential.accessToken),
-        AuthRepository.instance()
-            .writeRefreshToken(credential.refreshToken ?? "")
-      ]);
-
-      await kakaoSignIn.logOut();
-      update(state: LoginViewState.Success);
-      return;
     } catch (error) {
       String? title = AppStrings.codeKakaoLoginError;
       String code = AppStrings.codeKakaoLoginError;
