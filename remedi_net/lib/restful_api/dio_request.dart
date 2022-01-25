@@ -15,6 +15,7 @@ class DioRequest {
       var response = await dio.request(
         path ?? "",
         data: data,
+        options: Options(method: method),
         queryParameters: queries,
       );
       return response;
