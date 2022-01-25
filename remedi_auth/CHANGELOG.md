@@ -1,3 +1,6 @@
+## 0.1.2
+fix critical issue.
+
 ## 0.1.1
 update remedi_widgets
 
