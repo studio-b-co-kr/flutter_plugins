@@ -1,3 +1,6 @@
+## 0.1.0
+ support flutter 2.8.x
+
 ## 0.0.6
  support dart sdk from 2.12.0#2
 
