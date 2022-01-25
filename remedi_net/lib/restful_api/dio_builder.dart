@@ -4,7 +4,7 @@ class DioBuilder {
   final String baseUrl;
   final String contentType;
   int connectTimeout;
-  Map<String, dynamic>? headers;
+  Map<String, dynamic>? extraHeaders;
   bool enableLogging;
   List<Interceptor>? interceptors;
   late final Dio dio;
@@ -13,7 +13,7 @@ class DioBuilder {
     required this.baseUrl,
     required this.contentType,
     this.connectTimeout = 15000,
-    this.headers,
+    this.extraHeaders,
     this.enableLogging = false,
     this.interceptors,
   }) {
@@ -25,10 +25,7 @@ class DioBuilder {
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
       contentType: contentType,
-      extra: headers,
     ));
-
-    dio.options.headers.addAll({'Accept': contentType});
 
     dio.interceptors.add(LogInterceptor(
       request: enableLogging,
@@ -38,6 +35,11 @@ class DioBuilder {
       responseHeader: enableLogging,
       error: enableLogging,
     ));
+
+    dio.options.headers.addAll({'Accept': contentType});
+    if (extraHeaders?.isNotEmpty ?? false) {
+      dio.options.headers.addAll(extraHeaders!);
+    }
 
     if (interceptors?.isNotEmpty ?? false) {
       dio.interceptors.addAll(interceptors!);
@@ -51,14 +53,14 @@ class DioBuilder {
   factory DioBuilder.json({
     required String baseUrl,
     int connectTimeout = 15000,
-    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extraHeaders,
     bool enableLogging = false,
     List<Interceptor>? interceptors,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
-      headers: headers,
+      extraHeaders: extraHeaders,
       contentType: Headers.jsonContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
@@ -68,14 +70,14 @@ class DioBuilder {
   factory DioBuilder.fromUrl({
     required String baseUrl,
     int connectTimeout = 15000,
-    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extraHeaders,
     bool enableLogging = false,
     List<Interceptor>? interceptors,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
-      headers: headers,
+      extraHeaders: extraHeaders,
       contentType: Headers.formUrlEncodedContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
@@ -85,14 +87,14 @@ class DioBuilder {
   factory DioBuilder.textPain({
     required String baseUrl,
     int connectTimeout = 15000,
-    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extraHeaders,
     bool enableLogging = false,
     List<Interceptor>? interceptors,
   }) {
     return DioBuilder._(
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
-      headers: headers,
+      extraHeaders: extraHeaders,
       contentType: Headers.textPlainContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
