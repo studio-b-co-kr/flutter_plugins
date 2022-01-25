@@ -25,7 +25,7 @@ class DioBuilder {
 
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = connectTimeout;
-    dio.options.contentType = contentType;
+    // dio.options.contentType = contentType;
 
     dio.interceptors.add(LogInterceptor(
       request: enableLogging,
@@ -36,13 +36,13 @@ class DioBuilder {
       error: enableLogging,
     ));
 
-    dio.options.headers.addAll({'Accept': contentType});
-    if (extraHeaders?.isNotEmpty ?? false) {
-      dio.options.headers.addAll(extraHeaders!);
-    }
-
     if (interceptors?.isNotEmpty ?? false) {
       dio.interceptors.addAll(interceptors!);
+    }
+
+    // dio.options.headers.addAll({'Accept': contentType});
+    if (extraHeaders?.isNotEmpty ?? false) {
+      dio.options.headers.addAll(extraHeaders!);
     }
 
     dio.transformer = FlutterTransformer();
