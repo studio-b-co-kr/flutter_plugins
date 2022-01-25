@@ -106,6 +106,22 @@ abstract class ApiService<T> {
     );
   }
 
+  Future<dynamic> download(String path, String savePath) async {
+    return await dio.download(path, savePath);
+  }
+
+  Future<dynamic> multipartPatch(
+      {required String path, required FormData formData}) async {
+    assert(dio.options.contentType == DioBuilder.multipartContentType);
+    return await _request(method: methodPatch, data: formData);
+  }
+
+  Future<dynamic> multipartPost(
+      {required String path, required FormData formData}) async {
+    assert(dio.options.contentType == DioBuilder.multipartContentType);
+    return await _request(method: methodPost, data: formData);
+  }
+
   T? onSuccess({int? statusCode, dynamic json});
 
   HttpError onError(HttpError error) {

@@ -1,6 +1,7 @@
 part of 'remedi_restful_api.dart';
 
 class DioBuilder {
+  static const multipartContentType = 'multipart/form-data; charset=utf-8';
   final String baseUrl;
   final String contentType;
   int connectTimeout;
@@ -96,6 +97,23 @@ class DioBuilder {
       connectTimeout: connectTimeout,
       extraHeaders: extraHeaders,
       contentType: Headers.textPlainContentType,
+      enableLogging: enableLogging,
+      interceptors: interceptors,
+    );
+  }
+
+  factory DioBuilder.multiPart({
+    required String baseUrl,
+    int connectTimeout = 15000,
+    Map<String, dynamic>? extraHeaders,
+    bool enableLogging = false,
+    List<Interceptor>? interceptors,
+  }) {
+    return DioBuilder._(
+      baseUrl: baseUrl,
+      connectTimeout: connectTimeout,
+      extraHeaders: extraHeaders,
+      contentType: multipartContentType,
       enableLogging: enableLogging,
       interceptors: interceptors,
     );
