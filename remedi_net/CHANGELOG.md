@@ -1,3 +1,9 @@
+## 0.2.0
+
+- fix some critical errors
+- add download and multipart patch, post
+
+
 ## 0.1.3
 
 - change toJson function to no-abstract function in IDto
