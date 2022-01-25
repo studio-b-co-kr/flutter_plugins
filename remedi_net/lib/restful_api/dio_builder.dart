@@ -21,11 +21,11 @@ class DioBuilder {
   }
 
   Dio _build() {
-    Dio dio = Dio(BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: connectTimeout,
-      contentType: contentType,
-    ));
+    Dio dio = Dio();
+
+    dio.options.baseUrl = baseUrl;
+    dio.options.connectTimeout = connectTimeout;
+    dio.options.contentType = contentType;
 
     dio.interceptors.add(LogInterceptor(
       request: enableLogging,
