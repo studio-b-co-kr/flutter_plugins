@@ -25,7 +25,7 @@ class DioBuilder {
 
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = connectTimeout;
-    // dio.options.contentType = contentType;
+    dio.options.contentType = contentType;
 
     dio.interceptors.add(LogInterceptor(
       request: enableLogging,
@@ -40,7 +40,7 @@ class DioBuilder {
       dio.interceptors.addAll(interceptors!);
     }
 
-    // dio.options.headers.addAll({'Accept': contentType});
+    dio.options.headers.addAll({'Accept': contentType});
     if (extraHeaders?.isNotEmpty ?? false) {
       dio.options.headers.addAll(extraHeaders!);
     }
