@@ -1,3 +1,6 @@
+## 0.1.0
+update remedi_widgets
+
 ## 0.0.7
 update stacked_mvvm
 
