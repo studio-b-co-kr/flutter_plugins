@@ -22,10 +22,12 @@ abstract class ApiService<T> {
   }) async {
     var response = await request.request(
         method: method, path: path ?? "", queries: queries, data: data);
-    if (response is HttpError) {
-      return onError(response);
+
+    if (response is Response) {
+      return onSuccess(statusCode: response.statusCode, json: response.data);
     }
-    return onSuccess((response as Response).data);
+
+    return onError(response);
   }
 
   Future<dynamic> requestGet({
@@ -104,7 +106,7 @@ abstract class ApiService<T> {
     );
   }
 
-  T? onSuccess(dynamic json);
+  T? onSuccess({int? statusCode, dynamic json});
 
   HttpError onError(HttpError error) {
     return error;

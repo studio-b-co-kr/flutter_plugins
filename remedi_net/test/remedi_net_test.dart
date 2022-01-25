@@ -42,7 +42,7 @@ class TestApiService extends ApiService<TestResponse> {
   }
 
   @override
-  TestResponse? onSuccess(json) {
+  TestResponse? onSuccess({int? statusCode, dynamic json}) {
     return TestResponse.fromJson(json);
   }
 }

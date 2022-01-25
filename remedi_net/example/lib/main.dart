@@ -71,7 +71,7 @@ class GoogleApiService extends ApiService<GoogleData> {
   }
 
   @override
-  GoogleData? onSuccess(json) {
+  GoogleData? onSuccess({int? statusCode, dynamic json}) {
     return GoogleData.fromJson(json);
   }
 
