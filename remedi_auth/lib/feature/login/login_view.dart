@@ -170,7 +170,7 @@ class LoginView extends IView<ILoginViewModel> {
               text: Text(
                 AppStrings.loginWithKakao,
                 style: TextStyle(
-                  color: Colors.yellow.shade50,
+                  color: Colors.grey.shade50,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
