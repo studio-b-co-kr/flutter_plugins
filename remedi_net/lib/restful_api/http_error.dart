@@ -28,4 +28,17 @@ class HttpError {
       stackTrace: error.stackTrace,
     );
   }
+
+  factory HttpError.create({
+    required int statusCode,
+    String? message,
+    dynamic data,
+    StackTrace? stackTrace,
+  }) {
+    return HttpError._(
+        statusCode: statusCode,
+        message: message ?? '',
+        data: data,
+        stackTrace: stackTrace);
+  }
 }

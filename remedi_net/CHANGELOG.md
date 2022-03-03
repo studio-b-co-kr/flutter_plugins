@@ -1,3 +1,7 @@
+## 0.2.1
+
+- add factory of [HttpError] : need for test
+
 ## 0.2.0
 
 - fix some critical errors
