@@ -31,7 +31,7 @@ class RemediApp {
           if (initGlobalProvider != null) {
             initGlobalProvider!(context);
           }
-          return _AppWidget(child: app);
+          return app;
         },
       );
     }
@@ -52,19 +52,5 @@ class RemediApp {
         await handleError(error, stackTrace);
       }
     });
-  }
-}
-
-class _AppWidget extends StatelessWidget {
-  final Widget child;
-
-  const _AppWidget({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return child;
   }
 }
