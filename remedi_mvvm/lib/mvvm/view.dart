@@ -2,7 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+import 'package:remedi_mvvm/mvvm/view_model.dart';
 
 ///
 /// simple, static
@@ -91,7 +91,7 @@ abstract class ViewModelView<VM extends ViewModel> extends StatelessWidget {
     vm.action = null;
   }
 
-  onChanged(BuildContext context, VM vm, dynamic action) {
-    dev.log('onChanged', name: toString());
+  onChanged<T>(BuildContext context, VM vm, T action) {
+    dev.log('onChanged', name: '${toString()}.$hashCode}');
   }
 }
