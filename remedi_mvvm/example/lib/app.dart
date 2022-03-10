@@ -11,12 +11,17 @@ import 'package:remedi_mvvm/remedi_mvvm.dart';
 RemediApp app = RemediApp(
   globalProviders: [
     ChangeNotifierProvider<SettingsViewModel>(
-        create: (context) => SettingsViewModel()..init()),
+        create: (context) => SettingsViewModel()),
     ChangeNotifierProvider<DeeplinkAppModel>(
-        create: (context) => DeeplinkAppModel()..init()),
-    ChangeNotifierProvider<AuthAppModel>(
-        create: (context) => AuthAppModel()..init()),
+        create: (context) => DeeplinkAppModel()),
+    ChangeNotifierProvider<AuthAppModel>(create: (context) => AuthAppModel()),
   ],
+  initGlobalProvider: (context) {
+    dev.log('start app', name: 'ExampleApp');
+    Provider.of<DeeplinkAppModel>(context, listen: false).init();
+    Provider.of<SettingsViewModel>(context, listen: false).init();
+    Provider.of<AuthAppModel>(context, listen: false).init();
+  },
   app: MaterialApp(
     navigatorKey: RemediApp.navigatorKey,
     themeMode: ThemeMode.dark,

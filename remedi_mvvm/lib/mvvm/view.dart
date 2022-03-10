@@ -92,6 +92,10 @@ abstract class ViewModelView<VM extends ViewModel> extends StatelessWidget {
   }
 
   onChanged<T>(BuildContext context, VM vm, T action) {
-    dev.log('onChanged', name: '${toString()}.$hashCode}');
+    dev.log(
+        'onChanged\n'
+        'vm = ${vm.toString()}.${vm.hashCode}\n'
+        'action = $action',
+        name: '${toString()}.$hashCode}');
   }
 }

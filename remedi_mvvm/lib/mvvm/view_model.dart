@@ -1,6 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer' as dev;
 
-abstract class ViewModel with ChangeNotifier {
+import 'package:flutter/cupertino.dart';
+import 'package:remedi_mvvm/remedi_mvvm.dart';
+
+abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
   dynamic action;
 
   ViewModel();
@@ -8,4 +11,13 @@ abstract class ViewModel with ChangeNotifier {
   init();
 
   linkAppProviders(BuildContext context) {}
+
+  @override
+  void reassemble() {
+    onHotReload();
+  }
+
+  void onHotReload() {
+    dev.log('onHotReload', name: '${toString()}.$hashCode');
+  }
 }
