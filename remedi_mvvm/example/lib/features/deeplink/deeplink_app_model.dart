@@ -1,30 +1,33 @@
+import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
 class DeeplinkAppModel extends ViewModel {
-  bool loopCondition = false;
+  int count = 0;
+
+  StreamSubscription? subscription;
 
   @override
   init() {
-    loopCondition = true;
     dev.log('init()', name: 'DeeplinkAppModel.$hashCode');
-    check();
+    subscription = Stream.periodic(const Duration(seconds: 5), (count) {
+      return count;
+    }).listen((event) {
+      count++;
+      notifyListeners();
+    });
   }
 
+  Future<void>? res;
+
   check() async {
-    Future.doWhile(() async {
-      await Future.delayed(const Duration(seconds: 10));
-      dev.log('[${DateTime.now()}] notifyListeners',
-          name: 'DeeplinkAppModel.$hashCode');
-      notifyListeners();
-      return loopCondition;
-    });
+    dev.log('res = ${res.hashCode}', name: 'DeeplinkAppModel');
   }
 
   @override
   void onHotReload() {
     super.onHotReload();
-    loopCondition = false;
+    subscription?.cancel();
   }
 }

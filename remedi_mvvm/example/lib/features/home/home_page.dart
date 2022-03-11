@@ -17,7 +17,8 @@ class HomePage extends ViewModelView<HomeViewModel> {
         Expanded(
           child: Center(
             child: Text(
-              '${vm.authAppModel.isLogin}',
+              '${vm.authAppModel.isLogin}\n${vm.deeplinkAppModel.count}',
+              textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 32),
             ),
           ),
@@ -37,7 +38,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
                 ? const Text('LOGOUT')
                 : const Text('LOGIN'),
           ),
-        )
+        ),
       ]),
     );
   }
