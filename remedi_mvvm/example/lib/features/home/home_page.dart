@@ -1,3 +1,4 @@
+import 'package:example/features/auth/auth_app_model.dart';
 import 'package:example/features/home/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
@@ -16,30 +17,126 @@ class HomePage extends ViewModelView<HomeViewModel> {
       body: Column(children: [
         Expanded(
           child: Center(
-            child: Text(
-              '${vm.authAppModel.isLogin}\n${vm.deeplinkAppModel.count}',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LoginStatusWidget(stateData: vm.authAppModel.loginState),
+                CountWidget(data: vm.deeplinkAppModel.count),
+              ],
             ),
           ),
         ),
         Container(
           padding: const EdgeInsets.all(16),
-          child: MaterialButton(
-            minWidth: double.infinity,
-            height: 48,
-            onPressed: () async {
-              vm.authAppModel.isLogin
-                  ? vm.authAppModel.logout()
-                  : vm.authAppModel.login();
+          child: LoginButtonWidget(
+            login: () {
+              vm.authAppModel.login();
             },
-            color: Colors.red,
-            child: vm.authAppModel.isLogin
-                ? const Text('LOGOUT')
-                : const Text('LOGIN'),
+            logout: () {
+              vm.authAppModel.logout();
+            },
+            stateData: vm.authAppModel.loginState,
           ),
         ),
       ]),
+    );
+  }
+}
+
+class LoginButtonWidget extends StateView<LoginState, bool> {
+  final Function() logout;
+  final Function() login;
+
+  const LoginButtonWidget({
+    Key? key,
+    required this.login,
+    required this.logout,
+    required StateData<LoginState, bool> stateData,
+  }) : super(key: key, stateData: stateData);
+
+  @override
+  Widget buildWidget(BuildContext context, LoginState? state, bool? data) {
+    return MaterialButton(
+      minWidth: double.infinity,
+      height: 48,
+      onPressed: state == null || state == LoginState.loading
+          ? null
+          : () async {
+              switch (state) {
+                case LoginState.loggedIn:
+                  logout();
+                  break;
+                case LoginState.loggedOut:
+                  login();
+                  break;
+                default:
+                  break;
+              }
+            },
+      color: Colors.red,
+      child: _text(state),
+    );
+  }
+
+  Widget _text(LoginState? state) {
+    String text = "";
+    switch (state) {
+      case LoginState.loggedIn:
+        text = 'LOGOUT';
+        break;
+      case LoginState.loading:
+        text = 'LOADING';
+        break;
+      case LoginState.loggedOut:
+        text = 'LOGIN';
+        break;
+      default:
+        break;
+    }
+    return Text(text);
+  }
+}
+
+class LoginStatusWidget extends StateView<LoginState, bool> {
+  const LoginStatusWidget({
+    Key? key,
+    required StateData<LoginState, bool> stateData,
+  }) : super(key: key, stateData: stateData);
+
+  @override
+  Widget buildWidget(BuildContext context, LoginState? state, bool? data) {
+    String text = '';
+    switch (state) {
+      case LoginState.loggedIn:
+        text = 'login = $data';
+        break;
+      case LoginState.loading:
+        text = 'Loading';
+        break;
+      case LoginState.loggedOut:
+        text = 'login = $data';
+        break;
+      default:
+        break;
+    }
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 32),
+    );
+  }
+}
+
+class CountWidget extends View<int> {
+  const CountWidget({Key? key, required int data})
+      : super(key: key, data: data);
+
+  @override
+  Widget buildWidget(BuildContext context, int? data) {
+    return Text(
+      '$data',
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 40),
     );
   }
 }

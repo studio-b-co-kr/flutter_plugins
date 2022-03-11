@@ -4,6 +4,8 @@ import 'dart:developer' as dev;
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
 class DeeplinkAppModel extends ViewModel {
+  StateData<CountState, int> stateData = StateData(state: CountState.waiting);
+
   int count = 0;
 
   StreamSubscription? subscription;
@@ -30,4 +32,9 @@ class DeeplinkAppModel extends ViewModel {
     super.onHotReload();
     subscription?.cancel();
   }
+}
+
+enum CountState {
+  waiting,
+  increased,
 }

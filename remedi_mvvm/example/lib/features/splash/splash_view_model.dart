@@ -12,3 +12,7 @@ class SplashViewModel extends ViewModel {
     next();
   }
 }
+
+enum SplashAction {
+  goHome,
+}

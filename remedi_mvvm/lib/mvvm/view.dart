@@ -16,10 +16,10 @@ abstract class View<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return builder(context, data);
+    return buildWidget(context, data);
   }
 
-  Widget builder(BuildContext context, T? d);
+  Widget buildWidget(BuildContext context, T? data);
 }
 
 class StateData<S, D> {
@@ -44,10 +44,10 @@ abstract class StateView<S, D> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return builder(context, stateData.state, stateData.data);
+    return buildWidget(context, stateData.state, stateData.data);
   }
 
-  Widget builder(BuildContext context, S? s, D? d);
+  Widget buildWidget(BuildContext context, S? state, D? data);
 }
 
 ///
@@ -66,9 +66,8 @@ abstract class ViewModelView<VM extends ViewModel> extends StatelessWidget {
     return ChangeNotifierProvider<VM>.value(
       value: _vm,
       child: Consumer<VM>(
-        builder: (context, vm, _) {
+        builder: (context, vm, widget) {
           providers(context, vm);
-          _onChanged(context, vm);
           return buildWidget(context, _vm);
         },
       ),
@@ -82,20 +81,22 @@ abstract class ViewModelView<VM extends ViewModel> extends StatelessWidget {
     return super.createElement();
   }
 
-  providers(BuildContext context, VM vm) {
+  void providers(BuildContext context, VM vm) {
     vm.linkAppProviders(context);
   }
-
-  _onChanged(BuildContext context, VM vm) {
-    onChanged(context, vm, vm.action);
-    vm.action = null;
-  }
-
-  onChanged<T>(BuildContext context, VM vm, T action) {
-    dev.log(
-        'onChanged\n'
-        'vm = ${vm.toString()}.${vm.hashCode}\n'
-        'action = $action',
-        name: '${toString()}.$hashCode}');
-  }
+//
+// void _onChanged(BuildContext context, VM vm) {
+//   if (vm.action != null) {
+//     onChanged(context, vm, vm.action);
+//     vm.action = null;
+//   }
+// }
+//
+// void onChanged(BuildContext context, VM vm, dynamic action) {
+//   dev.log(
+//       'onChanged\n'
+//       'vm = ${vm.toString()}.${vm.hashCode}\n'
+//       'action = $action',
+//       name: '${toString()}.$hashCode}');
+// }
 }
