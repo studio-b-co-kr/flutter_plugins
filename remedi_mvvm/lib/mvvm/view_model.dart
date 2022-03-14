@@ -1,6 +1,6 @@
 part of 'mvvm.dart';
 
-abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
+abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   bool initialised = false;
 
   initialise();

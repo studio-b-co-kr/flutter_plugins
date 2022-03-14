@@ -7,7 +7,7 @@ import 'package:example/providers/settings_app_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
-class HomeViewModel extends ViewModel {
+class HomeViewModel extends IViewModel {
   StateData<CountState, int> stateData = StateData(state: CountState.waiting);
   int count = 0;
 

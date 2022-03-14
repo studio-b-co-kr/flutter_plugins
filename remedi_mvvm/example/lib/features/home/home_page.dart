@@ -3,7 +3,7 @@ import 'package:example/providers/auth_app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
-class HomePage extends ViewModelView<HomeViewModel> {
+class HomePage extends IViewModelView<HomeViewModel> {
   static const routeName = '/home';
 
   const HomePage({Key? key, required HomeViewModel viewModel})
@@ -45,7 +45,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
   }
 }
 
-class LoginButtonWidget extends StateView<LoginState, bool> {
+class LoginButtonWidget extends IStateDataView<LoginState, bool> {
   final Function() logout;
   final Function() login;
 
@@ -99,7 +99,7 @@ class LoginButtonWidget extends StateView<LoginState, bool> {
   }
 }
 
-class LoginStatusWidget extends StateView<LoginState, bool> {
+class LoginStatusWidget extends IStateDataView<LoginState, bool> {
   const LoginStatusWidget({
     Key? key,
     required StateData<LoginState, bool> stateData,
@@ -129,7 +129,7 @@ class LoginStatusWidget extends StateView<LoginState, bool> {
   }
 }
 
-class CountWidget extends View<int> {
+class CountWidget extends IDataView<int> {
   const CountWidget({Key? key, required int data})
       : super(key: key, data: data);
 

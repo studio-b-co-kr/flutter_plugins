@@ -12,10 +12,10 @@ class StateData<S, D> {
 
 ///
 /// simple, dynamic
-abstract class StateView<S, D> extends StatelessWidget {
+abstract class IStateDataView<S, D> extends StatelessWidget {
   final StateData<S, D> stateData;
 
-  const StateView({
+  const IStateDataView({
     Key? key,
     required this.stateData,
   }) : super(key: key);

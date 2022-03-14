@@ -1,6 +1,6 @@
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
-class AuthAppModel extends AppModel {
+class AuthAppModel extends IAppModel {
   StateData<LoginState, bool> loginState = StateData(
     state: LoginState.loggedOut,
     data: false,

@@ -1,9 +1,9 @@
 part of 'mvvm.dart';
 
-abstract class AppModel with ChangeNotifier implements ReassembleHandler {
+abstract class IAppModel with ChangeNotifier implements ReassembleHandler {
   bool? withInit;
 
-  AppModel({this.withInit = false}) {
+  IAppModel({this.withInit = false}) {
     dev.log('withInit = $withInit', name: '${toString()}.$hashCode');
     if (withInit ?? false) {
       _init();

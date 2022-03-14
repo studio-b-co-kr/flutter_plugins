@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 part 'app_model.dart';
+part 'repository.dart';
 part 'state_view.dart';
 part 'view.dart';
 part 'view_model.dart';

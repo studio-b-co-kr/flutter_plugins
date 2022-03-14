@@ -2,10 +2,10 @@ part of 'mvvm.dart';
 
 ///
 /// simple, static
-abstract class View<T> extends StatelessWidget {
+abstract class IDataView<T> extends StatelessWidget {
   final T? data;
 
-  const View({
+  const IDataView({
     Key? key,
     required this.data,
   }) : super(key: key);

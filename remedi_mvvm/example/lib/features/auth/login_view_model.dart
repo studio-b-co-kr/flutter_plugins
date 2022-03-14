@@ -1,6 +1,6 @@
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
-class LoginViewModel extends ViewModel {
+class LoginViewModel extends IViewModel {
   @override
   initialise() {}
 }

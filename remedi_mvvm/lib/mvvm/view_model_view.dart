@@ -2,10 +2,10 @@ part of 'mvvm.dart';
 
 ///
 /// complicated, dynamic
-abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
+abstract class IViewModelView<VM extends IViewModel> extends StatefulWidget {
   final VM viewModel;
 
-  const ViewModelView({Key? key, required this.viewModel}) : super(key: key);
+  const IViewModelView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   _ViewModelViewState<VM> createState() => _ViewModelViewState<VM>();
@@ -18,8 +18,8 @@ abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
   }
 }
 
-class _ViewModelViewState<VM extends ViewModel>
-    extends State<ViewModelView<VM>> {
+class _ViewModelViewState<VM extends IViewModel>
+    extends State<IViewModelView<VM>> {
   @override
   void initState() {
     _initialise();
