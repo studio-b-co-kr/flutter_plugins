@@ -10,8 +10,9 @@ class HomePage extends ViewModelView<HomeViewModel> {
       : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context, HomeViewModel vm) {
+  Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
+      backgroundColor: viewModel.deeplinkAppModel.color,
       appBar: AppBar(
         title: const Text('MVVM Example'),
       ),
@@ -21,10 +22,8 @@ class HomePage extends ViewModelView<HomeViewModel> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LoginStatusWidget(
-                    stateData:
-                        StateData(state: LoginState.loggedIn, data: false)),
-                CountWidget(data: vm.count),
+                LoginStatusWidget(stateData: viewModel.loginState),
+                CountWidget(data: viewModel.count),
               ],
             ),
           ),
@@ -33,12 +32,12 @@ class HomePage extends ViewModelView<HomeViewModel> {
           padding: const EdgeInsets.all(16),
           child: LoginButtonWidget(
             login: () {
-              vm.authAppModel.login();
+              viewModel.authAppModel.login();
             },
             logout: () {
-              vm.authAppModel.logout();
+              viewModel.authAppModel.logout();
             },
-            stateData: StateData(state: LoginState.loggedIn, data: false),
+            stateData: viewModel.loginState,
           ),
         ),
       ]),

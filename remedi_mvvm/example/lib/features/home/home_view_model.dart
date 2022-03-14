@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:example/providers/auth_app_model.dart';
-import 'package:example/providers/deeplink_app_model.dart';
+import 'package:example/providers/color_app_model.dart';
 import 'package:example/providers/settings_app_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
@@ -15,7 +15,7 @@ class HomeViewModel extends ViewModel {
 
   @override
   initialise() {
-    subscription = Stream.periodic(const Duration(seconds: 30), (count) {
+    subscription = Stream.periodic(const Duration(seconds: 5), (count) {
       return count;
     }).listen((event) {
       count++;
@@ -24,16 +24,18 @@ class HomeViewModel extends ViewModel {
   }
 
   late AuthAppModel _authAppModel;
-  late DeeplinkAppModel _deeplinkAppModel;
+  late ColorAppModel _deeplinkAppModel;
   late SettingsAppModel _settingsAppModel;
 
   AuthAppModel get authAppModel => _authAppModel;
 
-  DeeplinkAppModel get deeplinkAppModel => _deeplinkAppModel;
+  ColorAppModel get deeplinkAppModel => _deeplinkAppModel;
 
   SettingsAppModel get settingsAppModel => _settingsAppModel;
 
   void listenAuthChanged() {
+    loginState = _authAppModel.loginState;
+    updateUi();
     dev.log('listen',
         name: '${_authAppModel.toString()}.${_authAppModel.hashCode}');
   }
@@ -46,12 +48,15 @@ class HomeViewModel extends ViewModel {
     }
   }
 
+  StateData<LoginState, bool> loginState =
+      StateData(state: LoginState.loggedOut, data: false);
+
   @override
   linkAppProviders(BuildContext context) {
     removeAuthListener();
     _authAppModel = Provider.of<AuthAppModel>(context, listen: false);
     _authAppModel.addListener(listenAuthChanged);
-    _deeplinkAppModel = Provider.of<DeeplinkAppModel>(context);
+    _deeplinkAppModel = Provider.of<ColorAppModel>(context);
     _settingsAppModel = Provider.of<SettingsAppModel>(context);
   }
 
