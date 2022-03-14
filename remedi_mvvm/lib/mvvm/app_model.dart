@@ -10,7 +10,7 @@ abstract class IAppModel with ChangeNotifier implements ReassembleHandler {
   bool? withInit;
 
   IAppModel({this.withInit = false}) {
-    dev.log('withInit = $withInit', name: '${toString()}.$hashCode');
+    AppLog.log('withInit = $withInit', name: '${toString()}.$hashCode');
     if (withInit ?? false) {
       _init();
     }
@@ -25,7 +25,7 @@ abstract class IAppModel with ChangeNotifier implements ReassembleHandler {
       return;
     }
 
-    dev.log('initialised', name: '${toString()}.$hashCode');
+    AppLog.log('initialised', name: '${toString()}.$hashCode');
     initialise();
     initialised = true;
   }
@@ -37,7 +37,7 @@ abstract class IAppModel with ChangeNotifier implements ReassembleHandler {
 
   /// HotReload 혹은 HotRestart 시에 콜된다.
   void onHotReload() {
-    dev.log('onHotReload', name: '${toString()}.$hashCode');
+    AppLog.log('onHotReload', name: '${toString()}.$hashCode');
   }
 
   @override

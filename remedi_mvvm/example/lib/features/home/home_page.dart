@@ -16,6 +16,17 @@ class HomePage extends IViewModelView<HomeViewModel> {
       appBar: AppBar(
         title: const Text('MVVM Example'),
       ),
+      floatingActionButton: Container(
+        padding: const EdgeInsets.only(bottom: 60),
+        child: FloatingActionButton(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.blue.shade50,
+          onPressed: () {
+            viewModel.increase();
+          },
+          child: const Icon(Icons.plus_one),
+        ),
+      ),
       body: Column(children: [
         Expanded(
           child: Center(

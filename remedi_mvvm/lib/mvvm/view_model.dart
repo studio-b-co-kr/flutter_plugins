@@ -1,17 +1,17 @@
 part of 'mvvm.dart';
 
 abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
-  bool initialised = false;
+  bool _initialised = false;
 
   initialise();
 
   _init() {
-    if (initialised) {
+    if (_initialised) {
       return;
     }
 
-    dev.log('initialised', name: '${toString()}.$hashCode');
-    initialised = true;
+    AppLog.log('initialised', name: '${toString()}.$hashCode');
+    _initialised = true;
     initialise();
   }
 
@@ -23,11 +23,11 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   }
 
   void onHotReload() {
-    dev.log('onHotReload', name: '${toString()}.$hashCode');
+    AppLog.log('onHotReload', name: '${toString()}.$hashCode');
   }
 
   updateUi() {
-    dev.log('updateUi()', name: '${toString()}.$hashCode');
+    AppLog.log('updateUi()', name: '${toString()}.$hashCode');
     notifyListeners();
   }
 
@@ -37,7 +37,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   Stream get stream => _stream;
 
   updateAction(action) {
-    dev.log('updateAction() : action = $action',
+    AppLog.log('updateAction() : action = $action',
         name: '${toString()}.$hashCode');
     _streamController.add(action);
   }
@@ -45,7 +45,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   @override
   void dispose() {
     _streamController.close();
-    initialised = false;
+    _initialised = false;
     super.dispose();
   }
 }

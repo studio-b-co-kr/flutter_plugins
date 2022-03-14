@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../app/remedi_app.dart';
 
 part 'app_model.dart';
 part 'repository.dart';

@@ -13,7 +13,7 @@ abstract class IDataView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dev.log('build:data = $data', name: '${toString()}.$hashCode');
+    AppLog.log('build:data = $data', name: '${toString()}.$hashCode');
     return buildWidget(context, data);
   }
 

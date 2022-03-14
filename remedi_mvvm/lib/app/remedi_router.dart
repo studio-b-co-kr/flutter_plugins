@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+part of 'remedi_app.dart';
 
 extension RemediRouter on RemediApp {
   static Future<T?>? pushNamed<T extends Object?>(

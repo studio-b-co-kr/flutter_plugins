@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+part of 'remedi_app.dart';
 
 abstract class IRouteGenerator {
   Future Function(String screenName)? screenLogger;

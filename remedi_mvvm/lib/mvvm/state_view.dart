@@ -24,9 +24,10 @@ abstract class IStateDataView<S, D> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dev.log('build:state = ${stateData.state}',
+    AppLog.log('build:state = ${stateData.state}',
         name: '${toString()}.$hashCode');
-    dev.log('build:data = ${stateData.data}', name: '${toString()}.$hashCode');
+    AppLog.log('build:data = ${stateData.data}',
+        name: '${toString()}.$hashCode');
     return buildWidget(context, stateData.state, stateData.data);
   }
 

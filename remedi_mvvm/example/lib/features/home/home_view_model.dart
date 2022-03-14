@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer' as dev;
 
 import 'package:example/providers/auth_app_model.dart';
@@ -8,19 +7,21 @@ import 'package:flutter/widgets.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
 class HomeViewModel extends IViewModel {
-  StateData<CountState, int> stateData = StateData(state: CountState.waiting);
-  int count = 0;
+  final StateData<CountState, int> stateData =
+      StateData(state: CountState.waiting, data: 0);
 
-  StreamSubscription? subscription;
+  increase() {
+    if (stateData.data != null) {
+      stateData.data = stateData.data! + 1;
+      updateUi();
+    }
+  }
+
+  int get count => stateData.data!;
 
   @override
   initialise() {
-    subscription = Stream.periodic(const Duration(seconds: 1), (count) {
-      return count;
-    }).listen((event) {
-      count++;
-      updateUi();
-    });
+    int i = 0;
   }
 
   late AuthAppModel _authAppModel;
@@ -64,8 +65,6 @@ class HomeViewModel extends IViewModel {
   void onHotReload() {
     super.onHotReload();
     removeAuthListener();
-    subscription?.cancel();
-    subscription = null;
   }
 
   @override

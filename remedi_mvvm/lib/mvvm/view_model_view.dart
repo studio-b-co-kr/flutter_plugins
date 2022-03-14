@@ -18,7 +18,7 @@ abstract class IViewModelView<VM extends IViewModel> extends StatefulWidget {
   Widget build(BuildContext context, VM viewModel);
 
   void onActionChanged(BuildContext context, VM vm, dynamic action) {
-    dev.log('onActionChanged: action = $action',
+    AppLog.log('onActionChanged: action = $action',
         name: '${toString()}.$hashCode');
   }
 }
@@ -28,22 +28,23 @@ class _ViewModelViewState<VM extends IViewModel>
   @override
   void initState() {
     _initialise();
-    dev.log('initState.isMounted = $mounted', name: '${toString()}.$hashCode');
+    AppLog.log('initState.isMounted = $mounted',
+        name: '${toString()}.$hashCode');
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    dev.log('didChangeDependencies', name: '${toString()}.$hashCode');
-    dev.log('didChangeDependencies.isMounted = $mounted',
+    AppLog.log('didChangeDependencies', name: '${toString()}.$hashCode');
+    AppLog.log('didChangeDependencies.isMounted = $mounted',
         name: '${toString()}.$hashCode');
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant IViewModelView<VM> oldWidget) {
-    dev.log('didUpdateWidget', name: '${toString()}.$hashCode');
-    dev.log('didUpdateWidget.isMounted = $mounted',
+    AppLog.log('didUpdateWidget', name: '${toString()}.$hashCode');
+    AppLog.log('didUpdateWidget.isMounted = $mounted',
         name: '${toString()}.$hashCode');
     super.didUpdateWidget(oldWidget);
   }
@@ -53,9 +54,9 @@ class _ViewModelViewState<VM extends IViewModel>
     if (mounted) {
       _appModels(context, viewModel);
     }
-    dev.log('build', name: '${toString()}.$hashCode');
-    return ChangeNotifierProvider<VM>.value(
-      value: viewModel,
+    AppLog.log('build', name: '${toString()}.$hashCode');
+    return ChangeNotifierProvider<VM>(
+      create: (context) => viewModel,
       child: Consumer<VM>(
         builder: (context, vm, child) {
           return widget.build(context, vm);
