@@ -12,7 +12,7 @@ class HomePage extends IViewModelView<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
-      backgroundColor: viewModel.deeplinkAppModel.color,
+      backgroundColor: viewModel.colorAppModel.color,
       appBar: AppBar(
         title: const Text('MVVM Example'),
       ),

@@ -15,7 +15,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
     initialise();
   }
 
-  linkAppProviders(BuildContext context) {}
+  linkAppModels(BuildContext context) {}
 
   @override
   void reassemble() {
@@ -27,7 +27,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   }
 
   updateUi() {
-    dev.log('update()', name: '${toString()}.$hashCode');
+    dev.log('updateUi()', name: '${toString()}.$hashCode');
     notifyListeners();
   }
 
@@ -37,7 +37,8 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   Stream get stream => _stream;
 
   updateAction(action) {
-    dev.log('update() : action = $action', name: '${toString()}.$hashCode');
+    dev.log('updateAction() : action = $action',
+        name: '${toString()}.$hashCode');
     _streamController.add(action);
   }
 

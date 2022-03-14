@@ -6,19 +6,21 @@ import 'package:remedi_mvvm/remedi_mvvm.dart';
 class ColorAppModel extends IAppModel {
   ColorAppModel({bool? withInit}) : super(withInit: withInit);
   Color color = Colors.purple;
-  late StreamSubscription subscription;
+  StreamSubscription? subscription;
+
+  Stream countStream = Stream.periodic(const Duration(seconds: 5));
 
   @override
   initialise() {
-    subscription = Stream.periodic(const Duration(seconds: 5), (count) {
-      return count;
-    }).listen((event) {
-      if (color == Colors.purple) {
-        color = Colors.orange;
-      } else {
-        color = Colors.purple;
-      }
-      notifyListeners();
-    });
+    subscription = countStream.listen(listenColorChanged);
+  }
+
+  void listenColorChanged(event) {
+    if (color == Colors.purple) {
+      color = Colors.orange;
+    } else {
+      color = Colors.purple;
+    }
+    notifyListeners();
   }
 }

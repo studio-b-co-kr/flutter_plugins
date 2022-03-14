@@ -15,7 +15,7 @@ class HomeViewModel extends IViewModel {
 
   @override
   initialise() {
-    subscription = Stream.periodic(const Duration(seconds: 5), (count) {
+    subscription = Stream.periodic(const Duration(seconds: 1), (count) {
       return count;
     }).listen((event) {
       count++;
@@ -24,12 +24,12 @@ class HomeViewModel extends IViewModel {
   }
 
   late AuthAppModel _authAppModel;
-  late ColorAppModel _deeplinkAppModel;
+  late ColorAppModel _colorAppModel;
   late SettingsAppModel _settingsAppModel;
 
   AuthAppModel get authAppModel => _authAppModel;
 
-  ColorAppModel get deeplinkAppModel => _deeplinkAppModel;
+  ColorAppModel get colorAppModel => _colorAppModel;
 
   SettingsAppModel get settingsAppModel => _settingsAppModel;
 
@@ -52,11 +52,11 @@ class HomeViewModel extends IViewModel {
       StateData(state: LoginState.loggedOut, data: false);
 
   @override
-  linkAppProviders(BuildContext context) {
+  linkAppModels(BuildContext context) {
     removeAuthListener();
     _authAppModel = Provider.of<AuthAppModel>(context, listen: false);
     _authAppModel.addListener(listenAuthChanged);
-    _deeplinkAppModel = Provider.of<ColorAppModel>(context);
+    _colorAppModel = Provider.of<ColorAppModel>(context);
     _settingsAppModel = Provider.of<SettingsAppModel>(context);
   }
 
