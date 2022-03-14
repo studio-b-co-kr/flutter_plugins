@@ -5,10 +5,11 @@ import 'package:remedi_mvvm/remedi_mvvm.dart';
 class LoginPage extends ViewModelView<AuthAppModel> {
   static const routeName = '/login';
 
-  LoginPage({Key? key, required AuthAppModel vm}) : super(key: key, vm: vm);
+  const LoginPage({Key? key, required AuthAppModel viewModel})
+      : super(key: key, viewModel: viewModel);
 
   @override
-  Widget buildWidget(BuildContext context, ViewModel vm) {
+  Widget build(BuildContext context, ViewModel viewModel) {
     return const Scaffold();
   }
 }

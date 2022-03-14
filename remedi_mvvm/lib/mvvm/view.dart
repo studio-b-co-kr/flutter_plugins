@@ -16,6 +16,7 @@ abstract class View<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dev.log('build:data = $data', name: '${toString()}.$hashCode');
     return buildWidget(context, data);
   }
 
@@ -44,6 +45,9 @@ abstract class StateView<S, D> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dev.log('build:state = ${stateData.state}',
+        name: '${toString()}.$hashCode');
+    dev.log('build:data = ${stateData.data}', name: '${toString()}.$hashCode');
     return buildWidget(context, stateData.state, stateData.data);
   }
 
@@ -52,51 +56,57 @@ abstract class StateView<S, D> extends StatelessWidget {
 
 ///
 /// complicated, dynamic
-abstract class ViewModelView<VM extends ViewModel> extends StatelessWidget {
-  late final VM _vm;
+abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
+  final VM viewModel;
 
-  ViewModelView({Key? key, required VM vm}) : super(key: key) {
-    _vm = vm;
+  const ViewModelView({Key? key, required this.viewModel}) : super(key: key);
+
+  @override
+  _ViewModelViewState<VM> createState() => _ViewModelViewState<VM>();
+
+  Widget build(BuildContext context, VM viewModel);
+
+  void onActionChanged(BuildContext context, VM vm, dynamic action) {
+    dev.log('onActionChanged: action = $action',
+        name: '${toString()}.$hashCode');
   }
+}
 
-  Widget buildWidget(BuildContext context, VM vm);
+class _ViewModelViewState<VM extends ViewModel>
+    extends State<ViewModelView<VM>> {
+  @override
+  void initState() {
+    _initialise();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<VM>.value(
-      value: _vm,
+      value: viewModel,
       child: Consumer<VM>(
-        builder: (context, vm, widget) {
-          providers(context, vm);
-          return buildWidget(context, _vm);
+        builder: (context, vm, child) {
+          _providers(context, vm);
+          return widget.build(context, vm);
         },
       ),
     );
   }
 
-  @override
-  StatelessElement createElement() {
-    _vm.init();
-    dev.log('createElement', name: 'createElement');
-    return super.createElement();
+  _initialise() {
+    widget.viewModel.stream.listen((event) {
+      if (mounted) {
+        widget.onActionChanged(context, viewModel, event);
+      }
+    });
+    widget.viewModel.init();
   }
 
-  void providers(BuildContext context, VM vm) {
-    vm.linkAppProviders(context);
+  void _providers(BuildContext context, VM viewModel) {
+    viewModel.linkAppProviders(context);
   }
-//
-// void _onChanged(BuildContext context, VM vm) {
-//   if (vm.action != null) {
-//     onChanged(context, vm, vm.action);
-//     vm.action = null;
-//   }
-// }
-//
-// void onChanged(BuildContext context, VM vm, dynamic action) {
-//   dev.log(
-//       'onChanged\n'
-//       'vm = ${vm.toString()}.${vm.hashCode}\n'
-//       'action = $action',
-//       name: '${toString()}.$hashCode}');
-// }
+
+  VM get viewModel => widget.viewModel;
+
+  Stream get actionStream => widget.viewModel.stream;
 }

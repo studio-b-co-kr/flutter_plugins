@@ -6,10 +6,11 @@ import 'package:remedi_mvvm/remedi_mvvm.dart';
 class HomePage extends ViewModelView<HomeViewModel> {
   static const routeName = '/home';
 
-  HomePage({Key? key, required HomeViewModel vm}) : super(key: key, vm: vm);
+  const HomePage({Key? key, required HomeViewModel viewModel})
+      : super(key: key, viewModel: viewModel);
 
   @override
-  Widget buildWidget(BuildContext context, HomeViewModel vm) {
+  Widget build(BuildContext context, HomeViewModel vm) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MVVM Example'),
@@ -21,7 +22,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 LoginStatusWidget(stateData: vm.authAppModel.loginState),
-                CountWidget(data: vm.deeplinkAppModel.count),
+                CountWidget(data: vm.count),
               ],
             ),
           ),

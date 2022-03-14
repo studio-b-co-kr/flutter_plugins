@@ -25,7 +25,7 @@ class RouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => SplashPage(
-            vm: SplashViewModel(),
+            viewModel: SplashViewModel(),
           ),
         );
         break;
@@ -34,7 +34,7 @@ class RouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => HomePage(
-            vm: HomeViewModel(),
+            viewModel: HomeViewModel(),
           ),
         );
         break;
