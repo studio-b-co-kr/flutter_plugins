@@ -1,3 +1,4 @@
+import 'package:example/features/home/home_page.dart';
 import 'package:example/features/splash/splash_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
@@ -21,5 +22,11 @@ class SplashPage extends ViewModelView<SplashViewModel> {
         ),
       ),
     );
+  }
+
+  @override
+  void onActionChanged(BuildContext context, SplashViewModel vm, action) {
+    super.onActionChanged(context, vm, action);
+    RemediRouter.pushReplacementNamed(HomePage.routeName);
   }
 }

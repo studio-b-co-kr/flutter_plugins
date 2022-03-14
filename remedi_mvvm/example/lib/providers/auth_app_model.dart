@@ -1,10 +1,12 @@
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
-class AuthAppModel extends ViewModel {
+class AuthAppModel extends AppModel {
   StateData<LoginState, bool> loginState = StateData(
     state: LoginState.loggedOut,
     data: false,
   );
+
+  AuthAppModel({bool? withInit}) : super(withInit: withInit);
 
   login() async {
     loginState = StateData(state: LoginState.loading);
@@ -24,7 +26,7 @@ class AuthAppModel extends ViewModel {
   }
 
   @override
-  init() {}
+  initialise() {}
 }
 
 enum LoginState {

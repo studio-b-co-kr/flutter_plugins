@@ -1,11 +1,19 @@
-import 'dart:async';
-import 'dart:developer' as dev;
-
-import 'package:flutter/cupertino.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+part of 'mvvm.dart';
 
 abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
-  init();
+  bool initialised = false;
+
+  initialise();
+
+  _init() {
+    if (initialised) {
+      return;
+    }
+
+    dev.log('initialised', name: '${toString()}.$hashCode');
+    initialised = true;
+    initialise();
+  }
 
   linkAppProviders(BuildContext context) {}
 
@@ -31,5 +39,12 @@ abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
   updateAction(action) {
     dev.log('update() : action = $action', name: '${toString()}.$hashCode');
     _streamController.add(action);
+  }
+
+  @override
+  void dispose() {
+    _streamController.close();
+    initialised = false;
+    super.dispose();
   }
 }

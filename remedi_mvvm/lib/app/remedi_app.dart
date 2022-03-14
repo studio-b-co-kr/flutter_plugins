@@ -11,13 +11,11 @@ class RemediApp {
   final MaterialApp app;
 
   List<InheritedProvider>? globalProviders;
-  Function(BuildContext context)? initGlobalProvider;
 
   RemediApp({
     Key? key,
     required this.app,
     this.globalProviders,
-    this.initGlobalProvider,
     TransitionBuilder? builder,
   });
 
@@ -28,9 +26,6 @@ class RemediApp {
       return MultiProvider(
         providers: globalProviders!,
         builder: (context, widget) {
-          if (initGlobalProvider != null) {
-            initGlobalProvider!(context);
-          }
           return app;
         },
       );

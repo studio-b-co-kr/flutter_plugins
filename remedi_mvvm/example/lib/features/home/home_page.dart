@@ -1,5 +1,5 @@
-import 'package:example/features/auth/auth_app_model.dart';
 import 'package:example/features/home/home_view_model.dart';
+import 'package:example/providers/auth_app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
@@ -21,7 +21,9 @@ class HomePage extends ViewModelView<HomeViewModel> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LoginStatusWidget(stateData: vm.authAppModel.loginState),
+                LoginStatusWidget(
+                    stateData:
+                        StateData(state: LoginState.loggedIn, data: false)),
                 CountWidget(data: vm.count),
               ],
             ),
@@ -36,7 +38,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
             logout: () {
               vm.authAppModel.logout();
             },
-            stateData: vm.authAppModel.loginState,
+            stateData: StateData(state: LoginState.loggedIn, data: false),
           ),
         ),
       ]),
