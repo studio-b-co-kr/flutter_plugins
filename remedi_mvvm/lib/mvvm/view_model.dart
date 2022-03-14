@@ -1,5 +1,7 @@
 part of 'mvvm.dart';
 
+/// [IViewModelView] 와 페이링 되는 View Model.
+///
 abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   bool _initialised = false;
 
@@ -26,6 +28,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
     AppLog.log('onHotReload', name: '${toString()}.$hashCode');
   }
 
+  /// UI를 업데이트한다.
   updateUi() {
     AppLog.log('updateUi()', name: '${toString()}.$hashCode');
     notifyListeners();
@@ -36,6 +39,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
 
   Stream get stream => _stream;
 
+  /// action을 View에 알려준다.
   updateAction(action) {
     AppLog.log('updateAction() : action = $action',
         name: '${toString()}.$hashCode');
