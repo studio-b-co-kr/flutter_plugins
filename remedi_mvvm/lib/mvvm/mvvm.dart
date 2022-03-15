@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../app/remedi_app.dart';
+import '../app/app.dart';
 
 part 'app_model.dart';
 part 'repository.dart';

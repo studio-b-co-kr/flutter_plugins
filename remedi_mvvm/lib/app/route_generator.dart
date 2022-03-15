@@ -1,4 +1,4 @@
-part of 'remedi_app.dart';
+part of 'app.dart';
 
 abstract class IRouteGenerator {
   Future Function(String screenName)? screenLogger;

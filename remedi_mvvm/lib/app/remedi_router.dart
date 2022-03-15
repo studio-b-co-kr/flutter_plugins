@@ -1,4 +1,4 @@
-part of 'remedi_app.dart';
+part of 'app.dart';
 
 extension RemediRouter on RemediApp {
   static Future<T?>? pushNamed<T extends Object?>(

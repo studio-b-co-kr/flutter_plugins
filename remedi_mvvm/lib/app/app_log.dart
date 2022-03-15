@@ -1,4 +1,4 @@
-part of 'remedi_app.dart';
+part of 'app.dart';
 
 class AppLog {
   static log(

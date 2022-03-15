@@ -1,12 +1,4 @@
-import 'dart:async';
-import 'dart:developer' as dev;
-
-import 'package:flutter/material.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
-
-part 'app_log.dart';
-part 'i_route_generator.dart';
-part 'remedi_router.dart';
+part of 'app.dart';
 
 /// 앱의 최상위 위젯의 Wrapper 이다.
 /// [appProviders] 은 주로 user 정보, 앱 전체에 영향을 미치는 settings 정보
