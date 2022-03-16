@@ -1,3 +1,7 @@
+## 0.3.0
+
+- add [RemediNet] : for product flavour
+
 ## 0.2.1
 
 - add factory of [HttpError] : need for test

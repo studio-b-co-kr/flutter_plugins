@@ -1,6 +1,6 @@
 name: remedi_net
 description: Dio Wrapper Plugin.
-version: 0.2.1
+version: 0.3.0
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -19,6 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  dio: ^4.0.4
   http_mock_adapter: ^0.3.2
 
 flutter:
