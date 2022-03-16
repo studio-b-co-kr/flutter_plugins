@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:remedi_auth/phone_number_input/app_models/country_provider.dart';
 import 'package:remedi_auth/phone_number_input/models/country_model.dart';
+import 'package:remedi_auth/phone_number_input/providers/country_provider.dart';
 import 'package:remedi_auth/phone_number_input/utils/formatter/as_you_type_formatter.dart';
 import 'package:remedi_auth/phone_number_input/utils/phone_number.dart';
 import 'package:remedi_auth/phone_number_input/utils/phone_number/phone_number_util.dart';
