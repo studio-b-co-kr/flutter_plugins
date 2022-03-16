@@ -1,9 +1,9 @@
 import 'dart:developer' as dev;
 
+import 'package:example/app_models/auth_app_model.dart';
+import 'package:example/app_models/color_app_model.dart';
+import 'package:example/app_models/settings_app_model.dart';
 import 'package:example/features/splash/splash_page.dart';
-import 'package:example/providers/auth_app_model.dart';
-import 'package:example/providers/color_app_model.dart';
-import 'package:example/providers/settings_app_model.dart';
 import 'package:example/route.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';

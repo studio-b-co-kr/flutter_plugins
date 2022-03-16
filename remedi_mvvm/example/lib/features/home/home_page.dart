@@ -1,5 +1,5 @@
+import 'package:example/app_models/auth_app_model.dart';
 import 'package:example/features/home/home_view_model.dart';
-import 'package:example/providers/auth_app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
