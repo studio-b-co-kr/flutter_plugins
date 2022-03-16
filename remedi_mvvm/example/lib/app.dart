@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_mvvm/remedi_mvvm.dart';
 
 RemediApp app = RemediApp(
-  enableLog: false,
+  enableLog: true,
   globalProviders: [
     ChangeNotifierProvider<ColorAppModel>(
         create: (context) => ColorAppModel(withInit: true)),

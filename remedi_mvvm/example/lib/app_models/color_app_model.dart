@@ -12,7 +12,7 @@ class ColorAppModel extends IAppModel {
 
   @override
   initialise() {
-    subscription = countStream.listen(listenColorChanged);
+    // subscription = countStream.listen(listenColorChanged);
   }
 
   void listenColorChanged(event) {

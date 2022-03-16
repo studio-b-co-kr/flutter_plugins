@@ -5,8 +5,11 @@ import 'package:remedi_mvvm/remedi_mvvm.dart';
 
 class HomePage extends IViewModelView<HomeViewModel> {
   static const routeName = '/home';
+  final GlobalKey<StatefulDataViewState<int>> countState = GlobalKey();
+  final GlobalKey<StatefulStateDataViewState<LoginState, bool>> loginState =
+      GlobalKey();
 
-  const HomePage({Key? key, required HomeViewModel viewModel})
+  HomePage({Key? key, required HomeViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
@@ -33,8 +36,12 @@ class HomePage extends IViewModelView<HomeViewModel> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LoginStatusWidget(stateData: viewModel.loginState),
-                CountWidget(data: viewModel.count),
+                LoginStatusWidget2(
+                    key: loginState, stateData: viewModel.loginState),
+                CountWidget2(
+                  key: countState,
+                  data: viewModel.count,
+                ),
               ],
             ),
           ),
@@ -54,9 +61,24 @@ class HomePage extends IViewModelView<HomeViewModel> {
       ]),
     );
   }
+
+  @override
+  void onActionChanged(BuildContext context, HomeViewModel vm, action) {
+    super.onActionChanged(context, vm, action);
+    switch (action) {
+      case 'increase':
+        countState.currentState?.updateData(data: viewModel.count);
+        break;
+
+      case 'login':
+        loginState.currentState
+            ?.updateStateData(stateData: viewModel.loginState);
+        break;
+    }
+  }
 }
 
-class LoginButtonWidget extends IStateDataView<LoginState, bool> {
+class LoginButtonWidget extends StatelessStateDataView<LoginState, bool> {
   final Function() logout;
   final Function() login;
 
@@ -110,7 +132,7 @@ class LoginButtonWidget extends IStateDataView<LoginState, bool> {
   }
 }
 
-class LoginStatusWidget extends IStateDataView<LoginState, bool> {
+class LoginStatusWidget extends StatelessStateDataView<LoginState, bool> {
   const LoginStatusWidget({
     Key? key,
     required StateData<LoginState, bool> stateData,
@@ -140,7 +162,7 @@ class LoginStatusWidget extends IStateDataView<LoginState, bool> {
   }
 }
 
-class CountWidget extends IDataView<int> {
+class CountWidget extends StatelessDataView<int> {
   const CountWidget({Key? key, required int data})
       : super(key: key, data: data);
 
@@ -150,6 +172,52 @@ class CountWidget extends IDataView<int> {
       '$data',
       textAlign: TextAlign.center,
       style: const TextStyle(fontSize: 40),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class CountWidget2 extends StatefulDataView<int> {
+  CountWidget2({required GlobalKey<StatefulDataViewState<int>> key, int? data})
+      : super(key: key, data: data);
+
+  @override
+  Widget build(BuildContext context, int? data) {
+    return Text(
+      '$data',
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 40),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class LoginStatusWidget2 extends StatefulStateDataView<LoginState, bool> {
+  LoginStatusWidget2({
+    required GlobalKey<StatefulStateDataViewState<LoginState, bool>> key,
+    StateData<LoginState, bool>? stateData,
+  }) : super(key: key, stateData: stateData);
+
+  @override
+  Widget build(BuildContext context, LoginState? state, bool? data) {
+    String text = '';
+    switch (state) {
+      case LoginState.loggedIn:
+        text = 'login = $data';
+        break;
+      case LoginState.loading:
+        text = 'Loading';
+        break;
+      case LoginState.loggedOut:
+        text = 'login = $data';
+        break;
+      default:
+        break;
+    }
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 32),
     );
   }
 }

@@ -13,16 +13,11 @@ class HomeViewModel extends IViewModel {
   increase() {
     if (stateData.data != null) {
       stateData.data = stateData.data! + 1;
-      updateUi();
+      updateAction('increase');
     }
   }
 
   int get count => stateData.data!;
-
-  @override
-  initialise() {
-    int i = 0;
-  }
 
   late AuthAppModel _authAppModel;
   late ColorAppModel _colorAppModel;
@@ -37,7 +32,10 @@ class HomeViewModel extends IViewModel {
   void listenAuthChanged() {
     loginState = _authAppModel.loginState;
     updateUi();
-    dev.log('listen',
+    // updateAction('login');
+    dev.log('listen : ${_authAppModel.loginState.state}',
+        name: '${_authAppModel.toString()}.${_authAppModel.hashCode}');
+    dev.log('listen : ${_authAppModel.loginState.data}',
         name: '${_authAppModel.toString()}.${_authAppModel.hashCode}');
   }
 
@@ -72,6 +70,9 @@ class HomeViewModel extends IViewModel {
     removeAuthListener();
     super.dispose();
   }
+
+  @override
+  initialise() {}
 }
 
 enum CountState {
