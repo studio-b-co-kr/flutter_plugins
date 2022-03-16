@@ -5,8 +5,8 @@ Map<String, Uri> _baseUrls = {};
 
 class RemediNet {
   // provide some key
-  static const String baseUrl = 'base_url';
-  static const String baseWebUrl = 'base_web_url';
+  static const String keyBaseUrl = 'key_base_url';
+  static const String keyBaseWebUrl = 'key_base_web_url';
 
   static setBaseUrls(Map<String, String> urls) {
     urls.forEach((key, value) {
