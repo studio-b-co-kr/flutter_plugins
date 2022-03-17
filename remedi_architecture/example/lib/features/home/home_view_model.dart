@@ -7,12 +7,19 @@ import 'package:flutter/widgets.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class HomeViewModel extends IViewModel {
+  static final HomeViewModel _instance = HomeViewModel._();
+
+  HomeViewModel._();
+
+  factory HomeViewModel.instance() => _instance;
+
   final StateData<CountState, int> stateData =
       StateData(state: CountState.waiting, data: 0);
 
   increase() {
     if (stateData.data != null) {
       stateData.data = stateData.data! + 1;
+      dev.log('increase', name: '${toString()}.$hashCode');
       updateAction('increase');
     }
   }
@@ -30,9 +37,9 @@ class HomeViewModel extends IViewModel {
   SettingsAppModel get settingsAppModel => _settingsAppModel;
 
   void listenAuthChanged() {
-    loginState = _authAppModel.loginState;
-    updateUi();
-    // updateAction('login');
+    loginState.data = _authAppModel.loginState.data;
+    loginState.state = _authAppModel.loginState.state;
+    updateAction('login');
     dev.log('listen : ${_authAppModel.loginState.state}',
         name: '${_authAppModel.toString()}.${_authAppModel.hashCode}');
     dev.log('listen : ${_authAppModel.loginState.data}',
@@ -47,22 +54,20 @@ class HomeViewModel extends IViewModel {
     }
   }
 
-  StateData<LoginState, bool> loginState =
+  final StateData<LoginState, bool> loginState =
       StateData(state: LoginState.loggedOut, data: false);
+
+  bool linkedAppModels = false;
 
   @override
   linkAppModels(BuildContext context) {
-    removeAuthListener();
-    _authAppModel = Provider.of<AuthAppModel>(context, listen: false);
-    _authAppModel.addListener(listenAuthChanged);
-    _colorAppModel = Provider.of<ColorAppModel>(context);
-    _settingsAppModel = Provider.of<SettingsAppModel>(context);
-  }
-
-  @override
-  void onHotReload() {
-    super.onHotReload();
-    removeAuthListener();
+    if (!linkedAppModels) {
+      linkedAppModels = true;
+      _authAppModel = Provider.of<AuthAppModel>(context, listen: false);
+      _authAppModel.addListener(listenAuthChanged);
+      _colorAppModel = Provider.of<ColorAppModel>(context);
+      _settingsAppModel = Provider.of<SettingsAppModel>(context);
+    }
   }
 
   @override

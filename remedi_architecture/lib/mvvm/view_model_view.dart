@@ -17,7 +17,7 @@ abstract class IViewModelView<VM extends IViewModel> extends StatefulWidget {
 
   Widget build(BuildContext context, VM viewModel);
 
-  void onActionChanged(BuildContext context, VM vm, dynamic action) {
+  void onActionChanged(BuildContext context, VM viewModel, dynamic action) {
     AppLog.log('onActionChanged: action = $action',
         name: '${toString()}.$hashCode');
   }
@@ -51,14 +51,19 @@ class _ViewModelViewState<VM extends IViewModel>
 
   @override
   Widget build(BuildContext context) {
+    AppLog.log('build', name: '${toString()}.$hashCode');
     if (mounted) {
       _appModels(context, viewModel);
     }
-    AppLog.log('build', name: '${toString()}.$hashCode');
     return ChangeNotifierProvider<VM>(
-      create: (context) => viewModel,
+      create: (context) {
+        AppLog.log('ChangeNotifierProvider.create()',
+            name: '${toString()}.$hashCode');
+        return viewModel;
+      },
       child: Consumer<VM>(
         builder: (context, vm, child) {
+          AppLog.log('Consumer.builder()', name: '${toString()}.$hashCode');
           return widget.build(context, vm);
         },
       ),
@@ -68,9 +73,11 @@ class _ViewModelViewState<VM extends IViewModel>
   StreamSubscription? subscription;
 
   _initialise() {
-    subscription = viewModel.stream.listen((event) {
+    subscription = viewModel.stream.listen((action) {
       if (mounted) {
-        widget.onActionChanged(context, viewModel, event);
+        AppLog.log('onActionChanged:action = $action',
+            name: '${viewModel.toString()}.${viewModel.hashCode}');
+        widget.onActionChanged(context, viewModel, action);
       }
     });
     viewModel._init();

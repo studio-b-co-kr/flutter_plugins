@@ -24,31 +24,11 @@ class HomePage extends IViewModelView<HomeViewModel> {
       appBar: AppBar(
         title: const Text('MVVM Example'),
       ),
-      floatingActionButton: Container(
-        padding: const EdgeInsets.only(bottom: 60),
-        child: FloatingActionButton(
-          backgroundColor: Colors.blue,
-          foregroundColor: Colors.blue.shade50,
-          onPressed: () {
-            viewModel.increase();
-          },
-          child: const Icon(Icons.plus_one),
-        ),
-      ),
       body: Column(children: [
         Expanded(
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LoginStateWidget(
-                    key: loginState, stateData: viewModel.loginState),
-                CountWidget(
-                  key: countState,
-                  data: viewModel.count,
-                ),
-              ],
-            ),
+            child: LoginStateWidget(
+                key: loginState, stateData: viewModel.loginState),
           ),
         ),
         Container(
@@ -64,13 +44,43 @@ class HomePage extends IViewModelView<HomeViewModel> {
             stateData: viewModel.loginState,
           ),
         ),
+        Expanded(
+          child: Center(
+            child: CountWidget(
+              key: countState,
+              data: viewModel.count,
+            ),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: MaterialButton(
+            minWidth: double.infinity,
+            color: Colors.blue,
+            height: 48,
+            onPressed: () {
+              viewModel.increase();
+            },
+            child: const Text('Increase count'),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: MaterialButton(
+            minWidth: double.infinity,
+            color: Colors.grey,
+            height: 48,
+            onPressed: () {},
+            child: const Text('Toggle Theme'),
+          ),
+        ),
       ]),
     );
   }
 
   @override
-  void onActionChanged(BuildContext context, HomeViewModel vm, action) {
-    super.onActionChanged(context, vm, action);
+  void onActionChanged(BuildContext context, HomeViewModel viewModel, action) {
+    super.onActionChanged(context, viewModel, action);
     switch (action) {
       case 'increase':
         countState.currentState?.updateData(data: viewModel.count);

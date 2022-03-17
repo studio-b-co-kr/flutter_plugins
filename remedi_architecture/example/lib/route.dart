@@ -34,7 +34,7 @@ class RouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => HomePage(
-            viewModel: HomeViewModel(),
+            viewModel: HomeViewModel.instance(),
           ),
         );
         break;

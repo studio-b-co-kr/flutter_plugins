@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 RemediApp app = RemediApp(
-  enableLog: true,
+  enableLog: false,
   globalProviders: [
     ChangeNotifierProvider<ColorAppModel>(
         create: (context) => ColorAppModel(withInit: true)),
@@ -17,15 +17,11 @@ RemediApp app = RemediApp(
         create: (context) => SettingsAppModel()),
     ChangeNotifierProvider<AuthAppModel>(create: (context) => AuthAppModel()),
   ],
-  app: MaterialApp(
+  appBuilder: (context) => MaterialApp(
     navigatorKey: RemediApp.navigatorKey,
-    themeMode: ThemeMode.dark,
-    darkTheme: ThemeData(
-      colorScheme: const ColorScheme.dark(),
-    ),
-    theme: ThemeData(
-      colorScheme: const ColorScheme.light(),
-    ),
+    themeMode: context.watch<SettingsAppModel>().themeMode,
+    darkTheme: context.read<SettingsAppModel>().themeDark,
+    theme: context.read<SettingsAppModel>().themeLight,
     initialRoute: SplashPage.routeName,
     onGenerateRoute: (settings) =>
         RouteGenerator(screenLogger: (routeName) async {

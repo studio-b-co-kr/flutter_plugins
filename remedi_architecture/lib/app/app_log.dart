@@ -11,7 +11,7 @@ class AppLog {
     Object? error,
     StackTrace? stackTrace,
   }) {
-    if (RemediApp.enableLog) {
+    if (_enableLog) {
       dev.log(message,
           time: time,
           sequenceNumber: sequenceNumber,

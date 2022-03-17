@@ -1,7 +1,9 @@
 part of 'mvvm.dart';
 
 /// [IViewModelView] 와 페이링 되는 View Model.
-///
+/// Create instance as singleton as can as possible.
+/// If you do not use this class as a singleton,
+/// there'll be some problem after hot-reload.
 abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   bool _initialised = false;
 
