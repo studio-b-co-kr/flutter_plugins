@@ -81,7 +81,8 @@ class HomePage extends IViewModelView<HomeViewModel> {
   }
 
   @override
-  void onActionChanged(BuildContext context, HomeViewModel viewModel, action) {
+  void onActionChanged(
+      BuildContext context, HomeViewModel viewModel, dynamic action) {
     super.onActionChanged(context, viewModel, action);
     switch (action) {
       case 'increase':
