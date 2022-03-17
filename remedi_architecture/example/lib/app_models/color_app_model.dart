@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+import 'package:remedi_architecture/remedi_architecture.dart';
 
 class ColorAppModel extends IAppModel {
   ColorAppModel({bool? withInit}) : super(withInit: withInit);
@@ -12,7 +12,7 @@ class ColorAppModel extends IAppModel {
 
   @override
   initialise() {
-    // subscription = countStream.listen(listenColorChanged);
+    subscription = countStream.listen(listenColorChanged);
   }
 
   void listenColorChanged(event) {

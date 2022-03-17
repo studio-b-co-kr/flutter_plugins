@@ -1,7 +1,7 @@
 import 'package:example/features/home/home_page.dart';
 import 'package:example/features/splash/splash_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SplashPage extends IViewModelView<SplashViewModel> {
   static const routeName = '/';

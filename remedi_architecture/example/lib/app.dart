@@ -6,7 +6,7 @@ import 'package:example/app_models/settings_app_model.dart';
 import 'package:example/features/splash/splash_page.dart';
 import 'package:example/route.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+import 'package:remedi_architecture/remedi_architecture.dart';
 
 RemediApp app = RemediApp(
   enableLog: true,

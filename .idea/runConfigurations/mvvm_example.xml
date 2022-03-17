@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="mvvm_example" type="FlutterRunConfigurationType" factoryName="Flutter">
-    <option name="additionalArgs" value="--debug" />
-    <option name="filePath" value="$PROJECT_DIR$/remedi_mvvm/example/lib/main.dart" />
-    <method v="2" />
-  </configuration>
-</component>

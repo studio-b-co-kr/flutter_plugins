@@ -4,7 +4,7 @@ import 'package:example/app_models/auth_app_model.dart';
 import 'package:example/app_models/color_app_model.dart';
 import 'package:example/app_models/settings_app_model.dart';
 import 'package:flutter/widgets.dart';
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+import 'package:remedi_architecture/remedi_architecture.dart';
 
 class HomeViewModel extends IViewModel {
   final StateData<CountState, int> stateData =

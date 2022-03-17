@@ -1,4 +1,4 @@
-name: remedi_mvvm
+name: remedi_architecture
 description: Support MVVM architecture using provider.
 version: 0.0.1
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   provider: ^6.0.2
-  rxdart: ^0.27.3
+#  rxdart: ^0.27.3
 
 dev_dependencies:
   flutter_test:

@@ -297,12 +297,12 @@
       <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/remedi_net/example/ios/.symlinks/plugins/flutter_udid/example/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/remedi_mvvm/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/remedi_mvvm/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/remedi_mvvm/build" />
-      <excludeFolder url="file://$MODULE_DIR$/remedi_mvvm/example/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/remedi_mvvm/example/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/remedi_mvvm/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_architecture/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_architecture/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_architecture/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_architecture/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_architecture/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/remedi_architecture/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

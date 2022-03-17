@@ -1,4 +1,4 @@
-import 'package:remedi_mvvm/remedi_mvvm.dart';
+import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SplashViewModel extends IViewModel {
   next() async {
