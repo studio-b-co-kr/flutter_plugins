@@ -6,14 +6,22 @@ class SettingsAppModel extends IAppModel {
 
   ThemeMode themeMode = ThemeMode.dark;
 
-  changeTheme(ThemeMode themeMode) {
-    this.themeMode = themeMode;
+  toggleThemeMode() {
+    if (themeMode == ThemeMode.dark) {
+      themeMode = ThemeMode.light;
+    } else {
+      themeMode = ThemeMode.dark;
+    }
     notifyListeners();
   }
 
-  final ThemeData themeDark = ThemeData();
+  final ThemeData themeDark = ThemeData(
+    colorScheme: const ColorScheme.dark(),
+  );
 
-  final ThemeData themeLight = ThemeData();
+  final ThemeData themeLight = ThemeData(
+    colorScheme: const ColorScheme.light(),
+  );
 
   @override
   initialise() {}

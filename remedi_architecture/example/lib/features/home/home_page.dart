@@ -70,7 +70,9 @@ class HomePage extends IViewModelView<HomeViewModel> {
             minWidth: double.infinity,
             color: Colors.grey,
             height: 48,
-            onPressed: () {},
+            onPressed: () {
+              viewModel.toggleThemeMode();
+            },
             child: const Text('Toggle Theme'),
           ),
         ),

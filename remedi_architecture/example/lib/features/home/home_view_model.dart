@@ -35,6 +35,9 @@ class HomeViewModel extends IViewModel {
   ColorAppModel get colorAppModel => _colorAppModel;
 
   SettingsAppModel get settingsAppModel => _settingsAppModel;
+  void toggleThemeMode() {
+    settingsAppModel.toggleThemeMode();
+  }
 
   void listenAuthChanged() {
     loginState.data = _authAppModel.loginState.data;
