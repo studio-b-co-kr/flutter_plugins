@@ -1,21 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class ColorAppModel extends AppModel {
   ColorAppModel({bool? withInit}) : super(withInit: withInit);
   Color color = Colors.purple;
-  StreamSubscription? subscription;
 
-  Stream countStream = Stream.periodic(const Duration(seconds: 5));
-
-  @override
-  initialise() {
-    subscription = countStream.listen(listenColorChanged);
-  }
-
-  void listenColorChanged(event) {
+  void toggleColor() {
     if (color == Colors.purple) {
       color = Colors.orange;
     } else {
@@ -23,4 +13,7 @@ class ColorAppModel extends AppModel {
     }
     notifyListeners();
   }
+
+  @override
+  initialise() {}
 }

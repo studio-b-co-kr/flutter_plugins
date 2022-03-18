@@ -1,7 +1,6 @@
 import 'dart:developer' as dev;
 
 import 'package:example/app_models/auth_app_model.dart';
-import 'package:example/app_models/color_app_model.dart';
 import 'package:example/app_models/settings_app_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
@@ -27,14 +26,13 @@ class HomeViewModel extends IViewModel {
   int get count => stateData.data!;
 
   late AuthAppModel _authAppModel;
-  late ColorAppModel _colorAppModel;
+
   late SettingsAppModel _settingsAppModel;
 
   AuthAppModel get authAppModel => _authAppModel;
 
-  ColorAppModel get colorAppModel => _colorAppModel;
-
   SettingsAppModel get settingsAppModel => _settingsAppModel;
+
   void toggleThemeMode() {
     settingsAppModel.toggleThemeMode();
   }
@@ -68,7 +66,6 @@ class HomeViewModel extends IViewModel {
       linkedAppModels = true;
       _authAppModel = Provider.of<AuthAppModel>(context, listen: false);
       _authAppModel.addListener(listenAuthChanged);
-      _colorAppModel = Provider.of<ColorAppModel>(context);
       _settingsAppModel = Provider.of<SettingsAppModel>(context);
     }
   }

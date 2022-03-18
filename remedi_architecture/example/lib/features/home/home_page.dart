@@ -1,4 +1,5 @@
 import 'package:example/app_models/auth_app_model.dart';
+import 'package:example/app_models/color_app_model.dart';
 import 'package:example/features/home/counter_widget.dart';
 import 'package:example/features/home/home_view_model.dart';
 import 'package:example/features/home/login_button_widget.dart';
@@ -20,7 +21,7 @@ class HomePage extends IViewModelView<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
-      backgroundColor: viewModel.colorAppModel.color,
+      backgroundColor: context.watch<ColorAppModel>().color,
       appBar: AppBar(
         title: const Text('MVVM Example'),
       ),
@@ -74,6 +75,18 @@ class HomePage extends IViewModelView<HomeViewModel> {
               viewModel.toggleThemeMode();
             },
             child: const Text('Toggle Theme'),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: MaterialButton(
+            minWidth: double.infinity,
+            color: Colors.green,
+            height: 48,
+            onPressed: () {
+              context.read<ColorAppModel>().toggleColor();
+            },
+            child: const Text('Toggle Color'),
           ),
         ),
       ]),

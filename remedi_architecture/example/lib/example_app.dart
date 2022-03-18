@@ -12,8 +12,7 @@ RemediApp _app = RemediApp(
   enableLog: false,
   appModels: [
     /// 홈화면의 배경색정보를 제공한다.
-    ChangeNotifierProvider<ColorAppModel>(
-        create: (context) => ColorAppModel(withInit: true)),
+    ChangeNotifierProvider<ColorAppModel>(create: (context) => ColorAppModel()),
 
     /// 앱의 테마 정보를 제공한다.
     ChangeNotifierProvider<SettingsAppModel>(
