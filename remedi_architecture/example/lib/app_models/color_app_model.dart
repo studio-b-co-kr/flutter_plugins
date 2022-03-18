@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class ColorAppModel extends IAppModel {
+class ColorAppModel extends AppModel {
   ColorAppModel({bool? withInit}) : super(withInit: withInit);
   Color color = Colors.purple;
   StreamSubscription? subscription;

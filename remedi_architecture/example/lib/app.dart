@@ -10,7 +10,7 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 
 RemediApp app = RemediApp(
   enableLog: false,
-  globalProviders: [
+  appModels: [
     ChangeNotifierProvider<ColorAppModel>(
         create: (context) => ColorAppModel(withInit: true)),
     ChangeNotifierProvider<SettingsAppModel>(

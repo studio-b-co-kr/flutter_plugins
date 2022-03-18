@@ -9,23 +9,22 @@ class RemediApp {
   static final navigatorKey = GlobalKey<NavigatorState>();
   final MaterialApp Function(BuildContext context) appBuilder;
   bool enableLog;
-  List<InheritedProvider>? globalProviders;
+  List<InheritedProvider>? appModels;
 
   RemediApp({
     Key? key,
     this.enableLog = false,
-    this.globalProviders,
+    this.appModels,
     required this.appBuilder,
-    TransitionBuilder? builder,
   });
 
   Widget _build() {
     _enableLog = enableLog;
-    if (globalProviders?.isEmpty ?? true) {
+    if (appModels?.isEmpty ?? true) {
       return _AppWrapper(appBuilder: appBuilder);
     } else {
       return MultiProvider(
-        providers: globalProviders!,
+        providers: appModels!,
         builder: (context, widget) {
           return _AppWrapper(appBuilder: appBuilder);
         },
