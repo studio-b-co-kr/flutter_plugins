@@ -6,6 +6,7 @@ import 'package:example/features/splash/splash_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
+///
 class RouteGenerator extends IRouteGenerator {
   RouteGenerator({Future Function(String screenName)? screenLogger})
       : super(screenLogger: screenLogger);
