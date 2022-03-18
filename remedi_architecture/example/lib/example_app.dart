@@ -23,7 +23,7 @@ RemediApp _app = RemediApp(
     ChangeNotifierProvider<AuthAppModel>(create: (context) => AuthAppModel()),
   ],
   appBuilder: (context) => MaterialApp(
-    /// context 없이 route 를 사용한다.
+    /// context 없이 route 를 사용할수있도록  navigatorKey를 RemediApp.navigatorKey로 설정한다.
     navigatorKey: RemediApp.navigatorKey,
     themeMode: context.watch<SettingsAppModel>().themeMode,
     darkTheme: context.read<SettingsAppModel>().themeDark,
@@ -33,7 +33,7 @@ RemediApp _app = RemediApp(
     /// onGenerateInitialRoutes 를 사용한다.
     initialRoute: SplashPage.routeName,
 
-    /// RouteGenerator route 시에 로깅을 할 수 있는 인터페이스를 제공한다.
+    /// RouteGenerator 는 route 시에 로깅을 할 수 있는 인터페이스를 제공한다.
     onGenerateRoute: (settings) =>
         RouteGenerator(screenLogger: (routeName) async {
       dev.log(routeName, name: 'ScreenLogger');

@@ -20,6 +20,11 @@ abstract class StatefulStateDataView<S, D> extends StatefulWidget {
 
   /// don't call this method direct.
   void dispose() {}
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return '${super.toString(minLevel: minLevel)}.$hashCode';
+  }
 }
 
 class StatefulStateDataViewState<S, D>
@@ -28,11 +33,10 @@ class StatefulStateDataViewState<S, D>
     setState(() {
       widget.stateData ??= StateData<S, D>();
       widget.stateData?.state = state;
-      AppLog.log('updateState: state = $state',
-          name: '${toString()}.$hashCode');
+      AppLog.log('updateState: state = $state', name: toString());
       AppLog.log(
           'updateState: widget.stateData?.state = ${widget.stateData?.state}',
-          name: '${toString()}.$hashCode');
+          name: toString());
     });
   }
 
@@ -40,20 +44,19 @@ class StatefulStateDataViewState<S, D>
     setState(() {
       widget.stateData ??= StateData<S, D>();
       widget.stateData?.data = data;
-      AppLog.log('updateData: data = $data', name: '${toString()}.$hashCode');
+      AppLog.log('updateData: data = $data', name: toString());
       AppLog.log(
           'updateData: widget.stateData?.data = ${widget.stateData?.data}',
-          name: '${toString()}.$hashCode');
+          name: toString());
     });
   }
 
   void updateStateData({StateData<S, D>? stateData}) {
     setState(() {
       widget.stateData = stateData;
-      AppLog.log('updateStateData: stateData = $stateData',
-          name: '${toString()}.$hashCode');
+      AppLog.log('updateStateData: stateData = $stateData', name: toString());
       AppLog.log('updateStateData: widget.stateData = ${widget.stateData}',
-          name: '${toString()}.$hashCode');
+          name: toString());
     });
   }
 
@@ -73,5 +76,10 @@ class StatefulStateDataViewState<S, D>
   Widget build(BuildContext context) {
     return widget.build(
         context, widget.stateData?.state, widget.stateData?.data);
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return '${super.toString(minLevel: minLevel)}.$hashCode';
   }
 }

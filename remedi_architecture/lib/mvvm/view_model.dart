@@ -14,7 +14,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
       return;
     }
 
-    AppLog.log('initialised', name: '${toString()}.$hashCode');
+    AppLog.log('initialised', name: toString());
     _initialised = true;
     initialise();
   }
@@ -27,12 +27,12 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
   }
 
   void onHotReload() {
-    AppLog.log('onHotReload', name: '${toString()}.$hashCode');
+    AppLog.log('onHotReload', name: toString());
   }
 
   /// UI를 업데이트한다.
   updateUi() {
-    AppLog.log('updateUi()', name: '${toString()}.$hashCode');
+    AppLog.log('updateUi()', name: toString());
     notifyListeners();
   }
 
@@ -43,8 +43,7 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
 
   /// action을 View에 알려준다.
   updateAction(action) {
-    AppLog.log('updateAction() : action = $action',
-        name: '${toString()}.$hashCode');
+    AppLog.log('updateAction() : action = $action', name: toString());
     _streamController.add(action);
   }
 
@@ -53,5 +52,10 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
     _streamController.close();
     _initialised = false;
     super.dispose();
+  }
+
+  @override
+  String toString() {
+    return '${super.toString()}.$hashCode';
   }
 }

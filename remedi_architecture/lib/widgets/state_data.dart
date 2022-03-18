@@ -9,4 +9,11 @@ class StateData<S, D> {
     this.state,
     this.data,
   });
+
+  @override
+  String toString() {
+    return '${super.toString()}.$hashCode\n'
+        '${state?.toString()}.${state?.hashCode}\n'
+        '${data?.toString()}.${data?.hashCode}';
+  }
 }

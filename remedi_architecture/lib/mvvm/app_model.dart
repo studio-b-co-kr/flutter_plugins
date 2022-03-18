@@ -10,7 +10,7 @@ abstract class AppModel with ChangeNotifier implements ReassembleHandler {
   bool? withInit;
 
   AppModel({this.withInit = false}) {
-    AppLog.log('withInit = $withInit', name: '${toString()}.$hashCode');
+    AppLog.log('withInit = $withInit', name: toString());
     if (withInit ?? false) {
       _init();
     }
@@ -25,7 +25,7 @@ abstract class AppModel with ChangeNotifier implements ReassembleHandler {
       return;
     }
 
-    AppLog.log('initialised', name: '${toString()}.$hashCode');
+    AppLog.log('initialised', name: toString());
     initialise();
     initialised = true;
   }
@@ -37,12 +37,17 @@ abstract class AppModel with ChangeNotifier implements ReassembleHandler {
 
   /// HotReload 혹은 HotRestart 시에 콜된다.
   void onHotReload() {
-    AppLog.log('onHotReload', name: '${toString()}.$hashCode');
+    AppLog.log('onHotReload', name: toString());
   }
 
   @override
   void dispose() {
     initialised = false;
     super.dispose();
+  }
+
+  @override
+  String toString() {
+    return '${super.toString()}.$hashCode';
   }
 }

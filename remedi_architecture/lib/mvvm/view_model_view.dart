@@ -18,8 +18,12 @@ abstract class IViewModelView<VM extends IViewModel> extends StatefulWidget {
   Widget build(BuildContext context, VM viewModel);
 
   void onActionChanged(BuildContext context, VM viewModel, dynamic action) {
-    AppLog.log('onActionChanged: action = $action',
-        name: '${toString()}.$hashCode');
+    AppLog.log('onActionChanged: action = $action', name: toString());
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return '${super.toString(minLevel: minLevel)}.$hashCode';
   }
 }
 
@@ -28,42 +32,38 @@ class _ViewModelViewState<VM extends IViewModel>
   @override
   void initState() {
     _initialise();
-    AppLog.log('initState.isMounted = $mounted',
-        name: '${toString()}.$hashCode');
+    AppLog.log('initState.isMounted = $mounted', name: toString());
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    AppLog.log('didChangeDependencies', name: '${toString()}.$hashCode');
-    AppLog.log('didChangeDependencies.isMounted = $mounted',
-        name: '${toString()}.$hashCode');
+    AppLog.log('didChangeDependencies', name: toString());
+    AppLog.log('didChangeDependencies.isMounted = $mounted', name: toString());
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant IViewModelView<VM> oldWidget) {
-    AppLog.log('didUpdateWidget', name: '${toString()}.$hashCode');
-    AppLog.log('didUpdateWidget.isMounted = $mounted',
-        name: '${toString()}.$hashCode');
+    AppLog.log('didUpdateWidget', name: toString());
+    AppLog.log('didUpdateWidget.isMounted = $mounted', name: toString());
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    AppLog.log('build', name: '${toString()}.$hashCode');
+    AppLog.log('build', name: toString());
     if (mounted) {
       _appModels(context, viewModel);
     }
     return ChangeNotifierProvider<VM>(
       create: (context) {
-        AppLog.log('ChangeNotifierProvider.create()',
-            name: '${toString()}.$hashCode');
+        AppLog.log('ChangeNotifierProvider.create()', name: toString());
         return viewModel;
       },
       child: Consumer<VM>(
         builder: (context, vm, child) {
-          AppLog.log('Consumer.builder()', name: '${toString()}.$hashCode');
+          AppLog.log('Consumer.builder()', name: toString());
           return widget.build(context, vm);
         },
       ),
@@ -76,7 +76,7 @@ class _ViewModelViewState<VM extends IViewModel>
     subscription = viewModel.stream.listen((action) {
       if (mounted) {
         AppLog.log('onActionChanged:action = $action',
-            name: '${viewModel.toString()}.${viewModel.hashCode}');
+            name: viewModel.toString());
         widget.onActionChanged(context, viewModel, action);
       }
     });
@@ -95,5 +95,10 @@ class _ViewModelViewState<VM extends IViewModel>
   void dispose() {
     subscription?.cancel();
     super.dispose();
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return '${super.toString(minLevel: minLevel)}.$hashCode';
   }
 }

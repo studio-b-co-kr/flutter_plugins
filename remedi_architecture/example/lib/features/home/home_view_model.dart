@@ -19,7 +19,7 @@ class HomeViewModel extends IViewModel {
   increase() {
     if (stateData.data != null) {
       stateData.data = stateData.data! + 1;
-      dev.log('increase', name: '${toString()}.$hashCode');
+      dev.log('increase', name: toString());
       updateAction('increase');
     }
   }
@@ -53,7 +53,7 @@ class HomeViewModel extends IViewModel {
     try {
       _authAppModel.removeListener(listenAuthChanged);
     } catch (e) {
-      dev.log('removeAuthChanged', name: '${toString()}.$hashCode');
+      dev.log('removeAuthChanged', name: toString());
     }
   }
 

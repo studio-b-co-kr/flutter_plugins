@@ -13,12 +13,15 @@ abstract class StatelessStateDataView<S, D> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLog.log('build:state = ${stateData.state}',
-        name: '${toString()}.$hashCode');
-    AppLog.log('build:data = ${stateData.data}',
-        name: '${toString()}.$hashCode');
+    AppLog.log('build:state = ${stateData.state}', name: toString());
+    AppLog.log('build:data = ${stateData.data}', name: toString());
     return buildWidget(context, stateData.state, stateData.data);
   }
 
   Widget buildWidget(BuildContext context, S? state, D? data);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return '${super.toString(minLevel: minLevel)}.$hashCode';
+  }
 }
