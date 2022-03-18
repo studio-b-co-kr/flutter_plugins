@@ -1,6 +1,6 @@
 import 'dart:developer' as dev;
 
-import 'package:example/main.dart';
+import 'package:example/main-common.dart';
 
 main() {
   mainCommon(readyToRun: () async {

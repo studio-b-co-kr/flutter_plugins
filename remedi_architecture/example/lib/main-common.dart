@@ -1,4 +1,4 @@
-import 'package:example/app.dart';
+import 'package:example/example_app.dart';
 
 void mainCommon({
   Future Function()? readyToRun,
