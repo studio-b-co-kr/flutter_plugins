@@ -6,7 +6,6 @@ part of 'app.dart';
 bool _enableLog = false;
 
 class RemediApp {
-  static final navigatorKey = GlobalKey<NavigatorState>();
   final MaterialApp Function(BuildContext context) appBuilder;
   bool enableLog;
   List<InheritedProvider>? appModels;
