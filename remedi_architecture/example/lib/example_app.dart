@@ -23,7 +23,7 @@ RemediApp _app = RemediApp(
   ],
   appBuilder: (context) => MaterialApp(
     /// context 없이 route 를 사용할수있도록  navigatorKey를 RemediApp.navigatorKey로 설정한다.
-    navigatorKey: RemediApp.navigatorKey,
+    navigatorKey: RemediRouter.navigatorKey,
     themeMode: context.watch<SettingsAppModel>().themeMode,
     darkTheme: context.read<SettingsAppModel>().themeDark,
     theme: context.read<SettingsAppModel>().themeLight,

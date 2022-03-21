@@ -1,11 +1,13 @@
 part of 'app.dart';
 
-extension RemediRouter on RemediApp {
+class RemediRouter {
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
   static Future<T?>? pushNamed<T extends Object?>(
     String routeName, {
     Object? arguments,
   }) {
-    return RemediApp.navigatorKey.currentState
+    return navigatorKey.currentState
         ?.pushNamed<T>(routeName, arguments: arguments);
   }
 
@@ -14,10 +16,8 @@ extension RemediRouter on RemediApp {
     TO? result,
     Object? arguments,
   }) {
-    return RemediApp.navigatorKey.currentState?.popAndPushNamed<T, TO>(
-        routeName,
-        result: result,
-        arguments: arguments);
+    return navigatorKey.currentState?.popAndPushNamed<T, TO>(routeName,
+        result: result, arguments: arguments);
   }
 
   static Future<T?>?
@@ -26,7 +26,7 @@ extension RemediRouter on RemediApp {
     TO? result,
     Object? arguments,
   }) {
-    return RemediApp.navigatorKey.currentState?.pushReplacementNamed<T, TO>(
+    return navigatorKey.currentState?.pushReplacementNamed<T, TO>(
       routeName,
       arguments: arguments,
     );
@@ -37,7 +37,7 @@ extension RemediRouter on RemediApp {
     RoutePredicate predicate, {
     Object? arguments,
   }) {
-    return RemediApp.navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
+    return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
       newRouteName,
       predicate,
       arguments: arguments,
@@ -45,6 +45,6 @@ extension RemediRouter on RemediApp {
   }
 
   static void pop<T extends Object?>([T? result]) {
-    return RemediApp.navigatorKey.currentState?.pop<T>(result);
+    return navigatorKey.currentState?.pop<T>(result);
   }
 }
