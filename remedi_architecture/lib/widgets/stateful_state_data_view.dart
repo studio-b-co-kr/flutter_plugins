@@ -2,12 +2,15 @@ part of 'widgets.dart';
 
 // ignore: must_be_immutable
 abstract class IStatefulStateDataView<S, D> extends StatefulWidget {
-  StateData<S, D>? stateData;
+  final StateData<S, D> stateData = StateData();
 
   IStatefulStateDataView({
     required GlobalKey<StatefulStateDataViewState<S, D>> key,
-    this.stateData,
-  }) : super(key: key);
+    required StateData<S, D>? stateData,
+  }) : super(key: key) {
+    this.stateData.data = stateData?.data;
+    this.stateData.state = stateData?.state;
+  }
 
   @override
   StatefulStateDataViewState<S, D> createState() =>
@@ -30,30 +33,42 @@ abstract class IStatefulStateDataView<S, D> extends StatefulWidget {
 class StatefulStateDataViewState<S, D>
     extends State<IStatefulStateDataView<S, D>> {
   void updateState({S? state}) {
+    if (widget.stateData.state == state) {
+      return;
+    }
+
     setState(() {
-      widget.stateData ??= StateData<S, D>();
-      widget.stateData?.state = state;
+      widget.stateData.state = state;
       AppLog.log('updateState: state = $state', name: toString());
       AppLog.log(
-          'updateState: widget.stateData?.state = ${widget.stateData?.state}',
+          'updateState: widget.stateData?.state = ${widget.stateData.state}',
           name: toString());
     });
   }
 
   void updateData({D? data}) {
+    if (widget.stateData.data == data) {
+      return;
+    }
+
     setState(() {
-      widget.stateData ??= StateData<S, D>();
-      widget.stateData?.data = data;
+      widget.stateData.data = data;
       AppLog.log('updateData: data = $data', name: toString());
       AppLog.log(
-          'updateData: widget.stateData?.data = ${widget.stateData?.data}',
+          'updateData: widget.stateData?.data = ${widget.stateData.data}',
           name: toString());
     });
   }
 
   void updateStateData({StateData<S, D>? stateData}) {
+    if (widget.stateData.state == stateData?.state &&
+        widget.stateData.data == stateData?.data) {
+      return;
+    }
+
     setState(() {
-      widget.stateData = stateData;
+      widget.stateData.data = stateData?.data;
+      widget.stateData.state = stateData?.state;
       AppLog.log('updateStateData: stateData = $stateData', name: toString());
       AppLog.log('updateStateData: widget.stateData = ${widget.stateData}',
           name: toString());
@@ -74,8 +89,7 @@ class StatefulStateDataViewState<S, D>
 
   @override
   Widget build(BuildContext context) {
-    return widget.build(
-        context, widget.stateData?.state, widget.stateData?.data);
+    return widget.build(context, widget.stateData.state, widget.stateData.data);
   }
 
   @override

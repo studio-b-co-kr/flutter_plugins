@@ -28,6 +28,9 @@ abstract class IStatefulDataView<T> extends StatefulWidget {
 class StatefulDataViewState<T> extends State<IStatefulDataView<T>> {
   void updateData({T? data}) {
     AppLog.log('updateData($data)', name: toString());
+    if (widget.data == data) {
+      return;
+    }
     setState(() {
       widget.data = data;
     });

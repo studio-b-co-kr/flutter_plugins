@@ -6,7 +6,7 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 class LoginStateWidget extends IStatefulStateDataView<LoginState, bool> {
   LoginStateWidget({
     required GlobalKey<StatefulStateDataViewState<LoginState, bool>> key,
-    StateData<LoginState, bool>? stateData,
+    required StateData<LoginState, bool> stateData,
   }) : super(key: key, stateData: stateData);
 
   @override

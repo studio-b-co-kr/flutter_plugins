@@ -13,9 +13,8 @@ class SplashPage extends IViewModelView<SplashViewModel> {
 
   @override
   Widget build(BuildContext context, SplashViewModel viewModel) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Text(
           'SPLASH PAGE',
           style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
