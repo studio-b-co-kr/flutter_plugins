@@ -1,11 +1,17 @@
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SplashViewModel extends IViewModel {
-  static final SplashViewModel _instance = SplashViewModel._();
+  static SplashViewModel? _instance;
 
   SplashViewModel._();
 
-  factory SplashViewModel.instance() => _instance;
+  static SplashViewModel get instance {
+    if (_instance?.isDisposed ?? true) {
+      _instance = null;
+      _instance = SplashViewModel._();
+    }
+    return _instance!;
+  }
 
   next() async {
     await Future.delayed(const Duration(seconds: 3));

@@ -8,11 +8,17 @@ import 'package:flutter/widgets.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class HomeViewModel extends IViewModel {
-  static final HomeViewModel _instance = HomeViewModel._();
+  static HomeViewModel? _instance;
 
   HomeViewModel._();
 
-  factory HomeViewModel.instance() => _instance;
+  static HomeViewModel get instance {
+    if (_instance?.isDisposed ?? true) {
+      _instance = null;
+      _instance = HomeViewModel._();
+    }
+    return _instance!;
+  }
 
   final StateData<CountState, int> stateData =
       StateData(state: CountState.waiting, data: 0);
