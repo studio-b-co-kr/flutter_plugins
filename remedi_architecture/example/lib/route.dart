@@ -1,6 +1,9 @@
+import 'package:example/features/content/contents_page.dart';
+import 'package:example/features/content/contents_view_model.dart';
 import 'package:example/features/home/home_page.dart';
 import 'package:example/features/home/home_view_model.dart';
 import 'package:example/features/settings/settings_page.dart';
+import 'package:example/features/settings/settings_view_model.dart';
 import 'package:example/features/splash/splash_page.dart';
 import 'package:example/features/splash/splash_view_model.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +21,18 @@ class RouteGenerator extends IRouteGenerator {
       case SettingsPage.routeName:
         ret = MaterialPageRoute(
           settings: settings,
-          builder: (context) => const SettingsPage(),
+          builder: (context) => SettingsPage(
+            viewModel: SettingsViewModel.instance,
+          ),
+        );
+        break;
+
+      case ContentsPage.routeName:
+        ret = MaterialPageRoute(
+          settings: settings,
+          builder: (context) => ContentsPage(
+            viewModel: ContentsViewModel.instance,
+          ),
         );
         break;
 
@@ -26,7 +40,7 @@ class RouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => SplashPage(
-            viewModel: SplashViewModel(),
+            viewModel: SplashViewModel.instance(),
           ),
         );
         break;

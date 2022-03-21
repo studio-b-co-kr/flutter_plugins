@@ -89,6 +89,38 @@ class HomePage extends IViewModelView<HomeViewModel> {
             child: const Text('Toggle Color'),
           ),
         ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: MaterialButton(
+                  minWidth: double.infinity,
+                  color: Colors.yellow.shade900,
+                  height: 48,
+                  onPressed: () {
+                    viewModel.goContents();
+                  },
+                  child: const Text('Go Content Page'),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: MaterialButton(
+                  minWidth: double.infinity,
+                  color: Colors.pinkAccent,
+                  height: 48,
+                  onPressed: () {
+                    viewModel.goSettings();
+                  },
+                  child: const Text('Go Settings Page'),
+                ),
+              ),
+            ),
+          ],
+        )
       ]),
     );
   }

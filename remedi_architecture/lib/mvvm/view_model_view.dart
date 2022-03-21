@@ -56,6 +56,26 @@ class _ViewModelViewState<VM extends IViewModel>
     if (mounted) {
       _appModels(context, viewModel);
     }
+
+    if (viewModel.isDisposed) {
+      throw Exception('You cannot reuse a disposed ViewModel again.\n\n'
+          'If you want to use the ViewModel as a singleton instance,\n'
+          'please make a constructor of the ViewModel as below.\n\n'
+          'class ContentsViewModel extends IViewModel {\n'
+          ' static ContentsViewModel? _instance;\n\n'
+          ' ContentsViewModel._();\n\n'
+          ' static ContentsViewModel get instance {\n'
+          '   if (_instance?.isDisposed ?? true) {\n'
+          '     _instance = null;\n'
+          '     _instance = ContentsViewModel._();\n'
+          '   }\n'
+          '   return _instance!;\n'
+          ' }\n\n'
+          ' @override\n'
+          ' initialise() {}\n'
+          '}\n');
+    }
+
     return ChangeNotifierProvider<VM>(
       create: (context) {
         AppLog.log('ChangeNotifierProvider.create()', name: toString());
@@ -94,6 +114,7 @@ class _ViewModelViewState<VM extends IViewModel>
   @override
   void dispose() {
     subscription?.cancel();
+    viewModel.dispose();
     super.dispose();
   }
 

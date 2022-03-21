@@ -1,18 +1,38 @@
+import 'package:example/features/settings/settings_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:remedi_architecture/mvvm/mvvm.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends IViewModelView<SettingsViewModel> {
   static const routeName = '/settings';
 
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({Key? key, required SettingsViewModel viewModel})
+      : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, SettingsViewModel viewModel) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MVVM Example'),
-        backgroundColor: Colors.black,
+        title: const Text('Settings'),
       ),
-      body: Container(),
+      body: Column(children: [
+        const Expanded(
+          child: Center(
+            child: Text('You can change app theme'),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: MaterialButton(
+            minWidth: double.infinity,
+            height: 48,
+            color: Colors.grey,
+            onPressed: () {
+              viewModel.toggleThemeMode();
+            },
+            child: const Text('Toggle Theme'),
+          ),
+        ),
+      ]),
     );
   }
 }

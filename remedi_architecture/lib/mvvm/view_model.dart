@@ -47,12 +47,17 @@ abstract class IViewModel with ChangeNotifier implements ReassembleHandler {
     _streamController.add(action);
   }
 
+  bool _disposed = false;
+
   @override
   void dispose() {
     _streamController.close();
     _initialised = false;
     super.dispose();
+    _disposed = true;
   }
+
+  bool get isDisposed => _disposed;
 
   @override
   String toString() {
