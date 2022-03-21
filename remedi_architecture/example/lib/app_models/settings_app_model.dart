@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SettingsAppModel extends IAppModel {
@@ -7,11 +8,17 @@ class SettingsAppModel extends IAppModel {
   ThemeMode themeMode = ThemeMode.system;
 
   toggleThemeMode() {
-    if (themeMode == ThemeMode.dark) {
+    bool isDarkMode = themeMode == ThemeMode.system
+        ? SchedulerBinding.instance!.window.platformBrightness ==
+            Brightness.dark
+        : themeMode == ThemeMode.dark;
+
+    if (isDarkMode) {
       themeMode = ThemeMode.light;
     } else {
       themeMode = ThemeMode.dark;
     }
+
     notifyListeners();
   }
 

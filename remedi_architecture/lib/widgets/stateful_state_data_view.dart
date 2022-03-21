@@ -5,8 +5,8 @@ abstract class IStatefulStateDataView<S, D> extends StatefulWidget {
   final StateData<S, D> stateData = StateData();
 
   IStatefulStateDataView({
-    required GlobalKey<StatefulStateDataViewState<S, D>> key,
-    required StateData<S, D>? stateData,
+    GlobalKey<StatefulStateDataViewState<S, D>>? key,
+    StateData<S, D>? stateData,
   }) : super(key: key) {
     this.stateData.data = stateData?.data;
     this.stateData.state = stateData?.state;

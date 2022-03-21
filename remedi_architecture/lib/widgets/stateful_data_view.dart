@@ -4,8 +4,7 @@ part of 'widgets.dart';
 abstract class IStatefulDataView<T> extends StatefulWidget {
   T? data;
 
-  IStatefulDataView(
-      {required GlobalKey<StatefulDataViewState<T>> key, this.data})
+  IStatefulDataView({GlobalKey<StatefulDataViewState<T>>? key, this.data})
       : super(key: key);
 
   @override

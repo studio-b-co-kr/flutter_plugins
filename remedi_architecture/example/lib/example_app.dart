@@ -16,7 +16,8 @@ RemediApp _app = RemediApp(
 
     /// 앱의 테마 정보를 제공한다.
     ChangeNotifierProvider<SettingsAppModel>(
-        create: (context) => SettingsAppModel()),
+      create: (context) => SettingsAppModel(),
+    ),
 
     /// 로그인 정보를 제공한다.
     ChangeNotifierProvider<AuthAppModel>(create: (context) => AuthAppModel()),
