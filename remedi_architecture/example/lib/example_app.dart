@@ -25,8 +25,8 @@ RemediApp _app = RemediApp(
     /// context 없이 route 를 사용할수있도록  navigatorKey를 RemediApp.navigatorKey로 설정한다.
     navigatorKey: RemediRouter.navigatorKey,
     themeMode: context.watch<SettingsAppModel>().themeMode,
-    darkTheme: context.read<SettingsAppModel>().themeDark,
-    theme: context.read<SettingsAppModel>().themeLight,
+    darkTheme: context.watch<SettingsAppModel>().themeDark,
+    theme: context.watch<SettingsAppModel>().themeLight,
 
     /// 첫화면은 스플래시 화면이다. 만약 첫화면을 조건에 따라 바꾸고 싶다면
     /// onGenerateInitialRoutes 를 사용한다.

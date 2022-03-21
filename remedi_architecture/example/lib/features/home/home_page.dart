@@ -23,7 +23,7 @@ class HomePage extends IViewModelView<HomeViewModel> {
     return Scaffold(
       backgroundColor: context.watch<ColorAppModel>().color,
       appBar: AppBar(
-        title: const Text('MVVM Example'),
+        title: const Text('Remedi Architecture'),
       ),
       body: Column(children: [
         Expanded(

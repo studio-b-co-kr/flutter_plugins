@@ -1,5 +1,5 @@
-import 'package:example/features/content/contents_page.dart';
-import 'package:example/features/content/contents_view_model.dart';
+import 'package:example/features/contents/contents_page.dart';
+import 'package:example/features/contents/contents_view_model.dart';
 import 'package:example/features/home/home_page.dart';
 import 'package:example/features/home/home_view_model.dart';
 import 'package:example/features/settings/settings_page.dart';

@@ -2,7 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:example/app_models/auth_app_model.dart';
 import 'package:example/app_models/settings_app_model.dart';
-import 'package:example/features/content/contents_page.dart';
+import 'package:example/features/contents/contents_page.dart';
 import 'package:example/features/settings/settings_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
