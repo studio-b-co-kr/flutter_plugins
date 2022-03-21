@@ -114,7 +114,6 @@ class _ViewModelViewState<VM extends IViewModel>
   @override
   void dispose() {
     subscription?.cancel();
-    viewModel.dispose();
     super.dispose();
   }
 
