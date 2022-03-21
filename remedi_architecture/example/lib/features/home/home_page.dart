@@ -1,9 +1,9 @@
 import 'package:example/app_models/auth_app_model.dart';
 import 'package:example/app_models/color_app_model.dart';
-import 'package:example/features/home/counter_widget.dart';
 import 'package:example/features/home/home_view_model.dart';
-import 'package:example/features/home/login_button_widget.dart';
-import 'package:example/features/home/login_state_widget.dart';
+import 'package:example/features/home/widgets/counter_widget.dart';
+import 'package:example/features/home/widgets/login_button_widget.dart';
+import 'package:example/features/home/widgets/login_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
