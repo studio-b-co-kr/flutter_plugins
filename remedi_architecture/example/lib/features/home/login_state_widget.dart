@@ -33,7 +33,7 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 // }
 
 // ignore: must_be_immutable
-class LoginStateWidget extends StatefulStateDataView<LoginState, bool> {
+class LoginStateWidget extends IStatefulStateDataView<LoginState, bool> {
   LoginStateWidget({
     required GlobalKey<StatefulStateDataViewState<LoginState, bool>> key,
     StateData<LoginState, bool>? stateData,

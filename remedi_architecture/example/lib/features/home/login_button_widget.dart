@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 // ignore: must_be_immutable
-class LoginButtonWidget extends StatefulStateDataView<LoginState, bool> {
+class LoginButtonWidget extends IStatefulStateDataView<LoginState, bool> {
   final Function() logout;
   final Function() login;
 

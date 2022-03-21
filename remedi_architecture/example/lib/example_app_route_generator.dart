@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 ///
-class RouteGenerator extends IRouteGenerator {
-  RouteGenerator({Future Function(String screenName)? screenLogger})
+class ExampleAppRouteGenerator extends IRouteGenerator {
+  ExampleAppRouteGenerator({Future Function(String screenName)? screenLogger})
       : super(screenLogger: screenLogger);
 
   @override
@@ -53,9 +53,6 @@ class RouteGenerator extends IRouteGenerator {
           ),
         );
         break;
-    }
-    if (screenLogger != null && ret != null) {
-      screenLogger!(settings.name!);
     }
     return ret;
   }

@@ -16,7 +16,7 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 // }
 
 // ignore: must_be_immutable
-class CountWidget extends StatefulDataView<int> {
+class CountWidget extends IStatefulDataView<int> {
   CountWidget({required GlobalKey<StatefulDataViewState<int>> key, int? data})
       : super(key: key, data: data);
 

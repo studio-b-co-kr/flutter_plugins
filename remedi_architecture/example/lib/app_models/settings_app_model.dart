@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class SettingsAppModel extends AppModel {
+class SettingsAppModel extends IAppModel {
   SettingsAppModel({bool? withInit}) : super(withInit: withInit);
 
   ThemeMode themeMode = ThemeMode.system;

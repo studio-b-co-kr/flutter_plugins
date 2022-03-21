@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class ColorAppModel extends AppModel {
+class ColorAppModel extends IAppModel {
   ColorAppModel({bool? withInit}) : super(withInit: withInit);
   Color color = Colors.purple;
 
