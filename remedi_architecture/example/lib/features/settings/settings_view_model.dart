@@ -3,16 +3,16 @@ import 'package:flutter/widgets.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SettingsViewModel extends IViewModel {
-  static SettingsViewModel? _instance;
+  static SettingsViewModel _instance = SettingsViewModel._();
 
   SettingsViewModel._();
 
-  static SettingsViewModel get instance {
-    if (_instance?.isDisposed ?? true) {
-      _instance = null;
+  factory SettingsViewModel.singleton() {
+    if (_instance.isDisposed) {
       _instance = SettingsViewModel._();
     }
-    return _instance!;
+
+    return _instance;
   }
 
   @override

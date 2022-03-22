@@ -22,7 +22,7 @@ class ExampleAppRouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => SettingsPage(
-            viewModel: SettingsViewModel.instance,
+            viewModel: SettingsViewModel.singleton(),
           ),
         );
         break;
@@ -31,7 +31,7 @@ class ExampleAppRouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => ContentsPage(
-            viewModel: ContentsViewModel.instance,
+            viewModel: ContentsViewModel.singleton(),
           ),
         );
         break;
@@ -40,7 +40,7 @@ class ExampleAppRouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => SplashPage(
-            viewModel: SplashViewModel.instance,
+            viewModel: SplashViewModel.singleton(),
           ),
         );
         break;
@@ -49,7 +49,7 @@ class ExampleAppRouteGenerator extends IRouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => HomePage(
-            viewModel: HomeViewModel.instance,
+            viewModel: HomeViewModel.singleton(),
           ),
         );
         break;

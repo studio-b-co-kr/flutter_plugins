@@ -1,16 +1,16 @@
 import 'package:remedi_architecture/mvvm/mvvm.dart';
 
 class ContentsViewModel extends IViewModel {
-  static ContentsViewModel? _instance;
+  static ContentsViewModel _instance = ContentsViewModel._();
 
   ContentsViewModel._();
 
-  static ContentsViewModel get instance {
-    if (_instance?.isDisposed ?? true) {
-      _instance = null;
+  factory ContentsViewModel.singleton() {
+    if (_instance.isDisposed) {
       _instance = ContentsViewModel._();
     }
-    return _instance!;
+
+    return _instance;
   }
 
   @override

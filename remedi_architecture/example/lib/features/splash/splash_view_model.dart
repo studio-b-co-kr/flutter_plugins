@@ -1,16 +1,16 @@
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SplashViewModel extends IViewModel {
-  static SplashViewModel? _instance;
+  static SplashViewModel _instance = SplashViewModel._();
 
   SplashViewModel._();
 
-  static SplashViewModel get instance {
-    if (_instance?.isDisposed ?? true) {
-      _instance = null;
+  factory SplashViewModel.singleton() {
+    if (_instance.isDisposed) {
       _instance = SplashViewModel._();
     }
-    return _instance!;
+
+    return _instance;
   }
 
   next() async {
