@@ -1,4 +1,4 @@
-library remedi_mvvm;
+library remedi_architecture;
 
 export 'package:provider/provider.dart';
 

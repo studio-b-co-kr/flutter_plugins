@@ -1,4 +1,5 @@
 import 'package:example/features/contents/contents_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
@@ -25,14 +26,35 @@ class ContentWidget extends StatelessDataView<String> {
 
   @override
   Widget buildWidget(BuildContext context, String? data) {
-    return Center(
-      child: Text(
-        data ?? '',
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+    return Column(
+      children: [
+        Expanded(
+            child: Row(
+          children: [
+            Expanded(
+                child: Container(
+              color: Colors.red,
+            )),
+            Expanded(
+                child: Container(
+              color: Colors.orange,
+            )),
+          ],
+        )),
+        Expanded(
+            child: Row(
+          children: [
+            Expanded(
+                child: Container(
+              color: Colors.yellow,
+            )),
+            Expanded(
+                child: Container(
+              color: Colors.blue,
+            )),
+          ],
+        )),
+      ],
     );
   }
 }
