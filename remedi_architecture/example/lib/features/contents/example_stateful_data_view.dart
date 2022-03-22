@@ -8,6 +8,8 @@ class ExampleStatefulDataView extends StatefulDataView<int> {
 
   @override
   Widget build(BuildContext context, data) {
-    return Container();
+    return Container(
+      child: Center(child: Text('${data ?? 0}')),
+    );
   }
 }
