@@ -11,37 +11,38 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 
 ///
 class ExampleAppRouteGenerator extends IRouteGenerator {
-  ExampleAppRouteGenerator({Future Function(String screenName)? screenLogger})
+  ExampleAppRouteGenerator({ScreenLogger? screenLogger})
       : super(screenLogger: screenLogger);
 
   @override
   Route<dynamic>? generateRoute(
     RouteSettings settings,
-    RouteUri? uri,
+    String? routeName,
+    Map<String, dynamic>? data,
   ) {
     Route<dynamic>? ret;
-    if (uri?.name == SettingsPage.routeUri.name) {
+    if (routeName == SettingsPage.routeUri.name) {
       ret = MaterialPageRoute(
         settings: settings,
         builder: (context) => SettingsPage(
           viewModel: SettingsViewModel.singleton(),
         ),
       );
-    } else if (uri?.name == ContentsPage.routeUri.name) {
+    } else if (routeName == ContentsPage.routeUri.name) {
       ret = MaterialPageRoute(
         settings: settings,
         builder: (context) => ContentsPage(
           viewModel: ContentsViewModel.singleton(),
         ),
       );
-    } else if (uri?.name == SplashPage.routeUri.name) {
+    } else if (routeName == SplashPage.routeUri.name) {
       ret = MaterialPageRoute(
         settings: settings,
         builder: (context) => SplashPage(
           viewModel: SplashViewModel.singleton(),
         ),
       );
-    } else if (uri?.name == HomePage.routeUri.name) {
+    } else if (routeName == HomePage.routeUri.name) {
       ret = MaterialPageRoute(
         settings: settings,
         builder: (context) => HomePage(

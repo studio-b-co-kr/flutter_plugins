@@ -35,7 +35,7 @@ RemediApp _app = RemediApp(
 
     /// RouteGenerator 는 route 시에 로깅을 할 수 있는 인터페이스를 제공한다.
     onGenerateRoute: (settings) =>
-        ExampleAppRouteGenerator(screenLogger: (routeName) async {
+        ExampleAppRouteGenerator(screenLogger: (routeName, data) async {
       dev.log(routeName, name: 'ScreenLogger');
     }).route(settings),
   ),
