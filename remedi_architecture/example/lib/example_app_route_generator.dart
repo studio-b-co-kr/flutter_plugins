@@ -15,45 +15,41 @@ class ExampleAppRouteGenerator extends IRouteGenerator {
       : super(screenLogger: screenLogger);
 
   @override
-  Route<dynamic>? generateRoute(RouteSettings settings) {
+  Route<dynamic>? generateRoute(
+    RouteSettings settings,
+    RouteUri? uri,
+  ) {
     Route<dynamic>? ret;
-    switch (settings.name) {
-      case SettingsPage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => SettingsPage(
-            viewModel: SettingsViewModel.singleton(),
-          ),
-        );
-        break;
-
-      case ContentsPage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => ContentsPage(
-            viewModel: ContentsViewModel.singleton(),
-          ),
-        );
-        break;
-
-      case SplashPage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => SplashPage(
-            viewModel: SplashViewModel.singleton(),
-          ),
-        );
-        break;
-
-      case HomePage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => HomePage(
-            viewModel: HomeViewModel.singleton(),
-          ),
-        );
-        break;
+    if (uri?.name == SettingsPage.routeUri.name) {
+      ret = MaterialPageRoute(
+        settings: settings,
+        builder: (context) => SettingsPage(
+          viewModel: SettingsViewModel.singleton(),
+        ),
+      );
+    } else if (uri?.name == ContentsPage.routeUri.name) {
+      ret = MaterialPageRoute(
+        settings: settings,
+        builder: (context) => ContentsPage(
+          viewModel: ContentsViewModel.singleton(),
+        ),
+      );
+    } else if (uri?.name == SplashPage.routeUri.name) {
+      ret = MaterialPageRoute(
+        settings: settings,
+        builder: (context) => SplashPage(
+          viewModel: SplashViewModel.singleton(),
+        ),
+      );
+    } else if (uri?.name == HomePage.routeUri.name) {
+      ret = MaterialPageRoute(
+        settings: settings,
+        builder: (context) => HomePage(
+          viewModel: HomeViewModel.singleton(),
+        ),
+      );
     }
+
     return ret;
   }
 }

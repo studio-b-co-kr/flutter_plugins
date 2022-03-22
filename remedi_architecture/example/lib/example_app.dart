@@ -31,7 +31,7 @@ RemediApp _app = RemediApp(
 
     /// 첫화면은 스플래시 화면이다. 만약 첫화면을 조건에 따라 바꾸고 싶다면
     /// onGenerateInitialRoutes 를 사용한다.
-    initialRoute: SplashPage.routeName,
+    initialRoute: SplashPage.routeUri.name,
 
     /// RouteGenerator 는 route 시에 로깅을 할 수 있는 인터페이스를 제공한다.
     onGenerateRoute: (settings) =>

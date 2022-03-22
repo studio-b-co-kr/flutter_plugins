@@ -6,7 +6,8 @@ abstract class IRouteGenerator {
   IRouteGenerator({this.screenLogger});
 
   Route<dynamic>? route(RouteSettings settings) {
-    var ret = generateRoute(settings);
+    var ret = generateRoute(settings, RouteUri._fromSettings(settings));
+
     if (screenLogger != null && ret != null) {
       screenLogger!(settings.name!);
     }
@@ -15,5 +16,5 @@ abstract class IRouteGenerator {
   }
 
   /// don't call this function  directly
-  Route<dynamic>? generateRoute(RouteSettings settings);
+  Route<dynamic>? generateRoute(RouteSettings settings, RouteUri? uri);
 }

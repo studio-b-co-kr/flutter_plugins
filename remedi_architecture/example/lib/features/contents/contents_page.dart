@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class ContentsPage extends IViewModelView<ContentsViewModel> {
-  static const routeName = '/contents';
+  static const RouteUri routeUri =
+      RouteUri(path: 'contents', authority: 'remedi.com');
 
   const ContentsPage({Key? key, required ContentsViewModel viewModel})
       : super(key: key, viewModel: viewModel);
