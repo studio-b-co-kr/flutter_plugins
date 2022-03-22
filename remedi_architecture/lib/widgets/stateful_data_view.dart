@@ -1,10 +1,10 @@
 part of 'widgets.dart';
 
 // ignore: must_be_immutable
-abstract class IStatefulDataView<T> extends StatefulWidget {
+abstract class StatefulDataView<T> extends StatefulWidget {
   T? data;
 
-  IStatefulDataView({GlobalKey<StatefulDataViewState<T>>? key, this.data})
+  StatefulDataView({GlobalKey<StatefulDataViewState<T>>? key, this.data})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ abstract class IStatefulDataView<T> extends StatefulWidget {
   }
 }
 
-class StatefulDataViewState<T> extends State<IStatefulDataView<T>> {
+class StatefulDataViewState<T> extends State<StatefulDataView<T>> {
   void updateData({T? data}) {
     AppLog.log('updateData($data)', name: toString());
     if (widget.data == data) {

@@ -1,6 +1,6 @@
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class AuthAppModel extends IAppModel {
+class AuthAppModel extends AppModel {
   StateData<LoginState, bool> loginState = StateData(
     state: LoginState.loggedOut,
     data: false,

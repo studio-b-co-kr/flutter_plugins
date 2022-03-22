@@ -2,7 +2,7 @@ import 'package:example/features/settings/settings_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class SettingsPage extends IViewModelView<SettingsViewModel> {
+class SettingsPage extends ViewModelView<SettingsViewModel> {
   static const String routeName = '/settings';
 
   const SettingsPage({Key? key, required SettingsViewModel viewModel})

@@ -7,7 +7,7 @@ import 'package:example/features/home/widgets/login_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class HomePage extends IViewModelView<HomeViewModel> {
+class HomePage extends ViewModelView<HomeViewModel> {
   static const String routeName = '/home';
 
   final GlobalKey<StatefulDataViewState<int>> countState = GlobalKey();

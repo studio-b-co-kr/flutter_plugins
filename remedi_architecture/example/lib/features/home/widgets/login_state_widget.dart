@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 // ignore: must_be_immutable
-class LoginStateWidget extends IStatefulStateDataView<LoginState, bool> {
+class LoginStateWidget extends StatefulStateDataView<LoginState, bool> {
   LoginStateWidget({
     required GlobalKey<StatefulStateDataViewState<LoginState, bool>> key,
     required StateData<LoginState, bool> stateData,

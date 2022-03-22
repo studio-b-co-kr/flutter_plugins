@@ -2,10 +2,10 @@ part of 'app.dart';
 
 typedef ScreenLogger = Future<dynamic> Function(String screenName);
 
-abstract class IRouteGenerator {
+abstract class RouteGenerator {
   ScreenLogger? screenLogger;
 
-  IRouteGenerator({this.screenLogger});
+  RouteGenerator({this.screenLogger});
 
   Route<dynamic>? route(RouteSettings settings) {
     var ret = generateRoute(settings);

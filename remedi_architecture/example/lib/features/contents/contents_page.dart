@@ -2,7 +2,7 @@ import 'package:example/features/contents/contents_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class ContentsPage extends IViewModelView<ContentsViewModel> {
+class ContentsPage extends ViewModelView<ContentsViewModel> {
   static const String routeName = '/contents';
 
   const ContentsPage({Key? key, required ContentsViewModel viewModel})
@@ -19,7 +19,7 @@ class ContentsPage extends IViewModelView<ContentsViewModel> {
   }
 }
 
-class ContentWidget extends IStatelessDataView<String> {
+class ContentWidget extends StatelessDataView<String> {
   const ContentWidget({Key? key, required String? data})
       : super(key: key, data: data);
 

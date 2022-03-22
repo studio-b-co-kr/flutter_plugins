@@ -7,7 +7,7 @@ import 'package:example/features/settings/settings_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class HomeViewModel extends IViewModel {
+class HomeViewModel extends ViewModel {
   static HomeViewModel _instance = HomeViewModel._();
 
   HomeViewModel._();

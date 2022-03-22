@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class ColorAppModel extends IAppModel {
+class ColorAppModel extends AppModel {
   ColorAppModel({bool? withInit}) : super(withInit: withInit);
 
   /// Provider 를 통해서 제공되는 색깔 데이터

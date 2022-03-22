@@ -2,7 +2,7 @@ import 'package:example/app_models/settings_app_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class SettingsViewModel extends IViewModel {
+class SettingsViewModel extends ViewModel {
   static SettingsViewModel _instance = SettingsViewModel._();
 
   SettingsViewModel._();

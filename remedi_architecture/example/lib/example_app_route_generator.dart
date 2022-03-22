@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 ///
-class ExampleAppRouteGenerator extends IRouteGenerator {
+class ExampleAppRouteGenerator extends RouteGenerator {
   ExampleAppRouteGenerator({ScreenLogger? screenLogger})
       : super(screenLogger: screenLogger);
 

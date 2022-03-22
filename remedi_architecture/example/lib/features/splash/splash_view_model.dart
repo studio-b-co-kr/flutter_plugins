@@ -1,6 +1,6 @@
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class SplashViewModel extends IViewModel {
+class SplashViewModel extends ViewModel {
   static SplashViewModel _instance = SplashViewModel._();
 
   SplashViewModel._();
