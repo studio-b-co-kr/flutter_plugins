@@ -30,11 +30,11 @@ RemediApp _app = RemediApp(
     theme: context.watch<SettingsAppModel>().themeLight,
 
     /// 첫화면은 스플래시 화면이다.
-    initialRoute: SplashPage.routeUri.name,
+    initialRoute: SplashPage.routeName,
 
     /// RouteGenerator 는 route 시에 로깅을 할 수 있는 인터페이스를 제공한다.
     onGenerateRoute: (settings) =>
-        ExampleAppRouteGenerator(screenLogger: (routeName, data) async {
+        ExampleAppRouteGenerator(screenLogger: (routeName) async {
       dev.log(routeName, name: 'ScreenLogger');
     }).route(settings),
   ),

@@ -8,4 +8,3 @@ part 'app_log.dart';
 part 'remedi_app.dart';
 part 'remedi_router.dart';
 part 'route_generator.dart';
-part 'route_uri.dart';

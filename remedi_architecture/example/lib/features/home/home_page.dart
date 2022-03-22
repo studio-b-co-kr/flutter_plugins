@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class HomePage extends IViewModelView<HomeViewModel> {
-  static const routeUri = RouteUri(path: 'home', authority: 'remedi.com');
+  static const String routeName = '/home';
 
   final GlobalKey<StatefulDataViewState<int>> countState = GlobalKey();
   final GlobalKey<StatefulStateDataViewState<LoginState, bool>> loginState =

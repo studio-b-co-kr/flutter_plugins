@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SettingsPage extends IViewModelView<SettingsViewModel> {
-  static const routeUri = RouteUri(path: 'settings', authority: 'remedi.com');
+  static const String routeName = '/settings';
 
   const SettingsPage({Key? key, required SettingsViewModel viewModel})
       : super(key: key, viewModel: viewModel);

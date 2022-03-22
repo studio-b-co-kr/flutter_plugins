@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class SplashPage extends IViewModelView<SplashViewModel> {
-  static const routeUri = RouteUri(path: 'splash', authority: 'remedi.com');
+  static const routeName = '/splash';
 
   const SplashPage({
     Key? key,
@@ -26,6 +26,6 @@ class SplashPage extends IViewModelView<SplashViewModel> {
   @override
   void onActionChanged(BuildContext context, SplashViewModel vm, action) {
     super.onActionChanged(context, vm, action);
-    RemediRouter.pushReplacementUri(HomePage.routeUri);
+    RemediRouter.pushReplacementNamed(HomePage.routeName);
   }
 }

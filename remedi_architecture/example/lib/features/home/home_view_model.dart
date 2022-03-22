@@ -79,11 +79,11 @@ class HomeViewModel extends IViewModel {
   }
 
   void goSettings() {
-    RemediRouter.pushUri(SettingsPage.routeUri);
+    RemediRouter.pushNamed(SettingsPage.routeName);
   }
 
   void goContents() {
-    RemediRouter.pushUri(ContentsPage.routeUri);
+    RemediRouter.pushNamed(ContentsPage.routeName);
   }
 
   @override

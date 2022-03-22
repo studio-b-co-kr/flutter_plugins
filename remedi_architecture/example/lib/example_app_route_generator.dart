@@ -17,38 +17,42 @@ class ExampleAppRouteGenerator extends IRouteGenerator {
   @override
   Route<dynamic>? generateRoute(
     RouteSettings settings,
-    String? routeName,
-    Map<String, dynamic>? data,
   ) {
     Route<dynamic>? ret;
-    if (routeName == SettingsPage.routeUri.name) {
-      ret = MaterialPageRoute(
-        settings: settings,
-        builder: (context) => SettingsPage(
-          viewModel: SettingsViewModel.singleton(),
-        ),
-      );
-    } else if (routeName == ContentsPage.routeUri.name) {
-      ret = MaterialPageRoute(
-        settings: settings,
-        builder: (context) => ContentsPage(
-          viewModel: ContentsViewModel.singleton(),
-        ),
-      );
-    } else if (routeName == SplashPage.routeUri.name) {
-      ret = MaterialPageRoute(
-        settings: settings,
-        builder: (context) => SplashPage(
-          viewModel: SplashViewModel.singleton(),
-        ),
-      );
-    } else if (routeName == HomePage.routeUri.name) {
-      ret = MaterialPageRoute(
-        settings: settings,
-        builder: (context) => HomePage(
-          viewModel: HomeViewModel.singleton(),
-        ),
-      );
+    switch (settings.name) {
+      case SettingsPage.routeName:
+        ret = MaterialPageRoute(
+          settings: settings,
+          builder: (context) => SettingsPage(
+            viewModel: SettingsViewModel.singleton(),
+          ),
+        );
+        break;
+
+      case ContentsPage.routeName:
+        ret = MaterialPageRoute(
+          settings: settings,
+          builder: (context) => ContentsPage(
+            viewModel: ContentsViewModel.singleton(),
+          ),
+        );
+        break;
+      case SplashPage.routeName:
+        ret = MaterialPageRoute(
+          settings: settings,
+          builder: (context) => SplashPage(
+            viewModel: SplashViewModel.singleton(),
+          ),
+        );
+        break;
+      case HomePage.routeName:
+        ret = MaterialPageRoute(
+          settings: settings,
+          builder: (context) => HomePage(
+            viewModel: HomeViewModel.singleton(),
+          ),
+        );
+        break;
     }
 
     return ret;
