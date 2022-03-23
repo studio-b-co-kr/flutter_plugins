@@ -16,11 +16,20 @@ class HomePage extends ViewModelView<HomeViewModel> {
   final GlobalKey<StatefulStateDataViewState<LoginState, bool>>
       loginButtonState = GlobalKey();
 
-  HomePage({Key? key, required HomeViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+  HomePage({
+    Key? key,
+    required ViewModelBuilder<HomeViewModel> viewModelBuilder,
+  }) : super(
+          key: key,
+          viewModelBuilder: viewModelBuilder,
+        );
 
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(
+    BuildContext context,
+    HomeViewModel watch,
+    HomeViewModel read,
+  ) {
     return Scaffold(
       backgroundColor: context.watch<ColorAppModel>().color,
       appBar: AppBar(
@@ -29,8 +38,8 @@ class HomePage extends ViewModelView<HomeViewModel> {
       body: Column(children: [
         Expanded(
           child: Center(
-            child: LoginStateWidget(
-                key: loginState, stateData: viewModel.loginState),
+            child:
+                LoginStateWidget(key: loginState, stateData: watch.loginState),
           ),
         ),
         Container(
@@ -38,19 +47,19 @@ class HomePage extends ViewModelView<HomeViewModel> {
           child: LoginButtonWidget(
             key: loginButtonState,
             login: () {
-              viewModel.authAppModel.login();
+              read.authAppModel.login();
             },
             logout: () {
-              viewModel.authAppModel.logout();
+              read.authAppModel.logout();
             },
-            stateData: viewModel.loginState,
+            stateData: watch.loginState,
           ),
         ),
         Expanded(
           child: Center(
             child: CountWidget(
               key: countState,
-              data: viewModel.count,
+              data: watch.count,
             ),
           ),
         ),
@@ -61,7 +70,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
             color: Colors.blue,
             height: 48,
             onPressed: () {
-              viewModel.increase();
+              read.increase();
             },
             child: const Text('Increase count'),
           ),
@@ -73,7 +82,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
             color: Colors.grey,
             height: 48,
             onPressed: () {
-              viewModel.toggleThemeMode();
+              read.toggleThemeMode();
             },
             child: const Text('Toggle Theme'),
           ),
@@ -99,7 +108,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
                 color: Colors.yellow.shade900,
                 height: 48,
                 onPressed: () {
-                  viewModel.goContents();
+                  read.goContents();
                 },
                 child: const Text('Go View Examples'),
               ),
@@ -113,7 +122,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
                 color: Colors.pinkAccent,
                 height: 48,
                 onPressed: () {
-                  viewModel.goSettings();
+                  read.goSettings();
                 },
                 child: const Text('Go Settings Page'),
               ),
@@ -125,19 +134,18 @@ class HomePage extends ViewModelView<HomeViewModel> {
   }
 
   @override
-  void onActionChanged(
-      BuildContext context, HomeViewModel viewModel, dynamic action) {
-    super.onActionChanged(context, viewModel, action);
+  void onActionChanged(BuildContext context, dynamic action) {
+    super.onActionChanged(context, action);
     switch (action) {
       case 'increase':
-        countState.currentState?.updateData(data: viewModel.count);
+        // countState.currentState?.updateData(data: viewModel.count);
         break;
 
       case 'login':
-        loginState.currentState
-            ?.updateStateData(stateData: viewModel.loginState);
-        loginButtonState.currentState
-            ?.updateStateData(stateData: viewModel.loginState);
+        // loginState.currentState
+        //     ?.updateStateData(stateData: viewModel.loginState);
+        // loginButtonState.currentState
+        //     ?.updateStateData(stateData: viewModel.loginState);
         break;
     }
   }

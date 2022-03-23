@@ -8,11 +8,15 @@ class SplashPage extends ViewModelView<SplashViewModel> {
 
   const SplashPage({
     Key? key,
-    required SplashViewModel viewModel,
-  }) : super(key: key, viewModel: viewModel);
+    required ViewModelBuilder<SplashViewModel> viewModelBuilder,
+  }) : super(key: key, viewModelBuilder: viewModelBuilder);
 
   @override
-  Widget build(BuildContext context, SplashViewModel viewModel) {
+  Widget build(
+    BuildContext context,
+    SplashViewModel watch,
+    SplashViewModel read,
+  ) {
     return const Scaffold(
       body: Center(
         child: Text(
@@ -24,8 +28,8 @@ class SplashPage extends ViewModelView<SplashViewModel> {
   }
 
   @override
-  void onActionChanged(BuildContext context, SplashViewModel vm, action) {
-    super.onActionChanged(context, vm, action);
+  void onActionChanged(BuildContext context, action) {
+    super.onActionChanged(context, action);
     RemediRouter.pushReplacementNamed(HomePage.routeName);
   }
 }

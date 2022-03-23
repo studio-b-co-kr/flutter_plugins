@@ -7,26 +7,31 @@ class ExampleStatelessStateDataPage
     extends ViewModelView<ExampleStatelessStateDataViewModel> {
   static const routeName = '/ExampleStatelessStateDataPage';
 
-  const ExampleStatelessStateDataPage(
-      {Key? key, required ExampleStatelessStateDataViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+  const ExampleStatelessStateDataPage({
+    Key? key,
+    required ViewModelBuilder<ExampleStatelessStateDataViewModel>
+        viewModelBuilder,
+  }) : super(key: key, viewModelBuilder: viewModelBuilder);
 
   @override
   Widget build(
-      BuildContext context, ExampleStatelessStateDataViewModel viewModel) {
+    BuildContext context,
+    ExampleStatelessStateDataViewModel watch,
+    ExampleStatelessStateDataViewModel read,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, viewModel),
+      body: buildBody(context, watch, read),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.grey,
         disabledElevation: 0,
         elevation: 4,
-        onPressed: viewModel.countStateData.state == ViewState.loading
+        onPressed: watch.countStateData.state == ViewState.loading
             ? null
             : () {
-                viewModel.increase();
+                read.increase();
               },
         child: Icon(
           Icons.add,
@@ -37,7 +42,10 @@ class ExampleStatelessStateDataPage
   }
 
   Widget buildBody(
-      BuildContext context, ExampleStatelessStateDataViewModel viewModel) {
+    BuildContext context,
+    ExampleStatelessStateDataViewModel watch,
+    ExampleStatelessStateDataViewModel read,
+  ) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -45,7 +53,7 @@ class ExampleStatelessStateDataPage
         children: <Widget>[
           const Text('You have pushed the button this many times:'),
           const SizedBox(height: 8),
-          CountView(stateData: viewModel.countStateData),
+          CountView(stateData: watch.countStateData),
         ],
       ),
     );

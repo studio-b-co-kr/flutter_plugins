@@ -28,7 +28,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => SettingsPage(
-            viewModel: SettingsViewModel.singleton(),
+            viewModelBuilder: () => SettingsViewModel.singleton(),
           ),
         );
         break;
@@ -37,7 +37,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => ContentsPage(
-            viewModel: ContentsViewModel.singleton(),
+            viewModelBuilder: () => ContentsViewModel.singleton(),
           ),
         );
         break;
@@ -45,7 +45,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => SplashPage(
-            viewModel: SplashViewModel.singleton(),
+            viewModelBuilder: () => SplashViewModel.singleton(),
           ),
         );
         break;
@@ -53,7 +53,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => HomePage(
-            viewModel: HomeViewModel.singleton(),
+            viewModelBuilder: () => HomeViewModel.singleton(),
           ),
         );
         break;
@@ -62,7 +62,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => ExampleStatelessDataPage(
-            viewModel: ExampleStatelessDataViewModel.singleton(),
+            viewModelBuilder: () => ExampleStatelessDataViewModel.singleton(),
           ),
         );
         break;
@@ -71,7 +71,8 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => ExampleStatelessStateDataPage(
-            viewModel: ExampleStatelessStateDataViewModel.singleton(),
+            viewModelBuilder: () =>
+                ExampleStatelessStateDataViewModel.singleton(),
           ),
         );
         break;
@@ -80,7 +81,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => ExampleStatefulDataPage(
-            viewModel: ExampleStatefulDataViewModel.singleton(),
+            viewModelBuilder: () => ExampleStatefulDataViewModel.singleton(),
           ),
         );
         break;
@@ -89,7 +90,8 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => ExampleStatefulStateDataPage(
-            viewModel: ExampleStatefulStateDataViewModel.singleton(),
+            viewModelBuilder: () =>
+                ExampleStatefulStateDataViewModel.singleton(),
           ),
         );
         break;

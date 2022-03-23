@@ -5,20 +5,33 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 class ContentsPage extends ViewModelView<ContentsViewModel> {
   static const String routeName = '/contents';
 
-  const ContentsPage({Key? key, required ContentsViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+  const ContentsPage({
+    Key? key,
+    required ViewModelBuilder<ContentsViewModel> viewModelBuilder,
+  }) : super(
+          key: key,
+          viewModelBuilder: viewModelBuilder,
+        );
 
   @override
-  Widget build(BuildContext context, ContentsViewModel viewModel) {
+  Widget build(
+    BuildContext context,
+    ContentsViewModel watch,
+    ContentsViewModel read,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contents'),
       ),
-      body: _build(context, viewModel),
+      body: _build(context, watch, read),
     );
   }
 
-  Widget _build(BuildContext context, ContentsViewModel viewModel) {
+  Widget _build(
+    BuildContext context,
+    ContentsViewModel watch,
+    ContentsViewModel read,
+  ) {
     return Column(children: [
       Expanded(
           child: Row(
@@ -29,7 +42,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
               description: '',
               buttonTitle: 'Go\nStateless\nDataView\nExample',
               onPressed: () {
-                viewModel.goStatelessDataView();
+                read.goStatelessDataView();
               },
             ),
           ),
@@ -39,7 +52,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
               description: '',
               buttonTitle: 'Go\nStateless\nStateDataView\nExample',
               onPressed: () {
-                viewModel.goStatelessStateDataView();
+                read.goStatelessStateDataView();
               },
             ),
           ),
@@ -53,7 +66,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
             description: '',
             buttonTitle: 'Go\nStateful\nDataView\nExample',
             onPressed: () {
-              viewModel.goStatefulDataView();
+              read.goStatefulDataView();
             },
           ),
         ),
@@ -63,7 +76,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
             description: '',
             buttonTitle: 'Go\nStateful\nStateDataView\nExample',
             onPressed: () {
-              viewModel.goStatefulStateDataView();
+              read.goStatefulStateDataView();
             },
           ),
         ),

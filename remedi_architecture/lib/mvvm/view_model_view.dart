@@ -7,17 +7,26 @@ part of 'mvvm.dart';
 /// [VM]이 updateUi()를 하면 UI를 업데이트하고, updateAction(action) 시에는 UI 없데이트 없이
 /// action 을 View에 전달한다.
 /// AppModel
-abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
-  final VM viewModel;
+typedef ViewModelBuilder<VM> = VM Function();
 
-  const ViewModelView({Key? key, required this.viewModel}) : super(key: key);
+abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
+  final ViewModelBuilder<VM> viewModelBuilder;
+
+  const ViewModelView({Key? key, required this.viewModelBuilder})
+      : super(key: key);
 
   @override
   _ViewModelViewState<VM> createState() => _ViewModelViewState<VM>();
 
-  Widget build(BuildContext context, VM viewModel);
+  Widget build(BuildContext context, VM watch, VM read);
 
-  void onActionChanged(BuildContext context, VM viewModel, dynamic action) {
+  Widget _build(BuildContext context) {
+    var watch = context.watch<VM>();
+    var read = context.read<VM>();
+    return build(context, watch, read);
+  }
+
+  void onActionChanged(BuildContext context, dynamic action) {
     AppLog.log('onActionChanged: action = $action', name: toString());
   }
 
@@ -29,25 +38,14 @@ abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
 
 class _ViewModelViewState<VM extends ViewModel>
     extends State<ViewModelView<VM>> {
+  late final VM viewModel;
+
   @override
   void initState() {
+    viewModel = widget.viewModelBuilder();
     _initialise();
     AppLog.log('initState.isMounted = $mounted', name: toString());
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    AppLog.log('didChangeDependencies', name: toString());
-    AppLog.log('didChangeDependencies.isMounted = $mounted', name: toString());
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(covariant ViewModelView<VM> oldWidget) {
-    AppLog.log('didUpdateWidget', name: toString());
-    AppLog.log('didUpdateWidget.isMounted = $mounted', name: toString());
-    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -80,12 +78,17 @@ class _ViewModelViewState<VM extends ViewModel>
         AppLog.log('ChangeNotifierProvider.create()', name: toString());
         return viewModel;
       },
-      child: Consumer<VM>(
-        builder: (context, vm, child) {
-          AppLog.log('Consumer.builder()', name: toString());
-          return widget.build(context, vm);
-        },
-      ),
+
+      builder: (context, child) {
+        AppLog.log('builder()', name: toString());
+        return widget._build(context);
+      },
+      // child: Consumer<VM>(
+      //   builder: (context, vm, child) {
+      //     AppLog.log('Consumer.builder()', name: toString());
+      //     return widget.build(context, vm);
+      //   },
+      // ),
     );
   }
 
@@ -96,7 +99,7 @@ class _ViewModelViewState<VM extends ViewModel>
       if (mounted) {
         AppLog.log('onActionChanged:action = $action',
             name: viewModel.toString());
-        widget.onActionChanged(context, viewModel, action);
+        widget.onActionChanged(context, action);
       }
     });
     viewModel._init();
@@ -106,9 +109,7 @@ class _ViewModelViewState<VM extends ViewModel>
     viewModel.linkAppModels(context);
   }
 
-  VM get viewModel => widget.viewModel;
-
-  Stream get actionStream => widget.viewModel.stream;
+  Stream get actionStream => viewModel.stream;
 
   @override
   void dispose() {

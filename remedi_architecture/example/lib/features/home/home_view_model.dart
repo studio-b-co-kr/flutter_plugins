@@ -27,7 +27,8 @@ class HomeViewModel extends ViewModel {
     if (stateData.data != null) {
       stateData.data = stateData.data! + 1;
       dev.log('increase', name: toString());
-      updateAction('increase');
+      updateUi();
+      // updateAction('increase');
     }
   }
 
@@ -48,7 +49,8 @@ class HomeViewModel extends ViewModel {
   void listenAuthChanged() {
     loginState.data = _authAppModel.loginState.data;
     loginState.state = _authAppModel.loginState.state;
-    updateAction('login');
+    updateUi();
+    // updateAction('login');
     dev.log('listen : ${_authAppModel.loginState.state}',
         name: '${_authAppModel.toString()}.${_authAppModel.hashCode}');
     dev.log('listen : ${_authAppModel.loginState.data}',

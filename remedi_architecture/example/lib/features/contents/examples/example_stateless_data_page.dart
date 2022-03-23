@@ -5,22 +5,27 @@ class ExampleStatelessDataPage
     extends ViewModelView<ExampleStatelessDataViewModel> {
   static const routeName = '/ExampleStatelessDataPage';
 
-  const ExampleStatelessDataPage(
-      {Key? key, required ExampleStatelessDataViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+  const ExampleStatelessDataPage({
+    Key? key,
+    required ViewModelBuilder<ExampleStatelessDataViewModel> viewModelBuilder,
+  }) : super(key: key, viewModelBuilder: viewModelBuilder);
 
   @override
-  Widget build(BuildContext context, ExampleStatelessDataViewModel viewModel) {
+  Widget build(
+    BuildContext context,
+    ExampleStatelessDataViewModel watch,
+    ExampleStatelessDataViewModel read,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, viewModel),
+      body: buildBody(context, watch, read),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
         onPressed: () {
-          viewModel.increase();
+          read.increase();
         },
         child: Icon(
           Icons.add,
@@ -31,7 +36,10 @@ class ExampleStatelessDataPage
   }
 
   Widget buildBody(
-      BuildContext context, ExampleStatelessDataViewModel viewModel) {
+    BuildContext context,
+    ExampleStatelessDataViewModel watch,
+    ExampleStatelessDataViewModel read,
+  ) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -39,7 +47,7 @@ class ExampleStatelessDataPage
         children: <Widget>[
           const Text('You have pushed the button this many times:'),
           const SizedBox(height: 8),
-          CountView(data: viewModel.count),
+          CountView(data: watch.count),
         ],
       ),
     );

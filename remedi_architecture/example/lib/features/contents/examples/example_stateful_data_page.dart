@@ -6,23 +6,28 @@ class ExampleStatefulDataPage
   static const routeName = '/ExampleStatefulDataPage';
 
   ExampleStatefulDataPage(
-      {Key? key, required ExampleStatefulDataViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+      {Key? key,
+      required ViewModelBuilder<ExampleStatefulDataViewModel> viewModelBuilder})
+      : super(key: key, viewModelBuilder: viewModelBuilder);
 
   final GlobalKey<StatefulDataViewState<int>> countKey = GlobalKey();
 
   @override
-  Widget build(BuildContext context, ExampleStatefulDataViewModel viewModel) {
+  Widget build(
+    BuildContext context,
+    ExampleStatefulDataViewModel watch,
+    ExampleStatefulDataViewModel read,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, viewModel),
+      body: buildBody(context, watch, read),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
         onPressed: () {
-          viewModel.increase();
+          read.increase();
         },
         child: Icon(
           Icons.add,
@@ -33,7 +38,10 @@ class ExampleStatefulDataPage
   }
 
   Widget buildBody(
-      BuildContext context, ExampleStatefulDataViewModel viewModel) {
+    BuildContext context,
+    ExampleStatefulDataViewModel watch,
+    ExampleStatefulDataViewModel read,
+  ) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -41,18 +49,17 @@ class ExampleStatefulDataPage
         children: <Widget>[
           const Text('You have pushed the button this many times:'),
           const SizedBox(height: 8),
-          CountView(key: countKey, data: viewModel.count),
+          CountView(key: countKey, data: watch.count),
         ],
       ),
     );
   }
 
   @override
-  void onActionChanged(
-      BuildContext context, ExampleStatefulDataViewModel viewModel, action) {
-    super.onActionChanged(context, viewModel, action);
+  void onActionChanged(BuildContext context, action) {
+    super.onActionChanged(context, action);
     if (action == 'increase') {
-      countKey.currentState?.updateData(data: viewModel.count);
+      // countKey.currentState?.updateData(data: viewModel.count);
     }
   }
 }
@@ -78,7 +85,8 @@ class ExampleStatefulDataViewModel extends ViewModel {
 
   void increase() {
     count++;
-    updateAction('increase');
+    updateUi();
+    // updateAction('increase');
   }
 }
 

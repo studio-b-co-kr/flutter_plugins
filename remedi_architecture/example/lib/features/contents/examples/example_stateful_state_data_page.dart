@@ -8,27 +8,32 @@ class ExampleStatefulStateDataPage
   static const routeName = '/ExampleStatefulStateDataPage';
 
   ExampleStatefulStateDataPage(
-      {Key? key, required ExampleStatefulStateDataViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+      {Key? key,
+      required ViewModelBuilder<ExampleStatefulStateDataViewModel>
+          viewModelBuilder})
+      : super(key: key, viewModelBuilder: viewModelBuilder);
 
   final GlobalKey<StatefulStateDataViewState<ViewState, int>> countKey =
       GlobalKey();
 
   @override
   Widget build(
-      BuildContext context, ExampleStatefulStateDataViewModel viewModel) {
+    BuildContext context,
+    ExampleStatefulStateDataViewModel watch,
+    ExampleStatefulStateDataViewModel read,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, viewModel),
+      body: buildBody(context, watch, read),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
-        onPressed: viewModel.countStateData.state == ViewState.loading
+        onPressed: watch.countStateData.state == ViewState.loading
             ? null
             : () {
-                viewModel.increase();
+                read.increase();
               },
         child: Icon(
           Icons.add,
@@ -39,7 +44,10 @@ class ExampleStatefulStateDataPage
   }
 
   Widget buildBody(
-      BuildContext context, ExampleStatefulStateDataViewModel viewModel) {
+    BuildContext context,
+    ExampleStatefulStateDataViewModel watch,
+    ExampleStatefulStateDataViewModel read,
+  ) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -47,7 +55,7 @@ class ExampleStatefulStateDataPage
         children: <Widget>[
           const Text('You have pushed the button this many times:'),
           const SizedBox(height: 8),
-          CountView(key: countKey, stateData: viewModel.countStateData),
+          CountView(key: countKey, stateData: watch.countStateData),
         ],
       ),
     );
