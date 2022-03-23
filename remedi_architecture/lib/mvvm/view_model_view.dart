@@ -20,8 +20,8 @@ abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
   Widget build(BuildContext context, VM watch);
 
   Widget _build(BuildContext context) {
-    var watch = context.watch<VM>();
-    return build(context, watch);
+    AppLog.log('_build($context)', name: toString());
+    return build(context, context.watch<VM>());
   }
 
   void onActionChanged(BuildContext context, dynamic action) {
@@ -75,9 +75,10 @@ class _ViewModelViewState<VM extends ViewModel>
       },
 
       builder: (context, child) {
-        AppLog.log('builder()', name: toString());
+        AppLog.log('ChangeNotifierProvider.builder()', name: toString());
         return widget._build(context);
       },
+      // child: widget._build(context),
       // child: Consumer<VM>(
       //   builder: (context, vm, child) {
       //     AppLog.log('Consumer.builder()', name: toString());
