@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 RemediApp _app = RemediApp(
-  enableLog: false,
+  enableLog: true,
   appModels: [
     /// 홈화면의 배경색정보를 제공한다.
     ChangeNotifierProvider<ColorAppModel>(create: (context) => ColorAppModel()),

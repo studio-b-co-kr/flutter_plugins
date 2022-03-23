@@ -90,38 +90,36 @@ class HomePage extends ViewModelView<HomeViewModel> {
             child: const Text('Toggle Color'),
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  color: Colors.yellow.shade900,
-                  height: 48,
-                  onPressed: () {
-                    viewModel.goContents();
-                  },
-                  child: const Text('Go Content Page'),
-                ),
+        Row(children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              child: MaterialButton(
+                minWidth: double.infinity,
+                color: Colors.yellow.shade900,
+                height: 48,
+                onPressed: () {
+                  viewModel.goContents();
+                },
+                child: const Text('Go View Examples'),
               ),
             ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  color: Colors.pinkAccent,
-                  height: 48,
-                  onPressed: () {
-                    viewModel.goSettings();
-                  },
-                  child: const Text('Go Settings Page'),
-                ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              child: MaterialButton(
+                minWidth: double.infinity,
+                color: Colors.pinkAccent,
+                height: 48,
+                onPressed: () {
+                  viewModel.goSettings();
+                },
+                child: const Text('Go Settings Page'),
               ),
             ),
-          ],
-        )
+          ),
+        ])
       ]),
     );
   }
