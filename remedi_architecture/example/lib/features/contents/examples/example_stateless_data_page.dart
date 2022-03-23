@@ -7,25 +7,24 @@ class ExampleStatelessDataPage
 
   const ExampleStatelessDataPage({
     Key? key,
-    required ViewModelBuilder<ExampleStatelessDataViewModel> viewModelBuilder,
-  }) : super(key: key, viewModelBuilder: viewModelBuilder);
+    required ExampleStatelessDataViewModel viewModel,
+  }) : super(key: key, viewModel: viewModel);
 
   @override
   Widget build(
     BuildContext context,
     ExampleStatelessDataViewModel watch,
-    ExampleStatelessDataViewModel read,
   ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, watch, read),
+      body: buildBody(context, watch),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
         onPressed: () {
-          read.increase();
+          viewModel.increase();
         },
         child: Icon(
           Icons.add,
@@ -38,7 +37,6 @@ class ExampleStatelessDataPage
   Widget buildBody(
     BuildContext context,
     ExampleStatelessDataViewModel watch,
-    ExampleStatelessDataViewModel read,
   ) {
     return Center(
       child: Column(

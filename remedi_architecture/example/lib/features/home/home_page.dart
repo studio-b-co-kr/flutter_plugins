@@ -18,17 +18,16 @@ class HomePage extends ViewModelView<HomeViewModel> {
 
   HomePage({
     Key? key,
-    required ViewModelBuilder<HomeViewModel> viewModelBuilder,
+    required HomeViewModel viewModel,
   }) : super(
           key: key,
-          viewModelBuilder: viewModelBuilder,
+          viewModel: viewModel,
         );
 
   @override
   Widget build(
     BuildContext context,
     HomeViewModel watch,
-    HomeViewModel read,
   ) {
     return Scaffold(
       backgroundColor: context.watch<ColorAppModel>().color,
@@ -47,10 +46,10 @@ class HomePage extends ViewModelView<HomeViewModel> {
           child: LoginButtonWidget(
             key: loginButtonState,
             login: () {
-              read.authAppModel.login();
+              viewModel.authAppModel.login();
             },
             logout: () {
-              read.authAppModel.logout();
+              viewModel.authAppModel.logout();
             },
             stateData: watch.loginState,
           ),
@@ -70,7 +69,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
             color: Colors.blue,
             height: 48,
             onPressed: () {
-              read.increase();
+              viewModel.increase();
             },
             child: const Text('Increase count'),
           ),
@@ -82,7 +81,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
             color: Colors.grey,
             height: 48,
             onPressed: () {
-              read.toggleThemeMode();
+              viewModel.toggleThemeMode();
             },
             child: const Text('Toggle Theme'),
           ),
@@ -108,7 +107,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
                 color: Colors.yellow.shade900,
                 height: 48,
                 onPressed: () {
-                  read.goContents();
+                  viewModel.goContents();
                 },
                 child: const Text('Go View Examples'),
               ),
@@ -122,7 +121,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
                 color: Colors.pinkAccent,
                 height: 48,
                 onPressed: () {
-                  read.goSettings();
+                  viewModel.goSettings();
                 },
                 child: const Text('Go Settings Page'),
               ),

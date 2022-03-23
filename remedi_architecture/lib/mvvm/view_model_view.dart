@@ -10,20 +10,18 @@ part of 'mvvm.dart';
 typedef ViewModelBuilder<VM> = VM Function();
 
 abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
-  final ViewModelBuilder<VM> viewModelBuilder;
+  final VM viewModel;
 
-  const ViewModelView({Key? key, required this.viewModelBuilder})
-      : super(key: key);
+  const ViewModelView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   _ViewModelViewState<VM> createState() => _ViewModelViewState<VM>();
 
-  Widget build(BuildContext context, VM watch, VM read);
+  Widget build(BuildContext context, VM watch);
 
   Widget _build(BuildContext context) {
     var watch = context.watch<VM>();
-    var read = context.read<VM>();
-    return build(context, watch, read);
+    return build(context, watch);
   }
 
   void onActionChanged(BuildContext context, dynamic action) {
@@ -38,11 +36,8 @@ abstract class ViewModelView<VM extends ViewModel> extends StatefulWidget {
 
 class _ViewModelViewState<VM extends ViewModel>
     extends State<ViewModelView<VM>> {
-  late final VM viewModel;
-
   @override
   void initState() {
-    viewModel = widget.viewModelBuilder();
     _initialise();
     AppLog.log('initState.isMounted = $mounted', name: toString());
     super.initState();
@@ -110,6 +105,8 @@ class _ViewModelViewState<VM extends ViewModel>
   }
 
   Stream get actionStream => viewModel.stream;
+
+  VM get viewModel => widget.viewModel;
 
   @override
   void dispose() {

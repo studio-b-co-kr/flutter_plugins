@@ -7,15 +7,14 @@ class LoginPage extends ViewModelView<LoginViewModel> {
 
   const LoginPage({
     Key? key,
-    required ViewModelBuilder<LoginViewModel> viewModelBuilder,
+    required LoginViewModel viewModel,
   }) : super(
           key: key,
-          viewModelBuilder: viewModelBuilder,
+          viewModel: viewModel,
         );
 
   @override
-  Widget build(
-      BuildContext context, LoginViewModel watch, LoginViewModel read) {
+  Widget build(BuildContext context, LoginViewModel watch) {
     return const Scaffold();
   }
 }

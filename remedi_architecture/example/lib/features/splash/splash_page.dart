@@ -8,14 +8,13 @@ class SplashPage extends ViewModelView<SplashViewModel> {
 
   const SplashPage({
     Key? key,
-    required ViewModelBuilder<SplashViewModel> viewModelBuilder,
-  }) : super(key: key, viewModelBuilder: viewModelBuilder);
+    required SplashViewModel viewModel,
+  }) : super(key: key, viewModel: viewModel);
 
   @override
   Widget build(
     BuildContext context,
     SplashViewModel watch,
-    SplashViewModel read,
   ) {
     return const Scaffold(
       body: Center(

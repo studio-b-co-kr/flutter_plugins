@@ -7,30 +7,25 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
 
   const ContentsPage({
     Key? key,
-    required ViewModelBuilder<ContentsViewModel> viewModelBuilder,
-  }) : super(
-          key: key,
-          viewModelBuilder: viewModelBuilder,
-        );
+    required ContentsViewModel viewModel,
+  }) : super(key: key, viewModel: viewModel);
 
   @override
   Widget build(
     BuildContext context,
     ContentsViewModel watch,
-    ContentsViewModel read,
   ) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contents'),
       ),
-      body: _build(context, watch, read),
+      body: _build(context, watch),
     );
   }
 
   Widget _build(
     BuildContext context,
     ContentsViewModel watch,
-    ContentsViewModel read,
   ) {
     return Column(children: [
       Expanded(
@@ -42,7 +37,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
               description: '',
               buttonTitle: 'Go\nStateless\nDataView\nExample',
               onPressed: () {
-                read.goStatelessDataView();
+                viewModel.goStatelessDataView();
               },
             ),
           ),
@@ -52,7 +47,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
               description: '',
               buttonTitle: 'Go\nStateless\nStateDataView\nExample',
               onPressed: () {
-                read.goStatelessStateDataView();
+                viewModel.goStatelessStateDataView();
               },
             ),
           ),
@@ -66,7 +61,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
             description: '',
             buttonTitle: 'Go\nStateful\nDataView\nExample',
             onPressed: () {
-              read.goStatefulDataView();
+              viewModel.goStatefulDataView();
             },
           ),
         ),
@@ -76,7 +71,7 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
             description: '',
             buttonTitle: 'Go\nStateful\nStateDataView\nExample',
             onPressed: () {
-              read.goStatefulStateDataView();
+              viewModel.goStatefulStateDataView();
             },
           ),
         ),

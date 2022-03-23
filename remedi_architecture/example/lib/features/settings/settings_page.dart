@@ -5,15 +5,13 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 class SettingsPage extends ViewModelView<SettingsViewModel> {
   static const String routeName = '/settings';
 
-  const SettingsPage(
-      {Key? key, required ViewModelBuilder<SettingsViewModel> viewModelBuilder})
-      : super(key: key, viewModelBuilder: viewModelBuilder);
+  const SettingsPage({Key? key, required SettingsViewModel viewModel})
+      : super(key: key, viewModel: viewModel);
 
   @override
   Widget build(
     BuildContext context,
     SettingsViewModel watch,
-    SettingsViewModel read,
   ) {
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +30,7 @@ class SettingsPage extends ViewModelView<SettingsViewModel> {
             height: 48,
             color: Colors.grey,
             onPressed: () {
-              read.toggleThemeMode();
+              viewModel.toggleThemeMode();
             },
             child: const Text('Toggle Theme'),
           ),

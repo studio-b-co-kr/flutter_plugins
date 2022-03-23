@@ -8,10 +8,8 @@ class ExampleStatefulStateDataPage
   static const routeName = '/ExampleStatefulStateDataPage';
 
   ExampleStatefulStateDataPage(
-      {Key? key,
-      required ViewModelBuilder<ExampleStatefulStateDataViewModel>
-          viewModelBuilder})
-      : super(key: key, viewModelBuilder: viewModelBuilder);
+      {Key? key, required ExampleStatefulStateDataViewModel viewModel})
+      : super(key: key, viewModel: viewModel);
 
   final GlobalKey<StatefulStateDataViewState<ViewState, int>> countKey =
       GlobalKey();
@@ -20,20 +18,19 @@ class ExampleStatefulStateDataPage
   Widget build(
     BuildContext context,
     ExampleStatefulStateDataViewModel watch,
-    ExampleStatefulStateDataViewModel read,
   ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, watch, read),
+      body: buildBody(context, watch),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
         onPressed: watch.countStateData.state == ViewState.loading
             ? null
             : () {
-                read.increase();
+                viewModel.increase();
               },
         child: Icon(
           Icons.add,
@@ -46,7 +43,6 @@ class ExampleStatefulStateDataPage
   Widget buildBody(
     BuildContext context,
     ExampleStatefulStateDataViewModel watch,
-    ExampleStatefulStateDataViewModel read,
   ) {
     return Center(
       child: Column(
