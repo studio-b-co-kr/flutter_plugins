@@ -1,7 +1,5 @@
 library remedi_splash;
 
-import 'package:flutter/widgets.dart';
-
-export 'package:stacked_mvvm/stacked_mvvm.dart';
-
-typedef Route<dynamic> GenerateRoutes(RouteSettings settings);
+export 'package:remedi_splash/feature/splash/splash_error.dart';
+export 'package:remedi_splash/feature/splash/splash_page.dart';
+export 'package:remedi_splash/repository/i_splash_repository.dart';

@@ -1,6 +1,6 @@
-import 'package:stacked_mvvm/stacked_mvvm.dart';
+import 'package:remedi/architecture/architecture.dart';
 
-abstract class ISplashRepository extends IRepository {
+abstract class ISplashRepository extends Repository {
   Future<dynamic> init();
 
   Future<bool> needToUpdate();
@@ -8,8 +8,6 @@ abstract class ISplashRepository extends IRepository {
   Future<bool> isCompletedPermissionGrant();
 
   Future<dynamic> isCompletedIntro();
-
-  Future<bool> isLoggedIn();
 
   Future<dynamic> isCompletedOnboarding();
 
