@@ -16,7 +16,11 @@ class ContentsPage extends ViewModelBuilder<ContentsViewModel> {
       appBar: AppBar(
         title: const Text('Contents'),
       ),
-      body: const Text('Contents'),
+      body: const Center(
+          child: Text(
+        'Contents',
+        style: TextStyle(fontSize: 40),
+      )),
     );
   }
 }
