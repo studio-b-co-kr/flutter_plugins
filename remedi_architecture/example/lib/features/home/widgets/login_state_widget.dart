@@ -1,12 +1,12 @@
 import 'package:example/app_models/auth_app_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/mvvm/view_model_widget.dart';
+import 'package:remedi_architecture/remedi_architecture.dart';
 
-class LoginStateWidget extends ProviderWidget<AuthAppModel> {
+class LoginStateWidget extends View<AuthAppModel> {
   const LoginStateWidget({Key? key}) : super(key: key);
 
   @override
-  Widget buildWidget(
+  Widget buildChild(
       BuildContext context, AuthAppModel watch, AuthAppModel read) {
     String text = '';
     switch (read.loginState.state) {

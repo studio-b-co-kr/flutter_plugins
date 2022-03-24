@@ -1,12 +1,12 @@
 import 'package:example/features/home/home_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/mvvm/view_model_widget.dart';
+import 'package:remedi_architecture/remedi_architecture.dart';
 
-class CountWidget extends ProviderWidget<HomeViewModel> {
+class CountWidget extends View<HomeViewModel> {
   const CountWidget({Key? key}) : super(key: key);
 
   @override
-  Widget buildWidget(
+  Widget buildChild(
       BuildContext context, HomeViewModel watch, HomeViewModel read) {
     return Text(
       '${watch.count}',

@@ -9,3 +9,4 @@ part 'app_model.dart';
 part 'repository.dart';
 part 'view_model.dart';
 part 'view_model_builder.dart';
+part 'views.dart';

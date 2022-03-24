@@ -80,7 +80,6 @@ class ExampleStatefulDataViewModel extends ViewModel {
   void increase() {
     count++;
     updateUi();
-    // updateAction('increase');
   }
 }
 
