@@ -8,4 +8,4 @@ import '../app/app.dart';
 part 'app_model.dart';
 part 'repository.dart';
 part 'view_model.dart';
-part 'view_model_view.dart';
+part 'view_model_builder.dart';

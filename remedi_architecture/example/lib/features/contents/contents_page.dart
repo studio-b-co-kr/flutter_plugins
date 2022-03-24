@@ -2,7 +2,7 @@ import 'package:example/features/contents/contents_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class ContentsPage extends ViewModelView<ContentsViewModel> {
+class ContentsPage extends ViewModelBuilder<ContentsViewModel> {
   static const String routeName = '/contents';
 
   const ContentsPage({
@@ -11,21 +11,17 @@ class ContentsPage extends ViewModelView<ContentsViewModel> {
   }) : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(
-    BuildContext context,
-    ContentsViewModel watch,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contents'),
       ),
-      body: _build(context, watch),
+      body: _build(context),
     );
   }
 
   Widget _build(
     BuildContext context,
-    ContentsViewModel watch,
   ) {
     return Column(children: [
       Expanded(

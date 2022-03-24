@@ -1,26 +1,23 @@
 import 'package:example/app_models/auth_app_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi_architecture.dart';
+import 'package:remedi_architecture/mvvm/view_model_widget.dart';
 
-// ignore: must_be_immutable
-class LoginStateWidget extends StatefulStateDataView<LoginState, bool> {
-  LoginStateWidget({
-    required GlobalKey<StatefulStateDataViewState<LoginState, bool>> key,
-    required StateData<LoginState, bool> stateData,
-  }) : super(key: key, stateData: stateData);
+class LoginStateWidget extends ProviderWidget<AuthAppModel> {
+  const LoginStateWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LoginState? state, bool? data) {
+  Widget buildWidget(
+      BuildContext context, AuthAppModel watch, AuthAppModel read) {
     String text = '';
-    switch (state) {
+    switch (read.loginState.state) {
       case LoginState.loggedIn:
-        text = 'login = $data';
+        text = 'login = ${watch.loginState.data}';
         break;
       case LoginState.loading:
         text = 'Loading';
         break;
       case LoginState.loggedOut:
-        text = 'login = $data';
+        text = 'login = ${watch.loginState.data}';
         break;
       default:
         break;

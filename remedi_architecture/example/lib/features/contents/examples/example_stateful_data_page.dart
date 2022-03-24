@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class ExampleStatefulDataPage
-    extends ViewModelView<ExampleStatefulDataViewModel> {
+    extends ViewModelBuilder<ExampleStatefulDataViewModel> {
   static const routeName = '/ExampleStatefulDataPage';
 
   ExampleStatefulDataPage(
@@ -12,15 +12,12 @@ class ExampleStatefulDataPage
   final GlobalKey<StatefulDataViewState<int>> countKey = GlobalKey();
 
   @override
-  Widget build(
-    BuildContext context,
-    ExampleStatefulDataViewModel watch,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, watch),
+      body: buildBody(context),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
@@ -35,10 +32,7 @@ class ExampleStatefulDataPage
     );
   }
 
-  Widget buildBody(
-    BuildContext context,
-    ExampleStatefulDataViewModel watch,
-  ) {
+  Widget buildBody(BuildContext context) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -46,15 +40,18 @@ class ExampleStatefulDataPage
         children: <Widget>[
           const Text('You have pushed the button this many times:'),
           const SizedBox(height: 8),
-          CountView(key: countKey, data: watch.count),
+          CountView(
+            key: countKey,
+            data: context.watch<ExampleStatefulDataViewModel>().count,
+          ),
         ],
       ),
     );
   }
 
   @override
-  void onActionChanged(BuildContext context, action) {
-    super.onActionChanged(context, action);
+  void onActionReceived(BuildContext context, action) {
+    super.onActionReceived(context, action);
     if (action == 'increase') {
       // countKey.currentState?.updateData(data: viewModel.count);
     }

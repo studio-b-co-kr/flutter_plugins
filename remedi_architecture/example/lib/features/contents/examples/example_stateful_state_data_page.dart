@@ -4,7 +4,7 @@ import 'package:remedi_architecture/remedi_architecture.dart';
 import 'view_state.dart';
 
 class ExampleStatefulStateDataPage
-    extends ViewModelView<ExampleStatefulStateDataViewModel> {
+    extends ViewModelBuilder<ExampleStatefulStateDataViewModel> {
   static const routeName = '/ExampleStatefulStateDataPage';
 
   ExampleStatefulStateDataPage(
@@ -15,19 +15,20 @@ class ExampleStatefulStateDataPage
       GlobalKey();
 
   @override
-  Widget build(
-    BuildContext context,
-    ExampleStatefulStateDataViewModel watch,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, watch),
+      body: buildBody(context),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
-        onPressed: watch.countStateData.state == ViewState.loading
+        onPressed: context
+                    .watch<ExampleStatefulStateDataViewModel>()
+                    .countStateData
+                    .state ==
+                ViewState.loading
             ? null
             : () {
                 viewModel.increase();
@@ -42,7 +43,6 @@ class ExampleStatefulStateDataPage
 
   Widget buildBody(
     BuildContext context,
-    ExampleStatefulStateDataViewModel watch,
   ) {
     return Center(
       child: Column(
@@ -51,7 +51,11 @@ class ExampleStatefulStateDataPage
         children: <Widget>[
           const Text('You have pushed the button this many times:'),
           const SizedBox(height: 8),
-          CountView(key: countKey, stateData: watch.countStateData),
+          CountView(
+              key: countKey,
+              stateData: context
+                  .watch<ExampleStatefulStateDataViewModel>()
+                  .countStateData),
         ],
       ),
     );

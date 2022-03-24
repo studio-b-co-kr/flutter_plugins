@@ -1,15 +1,15 @@
+import 'package:example/features/home/home_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi_architecture.dart';
+import 'package:remedi_architecture/mvvm/view_model_widget.dart';
 
-// ignore: must_be_immutable
-class CountWidget extends StatefulDataView<int> {
-  CountWidget({required GlobalKey<StatefulDataViewState<int>> key, int? data})
-      : super(key: key, data: data);
+class CountWidget extends ProviderWidget<HomeViewModel> {
+  const CountWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, int? data) {
+  Widget buildWidget(
+      BuildContext context, HomeViewModel watch, HomeViewModel read) {
     return Text(
-      '$data',
+      '${watch.count}',
       textAlign: TextAlign.center,
       style: const TextStyle(fontSize: 40),
     );

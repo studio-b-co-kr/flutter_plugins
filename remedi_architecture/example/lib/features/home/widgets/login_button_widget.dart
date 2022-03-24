@@ -1,40 +1,32 @@
 import 'package:example/app_models/auth_app_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi_architecture.dart';
+import 'package:remedi_architecture/mvvm/view_model_widget.dart';
 
-// ignore: must_be_immutable
-class LoginButtonWidget extends StatefulStateDataView<LoginState, bool> {
-  final Function() logout;
-  final Function() login;
-
-  LoginButtonWidget({
-    required GlobalKey<StatefulStateDataViewState<LoginState, bool>> key,
-    required this.login,
-    required this.logout,
-    required StateData<LoginState, bool> stateData,
-  }) : super(key: key, stateData: stateData);
+class LoginButtonWidget extends ProviderWidget<AuthAppModel> {
+  const LoginButtonWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LoginState? state, bool? data) {
+  Widget buildWidget(
+      BuildContext context, AuthAppModel watch, AuthAppModel read) {
     return MaterialButton(
       minWidth: double.infinity,
       height: 48,
-      onPressed: state == null || state == LoginState.loading
+      onPressed: read.loginState.state == LoginState.loading
           ? null
           : () async {
-              switch (state) {
+              switch (read.loginState.state) {
                 case LoginState.loggedIn:
-                  logout();
+                  read.logout();
                   break;
                 case LoginState.loggedOut:
-                  login();
+                  read.login();
                   break;
                 default:
                   break;
               }
             },
       color: Colors.red,
-      child: _text(state),
+      child: _text(watch.loginState.state),
     );
   }
 

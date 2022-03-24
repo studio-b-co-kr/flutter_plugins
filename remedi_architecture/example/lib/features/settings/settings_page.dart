@@ -1,18 +1,14 @@
-import 'package:example/features/settings/settings_view_model.dart';
+import 'package:example/app_models/settings_app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class SettingsPage extends ViewModelView<SettingsViewModel> {
+class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
 
-  const SettingsPage({Key? key, required SettingsViewModel viewModel})
-      : super(key: key, viewModel: viewModel);
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(
-    BuildContext context,
-    SettingsViewModel watch,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -30,7 +26,7 @@ class SettingsPage extends ViewModelView<SettingsViewModel> {
             height: 48,
             color: Colors.grey,
             onPressed: () {
-              viewModel.toggleThemeMode();
+              context.read<SettingsAppModel>().toggleThemeMode();
             },
             child: const Text('Toggle Theme'),
           ),

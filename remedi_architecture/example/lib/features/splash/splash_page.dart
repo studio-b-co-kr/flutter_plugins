@@ -3,7 +3,7 @@ import 'package:example/features/splash/splash_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class SplashPage extends ViewModelView<SplashViewModel> {
+class SplashPage extends ViewModelBuilder<SplashViewModel> {
   static const routeName = '/splash';
 
   const SplashPage({
@@ -14,7 +14,6 @@ class SplashPage extends ViewModelView<SplashViewModel> {
   @override
   Widget build(
     BuildContext context,
-    SplashViewModel watch,
   ) {
     return const Scaffold(
       body: Center(
@@ -27,8 +26,8 @@ class SplashPage extends ViewModelView<SplashViewModel> {
   }
 
   @override
-  void onActionChanged(BuildContext context, action) {
-    super.onActionChanged(context, action);
+  void onActionReceived(BuildContext context, action) {
+    super.onActionReceived(context, action);
     RemediRouter.pushReplacementNamed(HomePage.routeName);
   }
 }

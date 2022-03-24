@@ -1,5 +1,5 @@
-import 'package:example/app_models/auth_app_model.dart';
 import 'package:example/app_models/color_app_model.dart';
+import 'package:example/app_models/settings_app_model.dart';
 import 'package:example/features/home/home_view_model.dart';
 import 'package:example/features/home/widgets/counter_widget.dart';
 import 'package:example/features/home/widgets/login_button_widget.dart';
@@ -7,59 +7,34 @@ import 'package:example/features/home/widgets/login_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
-class HomePage extends ViewModelView<HomeViewModel> {
+class HomePage extends ViewModelBuilder<HomeViewModel> {
   static const String routeName = '/home';
 
-  final GlobalKey<StatefulDataViewState<int>> countState = GlobalKey();
-  final GlobalKey<StatefulStateDataViewState<LoginState, bool>> loginState =
-      GlobalKey();
-  final GlobalKey<StatefulStateDataViewState<LoginState, bool>>
-      loginButtonState = GlobalKey();
-
-  HomePage({
+  const HomePage({
     Key? key,
     required HomeViewModel viewModel,
-  }) : super(
-          key: key,
-          viewModel: viewModel,
-        );
+  }) : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(
-    BuildContext context,
-    HomeViewModel watch,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.watch<ColorAppModel>().color,
       appBar: AppBar(
         title: const Text('Remedi Architecture'),
       ),
       body: Column(children: [
-        Expanded(
+        const Expanded(
           child: Center(
-            child:
-                LoginStateWidget(key: loginState, stateData: watch.loginState),
+            child: LoginStateWidget(),
           ),
         ),
         Container(
           padding: const EdgeInsets.all(16),
-          child: LoginButtonWidget(
-            key: loginButtonState,
-            login: () {
-              viewModel.authAppModel.login();
-            },
-            logout: () {
-              viewModel.authAppModel.logout();
-            },
-            stateData: watch.loginState,
-          ),
+          child: const LoginButtonWidget(),
         ),
-        Expanded(
+        const Expanded(
           child: Center(
-            child: CountWidget(
-              key: countState,
-              data: watch.count,
-            ),
+            child: CountWidget(),
           ),
         ),
         Container(
@@ -81,7 +56,7 @@ class HomePage extends ViewModelView<HomeViewModel> {
             color: Colors.grey,
             height: 48,
             onPressed: () {
-              viewModel.toggleThemeMode();
+              context.read<SettingsAppModel>().toggleThemeMode();
             },
             child: const Text('Toggle Theme'),
           ),
@@ -130,22 +105,5 @@ class HomePage extends ViewModelView<HomeViewModel> {
         ])
       ]),
     );
-  }
-
-  @override
-  void onActionChanged(BuildContext context, dynamic action) {
-    super.onActionChanged(context, action);
-    switch (action) {
-      case 'increase':
-        // countState.currentState?.updateData(data: viewModel.count);
-        break;
-
-      case 'login':
-        // loginState.currentState
-        //     ?.updateStateData(stateData: viewModel.loginState);
-        // loginButtonState.currentState
-        //     ?.updateStateData(stateData: viewModel.loginState);
-        break;
-    }
   }
 }

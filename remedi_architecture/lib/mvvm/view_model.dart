@@ -1,6 +1,6 @@
 part of 'mvvm.dart';
 
-/// [ViewModelView] 와 페이링 되는 View Model.
+/// [ViewModelBuilder] 와 페이링 되는 View Model.
 /// Create instance as singleton as can as possible.
 /// If you do not use this class as a singleton,
 /// there'll be some problem after hot-reload.
@@ -18,8 +18,6 @@ abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
     _initialised = true;
     initialise();
   }
-
-  linkAppModels(BuildContext context) {}
 
   @override
   void reassemble() {

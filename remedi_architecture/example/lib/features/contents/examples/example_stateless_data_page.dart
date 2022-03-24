@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remedi_architecture/remedi_architecture.dart';
 
 class ExampleStatelessDataPage
-    extends ViewModelView<ExampleStatelessDataViewModel> {
+    extends ViewModelBuilder<ExampleStatelessDataViewModel> {
   static const routeName = '/ExampleStatelessDataPage';
 
   const ExampleStatelessDataPage({
@@ -13,13 +13,12 @@ class ExampleStatelessDataPage
   @override
   Widget build(
     BuildContext context,
-    ExampleStatelessDataViewModel watch,
   ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(routeName.substring(1)),
       ),
-      body: buildBody(context, watch),
+      body: buildBody(context),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         elevation: 10,
@@ -36,7 +35,6 @@ class ExampleStatelessDataPage
 
   Widget buildBody(
     BuildContext context,
-    ExampleStatelessDataViewModel watch,
   ) {
     return Center(
       child: Column(
@@ -45,7 +43,7 @@ class ExampleStatelessDataPage
         children: <Widget>[
           const Text('You have pushed the button this many times:'),
           const SizedBox(height: 8),
-          CountView(data: watch.count),
+          CountView(data: context.watch<ExampleStatelessDataViewModel>().count),
         ],
       ),
     );
