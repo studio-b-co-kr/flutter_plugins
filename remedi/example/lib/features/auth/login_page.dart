@@ -1,6 +1,6 @@
 import 'package:example/features/auth/login_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class LoginPage extends ViewModelBuilder<LoginViewModel> {
   static const routeName = '/login';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class ColorAppModel extends AppModel {
   ColorAppModel({bool? withInit}) : super(withInit: withInit);

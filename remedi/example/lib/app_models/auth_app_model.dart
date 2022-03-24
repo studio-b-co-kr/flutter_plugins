@@ -1,4 +1,4 @@
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class AuthAppModel extends AppModel {
   StateData<LoginState, bool> loginState = StateData(

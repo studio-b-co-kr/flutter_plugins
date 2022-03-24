@@ -1,7 +1,7 @@
 import 'package:example/features/home/home_page.dart';
 import 'package:example/features/splash/splash_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class SplashPage extends ViewModelBuilder<SplashViewModel> {
   static const routeName = '/splash';

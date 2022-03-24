@@ -1,6 +1,6 @@
 import 'package:example/app_models/auth_app_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class LoginStateWidget extends View<AuthAppModel> {
   const LoginStateWidget({Key? key}) : super(key: key);

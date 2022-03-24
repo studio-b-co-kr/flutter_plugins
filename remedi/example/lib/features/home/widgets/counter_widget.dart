@@ -1,6 +1,6 @@
 import 'package:example/features/home/home_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class CountWidget extends View<HomeViewModel> {
   const CountWidget({Key? key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class ContentsViewModel extends ViewModel {
   static ContentsViewModel _instance = ContentsViewModel._();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class SettingsAppModel extends AppModel {
   SettingsAppModel({bool? withInit}) : super(withInit: withInit);

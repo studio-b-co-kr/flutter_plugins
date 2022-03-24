@@ -1,6 +1,6 @@
 import 'package:example/features/contents/contents_page.dart';
 import 'package:example/features/settings/settings_page.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class HomeViewModel extends ViewModel {
   static HomeViewModel _instance = HomeViewModel._();

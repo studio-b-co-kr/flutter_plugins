@@ -1,6 +1,6 @@
 import 'package:example/features/contents/contents_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class ContentsPage extends ViewModelBuilder<ContentsViewModel> {
   static const String routeName = '/contents';

@@ -5,7 +5,7 @@ import 'package:example/features/home/widgets/counter_widget.dart';
 import 'package:example/features/home/widgets/login_button_widget.dart';
 import 'package:example/features/home/widgets/login_state_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class HomePage extends ViewModelBuilder<HomeViewModel> {
   static const String routeName = '/home';

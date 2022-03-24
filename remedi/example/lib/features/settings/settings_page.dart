@@ -1,6 +1,6 @@
 import 'package:example/app_models/settings_app_model.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi_architecture/remedi.dart';
+import 'package:remedi/remedi.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
