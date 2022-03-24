@@ -17,10 +17,11 @@ class ContentsPage extends ViewModelBuilder<ContentsViewModel> {
         title: const Text('Contents'),
       ),
       body: const Center(
-          child: Text(
-        'Contents',
-        style: TextStyle(fontSize: 40),
-      )),
+        child: Text(
+          'Contents',
+          style: TextStyle(fontSize: 40),
+        ),
+      ),
     );
   }
 }
