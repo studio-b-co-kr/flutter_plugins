@@ -30,7 +30,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => ContentsPage(
-            viewModel: ContentsViewModel.singleton(),
+            viewModel: ContentsViewModel(),
           ),
         );
         break;
@@ -38,7 +38,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => SplashPage(
-            viewModel: SplashViewModel.singleton(),
+            viewModel: SplashViewModel(),
           ),
         );
         break;

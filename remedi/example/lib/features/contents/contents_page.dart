@@ -16,11 +16,53 @@ class ContentsPage extends ViewModelBuilder<ContentsViewModel> {
       appBar: AppBar(
         title: const Text('Contents'),
       ),
-      body: const Center(
-        child: Text(
-          'Contents',
-          style: TextStyle(fontSize: 40),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 80),
+        child: FloatingActionButton(
+          onPressed: () {
+            read.increase();
+          },
+          backgroundColor: Colors.black,
+          child: Icon(
+            Icons.add,
+            color: Colors.grey.shade50,
+          ),
         ),
+      ),
+      body: Column(children: [
+        const Expanded(
+          child: Center(
+            child: CountView(),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: MaterialButton(
+            color: Colors.grey,
+            height: 48,
+            minWidth: double.infinity,
+            onPressed: () {
+              RemediRouter.pushNamed(routeName);
+            },
+            child: const Text('Go Contents'),
+          ),
+        )
+      ]),
+    );
+  }
+}
+
+class CountView extends View<ContentsViewModel> {
+  const CountView({Key? key}) : super(key: key);
+
+  @override
+  Widget buildChild(
+      BuildContext context, ContentsViewModel watch, ContentsViewModel read) {
+    return Text(
+      '${watch.count}',
+      style: const TextStyle(
+        fontSize: 40,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

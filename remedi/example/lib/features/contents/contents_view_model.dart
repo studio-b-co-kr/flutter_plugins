@@ -1,16 +1,11 @@
 import 'package:remedi/remedi.dart';
 
 class ContentsViewModel extends ViewModel {
-  static ContentsViewModel _instance = ContentsViewModel._();
+  int count = 0;
 
-  ContentsViewModel._();
-
-  factory ContentsViewModel.singleton() {
-    if (_instance.isDisposed) {
-      _instance = ContentsViewModel._();
-    }
-
-    return _instance;
+  void increase() {
+    count++;
+    notifyListeners();
   }
 
   @override
