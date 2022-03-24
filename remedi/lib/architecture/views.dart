@@ -1,4 +1,4 @@
-part of 'mvvm.dart';
+part of 'architecture.dart';
 
 /// Wrapper class for providing ViewModel and AppModel
 abstract class View<P extends ChangeNotifier> extends StatelessWidget {

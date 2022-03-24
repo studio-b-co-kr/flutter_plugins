@@ -1,4 +1,4 @@
-part of 'mvvm.dart';
+part of 'architecture.dart';
 
 /// [ViewModelBuilder] 와 페이링 되는 View Model.
 /// Create instance as singleton as can as possible.

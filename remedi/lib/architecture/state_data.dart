@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of 'architecture.dart';
 
 /// Data 와 State 를 묶은 Wrapper 클래스이다.
 class StateData<S, D> {

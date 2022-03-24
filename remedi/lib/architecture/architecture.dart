@@ -7,6 +7,7 @@ import '../app/app.dart';
 
 part 'app_model.dart';
 part 'repository.dart';
+part 'state_data.dart';
 part 'view_model.dart';
 part 'view_model_builder.dart';
 part 'views.dart';

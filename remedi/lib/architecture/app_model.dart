@@ -1,4 +1,4 @@
-part of 'mvvm.dart';
+part of 'architecture.dart';
 
 /// [AppModel] MaterialApp 보다 상위의 Widget Tree 의 최상위에 존재한다.
 /// [AppModel] 은 앱 전체가 공유해야하는 데이터와 비즈니스 로직을 제공한다.

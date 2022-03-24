@@ -1,9 +1,5 @@
 import 'package:example/features/contents/contents_page.dart';
 import 'package:example/features/contents/contents_view_model.dart';
-import 'package:example/features/contents/examples/example_stateful_data_page.dart';
-import 'package:example/features/contents/examples/example_stateful_state_data_page.dart';
-import 'package:example/features/contents/examples/example_stateless_data_page.dart';
-import 'package:example/features/contents/examples/example_stateless_state_data_page.dart';
 import 'package:example/features/home/home_page.dart';
 import 'package:example/features/home/home_view_model.dart';
 import 'package:example/features/settings/settings_page.dart';
@@ -51,42 +47,6 @@ class ExampleAppRouteGenerator extends RouteGenerator {
           settings: settings,
           builder: (context) => HomePage(
             viewModel: HomeViewModel.singleton(),
-          ),
-        );
-        break;
-
-      case ExampleStatelessDataPage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => ExampleStatelessDataPage(
-            viewModel: ExampleStatelessDataViewModel.singleton(),
-          ),
-        );
-        break;
-
-      case ExampleStatelessStateDataPage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => ExampleStatelessStateDataPage(
-            viewModel: ExampleStatelessStateDataViewModel.singleton(),
-          ),
-        );
-        break;
-
-      case ExampleStatefulDataPage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => ExampleStatefulDataPage(
-            viewModel: ExampleStatefulDataViewModel.singleton(),
-          ),
-        );
-        break;
-
-      case ExampleStatefulStateDataPage.routeName:
-        ret = MaterialPageRoute(
-          settings: settings,
-          builder: (context) => ExampleStatefulStateDataPage(
-            viewModel: ExampleStatefulStateDataViewModel.singleton(),
           ),
         );
         break;

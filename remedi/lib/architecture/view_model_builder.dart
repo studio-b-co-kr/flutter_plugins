@@ -1,4 +1,4 @@
-part of 'mvvm.dart';
+part of 'architecture.dart';
 
 /// [ViewModelBuilder] ViewModelView 는 상태 변경이 많고 여러 가지 데이터 혹은,
 /// 복잡한 데이터를 표시할 때 사용한다.
