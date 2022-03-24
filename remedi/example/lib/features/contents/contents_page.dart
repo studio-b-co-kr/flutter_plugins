@@ -5,13 +5,13 @@ import 'package:remedi/remedi.dart';
 class ContentsPage extends ViewModelBuilder<ContentsViewModel> {
   static const String routeName = '/contents';
 
-  const ContentsPage({
+  ContentsPage({
     Key? key,
     required ContentsViewModel viewModel,
   }) : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ContentsViewModel read) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contents'),

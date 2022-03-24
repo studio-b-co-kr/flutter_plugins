@@ -10,13 +10,13 @@ import 'package:remedi/remedi.dart';
 class HomePage extends ViewModelBuilder<HomeViewModel> {
   static const String routeName = '/home';
 
-  const HomePage({
+  HomePage({
     Key? key,
     required HomeViewModel viewModel,
   }) : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, HomeViewModel read) {
     return Scaffold(
       backgroundColor: context.watch<ColorAppModel>().color,
       appBar: AppBar(
@@ -44,7 +44,8 @@ class HomePage extends ViewModelBuilder<HomeViewModel> {
             color: Colors.blue,
             height: 48,
             onPressed: () {
-              viewModel.increase();
+              // context.read<HomeViewModel>().increase();
+              read.increase();
             },
             child: const Text('Increase count'),
           ),
@@ -82,7 +83,7 @@ class HomePage extends ViewModelBuilder<HomeViewModel> {
                 color: Colors.yellow.shade900,
                 height: 48,
                 onPressed: () {
-                  viewModel.goContents();
+                  context.read<HomeViewModel>().goContents();
                 },
                 child: const Text('Go View Examples'),
               ),
@@ -96,7 +97,7 @@ class HomePage extends ViewModelBuilder<HomeViewModel> {
                 color: Colors.pinkAccent,
                 height: 48,
                 onPressed: () {
-                  viewModel.goSettings();
+                  context.read<HomeViewModel>().goSettings();
                 },
                 child: const Text('Go Settings Page'),
               ),

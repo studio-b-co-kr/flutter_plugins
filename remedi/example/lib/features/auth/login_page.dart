@@ -5,13 +5,13 @@ import 'package:remedi/remedi.dart';
 class LoginPage extends ViewModelBuilder<LoginViewModel> {
   static const routeName = '/login';
 
-  const LoginPage({
+  LoginPage({
     Key? key,
     required LoginViewModel viewModel,
   }) : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, LoginViewModel read) {
     return const Scaffold();
   }
 }

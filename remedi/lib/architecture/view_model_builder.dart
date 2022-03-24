@@ -8,22 +8,25 @@ part of 'architecture.dart';
 /// action 을 View에 전달한다.
 /// AppModel
 
+// ignore: must_be_immutable
 abstract class ViewModelBuilder<VM extends ViewModel> extends StatefulWidget {
-  final VM viewModel;
+  late final VM _viewModel;
 
-  const ViewModelBuilder({
+  ViewModelBuilder({
     Key? key,
-    required this.viewModel,
-  }) : super(key: key);
+    required VM viewModel,
+  }) : super(key: key) {
+    _viewModel = viewModel;
+  }
 
   @override
   _ViewModelBuilderState<VM> createState() => _ViewModelBuilderState<VM>();
 
-  Widget build(BuildContext context);
+  Widget build(BuildContext context, VM read);
 
   Widget _build(BuildContext context) {
     AppLog.log('_build($context)', name: toString());
-    return build(context);
+    return build(context, context.read<VM>());
   }
 
   void onActionReceived(BuildContext context, dynamic action) {
@@ -37,43 +40,53 @@ abstract class ViewModelBuilder<VM extends ViewModel> extends StatefulWidget {
 }
 
 class _ViewModelBuilderState<VM extends ViewModel>
-    extends State<ViewModelBuilder<VM>> {
+    extends State<ViewModelBuilder<VM>> implements ReassembleHandler {
   @override
   void initState() {
     _initialise();
-    AppLog.log('initState.isMounted = $mounted', name: toString());
+    AppLog.log('initState.isMounted = $mounted', name: widget.toString());
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    AppLog.log('build', name: toString());
+  void reassemble() {
+    onHotRefresh();
+    super.reassemble();
+  }
 
-    if (viewModel.isDisposed) {
-      throw Exception('You cannot reuse a disposed ViewModel again.\n\n'
-          'If you want to use the ViewModel as a singleton instance,\n'
-          'please make a constructor of the ViewModel as below.\n\n'
-          'class ContentsViewModel extends IViewModel {\n'
-          ' static ContentsViewModel _instance = ContentsViewModel._();\n\n'
-          ' ContentsViewModel._();\n\n'
-          ' factory ContentsViewModel.singleton() {\n'
-          '   if (_instance.isDisposed) {\n'
-          '     _instance = ContentsViewModel._();\n'
-          '   }\n\n'
-          '   return _instance;\n'
-          ' }\n\n'
-          ' @override\n'
-          ' initialise() {}\n'
-          '}\n');
-    }
+  void onHotRefresh() {
+    AppLog.log('onHotRefresh', name: widget.toString());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    AppLog.log('build', name: widget.toString());
+
+    // if (viewModel.isDisposed) {
+    //   throw Exception('You cannot reuse a disposed ViewModel again.\n\n'
+    //       'If you want to use the ViewModel as a singleton instance,\n'
+    //       'please make a constructor of the ViewModel as below.\n\n'
+    //       'class ContentsViewModel extends IViewModel {\n'
+    //       ' static ContentsViewModel _instance = ContentsViewModel._();\n\n'
+    //       ' ContentsViewModel._();\n\n'
+    //       ' factory ContentsViewModel.singleton() {\n'
+    //       '   if (_instance.isDisposed) {\n'
+    //       '     _instance = ContentsViewModel._();\n'
+    //       '   }\n\n'
+    //       '   return _instance;\n'
+    //       ' }\n\n'
+    //       ' @override\n'
+    //       ' initialise() {}\n'
+    //       '}\n');
+    // }
 
     return ChangeNotifierProvider<VM>(
       create: (context) {
-        AppLog.log('create $viewModel', name: toString());
+        AppLog.log('create $viewModel', name: widget.toString());
         return viewModel;
       },
       builder: (context, child) {
-        AppLog.log('build $widget', name: toString());
+        AppLog.log('build $widget', name: widget.toString());
         return widget._build(context);
       },
     );
@@ -84,8 +97,6 @@ class _ViewModelBuilderState<VM extends ViewModel>
   _initialise() {
     subscription = viewModel.stream.listen((action) {
       if (mounted) {
-        AppLog.log('onActionReceived:action = $action',
-            name: viewModel.toString());
         widget.onActionReceived(context, action);
       }
     });
@@ -94,7 +105,7 @@ class _ViewModelBuilderState<VM extends ViewModel>
 
   Stream get actionStream => viewModel.stream;
 
-  VM get viewModel => widget.viewModel;
+  VM get viewModel => widget._viewModel;
 
   @override
   void dispose() {

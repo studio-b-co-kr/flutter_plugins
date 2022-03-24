@@ -32,12 +32,12 @@ abstract class AppModel with ChangeNotifier implements ReassembleHandler {
 
   @override
   void reassemble() {
-    onHotReload();
+    onHotRefresh();
   }
 
   /// HotReload 혹은 HotRestart 시에 콜된다.
-  void onHotReload() {
-    AppLog.log('onHotReload', name: toString());
+  void onHotRefresh() {
+    AppLog.log('onHotRefresh', name: toString());
   }
 
   @override

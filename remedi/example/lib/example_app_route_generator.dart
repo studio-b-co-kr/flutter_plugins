@@ -46,7 +46,7 @@ class ExampleAppRouteGenerator extends RouteGenerator {
         ret = MaterialPageRoute(
           settings: settings,
           builder: (context) => HomePage(
-            viewModel: HomeViewModel.singleton(),
+            viewModel: HomeViewModel(),
           ),
         );
         break;

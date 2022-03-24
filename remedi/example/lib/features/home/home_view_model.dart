@@ -3,17 +3,17 @@ import 'package:example/features/settings/settings_page.dart';
 import 'package:remedi/remedi.dart';
 
 class HomeViewModel extends ViewModel {
-  static HomeViewModel _instance = HomeViewModel._();
-
-  HomeViewModel._();
-
-  factory HomeViewModel.singleton() {
-    if (_instance.isDisposed) {
-      _instance = HomeViewModel._();
-    }
-
-    return _instance;
-  }
+  // static HomeViewModel _instance = HomeViewModel._();
+  //
+  // HomeViewModel._();
+  //
+  // factory HomeViewModel() {
+  //   if (_instance.isDisposed) {
+  //     _instance = HomeViewModel._();
+  //   }
+  //
+  //   return _instance;
+  // }
 
   final StateData<CountState, int> stateData =
       StateData(state: CountState.waiting, data: 0);

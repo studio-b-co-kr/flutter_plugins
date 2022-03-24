@@ -21,11 +21,11 @@ abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
 
   @override
   void reassemble() {
-    onHotReload();
+    onHotRefresh();
   }
 
-  void onHotReload() {
-    AppLog.log('onHotReload', name: toString());
+  void onHotRefresh() {
+    AppLog.log('onHotRefresh', name: toString());
   }
 
   /// UI를 업데이트한다.

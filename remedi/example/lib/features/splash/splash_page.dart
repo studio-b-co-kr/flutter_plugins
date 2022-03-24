@@ -6,15 +6,13 @@ import 'package:remedi/remedi.dart';
 class SplashPage extends ViewModelBuilder<SplashViewModel> {
   static const routeName = '/splash';
 
-  const SplashPage({
+  SplashPage({
     Key? key,
     required SplashViewModel viewModel,
   }) : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context, SplashViewModel read) {
     return const Scaffold(
       body: Center(
         child: Text(
