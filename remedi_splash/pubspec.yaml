@@ -13,7 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  stacked_mvvm: ^0.0.9
+  remedi:
+
 
   #svg loader
   flutter_svg: ^1.0.0
@@ -21,5 +22,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  remedi:
+    git:
+      url: https://github.com/studio-b-co-kr/remedi_flutter_app_components
+      path: remedi
+      ref: dev
 
 flutter:

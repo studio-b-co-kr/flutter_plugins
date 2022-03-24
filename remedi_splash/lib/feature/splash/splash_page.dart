@@ -1,12 +1,13 @@
 import 'dart:developer' as dev;
 
 import 'package:flutter/widgets.dart';
+import 'package:remedi/architecture/architecture.dart';
 import 'package:remedi_splash/view_model/i_splash_view_model.dart';
 import 'package:stacked_mvvm/stacked_mvvm.dart';
 
 import 'splash_view.dart';
 
-class SplashPage extends IPage<ISplashViewModel> {
+class SplashPage extends ViewModelBuilder<ISplashViewModel> {
   static const ROUTE_NAME_APP_OPEN = "/";
   static const ROUTE_NAME_AFTER_INTRO = "/after_intro";
   static const ROUTE_NAME_AFTER_PERMISSION = "/after_permission";
