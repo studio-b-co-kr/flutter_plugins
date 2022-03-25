@@ -1,8 +1,18 @@
 part of 'splash.dart';
 
 class SplashRepository extends ISplashRepository {
+  static final SplashRepository _instance = SplashRepository._();
+
+  SplashRepository._();
+
+  factory SplashRepository() {
+    return _instance;
+  }
+
   @override
-  Future appOpen() async {}
+  Future appOpen() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
 
   @override
   void goIntro() {}
@@ -17,31 +27,33 @@ class SplashRepository extends ISplashRepository {
   void goPermission() {}
 
   @override
-  void goUpdate() {}
-
-  @override
   Future<bool> isCompletedIntro() async {
+    await Future.delayed(const Duration(milliseconds: 100));
     return true;
   }
 
   @override
   Future<bool> isCompletedOnboarding() async {
+    await Future.delayed(const Duration(milliseconds: 100));
     return true;
   }
 
   @override
   Future<bool> isCompletedPermissionGrant() async {
+    await Future.delayed(const Duration(milliseconds: 100));
     return true;
   }
 
   @override
   Future<bool> needToLogin() async {
-    return true;
+    await Future.delayed(const Duration(milliseconds: 100));
+    return false;
   }
 
   @override
   Future<bool> needToUpdate() async {
-    return false;
+    await Future.delayed(const Duration(milliseconds: 100));
+    return true;
   }
 
   @override

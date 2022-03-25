@@ -1,11 +1,14 @@
 import 'package:remedi/remedi.dart';
+import 'package:remedi_splash/feature/force_update/force_update_wrapper.dart';
 
 abstract class ISplashRepository extends Repository {
   Future<dynamic> appOpen();
 
   Future<bool> needToUpdate();
 
-  void goUpdate();
+  void goUpdate() {
+    RemediRouter.pushReplacementNamed(ForceUpdateWrapper.routeName);
+  }
 
   Future<bool> isCompletedIntro();
 

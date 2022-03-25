@@ -1,9 +1,13 @@
 part of 'splash_page.dart';
 
 class _SplashViewModel extends ViewModel {
+  final String route;
   final ISplashRepository repository;
 
-  _SplashViewModel({required this.repository});
+  _SplashViewModel({
+    required this.route,
+    required this.repository,
+  });
 
   SplashError? error;
 
@@ -48,11 +52,11 @@ class _SplashViewModel extends ViewModel {
   void afterPermission() async {
     AppLog.log('afterPermission', name: toString());
     if (await repository.needToLogin()) {
-      afterLogin();
+      repository.goLogin();
       return;
     }
 
-    repository.goLogin();
+    afterLogin();
   }
 
   void afterLogin() async {

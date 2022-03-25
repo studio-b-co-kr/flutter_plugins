@@ -31,7 +31,7 @@ abstract class IWidget<VM extends IViewModel> extends StatelessWidget {
 
   @mustCallSuper
   void onListen(BuildContext context, VM viewModel) {
-    /// Do not update ui here.
+    /// Do not force_update ui here.
     /// Only for route other page or show dialog.
     dev.log(
         "onListen:${viewModel.state}\nviewModel is $viewModel:${viewModel.hashCode}",

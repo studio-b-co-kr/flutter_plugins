@@ -6,12 +6,14 @@ import 'package:remedi_splash/repository/i_splash_repository.dart';
 part 'splash_view_model.dart';
 
 class SplashPage extends ViewModelBuilder<_SplashViewModel> {
+  final String route;
   final Widget background;
 
   SplashPage({
+    required this.route,
     required this.background,
     required ISplashRepository repository,
-  }) : super(viewModel: _SplashViewModel(repository: repository));
+  }) : super(viewModel: _SplashViewModel(route: route, repository: repository));
 
   @override
   Widget build(BuildContext context, _SplashViewModel read) {

@@ -17,7 +17,7 @@ dependencies:
 
   remedi_widgets: ^0.1.0
 
-  # go to store on force update page
+  # go to store on force force_update page
   store_redirect: ^2.0.0
 
   #svg loader
