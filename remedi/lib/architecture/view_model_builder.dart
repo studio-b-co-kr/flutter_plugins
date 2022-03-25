@@ -100,7 +100,8 @@ class _ViewModelBuilderState<VM extends ViewModel>
         widget.onActionReceived(context, action);
       }
     });
-    viewModel._init();
+
+    viewModel._init(context);
   }
 
   Stream get actionStream => viewModel.stream;
