@@ -101,7 +101,7 @@ class _ViewModelBuilderState<VM extends ViewModel>
       }
     });
 
-    viewModel._init(context);
+    viewModel._init();
   }
 
   Stream get actionStream => viewModel.stream;

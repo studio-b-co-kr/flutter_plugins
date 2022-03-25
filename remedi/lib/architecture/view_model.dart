@@ -7,16 +7,16 @@ part of 'architecture.dart';
 abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
   bool _initialised = false;
 
-  initialise(BuildContext context);
+  initialise();
 
-  _init(BuildContext context) {
+  _init() {
     if (_initialised) {
       return;
     }
 
     AppLog.log('initialised', name: toString());
     _initialised = true;
-    initialise(context);
+    initialise();
   }
 
   @override

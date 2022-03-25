@@ -1,6 +1,5 @@
 import 'package:example/features/contents/contents_page.dart';
 import 'package:example/features/settings/settings_page.dart';
-import 'package:flutter/widgets.dart';
 import 'package:remedi/remedi.dart';
 
 class HomeViewModel extends ViewModel {
@@ -25,7 +24,7 @@ class HomeViewModel extends ViewModel {
   }
 
   @override
-  initialise(BuildContext context) {}
+  initialise() {}
 }
 
 enum CountState {
