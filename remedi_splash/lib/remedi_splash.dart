@@ -9,15 +9,10 @@ export 'package:remedi_splash/repository/i_splash_repository.dart';
 
 class RemediSplash {
   static const routeNameAppOpen = "/splash/app_open";
-  static const routeNameIntro = "/intro";
   static const routeNameAfterIntro = "/splash/after_intro";
-  static const routeNamePermission = "/permission";
   static const routeNameAfterPermission = "/splash/after_permission";
-  static const routeNameLogin = "/login";
   static const routeNameAfterLogin = "/splash/after_login";
-  static const routeNameOnboarding = "/onboarding";
   static const routeNameAfterOnboarding = "/splash/after_onboarding";
-  static const routeNameHome = "/home";
 
   static Route<dynamic>? generateRoute({
     required RouteSettings settings,

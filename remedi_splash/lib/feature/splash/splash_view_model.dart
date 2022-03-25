@@ -1,9 +1,9 @@
 part of 'splash_page.dart';
 
-class SplashViewModel extends ViewModel {
+class _SplashViewModel extends ViewModel {
   final ISplashRepository repository;
 
-  SplashViewModel({required this.repository});
+  _SplashViewModel({required this.repository});
 
   SplashError? error;
 
@@ -47,7 +47,7 @@ class SplashViewModel extends ViewModel {
 
   void afterPermission() async {
     AppLog.log('afterPermission', name: toString());
-    if (await repository.isLogin()) {
+    if (await repository.needToLogin()) {
       afterLogin();
       return;
     }

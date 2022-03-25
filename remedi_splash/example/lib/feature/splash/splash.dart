@@ -1,4 +1,6 @@
+import 'package:example/feature/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:remedi/remedi.dart';
 import 'package:remedi_splash/remedi_splash.dart';
 
 class SplashBackground extends StatelessWidget {
@@ -55,15 +57,18 @@ class SplashRepository extends ISplashRepository {
   }
 
   @override
-  Future<bool> isLogin() async {
+  Future<bool> needToLogin() async {
     return true;
   }
 
   @override
   Future<bool> needToUpdate() async {
-    return true;
+    return false;
   }
 
   @override
-  Future readyToService() async {}
+  Future readyToService() async {
+    AppLog.log('readyToService', name: toString());
+    RemediRouter.pushReplacementNamed(HomePage.routeName);
+  }
 }
