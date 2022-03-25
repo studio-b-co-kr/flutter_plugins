@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:remedi/remedi.dart';
 
 class SplashViewModel extends ViewModel {
@@ -7,7 +8,7 @@ class SplashViewModel extends ViewModel {
   }
 
   @override
-  initialise() {
+  initialise(BuildContext context) {
     next();
   }
 }

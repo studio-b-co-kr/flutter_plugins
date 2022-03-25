@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:remedi/remedi.dart';
 
 class ContentsViewModel extends ViewModel {
@@ -9,5 +10,5 @@ class ContentsViewModel extends ViewModel {
   }
 
   @override
-  initialise() {}
+  initialise(BuildContext context) {}
 }
