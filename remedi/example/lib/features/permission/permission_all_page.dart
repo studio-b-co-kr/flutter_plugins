@@ -1,17 +1,17 @@
-part of 'intro.dart';
+part of 'permission.dart';
 
-class IntroPage extends ViewModelBuilder<IntroViewModel> {
-  IntroPage({Key? key, required IntroViewModel viewModel})
+class PermissionAllPage extends ViewModelBuilder<PermissionAllViewModel> {
+  PermissionAllPage({Key? key, required PermissionAllViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context, IntroViewModel read) {
+  Widget build(BuildContext context, PermissionAllViewModel read) {
     return Scaffold(
       body: Column(children: [
         const Expanded(
           child: Center(
             child: Text(
-              'INTRO.',
+              'PERMISSION-ALL',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 48,
@@ -26,11 +26,7 @@ class IntroPage extends ViewModelBuilder<IntroViewModel> {
             minWidth: double.infinity,
             color: Colors.grey,
             onPressed: () {
-              SplashRepository().completedIntro = true;
-              RemediRouter.pushReplacementNamed(
-                RemediSplash.routeName,
-                arguments: RemediSplash.appOpen,
-              );
+              read.goNext();
             },
             child: Text(
               'GO NEXT',

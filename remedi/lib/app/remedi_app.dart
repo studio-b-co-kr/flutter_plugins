@@ -3,7 +3,7 @@ part of 'app.dart';
 /// 앱의 최상위 위젯의 Wrapper 이다.
 /// [appProviders] 은 주로 user 정보, 앱 전체에 영향을 미치는 settings 정보
 
-bool _enableLog = true;
+bool _enableLog = false;
 
 class RemediApp {
   final MaterialApp Function(BuildContext context) appBuilder;

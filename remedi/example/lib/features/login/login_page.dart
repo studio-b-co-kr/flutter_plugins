@@ -1,17 +1,17 @@
-part of 'intro.dart';
+part of 'login.dart';
 
-class IntroPage extends ViewModelBuilder<IntroViewModel> {
-  IntroPage({Key? key, required IntroViewModel viewModel})
+class LoginPage extends ViewModelBuilder<LoginViewModel> {
+  LoginPage({Key? key, required LoginViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context, IntroViewModel read) {
+  Widget build(BuildContext context, LoginViewModel read) {
     return Scaffold(
       body: Column(children: [
         const Expanded(
           child: Center(
             child: Text(
-              'INTRO.',
+              'LOG-IN',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 48,
@@ -26,11 +26,7 @@ class IntroPage extends ViewModelBuilder<IntroViewModel> {
             minWidth: double.infinity,
             color: Colors.grey,
             onPressed: () {
-              SplashRepository().completedIntro = true;
-              RemediRouter.pushReplacementNamed(
-                RemediSplash.routeName,
-                arguments: RemediSplash.appOpen,
-              );
+              read.goNext();
             },
             child: Text(
               'GO NEXT',

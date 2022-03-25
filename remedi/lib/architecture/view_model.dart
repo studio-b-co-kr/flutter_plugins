@@ -5,17 +5,10 @@ part of 'architecture.dart';
 /// If you do not use this class as a singleton,
 /// there'll be some problem after hot-reload.
 abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
-  bool _initialised = false;
-
   initialise();
 
   _init() {
-    if (_initialised) {
-      return;
-    }
-
     AppLog.log('initialised', name: toString());
-    _initialised = true;
     initialise();
   }
 
@@ -50,7 +43,6 @@ abstract class ViewModel with ChangeNotifier implements ReassembleHandler {
   @override
   void dispose() {
     _streamController.close();
-    _initialised = false;
     super.dispose();
     _disposed = true;
   }

@@ -11,7 +11,7 @@ class IntroPage extends ViewModelBuilder<IntroViewModel> {
         const Expanded(
           child: Center(
             child: Text(
-              'INTRO.',
+              'INTRO',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 48,
@@ -26,11 +26,7 @@ class IntroPage extends ViewModelBuilder<IntroViewModel> {
             minWidth: double.infinity,
             color: Colors.grey,
             onPressed: () {
-              SplashRepository().completedIntro = true;
-              RemediRouter.pushReplacementNamed(
-                RemediSplash.routeName,
-                arguments: RemediSplash.appOpen,
-              );
+              read.goNext();
             },
             child: Text(
               'GO NEXT',

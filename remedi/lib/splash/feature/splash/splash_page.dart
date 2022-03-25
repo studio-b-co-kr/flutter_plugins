@@ -1,8 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:remedi/remedi.dart';
-import 'package:remedi_splash/model/splash_error.dart';
-import 'package:remedi_splash/remedi_splash.dart';
-import 'package:remedi_splash/repository/i_splash_repository.dart';
 
 part 'splash_view_model.dart';
 
@@ -11,10 +8,13 @@ class SplashPage extends ViewModelBuilder<_SplashViewModel> {
   final Widget background;
 
   SplashPage({
+    Key? key,
     required this.from,
     required this.background,
     required ISplashRepository repository,
-  }) : super(viewModel: _SplashViewModel(from: from, repository: repository));
+  }) : super(
+            key: key,
+            viewModel: _SplashViewModel(from: from, repository: repository));
 
   @override
   Widget build(BuildContext context, _SplashViewModel read) {

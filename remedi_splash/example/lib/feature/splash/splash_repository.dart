@@ -9,27 +9,17 @@ class SplashRepository extends ISplashRepository {
     return _instance;
   }
 
+  bool completedIntro = false;
+
   @override
   Future appOpen() async {
     await Future.delayed(const Duration(milliseconds: 100));
   }
 
   @override
-  void goIntro() {}
-
-  @override
-  void goLogin() {}
-
-  @override
-  void goOnboarding() {}
-
-  @override
-  void goPermission() {}
-
-  @override
   Future<bool> isCompletedIntro() async {
     await Future.delayed(const Duration(milliseconds: 100));
-    return true;
+    return completedIntro;
   }
 
   @override
@@ -53,7 +43,7 @@ class SplashRepository extends ISplashRepository {
   @override
   Future<bool> needToUpdate() async {
     await Future.delayed(const Duration(milliseconds: 100));
-    return true;
+    return false;
   }
 
   @override

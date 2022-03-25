@@ -65,12 +65,14 @@ class _SplashViewModel extends ViewModel {
       afterOnboarding();
       return;
     }
+    await Future.delayed(const Duration(seconds: 0));
     repository.goOnboarding();
   }
 
   void afterOnboarding() async {
     AppLog.log('afterOnboarding', name: toString());
-    await repository.readyToService();
+    await Future.delayed(const Duration(seconds: 0));
+    repository.readyToService();
   }
 
   @override

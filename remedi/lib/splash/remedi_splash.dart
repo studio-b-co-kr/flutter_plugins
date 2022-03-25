@@ -1,17 +1,15 @@
-library remedi_splash;
-
 import 'package:flutter/material.dart';
-import 'package:remedi_splash/feature/intro/intro_wrapper.dart';
-import 'package:remedi_splash/feature/login/login_wrapper.dart';
-import 'package:remedi_splash/feature/onboarding/onboarding_wrapper.dart';
-import 'package:remedi_splash/feature/permission/permission_all_wrapper.dart';
-import 'package:remedi_splash/remedi_splash.dart';
+import 'package:remedi/splash/feature/intro/intro_wrapper.dart';
+import 'package:remedi/splash/feature/login/login_wrapper.dart';
+import 'package:remedi/splash/feature/onboarding/onboarding_wrapper.dart';
+import 'package:remedi/splash/feature/permission/permission_all_wrapper.dart';
+import 'package:remedi/splash/remedi_splash.dart';
 
 import 'feature/force_update/force_update_wrapper.dart';
 
-export 'package:remedi_splash/feature/splash/splash_page.dart';
-export 'package:remedi_splash/model/splash_error.dart';
-export 'package:remedi_splash/repository/i_splash_repository.dart';
+export 'package:remedi/splash/feature/splash/splash_page.dart';
+export 'package:remedi/splash/model/splash_error.dart';
+export 'package:remedi/splash/repository/i_splash_repository.dart';
 
 class RemediSplash {
   static const routeName = '/splash';
