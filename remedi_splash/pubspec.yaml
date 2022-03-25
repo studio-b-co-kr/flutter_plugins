@@ -13,21 +13,16 @@ dependencies:
   flutter:
     sdk: flutter
 
-  remedi:
-
-
   #svg loader
   flutter_svg: ^1.0.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-dependency_overrides:
   remedi:
     git:
       url: https://github.com/studio-b-co-kr/remedi_flutter_app_components
       path: remedi
       ref: dev
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
 
 flutter:

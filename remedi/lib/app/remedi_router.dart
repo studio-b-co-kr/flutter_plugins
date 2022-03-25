@@ -11,10 +11,10 @@ class RemediRouter {
         ?.pushNamed<T>(routeName, arguments: arguments);
   }
 
-  // static Future<T?>? pushUri<T extends Object?>(RouteUri uri) {
-  //   return navigatorKey.currentState
-  //       ?.pushNamed<T>(uri.name, arguments: uri.data);
-  // }
+  static Future<T?>? pushUri<T extends Object?>(RouteUri uri) {
+    return navigatorKey.currentState
+        ?.pushNamed<T>(uri.name, arguments: uri.data);
+  }
 
   static Future<T?>? popAndPushNamed<T extends Object?, TO extends Object?>(
     String routeName, {
@@ -25,13 +25,13 @@ class RemediRouter {
         result: result, arguments: arguments);
   }
 
-  // static Future<T?>? popAndPushUri<T extends Object?, TO extends Object?>(
-  //   RouteUri uri, {
-  //   TO? result,
-  // }) {
-  //   return navigatorKey.currentState
-  //       ?.popAndPushNamed<T, TO>(uri.name, result: result, arguments: uri.data);
-  // }
+  static Future<T?>? popAndPushUri<T extends Object?, TO extends Object?>(
+    RouteUri uri, {
+    TO? result,
+  }) {
+    return navigatorKey.currentState
+        ?.popAndPushNamed<T, TO>(uri.name, result: result, arguments: uri.data);
+  }
 
   static Future<T?>?
       pushReplacementNamed<T extends Object?, TO extends Object?>(
@@ -45,15 +45,15 @@ class RemediRouter {
     );
   }
 
-  // static Future<T?>? pushReplacementUri<T extends Object?, TO extends Object?>(
-  //   RouteUri uri, {
-  //   TO? result,
-  // }) {
-  //   return navigatorKey.currentState?.pushReplacementNamed<T, TO>(
-  //     uri.name,
-  //     arguments: uri.data,
-  //   );
-  // }
+  static Future<T?>? pushReplacementUri<T extends Object?, TO extends Object?>(
+    RouteUri uri, {
+    TO? result,
+  }) {
+    return navigatorKey.currentState?.pushReplacementNamed<T, TO>(
+      uri.name,
+      arguments: uri.data,
+    );
+  }
 
   static Future<T?>? pushNamedAndRemoveUntil<T extends Object?>(
     String newRouteName,
@@ -67,16 +67,16 @@ class RemediRouter {
     );
   }
 
-  // static Future<T?>? pushUriAndRemoveUntil<T extends Object?>(
-  //   RouteUri uri,
-  //   RoutePredicate predicate,
-  // ) {
-  //   return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
-  //     uri.name,
-  //     predicate,
-  //     arguments: uri.data,
-  //   );
-  // }
+  static Future<T?>? pushUriAndRemoveUntil<T extends Object?>(
+    RouteUri uri,
+    RoutePredicate predicate,
+  ) {
+    return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
+      uri.name,
+      predicate,
+      arguments: uri.data,
+    );
+  }
 
   static void pop<T extends Object?>([T? result]) {
     return navigatorKey.currentState?.pop<T>(result);

@@ -7,4 +7,5 @@ import 'package:remedi/remedi.dart';
 part 'app_log.dart';
 part 'remedi_app.dart';
 part 'remedi_router.dart';
+part 'remedi_uri.dart';
 part 'route_generator.dart';

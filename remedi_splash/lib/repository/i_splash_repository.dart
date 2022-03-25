@@ -1,17 +1,27 @@
 import 'package:remedi/architecture/architecture.dart';
 
 abstract class ISplashRepository extends Repository {
-  Future<dynamic> init();
+  Future<dynamic> appOpen();
 
   Future<bool> needToUpdate();
 
+  void goUpdate();
+
+  Future<bool> isCompletedIntro();
+
+  void goIntro();
+
   Future<bool> isCompletedPermissionGrant();
 
-  Future<dynamic> isCompletedIntro();
+  void goPermission();
 
-  Future<dynamic> isCompletedOnboarding();
+  Future<bool> isLogin();
+
+  void goLogin();
+
+  Future<bool> isCompletedOnboarding();
+
+  void goOnboarding();
 
   Future<dynamic> readyToService();
-
-  Future<dynamic> afterPermission();
 }
