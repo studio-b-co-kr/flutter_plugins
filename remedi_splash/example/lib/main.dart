@@ -7,8 +7,10 @@ import 'package:remedi_splash/remedi_splash.dart';
 void main() {
   RemediApp(
       enableLog: true,
+      appModels: [],
       appBuilder: (BuildContext context) {
         return MaterialApp(
+          navigatorKey: RemediRouter.navigatorKey,
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,

@@ -5,29 +5,10 @@ import 'package:remedi_splash/repository/i_splash_repository.dart';
 
 part 'splash_view_model.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends ViewModelBuilder<_SplashViewModel> {
   final Widget background;
-  final ISplashRepository repository;
 
   SplashPage({
-    Key? key,
-    required this.background,
-    required this.repository,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return _SplashPage(
-      background: background,
-      repository: repository,
-    );
-  }
-}
-
-class _SplashPage extends ViewModelBuilder<_SplashViewModel> {
-  final Widget background;
-
-  _SplashPage({
     required this.background,
     required ISplashRepository repository,
   }) : super(viewModel: _SplashViewModel(repository: repository));
