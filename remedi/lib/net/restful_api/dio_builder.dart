@@ -1,4 +1,4 @@
-part of '../remedi_net.dart';
+part of '../net.dart';
 
 class DioBuilder {
   static const multipartContentType = 'multipart/form-data; charset=utf-8';

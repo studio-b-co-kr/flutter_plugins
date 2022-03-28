@@ -1,4 +1,4 @@
-part of '../remedi_net.dart';
+part of '../net.dart';
 
 class DioRequest {
   final DioBuilder builder;

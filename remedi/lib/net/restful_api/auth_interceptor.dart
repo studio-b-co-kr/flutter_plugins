@@ -1,4 +1,4 @@
-part of '../remedi_net.dart';
+part of '../net.dart';
 
 class AuthHeaderInterceptor extends Interceptor {
   final AuthType authType;

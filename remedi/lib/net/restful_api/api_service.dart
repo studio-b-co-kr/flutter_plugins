@@ -1,4 +1,4 @@
-part of '../remedi_net.dart';
+part of '../net.dart';
 
 abstract class ApiService<T> {
   static const String methodGet = 'GET';
