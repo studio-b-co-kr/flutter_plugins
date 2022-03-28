@@ -21,6 +21,10 @@ dependencies:
   #firebase support
   firebase_core: ^1.13.1
 
+  #firebase messaging
+  firebase_messaging: ^11.2.11
+  flutter_local_notifications: ^9.4.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
