@@ -20,7 +20,8 @@ class RemediRouter {
     String routeName, {
     TO? result,
     Object? arguments,
-  }) {
+  }) async {
+    await Future.delayed(Duration.zero);
     return navigatorKey.currentState?.popAndPushNamed<T, TO>(
       routeName,
       result: result,
@@ -41,7 +42,8 @@ class RemediRouter {
     String routeName, {
     TO? result,
     Object? arguments,
-  }) {
+  }) async {
+    await Future.delayed(Duration.zero);
     return navigatorKey.currentState?.pushReplacementNamed<T, TO>(
       routeName,
       result: result,
@@ -63,7 +65,8 @@ class RemediRouter {
     String newRouteName,
     RoutePredicate predicate, {
     Object? arguments,
-  }) {
+  }) async {
+    await Future.delayed(Duration.zero);
     return navigatorKey.currentState?.pushNamedAndRemoveUntil<T>(
       newRouteName,
       predicate,
