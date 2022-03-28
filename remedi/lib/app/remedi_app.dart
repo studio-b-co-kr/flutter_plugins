@@ -19,6 +19,7 @@ class RemediApp {
 
   Widget _build() {
     _enableLog = enableLog;
+
     if (appModels?.isEmpty ?? true) {
       return _AppWrapper(appBuilder: appBuilder);
     } else {

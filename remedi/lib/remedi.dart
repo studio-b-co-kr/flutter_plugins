@@ -1,5 +1,6 @@
 library remedi;
 
+export 'package:firebase_core/firebase_core.dart';
 export 'package:provider/provider.dart';
 
 export 'app/app.dart';
