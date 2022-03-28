@@ -3,7 +3,8 @@ import 'package:remedi/splash/feature/intro/intro_wrapper.dart';
 import 'package:remedi/splash/feature/login/login_wrapper.dart';
 import 'package:remedi/splash/feature/onboarding/onboarding_wrapper.dart';
 import 'package:remedi/splash/feature/permission/permission_all_wrapper.dart';
-import 'package:remedi/splash/remedi_splash.dart';
+import 'package:remedi/splash/feature/splash/splash_page.dart';
+import 'package:remedi/splash/repository/i_splash_repository.dart';
 
 import 'feature/force_update/force_update_wrapper.dart';
 

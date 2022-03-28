@@ -37,6 +37,7 @@ class RemediApp {
   }) async {
     runZonedGuarded(() async {
       WidgetsFlutterBinding.ensureInitialized();
+
       if (readyToRun != null) {
         await readyToRun();
       }
