@@ -18,6 +18,9 @@ dependencies:
   # http api.
   dio: ^4.0.4
 
+  #firebase support
+  firebase_core: ^1.13.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
