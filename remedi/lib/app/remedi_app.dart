@@ -5,7 +5,9 @@ part of 'app.dart';
 
 bool _enableLog = false;
 
-typedef VoidFutureFunction = Future<void> Function();
+typedef ReadyToRun = Future<void> Function();
+typedef HandleError = Future<void> Function(
+    dynamic error, StackTrace stackTrace);
 
 class RemediApp {
   final MaterialApp Function(BuildContext context) appBuilder;
