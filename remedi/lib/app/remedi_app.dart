@@ -5,6 +5,8 @@ part of 'app.dart';
 
 bool _enableLog = false;
 
+typedef VoidFutureFunction = Future<void> Function();
+
 class RemediApp {
   final MaterialApp Function(BuildContext context) appBuilder;
   bool enableLog;
