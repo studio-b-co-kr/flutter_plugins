@@ -9,13 +9,12 @@ class _SplashViewModel extends ViewModel {
     required this.repository,
   });
 
-  SplashError? error;
+  dynamic error;
 
   void appOpen() async {
     AppLog.log('appOpen', name: toString());
     try {
       await repository.appOpen();
-      throw Exception();
       if (await repository.needToUpdate()) {
         repository.goUpdate();
         return;
@@ -23,9 +22,11 @@ class _SplashViewModel extends ViewModel {
       afterAppOpen();
     } catch (e) {
       if (e is Exception) {
+        showError(e);
         return;
       }
       if (e is Error) {
+        showError(e);
         return;
       }
     }
@@ -41,9 +42,11 @@ class _SplashViewModel extends ViewModel {
       repository.goIntro();
     } catch (e) {
       if (e is Exception) {
+        showError(e);
         return;
       }
       if (e is Error) {
+        showError(e);
         return;
       }
     }
@@ -51,12 +54,23 @@ class _SplashViewModel extends ViewModel {
 
   void afterIntro() async {
     AppLog.log('afterIntro', name: toString());
-    if (await repository.isCompletedPermissionGrant()) {
-      afterPermission();
-      return;
-    }
+    try {
+      if (await repository.isCompletedPermissionGrant()) {
+        afterPermission();
+        return;
+      }
 
-    repository.goPermissionAll();
+      repository.goPermissionAll();
+    } catch (e) {
+      if (e is Exception) {
+        showError(e);
+        return;
+      }
+      if (e is Error) {
+        showError(e);
+        return;
+      }
+    }
   }
 
   void afterPermission() async {
@@ -70,9 +84,11 @@ class _SplashViewModel extends ViewModel {
       afterLogin();
     } catch (e) {
       if (e is Exception) {
+        showError(e);
         return;
       }
       if (e is Error) {
+        showError(e);
         return;
       }
     }
@@ -88,9 +104,11 @@ class _SplashViewModel extends ViewModel {
       repository.goOnboarding();
     } catch (e) {
       if (e is Exception) {
+        showError(e);
         return;
       }
       if (e is Error) {
+        showError(e);
         return;
       }
     }
@@ -102,9 +120,11 @@ class _SplashViewModel extends ViewModel {
       repository.readyToService();
     } catch (e) {
       if (e is Exception) {
+        showError(e);
         return;
       }
       if (e is Error) {
+        showError(e);
         return;
       }
     }
