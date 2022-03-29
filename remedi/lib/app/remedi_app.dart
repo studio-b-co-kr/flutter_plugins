@@ -33,8 +33,8 @@ class RemediApp {
   }
 
   run({
-    Future Function()? readyToRun,
-    Future Function(dynamic error, StackTrace stackTrace)? handleError,
+    Future<void> Function()? readyToRun,
+    Future<void> Function(dynamic error, StackTrace stackTrace)? handleError,
   }) async {
     runZonedGuarded(() async {
       WidgetsFlutterBinding.ensureInitialized();
