@@ -35,15 +35,12 @@ class SplashPage extends ViewModelBuilder<_SplashViewModel> {
 
   @override
   Widget build(BuildContext context, _SplashViewModel read) {
-    return SafeArea(
-        top: false,
-        bottom: false,
-        child: Stack(
-          children: [
-            background,
-            _ErrorView(),
-          ],
-        ));
+    return Stack(
+      children: [
+        background,
+        _ErrorView(),
+      ],
+    );
   }
 }
 
