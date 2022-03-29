@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:remedi/remedi.dart';
 
@@ -18,6 +19,7 @@ class SplashPage extends ViewModelBuilder<_SplashViewModel> {
 
   @override
   Widget build(BuildContext context, _SplashViewModel read) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
     return SafeArea(
         top: false,
         bottom: false,
