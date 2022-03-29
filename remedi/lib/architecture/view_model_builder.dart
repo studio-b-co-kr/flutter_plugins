@@ -22,6 +22,8 @@ abstract class ViewModelBuilder<VM extends ViewModel> extends StatefulWidget {
   @override
   _ViewModelBuilderState<VM> createState() => _ViewModelBuilderState<VM>();
 
+  void initUi() {}
+
   Widget build(BuildContext context, VM read);
 
   Widget _build(BuildContext context) {
@@ -95,6 +97,7 @@ class _ViewModelBuilderState<VM extends ViewModel>
   StreamSubscription? subscription;
 
   _initialise() {
+    widget.initUi();
     subscription = viewModel.stream.listen((action) {
       if (mounted) {
         widget.onActionReceived(context, action);
