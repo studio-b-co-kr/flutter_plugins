@@ -15,6 +15,7 @@ class _SplashViewModel extends ViewModel {
     AppLog.log('appOpen', name: toString());
     try {
       await repository.appOpen();
+      throw Exception();
       if (await repository.needToUpdate()) {
         repository.goUpdate();
         return;
@@ -32,11 +33,20 @@ class _SplashViewModel extends ViewModel {
 
   void afterAppOpen() async {
     AppLog.log('afterAppOpen', name: toString());
-    if (await repository.isCompletedIntro()) {
-      afterIntro();
-      return;
+    try {
+      if (await repository.isCompletedIntro()) {
+        afterIntro();
+        return;
+      }
+      repository.goIntro();
+    } catch (e) {
+      if (e is Exception) {
+        return;
+      }
+      if (e is Error) {
+        return;
+      }
     }
-    repository.goIntro();
   }
 
   void afterIntro() async {
@@ -51,26 +61,53 @@ class _SplashViewModel extends ViewModel {
 
   void afterPermission() async {
     AppLog.log('afterPermission', name: toString());
-    if (await repository.needToLogin()) {
-      repository.goLogin();
-      return;
-    }
+    try {
+      if (await repository.needToLogin()) {
+        repository.goLogin();
+        return;
+      }
 
-    afterLogin();
+      afterLogin();
+    } catch (e) {
+      if (e is Exception) {
+        return;
+      }
+      if (e is Error) {
+        return;
+      }
+    }
   }
 
   void afterLogin() async {
     AppLog.log('afterLogin', name: toString());
-    if (await repository.isCompletedOnboarding()) {
-      afterOnboarding();
-      return;
+    try {
+      if (await repository.isCompletedOnboarding()) {
+        afterOnboarding();
+        return;
+      }
+      repository.goOnboarding();
+    } catch (e) {
+      if (e is Exception) {
+        return;
+      }
+      if (e is Error) {
+        return;
+      }
     }
-    repository.goOnboarding();
   }
 
   void afterOnboarding() async {
     AppLog.log('afterOnboarding', name: toString());
-    repository.readyToService();
+    try {
+      repository.readyToService();
+    } catch (e) {
+      if (e is Exception) {
+        return;
+      }
+      if (e is Error) {
+        return;
+      }
+    }
   }
 
   @override
@@ -92,5 +129,14 @@ class _SplashViewModel extends ViewModel {
         afterOnboarding();
         break;
     }
+  }
+
+  showError(dynamic error) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
+    ]);
+    this.error = error;
+    updateUi();
   }
 }
