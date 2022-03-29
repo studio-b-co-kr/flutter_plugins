@@ -18,8 +18,19 @@ class SplashPage extends ViewModelBuilder<_SplashViewModel> {
             viewModel: _SplashViewModel(from: from, repository: repository));
 
   @override
-  Widget build(BuildContext context, _SplashViewModel read) {
+  void initUi() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+    super.initUi();
+  }
+
+  @override
+  void disposeUi() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
+    super.disposeUi();
+  }
+
+  @override
+  Widget build(BuildContext context, _SplashViewModel read) {
     return SafeArea(
         top: false,
         bottom: false,

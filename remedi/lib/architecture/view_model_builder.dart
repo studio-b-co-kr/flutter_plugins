@@ -24,6 +24,8 @@ abstract class ViewModelBuilder<VM extends ViewModel> extends StatefulWidget {
 
   void initUi() {}
 
+  void disposeUi() {}
+
   Widget build(BuildContext context, VM read);
 
   Widget _build(BuildContext context) {
@@ -113,6 +115,7 @@ class _ViewModelBuilderState<VM extends ViewModel>
 
   @override
   void dispose() {
+    widget.disposeUi();
     subscription?.cancel();
     super.dispose();
   }
