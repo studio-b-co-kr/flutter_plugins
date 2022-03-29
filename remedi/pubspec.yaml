@@ -25,6 +25,9 @@ dependencies:
   firebase_messaging: ^11.2.11
   flutter_local_notifications: ^9.4.0
 
+  #deep_link
+  flutter_branch_sdk: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -5,7 +5,7 @@ export 'package:provider/provider.dart';
 
 export 'app/app.dart';
 export 'architecture/architecture.dart';
-export 'engage/messaging/message.dart';
+export 'engage/engage.dart';
 export 'net/net.dart';
 export 'splash/splash.dart';
 export 'widgets/widgets.dart';

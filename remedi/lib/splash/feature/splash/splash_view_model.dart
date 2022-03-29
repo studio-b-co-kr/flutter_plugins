@@ -22,11 +22,11 @@ class _SplashViewModel extends ViewModel {
       afterAppOpen();
     } catch (e) {
       if (e is Exception) {
-        showError(e);
+        _showError(e);
         return;
       }
       if (e is Error) {
-        showError(e);
+        _showError(e);
         return;
       }
     }
@@ -42,11 +42,11 @@ class _SplashViewModel extends ViewModel {
       repository.goIntro();
     } catch (e) {
       if (e is Exception) {
-        showError(e);
+        _showError(e);
         return;
       }
       if (e is Error) {
-        showError(e);
+        _showError(e);
         return;
       }
     }
@@ -63,11 +63,11 @@ class _SplashViewModel extends ViewModel {
       repository.goPermissionAll();
     } catch (e) {
       if (e is Exception) {
-        showError(e);
+        _showError(e);
         return;
       }
       if (e is Error) {
-        showError(e);
+        _showError(e);
         return;
       }
     }
@@ -84,11 +84,11 @@ class _SplashViewModel extends ViewModel {
       afterLogin();
     } catch (e) {
       if (e is Exception) {
-        showError(e);
+        _showError(e);
         return;
       }
       if (e is Error) {
-        showError(e);
+        _showError(e);
         return;
       }
     }
@@ -104,11 +104,11 @@ class _SplashViewModel extends ViewModel {
       repository.goOnboarding();
     } catch (e) {
       if (e is Exception) {
-        showError(e);
+        _showError(e);
         return;
       }
       if (e is Error) {
-        showError(e);
+        _showError(e);
         return;
       }
     }
@@ -120,11 +120,11 @@ class _SplashViewModel extends ViewModel {
       repository.readyToService();
     } catch (e) {
       if (e is Exception) {
-        showError(e);
+        _showError(e);
         return;
       }
       if (e is Error) {
-        showError(e);
+        _showError(e);
         return;
       }
     }
@@ -151,7 +151,7 @@ class _SplashViewModel extends ViewModel {
     }
   }
 
-  showError(dynamic error) {
+  _showError(dynamic error) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
       SystemUiOverlay.top,
       SystemUiOverlay.bottom,
