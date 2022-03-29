@@ -7,3 +7,4 @@ import 'package:remedi/remedi.dart';
 
 part 'firebase_message_app_model.dart';
 part 'firebase_messaging.dart';
+part 'types.dart';

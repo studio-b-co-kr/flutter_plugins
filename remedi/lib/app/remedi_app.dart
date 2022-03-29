@@ -5,10 +5,6 @@ part of 'app.dart';
 
 bool _enableLog = false;
 
-typedef ReadyToRun = Future<void> Function();
-typedef HandleError = Future<void> Function(
-    dynamic error, StackTrace stackTrace);
-
 class RemediApp {
   final MaterialApp Function(BuildContext context) appBuilder;
   bool enableLog;
@@ -37,8 +33,8 @@ class RemediApp {
   }
 
   run({
-    Future<void> Function()? readyToRun,
-    Future<void> Function(dynamic error, StackTrace stackTrace)? handleError,
+    VoidFutureCallback? readyToRun,
+    ErrorHandler? errorHandler,
   }) async {
     runZonedGuarded(() async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -48,8 +44,8 @@ class RemediApp {
       }
       runApp(_build());
     }, (dynamic error, StackTrace stackTrace) async {
-      if (handleError != null) {
-        await handleError(error, stackTrace);
+      if (errorHandler != null) {
+        await errorHandler(error, stackTrace);
       }
     });
   }

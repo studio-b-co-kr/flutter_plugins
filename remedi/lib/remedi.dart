@@ -9,3 +9,7 @@ export 'engage/messaging/message.dart';
 export 'net/net.dart';
 export 'splash/splash.dart';
 export 'widgets/widgets.dart';
+
+typedef VoidFutureCallback = Future<void> Function();
+typedef ErrorHandler = Future<void> Function(
+    dynamic error, StackTrace stackTrace);

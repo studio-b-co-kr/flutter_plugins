@@ -43,5 +43,5 @@ void run({
   Future Function()? readyToRun,
   Future Function(dynamic error, StackTrace stackTrace)? handleError,
 }) {
-  _app.run(readyToRun: readyToRun, handleError: handleError);
+  _app.run(readyToRun: readyToRun, errorHandler: handleError);
 }

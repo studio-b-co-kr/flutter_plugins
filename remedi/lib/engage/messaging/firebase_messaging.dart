@@ -1,35 +1,44 @@
 part of 'message.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-}
+late AndroidNotificationChannel _channel;
 
-late AndroidNotificationChannel channel;
+late FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
 
-late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+class FirebaseMessage {
+  static Future<void> init(
+    RemoteMessageHandler messageHandler, {
+    bool alert = true,
+    bool badge = true,
+    bool sound = true,
+  }) async {
+    FirebaseMessaging.onBackgroundMessage((message) async {
+      await Firebase.initializeApp();
+      messageHandler(message);
+    });
 
-Future<void> init() async {
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    if (!kIsWeb) {
+      _channel = const AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        importance: Importance.high,
+      );
 
-  if (!kIsWeb) {
-    channel = const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      importance: Importance.high,
-    );
+      await _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(_channel);
 
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
-
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: alert,
+        badge: badge,
+        sound: sound,
+      );
+    }
   }
+
+  static AndroidNotificationChannel get channel => _channel;
+
+  static FlutterLocalNotificationsPlugin get notificationsPlugin =>
+      _flutterLocalNotificationsPlugin;
 }
