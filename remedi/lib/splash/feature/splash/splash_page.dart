@@ -19,7 +19,8 @@ class SplashPage extends ViewModelBuilder<_SplashViewModel> {
 
   @override
   void initUi() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]);
     super.initUi();
   }
 
