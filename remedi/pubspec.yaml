@@ -62,7 +62,19 @@ dependencies:
   collection: ^1.15.0
   ## [END] auth
 
+  ## [START] permission
   shared_preferences: ^2.0.13
+  permission_handler: ^8.3.0
+  notification_permissions: ^0.6.1
+  ## [END] permission
+
+  ## [START] update
+  # go to store on force update page
+  store_redirect: ^2.0.0
+  ## [END] update
+
+
+  hive: ^2.1.0
 
 dev_dependencies:
   flutter_test:

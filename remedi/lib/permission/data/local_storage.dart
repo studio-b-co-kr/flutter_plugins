@@ -19,7 +19,7 @@ class LocalStorage {
 
   Future<bool> get skipped async {
     var sp = await SharedPreferences.getInstance();
-    bool ret = await await sp.getString(_KEY_SKIP_ON_SPLASH) == _VALUE_SKIP;
+    bool ret = sp.getString(_KEY_SKIP_ON_SPLASH) == _VALUE_SKIP;
     dev.log("skipped = $ret", name: "PermissionManager");
     return ret;
   }

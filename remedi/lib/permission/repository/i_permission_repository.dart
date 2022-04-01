@@ -1,8 +1,10 @@
 import 'package:permission_handler/permission_handler.dart';
-import 'package:remedi_permission/model/app_permission.dart';
-import 'package:stacked_mvvm/stacked_mvvm.dart';
+import 'package:remedi/remedi.dart';
 
-abstract class IPermissionRepository extends IRepository {
+import '/permission/model/app_permission.dart';
+// import 'package:stacked_mvvm/stacked_mvvm.dart';
+
+abstract class IPermissionRepository extends Repository {
   final AppPermission permission;
   PermissionStatus? status;
 
