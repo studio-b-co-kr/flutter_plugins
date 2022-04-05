@@ -1,54 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
-import 'package:remedi_widgets/remedi_widgets.dart';
-import 'package:stacked_mvvm/stacked_mvvm.dart';
+import 'package:remedi/permission/features/permission_viewmodel.dart';
+import 'package:remedi/remedi.dart';
 
-class PermissionListItemWidget extends IWidget<IPermissionViewModel> {
+class PermissionListItemWidget extends View<PermissionViewModel> {
   final Function? onPressed;
-  final Color? color;
 
-  PermissionListItemWidget(IPermissionViewModel viewModel,
-      {this.color, this.onPressed})
-      : super(viewModel: viewModel);
+  const PermissionListItemWidget(PermissionViewModel viewModel,
+      {Key? key, this.onPressed})
+      : super(key: key);
 
   @override
-  IView<IPermissionViewModel> body(
-      BuildContext context, IPermissionViewModel viewModel, Widget? child) {
-    return PermissionListItemView(
+  Widget buildChild(BuildContext context, PermissionViewModel watch,
+      PermissionViewModel read) {
+    return PermissionItemView(
       onPressed: onPressed,
-      color: color,
     );
-  }
-
-  @override
-  void onListen(BuildContext context, IPermissionViewModel viewModel) {
-    super.onListen(context, viewModel);
   }
 }
 
-class PermissionListItemView extends IView<IPermissionViewModel> {
+class PermissionItemView extends View<PermissionViewModel> {
   final Function? onPressed;
   final Color? color;
 
-  PermissionListItemView({required this.onPressed, this.color});
+  const PermissionItemView({Key? key, required this.onPressed, this.color})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context, IPermissionViewModel viewModel) {
+  Widget buildChild(BuildContext context, PermissionViewModel watch,
+      PermissionViewModel read) {
     return Card(
-      color: _background(viewModel),
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      elevation: viewModel.state == PermissionViewState.Granted ? 0 : 4,
+      color: _background(read),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      elevation: read.state == PermissionViewState.granted ? 0 : 4,
       child: InkWell(
-        onTap: viewModel.isGranted
+        onTap: read.isGranted
             ? null
             : () async {
-                await viewModel.requestPermission();
+                await read.requestPermission();
                 if (onPressed != null) {
                   onPressed!();
                 }
               },
         child: Container(
-          padding: EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           width: double.infinity,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -58,20 +52,19 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
                 child: viewModel.icon(),
               ),
               Container(
-                  child: FixedScaleText(
-                      text: Text(
-                viewModel.title,
+                  child: Text(
+                read.title,
                 style: TextStyle(
                     color: Colors.blueGrey.shade700,
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
-              ))),
+              )),
             ]),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Container(
                 margin: EdgeInsets.only(left: 8),
                 child: Text(viewModel.description)),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Container(
               margin: EdgeInsets.only(left: 8),
               child: Row(
@@ -111,12 +104,12 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
     );
   }
 
-  double _elevation(IPermissionViewModel viewModel) {
+  double _elevation(PermissionViewModel viewModel) {
     double ret = 4;
     return ret;
   }
 
-  Color _background(IPermissionViewModel viewModel) {
+  Color _background(PermissionViewModel viewModel) {
     Color ret = Colors.amber.shade50;
     switch (viewModel.state) {
       case PermissionViewState.Granted:
@@ -141,7 +134,7 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
     return ret;
   }
 
-  Widget _action(IPermissionViewModel viewModel) {
+  Widget _action(PermissionViewModel viewModel) {
     IconData icon = Icons.check_circle_outline;
     Color iconColor = Colors.grey;
     switch (viewModel.state) {
@@ -161,6 +154,152 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
         break;
       case PermissionViewState.Restricted:
       case PermissionViewState.Disabled:
+        break;
+      case PermissionViewState.grantedAndExit:
+        break;
+    }
+    return Icon(
+      icon,
+      size: 20,
+      color: iconColor,
+    );
+  }
+}
+
+class PermissionItemWidget extends StatelessWidget {
+  final PermissionViewState state;
+  const PermissionItemWidget({Key? key, required this.state}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: _background(state),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      elevation: state == PermissionViewState.granted ? 0 : 4,
+      child: InkWell(
+        onTap: state.loadIsGranted
+            ? null
+            : () async {
+                await read.requestPermission();
+                if (onPressed != null) {
+                  onPressed!();
+                }
+              },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          width: double.infinity,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Container(
+                margin: EdgeInsets.only(right: 8),
+                child: viewModel.icon(),
+              ),
+              Container(
+                  child: Text(
+                read.title,
+                style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              )),
+            ]),
+            const SizedBox(height: 16),
+            Container(
+                margin: EdgeInsets.only(left: 8),
+                child: Text(viewModel.description)),
+            const SizedBox(height: 16),
+            Container(
+              margin: EdgeInsets.only(left: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _action(viewModel),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child:
+                          FixedScaleText(text: Text(viewModel.statusMessage)))
+                ],
+              ),
+            ),
+            viewModel.isPermanentlyDenied
+                ? Container(
+                    margin: EdgeInsets.only(top: 16, left: 8),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FixedScaleText(
+                              text: Text(
+                            "앱 세팅에서 가서 권한을 부여해주세요",
+                            style: TextStyle(
+                                color: Colors.blue.shade700,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          )),
+                          Icon(Icons.arrow_forward_ios_sharp,
+                              color: Colors.blue.shade700, size: 16)
+                        ]),
+                  )
+                : Container(),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  double _elevation(PermissionViewState state) {
+    double ret = 4;
+    return ret;
+  }
+
+  Color _background(PermissionViewState state) {
+    Color ret = Colors.amber.shade50;
+    switch (state) {
+      case PermissionViewState.granted:
+      case PermissionViewState.limited:
+        ret = color ?? Colors.grey.shade50;
+        break;
+      case PermissionViewState.init:
+      case PermissionViewState.denied:
+      case PermissionViewState.permanentlyDenied:
+        ret = color ?? Colors.grey.shade50;
+        break;
+      case PermissionViewState.restricted:
+      case PermissionViewState.disabled:
+        ret = color ?? Colors.grey.shade50;
+        break;
+      case PermissionViewState.shouldGranted:
+        ret = Colors.red.shade50;
+        break;
+      case PermissionViewState.grantedAndExit:
+        break;
+      default:
+        break;
+    }
+    return ret;
+  }
+
+  Widget _action(PermissionViewState state) {
+    IconData icon = Icons.check_circle_outline;
+    Color iconColor = Colors.grey;
+    switch (state) {
+      case PermissionViewState.granted:
+      case PermissionViewState.limited:
+        iconColor = Colors.green;
+        break;
+      case PermissionViewState.init:
+      case PermissionViewState.denied:
+      case PermissionViewState.permanentlyDenied:
+        icon = Icons.error_outline_sharp;
+        iconColor = Colors.grey;
+        break;
+      case PermissionViewState.shouldGranted:
+        icon = Icons.error_outline_sharp;
+        iconColor = Colors.red;
+        break;
+      case PermissionViewState.restricted:
+      case PermissionViewState.disabled:
         break;
       case PermissionViewState.grantedAndExit:
         break;

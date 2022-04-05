@@ -1,18 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:remedi_permission/features/permission_list_item.dart';
-import 'package:remedi_permission/features/permission_repository.dart';
-import 'package:remedi_permission/features/permission_viewmodel.dart';
-import 'package:remedi_permission/model/app_permission.dart';
-import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';
-import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
-import 'package:remedi_widgets/remedi_widgets.dart';
-import 'package:stacked_mvvm/stacked_mvvm.dart';
+import 'package:remedi/permission/features/permission_list_viewmodel.dart';
+
+import '../../remedi.dart';
 
 // ignore: must_be_immutable
-class PermissionListPage extends IPage<IPermissionListViewModel> {
-  static const ROUTE_NAME = "/permission_list";
+class PermissionListPage extends ViewModelBuilder<PermissionListViewModel> {
+  static const routeName = "/permission_list";
 
   late final PermissionItemViewBuilder _permissionItemViewBuilder;
   final String? backTo;
@@ -20,7 +15,7 @@ class PermissionListPage extends IPage<IPermissionListViewModel> {
 
   PermissionListPage({
     Key? key,
-    required IPermissionListViewModel viewModel,
+    required PermissionListViewModel viewModel,
     this.backTo,
     this.color,
   }) : super(key: key, viewModel: viewModel) {
@@ -77,6 +72,15 @@ class PermissionListPage extends IPage<IPermissionListViewModel> {
         }
         break;
     }
+  }
+
+  @override
+  initialise() {}
+
+  @override
+  Widget build(BuildContext context, PermissionListViewModel read) {
+    // TODO: implement build
+    throw UnimplementedError();
   }
 }
 

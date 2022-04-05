@@ -1,22 +1,25 @@
 import 'dart:developer' as dev;
 
+import 'package:remedi/permission/app_permission.dart';
 import 'package:remedi_permission/data/local_storage.dart';
 import 'package:remedi_permission/remedi_permission.dart';
 import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 import 'package:remedi_permission/viewmodel/i_permission_list_viewmodel.dart';
 
-class PermissionListViewModel extends IPermissionListViewModel {
-  final IPermissionListRepository repository;
+import '../../remedi.dart';
+import '../permission.dart';
+import 'permission_list_repository.dart';
+
+class PermissionListViewModel extends ViewModel {
+  final PermissionListRepository repository;
 
   PermissionListViewModel({required this.repository}) : super();
 
-  @override
-  PermissionListViewState get initState => PermissionListViewState.Init;
+  PermissionListViewState get initState => PermissionListViewState.init;
 
   @override
-  init() async {
+  initialise() async {
     hasError = await checkError;
-    super.init();
   }
 
   @override
@@ -25,7 +28,7 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
     await Future.forEach<AppPermission>(repository.permissions,
         (appPermission) async {
-      await appPermission.status.then((status) => ret |=
+      await appPermission.loadStatus.then((status) => ret |=
           appPermission.mandatory &&
               !(status == PermissionStatus.granted ||
                   status == PermissionStatus.limited));
@@ -40,21 +43,21 @@ class PermissionListViewModel extends IPermissionListViewModel {
   Future requestAll() async {
     var ret = await repository.requestAll();
 
-    update(state: PermissionListViewState.Refresh);
+    updateUi();
 
     if (hasError = await checkError) {
-      update(state: PermissionListViewState.Error);
+      update(state: PermissionListViewState.error);
     }
 
     if (await PermissionManager.allGranted) {
-      update(state: PermissionListViewState.AllGranted);
+      update(state: PermissionListViewState.allGranted);
     }
   }
 
   @override
   Future refresh() async {
     if (await repository.isAllGranted) {
-      update(state: PermissionListViewState.AllGranted);
+      update(state: PermissionListViewState.allGranted);
     }
   }
 
@@ -62,12 +65,12 @@ class PermissionListViewModel extends IPermissionListViewModel {
   skipOrNext() async {
     hasError = await checkError;
     if (hasError) {
-      update(state: PermissionListViewState.Error);
+      update();
       return;
     }
 
     await LocalStorage.instance().skip();
-    update(state: PermissionListViewState.Skip);
+    updateUi();
   }
 
   @override
@@ -81,4 +84,12 @@ class PermissionListViewModel extends IPermissionListViewModel {
 
   @override
   List<AppPermission> get permissions => repository.permissions;
+}
+
+enum PermissionListViewState {
+  init,
+  refresh,
+  error,
+  skip,
+  allGranted,
 }

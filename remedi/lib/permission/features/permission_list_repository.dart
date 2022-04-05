@@ -2,9 +2,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/model/app_permission.dart';
 import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 
-import '../model/app_permission.dart';
+import '../../remedi.dart';
+import '../app_permission.dart';
 
-class PermissionListRepository extends IPermissionListRepository {
+class PermissionListRepository extends Repository {
   PermissionListRepository(List<AppPermission> permissions)
       : super(permissions: permissions);
 
@@ -29,7 +30,7 @@ class PermissionListRepository extends IPermissionListRepository {
     bool ret = true;
     await Future.forEach<AppPermission>(permissions, (appPermission) async {
       bool ret = true;
-      ret = ret && await appPermission.isGranted;
+      ret = ret && await appPermission.loadIsGranted;
       return ret;
     });
     return ret;

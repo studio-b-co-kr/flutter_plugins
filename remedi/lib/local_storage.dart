@@ -1,50 +1,78 @@
-import 'package:shared_preferences/shared_preferences.dart';
+part of 'remedi.dart';
 
-Future<SharedPreferences> _futureStorage = SharedPreferences.getInstance();
+FlutterSecureStorage _futureStorage = const FlutterSecureStorage();
 
 class LocalStorage {
+  static Future<void> writeInt(String key, int value) async {
+    return await _futureStorage.write(
+      key: key,
+      value: value.toString(),
+    );
+  }
+
+  static Future<void> writeBool(String key, bool value) async {
+    return await _futureStorage.write(
+      key: key,
+      value: value.toString(),
+    );
+  }
+
+  static Future<void> writeDouble(String key, double value) async {
+    return await _futureStorage.write(
+      key: key,
+      value: value.toString(),
+    );
+  }
+
+  static Future<void> writeString(String key, String value) async {
+    return await _futureStorage.write(
+      key: key,
+      value: value,
+    );
+  }
+
   static Future<int?> readInt(String key) async {
-    return (await _futureStorage).getInt(key);
+    String? read = await _futureStorage.read(key: key);
+
+    int? ret;
+    try {
+      ret = read == null ? null : int.parse(read);
+    } catch (e) {
+      return null;
+    }
+    return ret;
   }
 
   static Future<bool?> readBool(String key) async {
-    return (await _futureStorage).getBool(key);
+    String? read = await _futureStorage.read(key: key);
+    bool? ret;
+    try {
+      ret = read == null ? null : read == 'true';
+    } catch (e) {
+      return null;
+    }
+    return ret;
   }
 
   static Future<double?> readDouble(String key) async {
-    return (await _futureStorage).getDouble(key);
+    String? read = await _futureStorage.read(key: key);
+
+    double? ret;
+    try {
+      ret = read == null ? null : double.parse(read);
+    } catch (e) {
+      return null;
+    }
+    return ret;
   }
 
   static Future<String?> readString(String key) async {
-    return (await _futureStorage).getString(key);
+    String? read = await _futureStorage.read(key: key);
+    return read;
   }
 
-  static Future<List<String>?> readStringList(String key) async {
-    return (await _futureStorage).getStringList(key);
-  }
-
-  static Future<bool> writeInt(String key, int value) async {
-    return (await _futureStorage).setInt(key, value);
-  }
-
-  static Future<bool> writeBool(String key, bool value) async {
-    return (await _futureStorage).setBool(key, value);
-  }
-
-  static Future<bool> writeDouble(String key, double value) async {
-    return (await _futureStorage).setDouble(key, value);
-  }
-
-  static Future<bool> writeString(String key, String value) async {
-    return (await _futureStorage).setString(key, value);
-  }
-
-  static Future<bool> writeStringList(String key, List<String> value) async {
-    return (await _futureStorage).setStringList(key, value);
-  }
-
-  static Future<bool> delete(String key) async {
-    return (await _futureStorage).remove(key);
+  static Future<void> delete(String key) async {
+    return await _futureStorage.delete(key: key);
   }
 }
 

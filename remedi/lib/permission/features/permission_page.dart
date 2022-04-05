@@ -1,55 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:remedi_permission/viewmodel/i_permission_viewmodel.dart';
-import 'package:stacked_mvvm/stacked_mvvm.dart';
+import 'package:remedi/architecture/architecture.dart';
+import 'package:remedi/permission/app_permission.dart';
+import 'package:remedi/permission/features/permission_viewmodel.dart';
 
-class PermissionPage<Permission> extends IPage<IPermissionViewModel> {
-  static const ROUTE_NAME = "/permission";
+class PermissionPage extends ViewModelBuilder<PermissionViewModel> {
+  static const routeName = "/permission";
 
-  PermissionPage({Key? key, required IPermissionViewModel viewModel})
+  PermissionPage({Key? key, required PermissionViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
-  PermissionView body(
-      BuildContext context, IPermissionViewModel viewModel, Widget? child) {
-    return PermissionView();
-  }
-
-  @override
-  Future logScreenOpen(String screenName) async {}
-
-  @override
-  String get screenName => "permission";
-
-  @override
-  void onListen(BuildContext context, IPermissionViewModel viewModel) {
-    super.onListen(context, viewModel);
-    switch (viewModel.state) {
-      case PermissionViewState.Init:
-        break;
-      case PermissionViewState.Granted:
-        break;
-      case PermissionViewState.Denied:
-        break;
-      case PermissionViewState.Restricted:
-        break;
-      case PermissionViewState.Limited:
-        break;
-      case PermissionViewState.PermanentlyDenied:
-        break;
-      case PermissionViewState.Error:
-        break;
-      case PermissionViewState.Disabled:
-        break;
-      case PermissionViewState.grantedAndExit:
-        Navigator.of(context).pop("granted");
-        break;
-    }
+  Widget build(BuildContext context, PermissionViewModel read) {
+    return const PermissionView();
   }
 }
 
-class PermissionView extends IView<IPermissionViewModel> {
+class PermissionView extends View<PermissionViewModel> {
+  const PermissionView({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context, IPermissionViewModel viewModel) {
+  Widget buildChild(BuildContext context, PermissionViewModel watch,
+      PermissionViewModel read) {
     return WillPopScope(
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -58,73 +29,59 @@ class PermissionView extends IView<IPermissionViewModel> {
             elevation: 0,
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
-            actions: [..._buildSkip(context, viewModel)],
+            actions: [
+              _Skip(
+                  appPermission: read.appPermission,
+                  onPressed: (appPermission) {})
+            ],
           ),
           body: SafeArea(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Spacer(flex: 1),
-                    viewModel.icon(size: 60),
+                    const Spacer(),
+                    Icon(read.appPermission.icon, size: 60),
                     Container(
-                        margin: EdgeInsets.symmetric(vertical: 8),
-                        child: Text(viewModel.title,
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text(read.title,
                             style: TextStyle(
                                 fontSize: 28, color: Colors.grey.shade700))),
                     Expanded(
                         flex: 2,
                         child: Center(
                             child: Text(
-                          viewModel.description,
+                          read.appPermission.description ?? "",
                           style: TextStyle(
                               fontSize: 16, color: Colors.grey.shade900),
                         ))),
-                    _errorMessage(viewModel),
-                    _buildButton(context, viewModel),
+                    ErrorMessage(permission: read.appPermission),
+                    _Button(
+                      state: read.appPermission.state,
+                      onPress: () {},
+                    ),
                   ]),
             ),
           ),
         ),
         onWillPop: () async => false);
   }
+}
 
-  Color _buttonColor(IPermissionViewModel viewModel) {
-    if (viewModel.isPermanentlyDenied) {
-      return Colors.red;
-    }
-    return Colors.blue;
-  }
+class ErrorMessage extends StatelessWidget {
+  final AppPermission permission;
 
-  Widget _buttonText(BuildContext context, IPermissionViewModel viewModel) {
-    String text = "";
-    Color color = Colors.white;
-    if (viewModel.isPermanentlyDenied) {
-      text = "세팅에서 권한 허용하기";
-    } else if (viewModel.isGranted) {
-      text = "허용됨";
-      color = Colors.grey.shade700;
-    } else
-      text = "권한 요청하기";
+  const ErrorMessage({Key? key, required this.permission}) : super(key: key);
 
-    return Text(
-      text,
-      style: TextStyle(color: color),
-    );
-  }
-
-  _onSkip(BuildContext context, String result) async {
-    Navigator.of(context).pop(result);
-  }
-
-  Widget _errorMessage(IPermissionViewModel viewModel) {
-    if (viewModel.isError) {
+  @override
+  Widget build(BuildContext context) {
+    if (permission.shouldBeGranted) {
       return Container(
-        margin: EdgeInsets.only(left: 16),
+        margin: const EdgeInsets.only(left: 16),
         alignment: Alignment.centerLeft,
         child: Text(
-          "* ${viewModel.errorDescription}",
+          "* ${permission.errorDescription}",
           textAlign: TextAlign.start,
           style: TextStyle(
               color: Colors.red.shade700,
@@ -136,51 +93,91 @@ class PermissionView extends IView<IPermissionViewModel> {
 
     return Container();
   }
+}
 
-  List<Widget> _buildSkip(
-      BuildContext context, IPermissionViewModel viewModel) {
-    List<Widget> ret = [];
+class _Skip extends StatelessWidget {
+  final AppPermission appPermission;
+  final void Function(AppPermission appPermission) onPressed;
 
-    if (viewModel.isError) {
+  const _Skip({Key? key, required this.appPermission, required this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Widget ret = Container();
+    if (appPermission.shouldBeGranted) {
       return ret;
     }
 
     String title = "Skip";
-    if (viewModel.isGranted) {
+    if (appPermission.isGranted) {
       title = "Next";
     }
 
-    ret.add(Container(
-        child: TextButton(
-            onPressed: () async => await _onSkip(
-                context, viewModel.isGranted ? "granted" : "skip"),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title.toUpperCase(),
-                  style: TextStyle(color: Colors.blue),
-                ),
-                Icon(Icons.arrow_forward_ios_sharp,
-                    size: 16, color: Colors.blue)
-              ],
-            ))));
-
-    return ret;
+    return TextButton(
+      onPressed: () {
+        onPressed(appPermission);
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            title.toUpperCase(),
+            style: const TextStyle(color: Colors.blue),
+          ),
+          const Icon(Icons.arrow_forward_ios_sharp,
+              size: 16, color: Colors.blue)
+        ],
+      ),
+    );
   }
+}
 
-  Widget _buildButton(BuildContext context, IPermissionViewModel viewModel) {
+class _Button extends StatelessWidget {
+  final AppPermissionState state;
+  final void Function()? onPress;
+
+  const _Button({Key? key, required this.state, this.onPress})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(right: 16, left: 16, bottom: 32, top: 8),
+        margin: const EdgeInsets.only(right: 16, left: 16, bottom: 32, top: 8),
         child: MaterialButton(
-            color: _buttonColor(viewModel),
+            color: _color(state),
             height: 40,
             minWidth: double.maxFinite,
-            onPressed: viewModel.isGranted
-                ? null
-                : () async {
-                    await viewModel.requestPermission();
-                  },
-            child: _buttonText(context, viewModel)));
+            onPressed: onPress,
+            child: _text(state)));
+  }
+
+  Color _color(AppPermissionState state) {
+    if (state == AppPermissionState.permanentlyDenied) {
+      return Colors.red;
+    }
+    return Colors.blue;
+  }
+
+  Widget _text(AppPermissionState state) {
+    String text = "";
+    Color color = Colors.white;
+    switch (state) {
+      case AppPermissionState.granted:
+        text = "허용됨";
+        color = Colors.grey.shade700;
+        break;
+      case AppPermissionState.unknown:
+      case AppPermissionState.denied:
+        text = "권한 요청하기";
+        break;
+      case AppPermissionState.permanentlyDenied:
+        text = "세팅에서 권한 허용하기";
+        break;
+    }
+    return Text(
+      text,
+      style: TextStyle(color: color),
+    );
   }
 }

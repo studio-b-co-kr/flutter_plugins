@@ -2,40 +2,27 @@ library remedi_permission;
 
 import 'dart:developer' as dev;
 
-import 'package:permission_handler/permission_handler.dart';
-import 'package:remedi_permission/model/app_permission.dart';
-
-import 'lib/data/local_storage.dart';
+import 'package:remedi/permission/app_permission.dart';
+import 'package:remedi/permission/data/storage.dart';
 
 export 'package:permission_handler/permission_handler.dart';
 
-export 'lib/features/permission_list_page.dart';
-export 'lib/features/permission_list_repository.dart';
-export 'lib/features/permission_list_viewmodel.dart';
-export 'lib/features/permission_page.dart';
-export 'lib/features/permission_repository.dart';
-export 'lib/features/permission_viewmodel.dart';
-export 'lib/model/app_permission.dart';
+final List<AppPermission> _appPermissionList = [];
 
-class PermissionManager {
-  static final List<AppPermission> _appPermissionList = [];
-
+class RemediPermission {
   static List<AppPermission> get permissionList => _appPermissionList;
 
-  static init(List<Permission> permissionList) {
-    for (Permission permission in permissionList) {
-      AppPermission appPermission = AppPermission(permission);
-      _appPermissionList.add(appPermission);
-    }
+  static init(List<AppPermission> permissionList) {
+    _appPermissionList.addAll(permissionList);
   }
 
   static Future<bool> get doNotShowPermissionOnSplash async =>
-      await LocalStorage.instance().skipped || await allGranted;
+      await PermissionStorage.skipped || await allGranted;
 
   static Future<bool> get allGranted async {
     bool ret = true;
     await Future.forEach<AppPermission>(_appPermissionList, (permission) async {
-      ret = ret && await permission.isGranted;
+      ret = ret && (await permission.loadStatus).isGranted;
     });
     dev.log("allGranted = $ret", name: "PermissionManager");
     return ret;

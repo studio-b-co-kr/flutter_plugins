@@ -1,7 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi/remedi.dart';
 
-import '/permission/model/app_permission.dart';
+import '../app_permission.dart';
 
 abstract class IPermissionListRepository extends Repository {
   final List<AppPermission> permissions;

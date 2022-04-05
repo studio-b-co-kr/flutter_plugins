@@ -63,8 +63,8 @@ dependencies:
   ## [END] auth
 
   ## [START] permission
-  shared_preferences: ^2.0.13
-  permission_handler: ^8.3.0
+  flutter_secure_storage: ^5.0.2
+  permission_handler: ^9.2.0
   notification_permissions: ^0.6.1
   ## [END] permission
 
@@ -73,8 +73,7 @@ dependencies:
   store_redirect: ^2.0.0
   ## [END] update
 
-
-  hive: ^2.1.0
+  sembast: ^3.2.0
 
 dev_dependencies:
   flutter_test:
