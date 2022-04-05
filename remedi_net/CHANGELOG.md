@@ -1,3 +1,9 @@
+## 0.2.2
+update plugins
+
+## 0.2.1
+update plugins
+
 ## 0.2.0
 
 - fix some critical errors

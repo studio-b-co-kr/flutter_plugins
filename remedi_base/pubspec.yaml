@@ -1,6 +1,6 @@
 name: remedi_base
 description: base component.
-version: 0.1.0
+version: 0.1.1
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -17,10 +17,10 @@ dependencies:
   cupertino_icons: ^1.0.4
 
   # app version, build number and etc
-  package_info: ^2.0.2
+  package_info_plus: ^1.4.0
 
   # device info, os version, os type
-  device_info: ^2.0.3
+  device_info_plus: ^3.2.2
 
   # uuid generator
   flutter_udid: ^2.0.0

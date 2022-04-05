@@ -1,3 +1,6 @@
+## 0.0.5
+update plugins
+
 ## 0.0.4
 init.
 

@@ -1,3 +1,6 @@
+## 0.1.1
+ update plugin
+
 ## 0.1.0
  support flutter 2.8.x
 
