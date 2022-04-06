@@ -1,12 +1,12 @@
 import 'package:remedi/remedi.dart';
 
-import '../app_permission.dart';
-import '../permission.dart';
+import '../../app_permission.dart';
+import '../../permission.dart';
 
-class PermissionViewModel extends ViewModel {
+class PermissionSingleViewModel extends ViewModel {
   final AppPermission appPermission;
 
-  PermissionViewModel({required this.appPermission}) : super();
+  PermissionSingleViewModel({required this.appPermission}) : super();
 
   @override
   initialise() async {

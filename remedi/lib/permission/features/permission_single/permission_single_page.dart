@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:remedi/architecture/architecture.dart';
 import 'package:remedi/permission/app_permission.dart';
-import 'package:remedi/permission/features/permission_viewmodel.dart';
+import 'package:remedi/permission/features/permission_single/permission_single_viewmodel.dart';
 
-class PermissionPage extends ViewModelBuilder<PermissionViewModel> {
-  static const routeName = "/permission";
+class PermissionSinglePage extends ViewModelBuilder<PermissionSingleViewModel> {
+  static const routeName = "/permission_single";
 
-  PermissionPage({Key? key, required PermissionViewModel viewModel})
+  PermissionSinglePage({Key? key, required PermissionSingleViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 
   @override
-  Widget build(BuildContext context, PermissionViewModel read) {
+  Widget build(BuildContext context, PermissionSingleViewModel read) {
     return const PermissionView();
   }
 }
 
-class PermissionView extends View<PermissionViewModel> {
+class PermissionView extends View<PermissionSingleViewModel> {
   const PermissionView({Key? key}) : super(key: key);
 
   @override
-  Widget buildChild(BuildContext context, PermissionViewModel watch,
-      PermissionViewModel read) {
+  Widget buildChild(BuildContext context, PermissionSingleViewModel watch,
+      PermissionSingleViewModel read) {
     return WillPopScope(
         child: Scaffold(
           backgroundColor: Colors.white,
