@@ -11,12 +11,12 @@ class PermissionSinglePage extends ViewModelBuilder<PermissionSingleViewModel> {
 
   @override
   Widget build(BuildContext context, PermissionSingleViewModel read) {
-    return const PermissionView();
+    return const PermissionSingleView();
   }
 }
 
-class PermissionView extends View<PermissionSingleViewModel> {
-  const PermissionView({Key? key}) : super(key: key);
+class PermissionSingleView extends ViewModelView<PermissionSingleViewModel> {
+  const PermissionSingleView({Key? key}) : super(key: key);
 
   @override
   Widget buildChild(BuildContext context, PermissionSingleViewModel watch,

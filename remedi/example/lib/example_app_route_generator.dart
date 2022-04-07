@@ -8,9 +8,11 @@ import 'package:example/features/login/login.dart';
 import 'package:example/features/onboarding/onboarding.dart';
 import 'package:example/features/settings/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:remedi/permission/features/permission_list/permission_list_page.dart';
+import 'package:remedi/permission/features/permission_list/permission_list_view_model.dart';
+import 'package:remedi/permission/permission.dart';
 import 'package:remedi/remedi.dart';
 
-import 'features/permission/permission.dart';
 import 'features/splash/splash.dart';
 
 ///
@@ -32,8 +34,9 @@ class ExampleAppRouteGenerator extends RouteGenerator {
           viewModel: ForceUpdateViewModel(),
         ),
         introPage: IntroPage(viewModel: IntroViewModel()),
-        permissionAllPage:
-            PermissionAllPage(viewModel: PermissionAllViewModel()),
+        permissionAllPage: PermissionListPage(
+            viewModel: PermissionListViewModel(
+                permissionList: RemediPermission.permissionList)),
         loginPage: LoginPage(viewModel: LoginViewModel()),
         onboardingPage: OnboardingPage(viewModel: OnboardingViewModel()));
 

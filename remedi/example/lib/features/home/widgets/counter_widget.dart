@@ -2,7 +2,7 @@ import 'package:example/features/home/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi/remedi.dart';
 
-class CountWidget extends View<HomeViewModel> {
+class CountWidget extends ViewModelView<HomeViewModel> {
   const CountWidget({Key? key}) : super(key: key);
 
   @override

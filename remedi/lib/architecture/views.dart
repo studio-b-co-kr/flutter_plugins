@@ -1,8 +1,8 @@
 part of 'architecture.dart';
 
 /// Wrapper class for providing ViewModel and AppModel
-abstract class View<P extends ChangeNotifier> extends StatelessWidget {
-  const View({Key? key}) : super(key: key);
+abstract class ViewModelView<P extends ChangeNotifier> extends StatelessWidget {
+  const ViewModelView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

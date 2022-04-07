@@ -44,7 +44,7 @@ class SplashPage extends ViewModelBuilder<_SplashViewModel> {
   }
 }
 
-class _ErrorView extends View<_SplashViewModel> {
+class _ErrorView extends ViewModelView<_SplashViewModel> {
   @override
   Widget buildChild(
       BuildContext context, _SplashViewModel watch, _SplashViewModel read) {

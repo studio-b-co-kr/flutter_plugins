@@ -102,6 +102,23 @@ class AppPermission {
 
   bool get shouldBeGranted => mandatory && state != AppPermissionState.granted;
 
+  String get stateMessage {
+    String ret = "";
+    switch (state) {
+      case AppPermissionState.granted:
+        ret = "허용됨";
+        break;
+      case AppPermissionState.denied:
+      case AppPermissionState.permanentlyDenied:
+        ret = "해당 권한을 허용해주세요.";
+        break;
+      default:
+        ret = "사용 불가능합니다.";
+        break;
+    }
+    return ret;
+  }
+
   IconData get icon {
     IconData iconData;
     switch (permission.value) {

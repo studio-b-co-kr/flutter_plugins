@@ -15,7 +15,7 @@ class PermissionListItem extends ViewModelBuilder<PermissionSingleViewModel> {
   }
 }
 
-class PermissionItemView extends View<PermissionSingleViewModel> {
+class PermissionItemView extends ViewModelView<PermissionSingleViewModel> {
   const PermissionItemView({Key? key}) : super(key: key);
 
   @override

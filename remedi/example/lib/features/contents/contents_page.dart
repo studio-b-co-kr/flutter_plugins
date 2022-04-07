@@ -52,7 +52,7 @@ class ContentsPage extends ViewModelBuilder<ContentsViewModel> {
   }
 }
 
-class CountView extends View<ContentsViewModel> {
+class CountView extends ViewModelView<ContentsViewModel> {
   const CountView({Key? key}) : super(key: key);
 
   @override
