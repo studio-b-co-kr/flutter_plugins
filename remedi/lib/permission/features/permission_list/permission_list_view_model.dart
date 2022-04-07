@@ -25,6 +25,11 @@ class PermissionListViewModel extends ViewModel {
     });
   }
 
+  request(AppPermission appPermission) async {
+    await appPermission.request();
+    updateUi();
+  }
+
   Future<bool> get canSkipAll async {
     bool ret = true;
     for (var element in permissionList) {

@@ -45,9 +45,7 @@ class PermissionListPage extends ViewModelBuilder<PermissionListViewModel> {
                 right: 16,
                 bottom: 0,
               ),
-              child: PermissionList(
-                permissionList: read.permissionList,
-              ),
+              child: PermissionList(),
             ),
           )
         ]),
@@ -120,22 +118,23 @@ class GrantAllButton extends StatelessWidget {
   }
 }
 
-class PermissionList extends StatelessWidget {
-  final List<AppPermission> permissionList;
-
+class PermissionList extends ViewModelView<PermissionListViewModel> {
   const PermissionList({
     Key? key,
-    required this.permissionList,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildChild(BuildContext context, PermissionListViewModel watch,
+      PermissionListViewModel read) {
     return ListView.builder(
       padding: const EdgeInsets.only(bottom: 32),
-      itemCount: permissionList.length,
+      itemCount: read.permissionList.length,
       itemBuilder: (context, index) {
         return PermissionListItem(
-          permission: permissionList[index],
+          permission: watch.permissionList[index],
+          onTap: (permission) {
+            read.request(permission);
+          },
         );
       },
     );
@@ -143,9 +142,11 @@ class PermissionList extends StatelessWidget {
 }
 
 class PermissionListItem extends StatelessWidget {
+  final void Function(AppPermission permission)? onTap;
   final AppPermission permission;
 
-  const PermissionListItem({Key? key, required this.permission})
+  const PermissionListItem(
+      {Key? key, required this.permission, required this.onTap})
       : super(key: key);
 
   @override
