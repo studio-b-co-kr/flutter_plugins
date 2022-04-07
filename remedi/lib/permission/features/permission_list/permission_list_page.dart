@@ -60,7 +60,8 @@ class SkipButton extends ViewModelView<PermissionListViewModel> {
   const SkipButton({Key? key, required this.onTap}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildChild(BuildContext context, PermissionListViewModel watch,
+      PermissionListViewModel read) {
     return Container(
       alignment: Alignment.centerRight,
       width: double.infinity,
@@ -89,13 +90,6 @@ class SkipButton extends ViewModelView<PermissionListViewModel> {
       ),
     );
   }
-
-  @override
-  Widget buildChild(BuildContext context, PermissionListViewModel watch,
-      PermissionListViewModel read) {
-    // TODO: implement buildChild
-    throw UnimplementedError();
-  }
 }
 
 class GrantAllButton extends StatelessWidget {
@@ -108,7 +102,7 @@ class GrantAllButton extends StatelessWidget {
     return InkWell(
       onTap: onTab,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 16, bottom: 8),
         child: const Text(
           '모두 허용하기',
           style: TextStyle(fontSize: 18, color: Colors.blue),
@@ -152,7 +146,7 @@ class PermissionListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
         onTap: () {},
         child: Container(
