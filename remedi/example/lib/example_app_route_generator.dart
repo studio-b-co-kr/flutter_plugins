@@ -8,8 +8,7 @@ import 'package:example/features/login/login.dart';
 import 'package:example/features/onboarding/onboarding.dart';
 import 'package:example/features/settings/settings_page.dart';
 import 'package:flutter/material.dart';
-import 'package:remedi/permission/features/permission_list/permission_list_page.dart';
-import 'package:remedi/permission/features/permission_list/permission_list_view_model.dart';
+import 'package:remedi/permission/features/permission_list/permission_list.dart';
 import 'package:remedi/permission/permission.dart';
 import 'package:remedi/remedi.dart';
 

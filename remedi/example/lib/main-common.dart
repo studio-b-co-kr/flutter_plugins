@@ -10,23 +10,22 @@ void mainCommon({
   example_app.run(
     readyToRun: () async {
       RemediPermission.init([
-        AppPermission(
-          Permission.location,
-          title: '위치 접근 권한',
-          description: '거리를 측정하기 위해 권한을 허융해 주세요.',
-          errorDescription: '앱을 사용하기 위한 필수 권한입니다.',
-        ),
+        AppPermission(Permission.location,
+            title: '위치 접근 권한',
+            description: '거리를 측정하기 위해 권한을 허융해 주세요.',
+            warningDescription: '앱을 사용하기 위한 필수 권한입니다.',
+            mandatory: true),
         AppPermission(
           Permission.camera,
           title: '카메라 접근 권한',
-          description: '',
-          errorDescription: '',
+          description: 'description',
+          warningDescription: 'Warning description',
         ),
         AppPermission(
           Permission.storage,
           title: '저장소 접근 권한',
-          description: '',
-          errorDescription: '',
+          description: 'description',
+          warningDescription: 'Warning description',
         ),
       ]);
 

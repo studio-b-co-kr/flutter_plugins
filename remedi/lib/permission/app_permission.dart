@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:notification_permissions/notification_permissions.dart'
     as notification;
@@ -7,20 +9,20 @@ class AppPermission {
   final String? title;
   final String? description;
   final Permission permission;
-  final String? errorDescription;
+  final String? warningDescription;
   final bool mandatory;
 
-  AppPermissionState state = AppPermissionState.unknown;
+  AppPermissionState state = AppPermissionState.denied;
 
   AppPermission(
     this.permission, {
     this.title,
     this.description,
-    this.errorDescription,
+    this.warningDescription,
     this.mandatory = false,
   }) : assert(!mandatory ||
             (mandatory &&
-                (errorDescription != null && errorDescription.isNotEmpty)));
+                (warningDescription != null && warningDescription.isNotEmpty)));
 
   PermissionPlatform get platform {
     PermissionPlatform ret = PermissionPlatform.none;
@@ -78,7 +80,6 @@ class AppPermission {
     } else {
       state = (await permission.status).toAppPermissionState();
     }
-
     return this;
   }
 
@@ -108,9 +109,14 @@ class AppPermission {
       case AppPermissionState.granted:
         ret = "허용됨";
         break;
+      case AppPermissionState.unknown:
       case AppPermissionState.denied:
       case AppPermissionState.permanentlyDenied:
-        ret = "해당 권한을 허용해주세요.";
+        if (mandatory) {
+          ret = warningDescription ?? "";
+        } else {
+          ret = "해당 권한을 허용해주세요.";
+        }
         break;
       default:
         ret = "사용 불가능합니다.";
@@ -231,6 +237,7 @@ extension NotificationPermissionStatusEx on notification.PermissionStatus {
 extension PermissionStatusEx on PermissionStatus {
   AppPermissionState toAppPermissionState() {
     AppPermissionState state = AppPermissionState.unknown;
+    dev.log(name, name: 'PermissionStatus.toAppPermissionState');
     switch (this) {
       case PermissionStatus.granted:
       case PermissionStatus.limited:
@@ -240,7 +247,6 @@ extension PermissionStatusEx on PermissionStatus {
       case PermissionStatus.restricted:
         state = AppPermissionState.denied;
         break;
-
       case PermissionStatus.permanentlyDenied:
         state = AppPermissionState.permanentlyDenied;
         break;

@@ -3,15 +3,19 @@ import 'dart:developer' as dev;
 import 'package:remedi/remedi.dart';
 
 class PermissionStorage {
-  static const keySkipOnSplash = "keySkipOnSplash";
+  static const _keySkipOnSplash = "keySkipOnSplash";
 
   static Future skip() async {
-    return await LocalStorage.writeBool(keySkipOnSplash, true);
+    return await LocalStorage.writeBool(_keySkipOnSplash, true);
   }
 
   static Future<bool> get skipped async {
-    bool ret = await LocalStorage.readBool(keySkipOnSplash) ?? false;
+    bool ret = await LocalStorage.readBool(_keySkipOnSplash) ?? false;
     dev.log("skipped = $ret", name: "PermissionManager");
     return ret;
+  }
+
+  static Future resetSkip() async {
+    LocalStorage.delete(_keySkipOnSplash);
   }
 }

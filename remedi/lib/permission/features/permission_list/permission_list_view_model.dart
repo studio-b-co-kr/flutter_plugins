@@ -1,5 +1,4 @@
-import 'package:remedi/permission/app_permission.dart';
-import 'package:remedi/remedi.dart';
+part of 'permission_list.dart';
 
 class PermissionListViewModel extends ViewModel {
   final List<AppPermission> permissionList;
@@ -13,7 +12,10 @@ class PermissionListViewModel extends ViewModel {
 
   loadStateAll() async {
     await Future.forEach<AppPermission>(permissionList, (permission) async {
-      (await permission.loadStatus);
+      await Future.delayed(Duration.zero);
+      await permission.loadStatus;
+      dev.log('permission.name = ${permission.permission}', name: toString());
+      dev.log('permission.state = ${permission.state}', name: toString());
     });
 
     updateUi();
@@ -23,14 +25,22 @@ class PermissionListViewModel extends ViewModel {
     await Future.forEach<AppPermission>(permissionList, (permission) async {
       (await permission.request());
     });
-  }
 
-  request(AppPermission appPermission) async {
-    await appPermission.request();
     updateUi();
   }
 
-  Future<bool> get canSkipAll async {
+  request(AppPermission appPermission) async {
+    // before request get status.
+    AppLog.log('${appPermission.state}', name: '${appPermission.hashCode}');
+    if (appPermission.state == AppPermissionState.permanentlyDenied) {
+      await openAppSettings();
+    } else {
+      await appPermission.request();
+    }
+    updateUi();
+  }
+
+  bool get canSkipAll {
     bool ret = true;
     for (var element in permissionList) {
       if (element.shouldBeGranted) {

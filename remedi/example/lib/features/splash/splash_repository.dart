@@ -4,7 +4,9 @@ class SplashRepository extends ISplashRepository {
   const SplashRepository() : super();
 
   @override
-  Future appOpen() async {}
+  Future appOpen() async {
+    await PermissionStorage.resetSkip();
+  }
 
   @override
   Future<bool> isCompletedIntro() async {

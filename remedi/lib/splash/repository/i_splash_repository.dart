@@ -24,8 +24,12 @@ abstract class ISplashRepository extends Repository {
 
   Future<bool> isCompletedPermissionGrant();
 
-  void goPermissionAll() {
-    RemediRouter.pushReplacementNamed(PermissionAllWrapper.routeName);
+  void goPermissionAll() async {
+    await RemediRouter.pushNamed(PermissionAllWrapper.routeName);
+    RemediRouter.pushReplacementNamed(
+      RemediSplash.routeName,
+      arguments: RemediSplash.afterPermission,
+    );
   }
 
   Future<bool> needToLogin();

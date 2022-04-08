@@ -25,7 +25,7 @@ class PermissionSingleViewModel extends ViewModel {
 
   String get description => appPermission.description ?? "";
 
-  String get errorDescription => appPermission.errorDescription ?? "";
+  String get errorDescription => appPermission.warningDescription ?? "";
 
   String get title => appPermission.title ?? "";
 

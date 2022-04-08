@@ -81,7 +81,7 @@ class ErrorMessage extends StatelessWidget {
         margin: const EdgeInsets.only(left: 16),
         alignment: Alignment.centerLeft,
         child: Text(
-          "* ${permission.errorDescription}",
+          "* ${permission.warningDescription}",
           textAlign: TextAlign.start,
           style: TextStyle(
               color: Colors.red.shade700,
