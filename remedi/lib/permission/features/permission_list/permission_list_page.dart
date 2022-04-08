@@ -8,6 +8,14 @@ class PermissionListPage extends ViewModelBuilder<PermissionListViewModel> {
   }) : super(key: key, viewModel: viewModel);
 
   @override
+  void initUi() {
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      AppLog.log(msg ?? "msg", name: 'LIFECYCLE');
+    });
+    super.initUi();
+  }
+
+  @override
   Widget build(BuildContext context, PermissionListViewModel read) {
     return Scaffold(
       body: SafeArea(

@@ -33,7 +33,7 @@ dependencies:
   flutter_branch_sdk: ^5.0.0
   ## [END] deep_link
 
-  ## [START] widgets
+  ## [START] widgetsflutt
   flutter_localizations: # Add this line
     sdk: flutter
 

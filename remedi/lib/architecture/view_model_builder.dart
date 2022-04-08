@@ -47,9 +47,9 @@ class _ViewModelBuilderState<VM extends ViewModel>
     extends State<ViewModelBuilder<VM>> implements ReassembleHandler {
   @override
   void initState() {
+    super.initState();
     _initialise();
     AppLog.log('initState.isMounted = $mounted', name: widget.toString());
-    super.initState();
   }
 
   @override
@@ -65,24 +65,6 @@ class _ViewModelBuilderState<VM extends ViewModel>
   @override
   Widget build(BuildContext context) {
     AppLog.log('build', name: widget.toString());
-
-    // if (viewModel.isDisposed) {
-    //   throw Exception('You cannot reuse a disposed ViewModel again.\n\n'
-    //       'If you want to use the ViewModel as a singleton instance,\n'
-    //       'please make a constructor of the ViewModel as below.\n\n'
-    //       'class ContentsViewModel extends IViewModel {\n'
-    //       ' static ContentsViewModel _instance = ContentsViewModel._();\n\n'
-    //       ' ContentsViewModel._();\n\n'
-    //       ' factory ContentsViewModel.singleton() {\n'
-    //       '   if (_instance.isDisposed) {\n'
-    //       '     _instance = ContentsViewModel._();\n'
-    //       '   }\n\n'
-    //       '   return _instance;\n'
-    //       ' }\n\n'
-    //       ' @override\n'
-    //       ' initialise() {}\n'
-    //       '}\n');
-    // }
 
     return ChangeNotifierProvider<VM>(
       create: (context) {

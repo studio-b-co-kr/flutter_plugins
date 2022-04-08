@@ -18,6 +18,7 @@ class SkipButton extends ViewModelView<PermissionListViewModel> {
             : null,
         child: watch.canSkipAll
             ? Container(
+                height: 48,
                 padding: const EdgeInsets.all(16),
                 child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -37,7 +38,7 @@ class SkipButton extends ViewModelView<PermissionListViewModel> {
                       )
                     ]),
               )
-            : Container(),
+            : Container(height: 48),
       ),
     );
   }

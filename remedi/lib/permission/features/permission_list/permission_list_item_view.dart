@@ -12,9 +12,11 @@ class PermissionListItem extends ViewModelView<PermissionListViewModel> {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: () {
-          read.request(permission);
-        },
+        onTap: permission.isGranted
+            ? null
+            : () {
+                read.request(permission);
+              },
         child: Container(
           padding:
               const EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 16),
