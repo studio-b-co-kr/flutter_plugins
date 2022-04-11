@@ -12,8 +12,8 @@ class PermissionListViewModel extends ViewModel {
 
   loadStateAll() async {
     await Future.forEach<AppPermission>(permissionList, (permission) async {
-      await Future.delayed(Duration.zero);
       await permission.loadStatus;
+      await Future.delayed(Duration.zero);
       dev.log('permission.name = ${permission.permission}', name: toString());
       dev.log('permission.state = ${permission.state}', name: toString());
     });
@@ -50,5 +50,17 @@ class PermissionListViewModel extends ViewModel {
     }
 
     return ret;
+  }
+
+  bool get shouldRecheck {
+    bool recheck = false;
+    for (AppPermission p in permissionList) {
+      if (p.isPermanentlyDenied) {
+        recheck = true;
+        break;
+      }
+    }
+
+    return recheck;
   }
 }

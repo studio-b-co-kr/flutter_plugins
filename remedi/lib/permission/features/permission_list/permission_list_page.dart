@@ -7,13 +7,13 @@ class PermissionListPage extends ViewModelBuilder<PermissionListViewModel> {
     required PermissionListViewModel viewModel,
   }) : super(key: key, viewModel: viewModel);
 
-  @override
-  void initUi() {
-    SystemChannels.lifecycle.setMessageHandler((msg) async {
-      AppLog.log(msg ?? "msg", name: 'LIFECYCLE');
-    });
-    super.initUi();
-  }
+  // @override
+  // void initUi() {
+  //   super.initUi();
+  //   SystemChannels.lifecycle.setMessageHandler((msg) async {
+  //     AppLog.log(msg ?? "msg", name: 'LIFECYCLE');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context, PermissionListViewModel read) {
@@ -38,9 +38,7 @@ class PermissionListPage extends ViewModelBuilder<PermissionListViewModel> {
               style: TextStyle(fontSize: 18),
             ),
           ),
-          GrantAllButton(
-            onTab: () {},
-          ),
+          const GrantAllButton(),
           Expanded(
             child: Container(
               padding: const EdgeInsets.only(

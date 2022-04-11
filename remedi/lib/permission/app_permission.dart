@@ -99,6 +99,10 @@ class AppPermission {
     return this;
   }
 
+  bool get isDenied => state != AppPermissionState.granted;
+
+  bool get isPermanentlyDenied => state == AppPermissionState.permanentlyDenied;
+
   bool get isGranted => state == AppPermissionState.granted;
 
   bool get shouldBeGranted => mandatory && state != AppPermissionState.granted;
