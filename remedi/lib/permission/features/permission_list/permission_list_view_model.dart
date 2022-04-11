@@ -26,11 +26,15 @@ class PermissionListViewModel extends ViewModel {
       (await permission.request());
     });
 
+    bool exit = true;
     for (AppPermission p in permissionList) {
       if (p.shouldBeGranted) {
-        RemediRouter.pop();
+        exit = false;
         break;
       }
+    }
+    if (exit) {
+      RemediRouter.pop();
     }
 
     updateUi();
