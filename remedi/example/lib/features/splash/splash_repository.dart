@@ -20,7 +20,7 @@ class SplashRepository extends ISplashRepository {
 
   @override
   Future<bool> isCompletedPermissionGrant() async {
-    return false;
+    return await RemediPermission.doNotShowPermissionOnSplash;
   }
 
   @override
