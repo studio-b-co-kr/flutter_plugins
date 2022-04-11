@@ -27,6 +27,24 @@ void mainCommon({
           description: 'description',
           warningDescription: 'Warning description',
         ),
+        AppPermission(
+          Permission.contacts,
+          title: '연락처 접근 권한',
+          description: 'description',
+          warningDescription: 'Warning description',
+        ),
+        AppPermission(
+          Permission.calendar,
+          title: '캘린더 접근 권한',
+          description: 'description',
+          warningDescription: 'Warning description',
+        ),
+        AppPermission(
+          Permission.microphone,
+          title: '마이크 접근 권한',
+          description: 'description',
+          warningDescription: 'Warning description',
+        ),
       ]);
 
       if (readyToRun != null) {
