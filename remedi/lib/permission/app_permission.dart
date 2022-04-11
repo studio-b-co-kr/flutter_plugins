@@ -105,6 +105,8 @@ class AppPermission {
 
   bool get isGranted => state == AppPermissionState.granted;
 
+  bool get canSkip => !mandatory;
+
   bool get shouldBeGranted => mandatory && state != AppPermissionState.granted;
 
   String get stateMessage {
