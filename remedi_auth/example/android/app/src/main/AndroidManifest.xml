@@ -41,14 +41,14 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
-            <intent-filter>
+        <activity android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity">
+            <intent-filter android:label="flutter_web_auth">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+                <!-- Redirect URI, "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식 -->
                 <data
                     android:host="oauth"
                     android:scheme="@string/kakao_app_scheme" />

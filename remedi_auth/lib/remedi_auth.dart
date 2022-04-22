@@ -1,5 +1,7 @@
 library remedi_auth;
 
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+
 import 'repository/i_storage.dart';
 
 export 'auth_error.dart';
@@ -39,5 +41,9 @@ class AuthManager {
     _enableKakao = enableKakao;
     _enableApple = enableApple;
     _enableEmailPassword = enableEmailPassword;
+
+    if (_enableKakao) {
+      KakaoSdk.init(nativeAppKey: kakaoAppId);
+    }
   }
 }
