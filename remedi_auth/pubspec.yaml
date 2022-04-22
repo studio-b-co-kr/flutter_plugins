@@ -1,8 +1,8 @@
 name: remedi_auth
 description: Remedi Plugin Auth
 version: 0.1.3
-homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
-repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
+homepage: 'https://github.com/studio-b-co-kr/remedi_flutter'
+repository: 'https://github.com/studio-b-co-kr/remedi_flutter'
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
