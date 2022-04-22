@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 

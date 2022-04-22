@@ -1,8 +1,5 @@
-import 'dart:developer' as dev;
-
-// ignore: implementation_imports
 import 'package:flutter/services.dart';
-import 'package:flutter_kakao_login/flutter_kakao_login.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:remedi_auth/auth_repository.dart';
 import 'package:remedi_auth/model/apple_credential.dart';
 import 'package:remedi_auth/model/i_app_credential.dart';
@@ -99,55 +96,20 @@ class LoginViewModel extends ILoginViewModel {
   loginWithKakao() async {
     update(state: LoginViewState.Loading);
 
-    final FlutterKakaoLogin kakaoSignIn = FlutterKakaoLogin();
-    await kakaoSignIn.init(kakaoAppId!);
+    _KakaoLoginInfo? loginInfo = await loginKakao();
 
-    final String hashKey = await (kakaoSignIn.hashKey);
-    dev.log(hashKey, name: "Kakao HASH");
-    String kakaoAccessToken;
-    String? kakaoId;
-    try {
-      var login = await kakaoSignIn.logIn();
-
-      switch (login.status) {
-        case KakaoLoginStatus.loggedIn:
-          dev.log("${login.token?.accessToken}", name: "Kakao Login Success");
-          kakaoAccessToken = login.token!.accessToken!;
-          login = await kakaoSignIn.getUserMe();
-          break;
-        case KakaoLoginStatus.loggedOut:
-        case KakaoLoginStatus.unlinked:
-          this.authError = AuthError(
-              title: AppStrings.codeKakaoLoginError,
-              code: AppStrings.codeKakaoLoginError,
-              message: AppStrings.messageAuthError);
-          await kakaoSignIn.logOut();
-          update(state: LoginViewState.Error);
-          return;
-      }
-
-      kakaoId = login.account?.userID ?? "";
-
-      int id = 0;
-      try {
-        id = int.parse(kakaoId);
-      } catch (e) {
-        this.authError = AuthError(
-            title: AppStrings.codeKakaoLoginError,
-            code: AppStrings.codeKakaoLoginError,
-            message: AppStrings.messageAuthError);
-        await kakaoSignIn.logOut();
-        update(state: LoginViewState.Error);
-        return;
-      }
-
-      var credential = await repository.loginWithKakao(
-          KakaoCredential(accessToken: kakaoAccessToken, id: id));
+    if (loginInfo == null) {
+      this.authError = AuthError(
+          title: AppStrings.loginError, code: AppStrings.codeKakaoLoginError);
+      update(state: LoginViewState.Error);
+    } else {
+      var credential = await repository.loginWithKakao(KakaoCredential(
+          accessToken: loginInfo.accessToken, id: loginInfo.userId));
 
       if (credential is ICredential) {
         if (credential.isError) {
           this.authError = credential.error;
-          await kakaoSignIn.logOut();
+          await UserApi.instance.logout();
           update(state: LoginViewState.Error);
           return;
         }
@@ -160,34 +122,53 @@ class LoginViewModel extends ILoginViewModel {
               .writeRefreshToken(credential.refreshToken ?? "")
         ]);
 
-        await kakaoSignIn.logOut();
+        await UserApi.instance.logout();
         update(state: LoginViewState.Success);
-        return;
       } else {
-        throw AuthError(
-            title: AppStrings.loginError, code: AppStrings.codeAppleLoginError);
-      }
-    } catch (error) {
-      String? title = AppStrings.codeKakaoLoginError;
-      String code = AppStrings.codeKakaoLoginError;
-      String? message = AppStrings.messageAuthError;
-
-      if (error is PlatformException) {
-        title = error.message ?? "";
-        code = error.code;
-        message = error.details;
-      }
-
-      this.authError =
-          AuthError(title: title, code: code, message: message, error: error);
-
-      if (message == "cancelled." ||
-          title ==
-              "The operation couldn’t be completed. (KakaoSDKCommon.SdkError error 0.)") {
-        update(state: LoginViewState.Idle);
-      } else {
+        this.authError = AuthError(
+            title: AppStrings.loginError, code: AppStrings.codeKakaoLoginError);
+        await UserApi.instance.logout();
         update(state: LoginViewState.Error);
       }
     }
   }
+
+  Future<_KakaoLoginInfo?> loginKakao() async {
+    String accessToken;
+    int? userId;
+    if (await isKakaoTalkInstalled()) {
+      try {
+        accessToken = (await UserApi.instance.loginWithKakaoTalk()).accessToken;
+        userId = (await UserApi.instance.accessTokenInfo()).id;
+      } catch (error) {
+        if (error is PlatformException && error.code == 'CANCELED') {
+          return null;
+        }
+        // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
+        try {
+          accessToken =
+              (await UserApi.instance.loginWithKakaoAccount()).accessToken;
+          userId = (await UserApi.instance.accessTokenInfo()).id;
+        } catch (error) {
+          return null;
+        }
+      }
+    } else {
+      try {
+        accessToken =
+            (await UserApi.instance.loginWithKakaoAccount()).accessToken;
+        userId = (await UserApi.instance.accessTokenInfo()).id;
+      } catch (error) {
+        return null;
+      }
+    }
+    return _KakaoLoginInfo(accessToken: accessToken, userId: userId);
+  }
+}
+
+class _KakaoLoginInfo {
+  String? accessToken;
+  int? userId;
+
+  _KakaoLoginInfo({this.accessToken, this.userId});
 }
