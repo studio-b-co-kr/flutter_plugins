@@ -4,6 +4,8 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 import 'repository/i_storage.dart';
 
+export 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+
 export 'auth_error.dart';
 export 'auth_repository.dart';
 export 'model/apple_credential.dart';
