@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:remedi_flutter/remedi_flutter.dart';
 
 class PermissionStorage {
@@ -11,7 +9,7 @@ class PermissionStorage {
 
   static Future<bool> get skipped async {
     bool ret = await LocalStorage.readBool(_keySkipOnSplash) ?? false;
-    dev.log("skipped = $ret", name: "PermissionManager");
+    AppLog.log("skipped = $ret", name: "PermissionManager");
     return ret;
   }
 

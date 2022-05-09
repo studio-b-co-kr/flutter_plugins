@@ -79,6 +79,17 @@ dependencies:
   ## Crash Monitoring
   firebase_crashlytics: ^2.6.3
 
+  ## Firebase Analytics
+  firebase_analytics: ^9.1.7
+
+  # app version, build number and etc
+  package_info_plus: ^1.4.0
+
+  # device info, os version, os type
+  device_info_plus: ^3.2.2
+
+  firebase_app_installations: ^0.1.0+12
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

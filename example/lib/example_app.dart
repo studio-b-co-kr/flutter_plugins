@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 import 'package:example/app_models/auth_app_model.dart';
 import 'package:example/app_models/color_app_model.dart';
 import 'package:example/app_models/settings_app_model.dart';
@@ -34,7 +32,7 @@ RemediApp _app = RemediApp(
     /// RouteGenerator 는 route 시에 로깅을 할 수 있는 인터페이스를 제공한다.
     onGenerateRoute: (settings) =>
         ExampleAppRouteGenerator(screenLogger: (routeName) async {
-      dev.log(routeName, name: 'ScreenLogger');
+      AppLog.log(routeName, name: 'ScreenLogger');
     }).route(settings),
   ),
 );

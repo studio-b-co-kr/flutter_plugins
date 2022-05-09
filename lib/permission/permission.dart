@@ -1,9 +1,9 @@
 library remedi_permission;
 
-import 'dart:developer' as dev;
-
 import 'package:remedi_flutter/permission/app_permission.dart';
 import 'package:remedi_flutter/permission/data/storage.dart';
+
+import '../app/app.dart';
 
 export 'package:permission_handler/permission_handler.dart';
 
@@ -24,7 +24,7 @@ class RemediPermission {
     await Future.forEach<AppPermission>(_appPermissionList, (permission) async {
       ret = ret && (await permission.loadStatus).isGranted;
     });
-    dev.log("allGranted = $ret", name: "PermissionManager");
+    AppLog.log("allGranted = $ret", name: "PermissionManager");
     return ret;
   }
 }

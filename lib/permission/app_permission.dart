@@ -1,9 +1,9 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:notification_permissions/notification_permissions.dart'
     as notification;
 import 'package:permission_handler/permission_handler.dart';
+
+import '../app/app.dart';
 
 class AppPermission {
   final String? title;
@@ -243,7 +243,7 @@ extension NotificationPermissionStatusEx on notification.PermissionStatus {
 extension PermissionStatusEx on PermissionStatus {
   AppPermissionState toAppPermissionState() {
     AppPermissionState state = AppPermissionState.unknown;
-    dev.log(name, name: 'PermissionStatus.toAppPermissionState');
+    AppLog.log(name, name: 'PermissionStatus.toAppPermissionState');
     switch (this) {
       case PermissionStatus.granted:
       case PermissionStatus.limited:
