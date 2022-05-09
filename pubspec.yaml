@@ -47,7 +47,8 @@ dependencies:
 
   ## [START] auth
   # kakao login
-  flutter_kakao_login: ^3.4.0
+  kakao_flutter_sdk: ^1.1.0
+
 
   # sign in with apple
   sign_in_with_apple: ^3.3.0
@@ -74,6 +75,9 @@ dependencies:
   ## [END] update
 
   sembast: ^3.2.0
+
+  ## Crash Monitoring
+  firebase_crashlytics: ^2.6.3
 
 dev_dependencies:
   flutter_test:
