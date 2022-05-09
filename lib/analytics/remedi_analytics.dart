@@ -1,6 +1,8 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:remedi_flutter/net/net.dart';
 
+import '../app/app.dart';
+
 bool _enableGoogleAnalytics = false;
 bool _enableRemediAnalytics = false;
 String? baseUrl;
@@ -172,9 +174,10 @@ class _FirebaseLogger {
     );
   }
 
-  Future logEvent(
-      {required final String name,
-      final Map<String, dynamic>? parameters}) async {
+  Future logEvent({
+    required final String name,
+    final Map<String, dynamic>? parameters,
+  }) async {
     return FirebaseAnalytics.instance.logEvent(
       name: name,
       parameters: parameters,

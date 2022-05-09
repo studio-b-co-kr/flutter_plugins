@@ -1,7 +1,15 @@
 import 'dart:async';
 import 'dart:developer' as dev;
 
+/// AppConfig is in charge of managing product flavor, device info and os info.
+import 'dart:io';
+import 'dart:ui' as ui;
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_app_installations/firebase_app_installations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
 
 part 'app_log.dart';
@@ -9,18 +17,6 @@ part 'remedi_app.dart';
 part 'remedi_router.dart';
 part 'remedi_uri.dart';
 part 'route_generator.dart';
-
-
-/// AppConfig is in charge of managing product flavor, device info and os info.
-import 'dart:developer' as dev;
-import 'dart:io';
-import 'dart:ui' as ui;
-
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/services.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-
-import 'app_repository.dart';
 
 class AppConfig {
   static late final String baseUrl;
@@ -67,10 +63,10 @@ class AppConfig {
   /// user set this config in main()
   static setFlavorConfig(
       {required String baseUrl,
-        required String baseWebUrl,
-        bool isRelease = false,
-        String? endpoint,
-        bool enablePrintLog = false}) {
+      required String baseWebUrl,
+      bool isRelease = false,
+      String? endpoint,
+      bool enablePrintLog = false}) {
     AppConfig.baseUrl = baseUrl;
     AppConfig.baseWebUrl = baseWebUrl;
     AppConfig._isRelease = isRelease;
@@ -152,7 +148,7 @@ class AppConfig {
     dev.log("$_osVersionSdk", name: "osVersionSdk");
     dev.log(_deviceManufacturer ?? "unknown", name: "deviceManufacturer");
     dev.log(_deviceModel ?? "unknown", name: "deviceModel");
-    dev.log("${await AppRepository.instance().appId}", name: "appId");
+    dev.log(await FirebaseInstallations.instance.getId(), name: "appId");
     dev.log("${ui.window.physicalSize.width}", name: "physicalSize.width");
     dev.log("${ui.window.devicePixelRatio}", name: "devicePixelRatio");
   }
