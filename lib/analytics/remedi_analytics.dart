@@ -1,143 +1,149 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:remedi_flutter/net/net.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import '../app/app.dart';
 
 bool _enableGoogleAnalytics = false;
 bool _enableRemediAnalytics = false;
 String? baseUrl;
+Logger? _logger;
+Logger? _gaLogger;
 
+/// call this at entry point of app after initializing firebase
 class RemediAnalytics {
-  static init({
+  static Future init({
     bool enableGoogleAnalytics = false,
     bool enableRemediAnalytics = false,
     String? baseUrl,
-  }) {
+    Logger? logger,
+  }) async {
     _enableGoogleAnalytics = enableGoogleAnalytics;
     _enableRemediAnalytics = enableRemediAnalytics;
-    if (_enableGoogleAnalytics) {
-      assert(
-        _enableRemediAnalytics &&
-            (baseUrl?.isNotEmpty ?? false) &&
-            Uri.parse(baseUrl!).isAbsolute,
-      );
+    if (_enableRemediAnalytics) {
+      assert(_enableRemediAnalytics &&
+          (baseUrl?.isNotEmpty ?? false) &&
+          Uri.parse(baseUrl!).isAbsolute &&
+          logger != null);
       baseUrl = baseUrl;
+      _logger = logger;
     }
+    Firebase.app().setAutomaticDataCollectionEnabled(_enableGoogleAnalytics);
+    if (_enableGoogleAnalytics) {
+      _gaLogger = _FirebaseLogger();
+    }
+
+    await setUserId(id: AppConfig.appId);
   }
 
   static get enabledGoogleAnalytics => _enableGoogleAnalytics;
 
   static get enabledRemediAnalytics => _enableRemediAnalytics;
-}
 
-class RequestAppEvent extends IDto {
-  final String platform;
-  final String name;
-  Map<String, dynamic>? data;
-
-  void addData(String key, dynamic value) {
-    data ??= {};
-    data?.update(key, (v) => value, ifAbsent: () => value);
-  }
-
-  void addAll(Map<String, dynamic> params) {
-    assert(params.isNotEmpty);
-    data?.addAll(params);
-  }
-
-  RequestAppEvent({
-    required this.platform,
-    required this.name,
-  }) : super();
-
-  @override
-  dynamic get toJson {
-    return {
-      "app_event": {
-        "platform": platform,
-        "name": name,
-        "data": data,
-      }
-    };
-  }
-}
-
-DioRequest get _dioLoggerRequest {
-  return DioRequest(
-    builder: DioBuilder.json(
-      baseUrl: baseUrl!,
-      extraHeaders: {
-        'User-Agent': AppConfig.platform,
-        'App-Version': AppConfig.appVersion,
-        'Os-Version': AppConfig.osVersion,
-        'App-Id': AppConfig.appId,
-      },
-      enableLogging: AppConfig.enablePrintLog,
-    ),
-  );
-}
-
-class _AppEventApiService extends ApiService<bool> {
-  _AppEventApiService() : super(request: _dioLoggerRequest);
-
-  Future<dynamic> post(RequestAppEvent event) async {
-    return await requestPost(path: '/api/v1/app_events', data: event.toJson);
-  }
-
-  @override
-  bool? onSuccess({int? statusCode, dynamic json}) {
-    return true;
-  }
-}
-
-class _RemediLogger {
-  Future setUserId({
+  static Future setUserId({
     final String? id,
   }) async {
-    return FirebaseAnalytics.instance.setUserId(
-      id: id,
-    );
+    List<Future> logger = [];
+    if (enabledGoogleAnalytics) {
+      logger.add(_logger!.setUserId(id: id));
+    }
+
+    if (enabledRemediAnalytics) {
+      logger.add(_gaLogger!.setUserId(id: id));
+    }
+
+    return Future.wait(logger);
   }
 
-  Future setUserProperty({
+  static Future setUserProperty({
     required final String name,
     final String? value,
   }) async {
-    return FirebaseAnalytics.instance.setUserProperty(
-      name: name,
-      value: value,
-    );
+    List<Future> logger = [];
+    if (enabledGoogleAnalytics) {
+      logger.add(_logger!.setUserProperty(name: name, value: value));
+    }
+
+    if (enabledRemediAnalytics) {
+      logger.add(_gaLogger!.setUserProperty(name: name, value: value));
+    }
+
+    return Future.wait(logger);
   }
 
   /// set this on screen class.
-  Future setCurrentScreen({
+  static Future setCurrentScreen({
     final String? screenName,
   }) async {
-    return FirebaseAnalytics.instance.setCurrentScreen(
-      screenName: screenName,
-    );
+    List<Future> logger = [];
+    if (enabledGoogleAnalytics) {
+      logger.add(_logger!.setCurrentScreen(screenName: screenName));
+    }
+
+    if (enabledRemediAnalytics) {
+      logger.add(_gaLogger!.setCurrentScreen(screenName: screenName));
+    }
+
+    return Future.wait(logger);
   }
 
   /// call this before transition screen
-  Future logScreenView({
+  static Future logScreenView({
     final String? screenName,
   }) async {
-    return FirebaseAnalytics.instance.logScreenView(
-      screenName: screenName,
-    );
+    List<Future> logger = [];
+    if (enabledGoogleAnalytics) {
+      logger.add(_logger!.logScreenView(screenName: screenName));
+    }
+
+    if (enabledRemediAnalytics) {
+      logger.add(_gaLogger!.logScreenView(screenName: screenName));
+    }
+
+    return Future.wait(logger);
   }
 
-  Future logEvent(
+  static Future logEvent(
       {required final String name,
       final Map<String, dynamic>? parameters}) async {
-    return FirebaseAnalytics.instance.logEvent(
-      name: name,
-      parameters: parameters,
-    );
+    List<Future> logger = [];
+    if (enabledGoogleAnalytics) {
+      logger.add(_logger!.logEvent(name: name, parameters: parameters));
+    }
+
+    if (enabledRemediAnalytics) {
+      logger.add(_gaLogger!.logEvent(name: name, parameters: parameters));
+    }
+
+    return Future.wait(logger);
   }
 }
 
-class _FirebaseLogger {
+abstract class Logger {
+  Future setUserId({
+    final String? id,
+  });
+
+  Future setUserProperty({
+    required final String name,
+    final String? value,
+  });
+
+  /// set this on screen class.
+  Future setCurrentScreen({
+    final String? screenName,
+  });
+
+  /// call this before transition screen
+  Future logScreenView({
+    final String? screenName,
+  });
+
+  Future logEvent(
+      {required final String name, final Map<String, dynamic>? parameters});
+}
+
+class _FirebaseLogger extends Logger {
+  @override
   Future setUserId({
     final String? id,
   }) async {
@@ -146,6 +152,7 @@ class _FirebaseLogger {
     );
   }
 
+  @override
   Future setUserProperty({
     required final String name,
     final String? value,
@@ -157,6 +164,7 @@ class _FirebaseLogger {
   }
 
   /// set this on screen class.
+  @override
   Future setCurrentScreen({
     final String? screenName,
   }) async {
@@ -166,6 +174,7 @@ class _FirebaseLogger {
   }
 
   /// call this before transition screen
+  @override
   Future logScreenView({
     final String? screenName,
   }) async {
@@ -174,6 +183,7 @@ class _FirebaseLogger {
     );
   }
 
+  @override
   Future logEvent({
     required final String name,
     final Map<String, dynamic>? parameters,
