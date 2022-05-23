@@ -2,10 +2,12 @@ import 'package:example/app_models/color_app_model.dart';
 import 'package:example/app_models/settings_app_model.dart';
 import 'package:example/features/home/home_view_model.dart';
 import 'package:example/features/home/widgets/counter_widget.dart';
-import 'package:example/features/home/widgets/login_button_widget.dart';
 import 'package:example/features/home/widgets/login_state_widget.dart';
+import 'package:example/features/home/widgets/sign_demo_button.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
+
+import '../auth/auth_screen.dart';
 
 class HomePage extends ViewModelBuilder<HomeViewModel> {
   static const String routeName = '/home';
@@ -30,7 +32,11 @@ class HomePage extends ViewModelBuilder<HomeViewModel> {
         ),
         Container(
           padding: const EdgeInsets.all(16),
-          child: const LoginButtonWidget(),
+          child: SignDemoButton(
+            onPressed: () {
+              RemediRouter.pushNamed(AuthScreen.routeName);
+            },
+          ),
         ),
         const Expanded(
           child: Center(

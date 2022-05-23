@@ -5,7 +5,6 @@ import '../app/app.dart';
 
 bool _enableGoogleAnalytics = false;
 bool _enableRemediAnalytics = false;
-String? baseUrl;
 Logger? _logger;
 Logger? _gaLogger;
 
@@ -14,17 +13,12 @@ class RemediAnalytics {
   static Future init({
     bool enableGoogleAnalytics = false,
     bool enableRemediAnalytics = false,
-    String? baseUrl,
     Logger? logger,
   }) async {
     _enableGoogleAnalytics = enableGoogleAnalytics;
     _enableRemediAnalytics = enableRemediAnalytics;
     if (_enableRemediAnalytics) {
-      assert(_enableRemediAnalytics &&
-          (baseUrl?.isNotEmpty ?? false) &&
-          Uri.parse(baseUrl!).isAbsolute &&
-          logger != null);
-      baseUrl = baseUrl;
+      assert(_enableRemediAnalytics && logger != null);
       _logger = logger;
     }
     Firebase.app().setAutomaticDataCollectionEnabled(_enableGoogleAnalytics);

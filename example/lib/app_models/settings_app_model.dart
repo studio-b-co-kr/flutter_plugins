@@ -9,8 +9,7 @@ class SettingsAppModel extends AppModel {
 
   toggleThemeMode() {
     bool isDarkMode = themeMode == ThemeMode.system
-        ? SchedulerBinding.instance!.window.platformBrightness ==
-            Brightness.dark
+        ? SchedulerBinding.instance.window.platformBrightness == Brightness.dark
         : themeMode == ThemeMode.dark;
 
     if (isDarkMode) {

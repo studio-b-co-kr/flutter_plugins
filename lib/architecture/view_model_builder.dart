@@ -1,9 +1,9 @@
 part of 'architecture.dart';
 
-/// [ViewModelBuilder] ViewModelView 는 상태 변경이 많고 여러 가지 데이터 혹은,
+/// [ViewModelBuilder] ViewModelBuilder 는 상태 변경이 많고 여러 가지 데이터 혹은,
 /// 복잡한 데이터를 표시할 때 사용한다.
 /// [ViewModel] 에 의해서 상태 및 데이터에 접근한다.
-/// 주로 Page를 만들 때 사용한다.
+/// 주로 Page 를 만들 때 사용한다.
 /// [VM]이 updateUi()를 하면 UI를 업데이트하고, updateAction(action) 시에는 UI 없데이트 없이
 /// action 을 View에 전달한다.
 /// AppModel
@@ -14,7 +14,7 @@ abstract class ViewModelBuilder<VM extends ViewModel> extends StatefulWidget {
 
   ViewModelBuilder({
     Key? key,
-    required VM viewModel,
+    required final VM viewModel,
   }) : super(key: key) {
     _viewModel = viewModel;
   }

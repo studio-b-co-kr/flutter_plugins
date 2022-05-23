@@ -1,6 +1,7 @@
 part of 'login.dart';
 
 class LoginPage extends ViewModelBuilder<LoginViewModel> {
+  static const routeName = '/login';
   LoginPage({Key? key, required LoginViewModel viewModel})
       : super(key: key, viewModel: viewModel);
 

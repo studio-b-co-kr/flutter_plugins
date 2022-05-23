@@ -2,8 +2,8 @@ import 'package:example/app_models/auth_app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
 
-class LoginButtonWidget extends ViewModelView<AuthAppModel> {
-  const LoginButtonWidget({Key? key}) : super(key: key);
+class LoginButton extends ViewModelView<AuthAppModel> {
+  const LoginButton({Key? key}) : super(key: key);
 
   @override
   Widget buildChild(

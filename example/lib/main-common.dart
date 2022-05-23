@@ -1,6 +1,7 @@
 import 'package:example/example_app.dart' as example_app;
 import 'package:remedi_flutter/permission/app_permission.dart';
 import 'package:remedi_flutter/permission/permission.dart';
+import 'package:remedi_flutter/remedi_flutter.dart';
 
 void mainCommon({
   Future Function()? readyToRun,
@@ -9,6 +10,7 @@ void mainCommon({
   /// do nothing here, use readyToRun in main-dev.dart or main-prod.dart
   example_app.run(
     readyToRun: () async {
+      Firebase.initializeApp();
       RemediPermission.init([
         AppPermission(Permission.location,
             title: '위치 접근 권한',

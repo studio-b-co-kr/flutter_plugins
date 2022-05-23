@@ -12,6 +12,8 @@ import 'package:remedi_flutter/permission/features/permission_list/permission_li
 import 'package:remedi_flutter/permission/permission.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
 
+import 'features/auth/auth_screen.dart';
+import 'features/auth/phone/auth_phone.dart';
 import 'features/splash/splash.dart';
 
 ///
@@ -65,6 +67,20 @@ class ExampleAppRouteGenerator extends RouteGenerator {
           builder: (context) => HomePage(
             viewModel: HomeViewModel(),
           ),
+        );
+        break;
+
+      case AuthScreen.routeName:
+        ret = MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const AuthScreen(),
+        );
+
+        break;
+      case AuthPhoneScreen.routeName:
+        ret = MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const AuthPhoneScreen(),
         );
         break;
     }
