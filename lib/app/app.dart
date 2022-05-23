@@ -129,7 +129,9 @@ class AppConfig {
         AppConfig._deviceManufacturer = info.manufacturer;
         AppConfig._deviceModel = info.model;
       }
-    } on PlatformException {}
+    } on PlatformException {
+      throw Exception();
+    }
   }
 
   static Future _setAppId() async {

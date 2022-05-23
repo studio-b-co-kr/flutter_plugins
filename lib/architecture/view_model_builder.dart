@@ -33,7 +33,7 @@ abstract class ViewModelBuilder<VM extends ViewModel> extends StatefulWidget {
     return build(context, context.read<VM>());
   }
 
-  void onActionReceived(BuildContext context, dynamic action) {
+  void onActionReceived(BuildContext context, dynamic action, VM read) {
     AppLog.log('onActionReceived: action = $action', name: toString());
   }
 
@@ -84,7 +84,7 @@ class _ViewModelBuilderState<VM extends ViewModel>
     widget.initUi();
     subscription = viewModel.stream.listen((action) {
       if (mounted) {
-        widget.onActionReceived(context, action);
+        widget.onActionReceived(context, action, context.read());
       }
     });
 

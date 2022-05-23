@@ -2,6 +2,7 @@ import 'package:example/app_models/auth_app_model.dart';
 import 'package:example/app_models/color_app_model.dart';
 import 'package:example/app_models/settings_app_model.dart';
 import 'package:example/example_app_route_generator.dart';
+import 'package:example/features/splash/splash_scene.dart';
 import 'package:flutter/material.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
 
@@ -27,7 +28,7 @@ RemediApp _app = RemediApp(
     theme: context.watch<SettingsAppModel>().themeLight,
 
     /// 첫화면은 스플래시 화면이다.
-    initialRoute: RemediSplash.routeName,
+    initialRoute: SplashScene.routeName,
 
     /// RouteGenerator 는 route 시에 로깅을 할 수 있는 인터페이스를 제공한다.
     onGenerateRoute: (settings) =>

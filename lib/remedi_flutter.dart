@@ -11,6 +11,7 @@ export 'architecture/architecture.dart';
 // export 'auth/auth.dart';
 export 'engage/engage.dart';
 export 'net/net.dart';
+export 'scenario/scenario.dart';
 // export 'permission/permission.dart';
 export 'splash/splash.dart';
 // export 'update/update.dart';
