@@ -19,7 +19,7 @@ part 'remedi_uri.dart';
 part 'route_generator.dart';
 
 class AppConfig {
-  static final Map<String, String> values = {};
+  static final Map<dynamic, String> values = {};
   static bool _isRelease = false;
   static String? _endpoint;
   static String? _appVersion;
@@ -61,7 +61,7 @@ class AppConfig {
   /// baseUrl, baseWebUrl, endpoint flavor, logging
   /// user set this config in main()
   static setFlavorConfig({
-    Map<String, String> values = const {},
+    Map<dynamic, String> values = const {},
     bool isRelease = false,
     String? endpoint,
     bool enablePrintLog = false,
