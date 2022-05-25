@@ -61,12 +61,12 @@ class AppConfig {
   /// baseUrl, baseWebUrl, endpoint flavor, logging
   /// user set this config in main()
   static setFlavorConfig({
-    Map<String, String> urls = const {},
+    Map<String, String> values = const {},
     bool isRelease = false,
     String? endpoint,
     bool enablePrintLog = false,
   }) {
-    AppConfig.values.addAll(urls);
+    AppConfig.values.addAll(values);
     AppConfig._isRelease = isRelease;
     AppConfig._endpoint = endpoint ?? "";
     AppConfig._enablePrintLog = enablePrintLog;
