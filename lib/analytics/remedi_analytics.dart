@@ -1,7 +1,11 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import '../app/app.dart';
+
+part '_firebase_logger.dart';
+part 'logger.dart';
 
 bool _enableGoogleAnalytics = false;
 bool _enableRemediAnalytics = false;
@@ -81,110 +85,44 @@ class RemediAnalytics {
   }
 
   /// call this before transition screen
-  static Future logScreenView({
+  static Future viewScreen({
     final String? screenName,
   }) async {
     List<Future> logger = [];
     if (enabledGoogleAnalytics) {
-      logger.add(_logger!.logScreenView(screenName: screenName));
+      logger.add(_logger!.viewScreen(screenName: screenName));
     }
 
     if (enabledRemediAnalytics) {
-      logger.add(_gaLogger!.logScreenView(screenName: screenName));
+      logger.add(_gaLogger!.viewScreen(screenName: screenName));
     }
 
     return Future.wait(logger);
   }
 
-  static Future logEvent(
+  static Future event(
       {required final String name,
       final Map<String, dynamic>? parameters}) async {
     List<Future> logger = [];
     if (enabledGoogleAnalytics) {
-      logger.add(_logger!.logEvent(name: name, parameters: parameters));
+      logger.add(_logger!.event(name: name, parameters: parameters));
     }
 
     if (enabledRemediAnalytics) {
-      logger.add(_gaLogger!.logEvent(name: name, parameters: parameters));
+      logger.add(_gaLogger!.event(name: name, parameters: parameters));
     }
 
     return Future.wait(logger);
   }
-}
 
-abstract class Logger {
-  Future setUserId({
-    final String? id,
-  });
+  static Future error(dynamic error) async {
+    if (error is Error) {
+      AppLog.e('ERROR', error: error, stackTrace: error.stackTrace);
+      await FirebaseCrashlytics.instance.log("${error.stackTrace}");
+      return;
+    }
 
-  Future setUserProperty({
-    required final String name,
-    final String? value,
-  });
-
-  /// set this on screen class.
-  Future setCurrentScreen({
-    final String? screenName,
-  });
-
-  /// call this before transition screen
-  Future logScreenView({
-    final String? screenName,
-  });
-
-  Future logEvent(
-      {required final String name, final Map<String, dynamic>? parameters});
-}
-
-class _FirebaseLogger extends Logger {
-  @override
-  Future setUserId({
-    final String? id,
-  }) async {
-    return FirebaseAnalytics.instance.setUserId(
-      id: id,
-    );
-  }
-
-  @override
-  Future setUserProperty({
-    required final String name,
-    final String? value,
-  }) async {
-    return FirebaseAnalytics.instance.setUserProperty(
-      name: name,
-      value: value,
-    );
-  }
-
-  /// set this on screen class.
-  @override
-  Future setCurrentScreen({
-    final String? screenName,
-  }) async {
-    return FirebaseAnalytics.instance.setCurrentScreen(
-      screenName: screenName,
-    );
-  }
-
-  /// call this before transition screen
-  @override
-  Future logScreenView({
-    final String? screenName,
-  }) async {
-    return FirebaseAnalytics.instance.logScreenView(
-      screenName: screenName,
-    );
-  }
-
-  @override
-  Future logEvent({
-    required final String name,
-    final Map<String, dynamic>? parameters,
-  }) async {
-    return FirebaseAnalytics.instance.logEvent(
-      name: name,
-      parameters: parameters,
-    );
+    AppLog.e('ERROR', error: error);
+    await FirebaseCrashlytics.instance.log("$error");
   }
 }

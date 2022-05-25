@@ -1,4 +1,3 @@
-import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:example/main-common.dart';

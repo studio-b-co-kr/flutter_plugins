@@ -22,4 +22,10 @@ class AppLog {
           stackTrace: stackTrace);
     }
   }
+
+  static e(String tag, {dynamic error, StackTrace? stackTrace}) {
+    if (AppConfig.enablePrintLog) {
+      stderr.writeln("[debugging log : $tag] $error\n stackTrace:$stackTrace");
+    }
+  }
 }

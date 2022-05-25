@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:provider/provider.dart';
 
+export 'analytics/remedi_analytics.dart';
 export 'app/app.dart';
 export 'architecture/architecture.dart';
 // export 'auth/auth.dart';
