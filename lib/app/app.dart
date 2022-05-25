@@ -19,8 +19,7 @@ part 'remedi_uri.dart';
 part 'route_generator.dart';
 
 class AppConfig {
-  static late final String baseUrl;
-  static late final String baseWebUrl;
+  static final Map<String, String> urls = {};
   static bool _isRelease = false;
   static String? _endpoint;
   static String? _appVersion;
@@ -61,14 +60,13 @@ class AppConfig {
 
   /// baseUrl, baseWebUrl, endpoint flavor, logging
   /// user set this config in main()
-  static setFlavorConfig(
-      {required String baseUrl,
-      required String baseWebUrl,
-      bool isRelease = false,
-      String? endpoint,
-      bool enablePrintLog = false}) {
-    AppConfig.baseUrl = baseUrl;
-    AppConfig.baseWebUrl = baseWebUrl;
+  static setFlavorConfig({
+    Map<String, String> urls = const {},
+    bool isRelease = false,
+    String? endpoint,
+    bool enablePrintLog = false,
+  }) {
+    AppConfig.urls.addAll(urls);
     AppConfig._isRelease = isRelease;
     AppConfig._endpoint = endpoint ?? "";
     AppConfig._enablePrintLog = enablePrintLog;
@@ -139,19 +137,18 @@ class AppConfig {
   }
 
   static void log() async {
-    dev.log(baseUrl, name: "baseUrl");
-    dev.log(baseWebUrl, name: "webBaseUrl");
-    dev.log("$_isRelease", name: "isRelease");
-    dev.log(_endpoint ?? "unknown", name: "endpoint");
-    dev.log(_appVersion ?? "unknown", name: "appVersion");
-    dev.log(_buildNumber ?? "unknown", name: "buildNumber");
-    dev.log(platform, name: "platform");
-    dev.log(_osVersion ?? "unknown", name: "osVersion");
-    dev.log("$_osVersionSdk", name: "osVersionSdk");
-    dev.log(_deviceManufacturer ?? "unknown", name: "deviceManufacturer");
-    dev.log(_deviceModel ?? "unknown", name: "deviceModel");
-    dev.log(await FirebaseInstallations.instance.getId(), name: "appId");
-    dev.log("${ui.window.physicalSize.width}", name: "physicalSize.width");
-    dev.log("${ui.window.devicePixelRatio}", name: "devicePixelRatio");
+    AppLog.log(urls.toString(), name: "urls");
+    AppLog.log("$_isRelease", name: "isRelease");
+    AppLog.log(_endpoint ?? "unknown", name: "endpoint");
+    AppLog.log(_appVersion ?? "unknown", name: "appVersion");
+    AppLog.log(_buildNumber ?? "unknown", name: "buildNumber");
+    AppLog.log(platform, name: "platform");
+    AppLog.log(_osVersion ?? "unknown", name: "osVersion");
+    AppLog.log("$_osVersionSdk", name: "osVersionSdk");
+    AppLog.log(_deviceManufacturer ?? "unknown", name: "deviceManufacturer");
+    AppLog.log(_deviceModel ?? "unknown", name: "deviceModel");
+    AppLog.log(await FirebaseInstallations.instance.getId(), name: "appId");
+    AppLog.log("${ui.window.physicalSize.width}", name: "physicalSize.width");
+    AppLog.log("${ui.window.devicePixelRatio}", name: "devicePixelRatio");
   }
 }
