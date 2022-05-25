@@ -19,7 +19,7 @@ part 'remedi_uri.dart';
 part 'route_generator.dart';
 
 class AppConfig {
-  static final Map<String, String> urls = {};
+  static final Map<String, String> values = {};
   static bool _isRelease = false;
   static String? _endpoint;
   static String? _appVersion;
@@ -66,7 +66,7 @@ class AppConfig {
     String? endpoint,
     bool enablePrintLog = false,
   }) {
-    AppConfig.urls.addAll(urls);
+    AppConfig.values.addAll(urls);
     AppConfig._isRelease = isRelease;
     AppConfig._endpoint = endpoint ?? "";
     AppConfig._enablePrintLog = enablePrintLog;
@@ -137,7 +137,7 @@ class AppConfig {
   }
 
   static void log() async {
-    AppLog.log(urls.toString(), name: "urls");
+    AppLog.log(values.toString(), name: "values");
     AppLog.log("$_isRelease", name: "isRelease");
     AppLog.log(_endpoint ?? "unknown", name: "endpoint");
     AppLog.log(_appVersion ?? "unknown", name: "appVersion");
