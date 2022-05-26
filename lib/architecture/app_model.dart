@@ -7,27 +7,22 @@ part of 'architecture.dart';
 /// 만약 코드상 사용하는 곳이 없는 경우 (Provider.of(context) 로 접근),
 /// 인스턴스가 만들어지지 않기 때문에 초기화 과정을 거치치 않는다.
 abstract class AppModel with ChangeNotifier implements ReassembleHandler {
-  bool? withInit;
-
-  AppModel({this.withInit = false}) {
-    AppLog.log('withInit = $withInit', name: toString());
-    if (withInit ?? false) {
-      _init();
-    }
+  AppModel() {
+    _init();
   }
 
-  bool initialised = false;
+  bool _initialised = false;
 
-  initialise();
+  initialise() {}
 
   _init() {
-    if (initialised) {
+    if (_initialised) {
       return;
     }
 
     AppLog.log('initialised', name: toString());
     initialise();
-    initialised = true;
+    _initialised = true;
   }
 
   @override
@@ -42,7 +37,7 @@ abstract class AppModel with ChangeNotifier implements ReassembleHandler {
 
   @override
   void dispose() {
-    initialised = false;
+    _initialised = false;
     super.dispose();
   }
 

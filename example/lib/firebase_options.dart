@@ -60,7 +60,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '322376422652',
     projectId: 'remedi-example',
     storageBucket: 'remedi-example.appspot.com',
-    iosClientId: '322376422652-e2qjq9rqmpmmrhmhf11t94u1e7gtsp3a.apps.googleusercontent.com',
+    iosClientId:
+        '322376422652-e2qjq9rqmpmmrhmhf11t94u1e7gtsp3a.apps.googleusercontent.com',
     iosBundleId: 'com.remedi.example',
   );
 }

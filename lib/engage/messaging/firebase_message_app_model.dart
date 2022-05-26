@@ -1,8 +1,7 @@
 part of 'message.dart';
 
 class FirebaseMessagingAppModel extends AppModel {
-  FirebaseMessagingAppModel({bool? withInit})
-      : super(withInit: withInit ?? false);
+  FirebaseMessagingAppModel() : super();
 
   @override
   initialise() {

@@ -6,7 +6,7 @@ class AuthAppModel extends AppModel {
     data: false,
   );
 
-  AuthAppModel({bool? withInit}) : super(withInit: withInit);
+  AuthAppModel() : super();
 
   login() async {
     loginState = StateData(state: LoginState.loading);

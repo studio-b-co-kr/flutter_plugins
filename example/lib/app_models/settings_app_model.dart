@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
 
 class SettingsAppModel extends AppModel {
-  SettingsAppModel({bool? withInit}) : super(withInit: withInit);
+  SettingsAppModel() : super();
 
   ThemeMode themeMode = ThemeMode.system;
 
