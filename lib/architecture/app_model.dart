@@ -7,21 +7,20 @@ part of 'architecture.dart';
 /// 만약 코드상 사용하는 곳이 없는 경우 (Provider.of(context) 로 접근),
 /// 인스턴스가 만들어지지 않기 때문에 초기화 과정을 거치치 않는다.
 abstract class AppModel with ChangeNotifier implements ReassembleHandler {
-  AppModel() {
-    _init();
-  }
-
   bool _initialised = false;
 
-  initialise() {}
+  List<Future> initialJob() {
+    return [];
+  }
 
-  _init() {
+  initialise() async {
     if (_initialised) {
       return;
     }
 
     AppLog.log('initialised', name: toString());
-    initialise();
+    await Future.wait(initialJob());
+
     _initialised = true;
   }
 

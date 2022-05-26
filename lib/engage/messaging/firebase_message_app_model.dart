@@ -1,8 +1,6 @@
 part of 'message.dart';
 
 class FirebaseMessagingAppModel extends AppModel {
-  FirebaseMessagingAppModel() : super();
-
   @override
   initialise() {
     FirebaseMessaging.instance
