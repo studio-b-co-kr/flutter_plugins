@@ -39,8 +39,12 @@ RemediApp _app = RemediApp(
 );
 
 void run({
+  Future Function()? buildProductFlavour,
   Future Function()? readyToRun,
   Future Function(dynamic error, StackTrace stackTrace)? handleError,
 }) {
-  _app.run(readyToRun: readyToRun, errorHandler: handleError);
+  _app.run(
+      buildProductFlavour: buildProductFlavour,
+      readyToRun: readyToRun,
+      errorHandler: handleError);
 }

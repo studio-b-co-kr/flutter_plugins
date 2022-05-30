@@ -4,7 +4,7 @@ import 'package:example/main-common.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
 
 main() {
-  mainCommon(readyToRun: () async {
+  mainCommon(buildProductFlavour: () async {
     /// TODO do something before run app
     /// ex. set config for product flavour, register firebase and etc.
   }, handleError: (error, stackTrace) async {

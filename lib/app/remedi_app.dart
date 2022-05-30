@@ -33,15 +33,21 @@ class RemediApp {
   }
 
   run({
+    VoidFutureCallback? buildProductFlavour,
     VoidFutureCallback? readyToRun,
     ErrorHandler? errorHandler,
   }) async {
     runZonedGuarded(() async {
       WidgetsFlutterBinding.ensureInitialized();
 
+      if (buildProductFlavour != null) {
+        await buildProductFlavour();
+      }
+
       if (readyToRun != null) {
         await readyToRun();
       }
+
       runApp(_build());
     }, (dynamic error, StackTrace stackTrace) async {
       if (errorHandler != null) {

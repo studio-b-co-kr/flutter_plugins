@@ -7,7 +7,7 @@ import 'package:remedi_flutter/app/app.dart';
 /// product 에 따라서 달라야할 값들을 여기에서 정의한다.
 /// [minaCommon] 을 호출해서 [RemediApp] 을 실행한다.
 main() {
-  mainCommon(readyToRun: () async {
+  mainCommon(buildProductFlavour: () async {
     /// TODO do something before run app
     /// ex. set config for product flavour, register firebase and etc.
   }, handleError: (error, stackTrace) async {
