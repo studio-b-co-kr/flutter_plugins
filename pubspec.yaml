@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
   ## [START] architecture
-  provider: ^6.0.2
+  provider: ^6.0.3
   ## [END] architecture
 
   ## [START] http api.
@@ -20,27 +20,27 @@ dependencies:
   ## [END] http api.
 
   ## [START] firebase support
-  firebase_core: ^1.13.1
+  firebase_core: ^1.17.1
   ## [END] firebase support
 
   ## [START] firebase messaging
-  firebase_messaging: ^11.2.11
+  firebase_messaging: ^11.4.1
   flutter_local_notifications: ^9.4.0
   ## [END] firebase messaging
 
   ## [START] deep_link
-  flutter_branch_sdk: ^5.0.0
+  flutter_branch_sdk: ^5.1.0
   ## [END] deep_link
 
   # network image
-  flutter_svg: ^1.0.0
-  extended_image: ^6.0.1
+  flutter_svg: ^1.1.0
+  extended_image: ^6.2.1
   ## [END] widgets
 
   ## [START] auth
   # kakao login
   kakao_flutter_sdk: ^1.1.1
-  flutterfire_ui: ^0.4.1
+  flutterfire_ui: ^0.4.1+2
   ## [END] auth
 
   ## [START] permission
@@ -57,10 +57,10 @@ dependencies:
   sembast: ^3.2.0
 
   ## Crash Monitoring
-  firebase_crashlytics: ^2.6.3
+  firebase_crashlytics: ^2.8.1
 
   ## Firebase Analytics
-  firebase_analytics: ^9.1.7
+  firebase_analytics: ^9.1.9
 
   # app version, build number and etc
   package_info_plus: ^1.4.0
@@ -68,12 +68,15 @@ dependencies:
   # device info, os version, os type
   device_info_plus: ^3.2.2
 
-  firebase_app_installations: ^0.1.0+12
+  firebase_app_installations: ^0.1.0+14
+
+dependency_overrides:
+  flutter_lints: ^2.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   http_mock_adapter: ^0.3.2
 
 flutter:
