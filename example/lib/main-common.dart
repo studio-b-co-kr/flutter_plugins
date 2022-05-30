@@ -4,11 +4,12 @@ import 'package:remedi_flutter/permission/permission.dart';
 import 'package:remedi_flutter/remedi_flutter.dart';
 
 void mainCommon({
-  Future Function()? readyToRun,
+  Future Function()? buildProductFlavour,
   Future Function(dynamic error, StackTrace stackTrace)? handleError,
 }) {
   /// do nothing here, use readyToRun in main-dev.dart or main-prod.dart
   example_app.run(
+    buildProductFlavour: buildProductFlavour,
     readyToRun: () async {
       Firebase.initializeApp();
       RemediPermission.init([
@@ -48,10 +49,6 @@ void mainCommon({
           warningDescription: 'Warning description',
         ),
       ]);
-
-      if (readyToRun != null) {
-        await readyToRun();
-      }
     },
     handleError: handleError,
   );
