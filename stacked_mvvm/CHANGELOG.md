@@ -1,3 +1,6 @@
+## [0.0.11]
+update plugin
+
 ## [0.0.10]
 update plugin
 
