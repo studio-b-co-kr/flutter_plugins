@@ -1,3 +1,7 @@
+## [0.0.4] - TODO: Add release date.
+update plugins
+
+## [0.0.3] - TODO: Add release date.
 
 ## [0.0.2] - TODO: Add release date.
 
