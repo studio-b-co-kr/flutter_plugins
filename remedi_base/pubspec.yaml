@@ -1,11 +1,11 @@
 name: remedi_base
 description: base component.
-version: 0.1.2
+version: 0.1.3
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.16.0 <3.0.0"
   flutter: '>=2.0.0'
 
 dependencies:
