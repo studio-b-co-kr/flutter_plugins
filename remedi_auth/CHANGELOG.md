@@ -1,3 +1,6 @@
+## 0.2.3
+change kakao plugin
+
 ## 0.2.2
 change kakao plugin
 
