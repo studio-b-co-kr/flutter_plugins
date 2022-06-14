@@ -1,3 +1,6 @@
+## 0.2.4
+add a factory for HttpError.
+
 ## 0.2.3
  add a factory for HttpError.
 
