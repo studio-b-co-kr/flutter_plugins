@@ -1,3 +1,6 @@
+## 0.2.1
+update plugins
+
 ## 0.2.0
 update plugins
 
