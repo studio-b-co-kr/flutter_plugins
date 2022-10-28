@@ -1,12 +1,4 @@
 # This is a generated file; do not edit or check into version control.
-device_info_plus=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus-4.1.2/
-device_info_plus_linux=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus_linux-3.0.0/
-device_info_plus_macos=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus_macos-3.0.0/
-device_info_plus_web=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus_web-3.0.0/
-device_info_plus_windows=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus_windows-4.0.0/
+device_info_plus=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/device_info_plus-8.0.0/
 flutter_udid=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_udid-2.0.0/
-package_info_plus=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/package_info_plus-1.4.3+1/
-package_info_plus_linux=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/package_info_plus_linux-1.0.5/
-package_info_plus_macos=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/package_info_plus_macos-1.3.0/
-package_info_plus_web=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/package_info_plus_web-1.0.5/
-package_info_plus_windows=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/package_info_plus_windows-2.0.0/
+package_info_plus=/Users/daewook/Development/flutter/.pub-cache/hosted/pub.dartlang.org/package_info_plus-3.0.1/
