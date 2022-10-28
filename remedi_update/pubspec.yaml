@@ -1,6 +1,6 @@
 name: remedi_update
 description: force_update
-version: 0.2.1
+version: 0.3.0
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   #basic architecture of app
-  stacked_mvvm: ^0.1.1
+  stacked_mvvm: ^0.2.0
 
   remedi_widgets: ^0.2.1
 
