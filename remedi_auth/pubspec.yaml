@@ -13,10 +13,10 @@ dependencies:
     sdk: flutter
 
   #svg loader
-  flutter_svg: ^1.1.4
+  flutter_svg: ^1.1.6
 
   # kakao login
-  kakao_flutter_sdk: ^1.2.1
+  kakao_flutter_sdk: ^1.2.2
 
   # sign in with apple
   sign_in_with_apple: ^4.1.0
@@ -38,6 +38,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  package_info_plus: ^3.0.1
 
 flutter:
   assets:

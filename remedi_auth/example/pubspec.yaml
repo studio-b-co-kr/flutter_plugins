@@ -36,7 +36,7 @@ dependencies:
   remedi_auth:
     path: ../
 
-  stacked_mvvm: ^0.1.1
+  stacked_mvvm: ^0.2.0
 
 dev_dependencies:
   flutter_test:

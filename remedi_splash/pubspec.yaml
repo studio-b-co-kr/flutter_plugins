@@ -16,7 +16,7 @@ dependencies:
   stacked_mvvm: ^0.2.0
 
   #svg loader
-  flutter_svg: ^1.1.4
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
