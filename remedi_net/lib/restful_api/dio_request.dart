@@ -26,7 +26,7 @@ class DioRequest {
 
   cancel() {
     dio.close();
-    dio.clear();
+    // dio.clear();
   }
 
   Dio get dio => builder.dio;

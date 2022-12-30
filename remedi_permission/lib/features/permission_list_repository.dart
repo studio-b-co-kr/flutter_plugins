@@ -2,8 +2,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:remedi_permission/model/app_permission.dart';
 import 'package:remedi_permission/repository/i_permission_list_repository.dart';
 
-import '../model/app_permission.dart';
-
 class PermissionListRepository extends IPermissionListRepository {
   PermissionListRepository(List<AppPermission> permissions)
       : super(permissions: permissions);

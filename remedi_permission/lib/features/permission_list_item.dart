@@ -111,10 +111,10 @@ class PermissionListItemView extends IView<IPermissionViewModel> {
     );
   }
 
-  double _elevation(IPermissionViewModel viewModel) {
-    double ret = 4;
-    return ret;
-  }
+  // double _elevation(IPermissionViewModel viewModel) {
+  //   double ret = 4;
+  //   return ret;
+  // }
 
   Color _background(IPermissionViewModel viewModel) {
     Color ret = Colors.amber.shade50;
