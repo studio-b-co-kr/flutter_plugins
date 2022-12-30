@@ -1,25 +1,17 @@
-import 'dart:async';
-import 'dart:developer' as dev;
-
 /// AppConfig is in charge of managing product flavor, device info and os info.
+import 'dart:developer' as dev;
 import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:firebase_app_installations/firebase_app_installations.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:remedi_flutter/remedi_flutter.dart';
 
-part 'app_log.dart';
-part 'remedi_app.dart';
-part 'remedi_router.dart';
-part 'remedi_uri.dart';
-part 'route_generator.dart';
+import 'app_repository.dart';
 
 class AppConfig {
-  static final Map<dynamic, String> values = {};
+  static late final String baseUrl;
+  static late final String baseWebUrl;
   static bool _isRelease = false;
   static String? _endpoint;
   static String? _appVersion;
@@ -60,13 +52,14 @@ class AppConfig {
 
   /// baseUrl, baseWebUrl, endpoint flavor, logging
   /// user set this config in main()
-  static setFlavorConfig({
-    Map<dynamic, String> values = const {},
-    bool isRelease = false,
-    String? endpoint,
-    bool enablePrintLog = false,
-  }) {
-    AppConfig.values.addAll(values);
+  static setFlavorConfig(
+      {required String baseUrl,
+      required String baseWebUrl,
+      bool isRelease = false,
+      String? endpoint,
+      bool enablePrintLog = false}) {
+    AppConfig.baseUrl = baseUrl;
+    AppConfig.baseWebUrl = baseWebUrl;
     AppConfig._isRelease = isRelease;
     AppConfig._endpoint = endpoint ?? "";
     AppConfig._enablePrintLog = enablePrintLog;
@@ -113,7 +106,7 @@ class AppConfig {
         IosDeviceInfo info = await deviceInfo.iosInfo;
         AppConfig._osVersion = info.systemVersion;
         List<String>? split = AppConfig._osVersion?.split(".");
-        if (split != null && split.isNotEmpty) {
+        if (split != null && split.length > 0) {
           AppConfig._osVersionSdk = int.parse(split[0]);
         }
         AppConfig._deviceManufacturer = "apple";
@@ -127,28 +120,27 @@ class AppConfig {
         AppConfig._deviceManufacturer = info.manufacturer;
         AppConfig._deviceModel = info.model;
       }
-    } on PlatformException {
-      throw Exception();
-    }
+    } on PlatformException {}
   }
 
   static Future _setAppId() async {
-    appId = await FirebaseInstallations.instance.getId();
+    appId = await AppRepository.instance().appId;
   }
 
   static void log() async {
-    AppLog.log(values.toString(), name: "values");
-    AppLog.log("$_isRelease", name: "isRelease");
-    AppLog.log(_endpoint ?? "unknown", name: "endpoint");
-    AppLog.log(_appVersion ?? "unknown", name: "appVersion");
-    AppLog.log(_buildNumber ?? "unknown", name: "buildNumber");
-    AppLog.log(platform, name: "platform");
-    AppLog.log(_osVersion ?? "unknown", name: "osVersion");
-    AppLog.log("$_osVersionSdk", name: "osVersionSdk");
-    AppLog.log(_deviceManufacturer ?? "unknown", name: "deviceManufacturer");
-    AppLog.log(_deviceModel ?? "unknown", name: "deviceModel");
-    AppLog.log(await FirebaseInstallations.instance.getId(), name: "appId");
-    AppLog.log("${ui.window.physicalSize.width}", name: "physicalSize.width");
-    AppLog.log("${ui.window.devicePixelRatio}", name: "devicePixelRatio");
+    dev.log(baseUrl, name: "baseUrl");
+    dev.log(baseWebUrl, name: "webBaseUrl");
+    dev.log("$_isRelease", name: "isRelease");
+    dev.log(_endpoint ?? "unknown", name: "endpoint");
+    dev.log(_appVersion ?? "unknown", name: "appVersion");
+    dev.log(_buildNumber ?? "unknown", name: "buildNumber");
+    dev.log(platform, name: "platform");
+    dev.log(_osVersion ?? "unknown", name: "osVersion");
+    dev.log("$_osVersionSdk", name: "osVersionSdk");
+    dev.log(_deviceManufacturer ?? "unknown", name: "deviceManufacturer");
+    dev.log(_deviceModel ?? "unknown", name: "deviceModel");
+    dev.log("${await AppRepository.instance().appId}", name: "appId");
+    dev.log("${ui.window.physicalSize.width}", name: "physicalSize.width");
+    dev.log("${ui.window.devicePixelRatio}", name: "devicePixelRatio");
   }
 }

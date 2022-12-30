@@ -1,8 +1,9 @@
 name: example
-description: A new Flutter project.
+description: Demonstrates how to use the remedi_base plugin.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.0.1
+version: 0.0.1+1
+
+publish_to: 'none'
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
@@ -12,6 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  webview_flutter: ^3.0.0
+  remedi_base:
+    path: ../
   cupertino_icons: ^1.0.3
 
 dev_dependencies:
@@ -19,4 +23,5 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+
   uses-material-design: true

@@ -1,7 +1,7 @@
 name: example
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 version: 0.0.1
 
 environment:
@@ -13,10 +13,13 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.3
+  remedi_update:
+    path: ../
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
+
   uses-material-design: true

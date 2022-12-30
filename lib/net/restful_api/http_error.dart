@@ -1,4 +1,4 @@
-part of '../net.dart';
+part of 'remedi_restful_api.dart';
 
 class HttpError {
   final int statusCode;
@@ -31,14 +31,15 @@ class HttpError {
 
   factory HttpError.create({
     required int statusCode,
-    String? message,
+    String message = '',
     dynamic data,
     StackTrace? stackTrace,
   }) {
     return HttpError._(
-        statusCode: statusCode,
-        message: message ?? '',
-        data: data,
-        stackTrace: stackTrace);
+      statusCode: statusCode,
+      message: message,
+      data: data,
+      stackTrace: stackTrace,
+    );
   }
 }
