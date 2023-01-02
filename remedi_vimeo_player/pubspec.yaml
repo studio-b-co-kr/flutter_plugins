@@ -1,0 +1,38 @@
+name: remedi_vimeo_player
+description: This package provide 2 fucntions. First is getting vimeo resource data, Seconds play vod or live streaming in BetterPlayer.
+version: 0.2.1
+homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_plugins'
+repository: 'https://github.com/studio-b-co-kr/remedi_flutter_plugins'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+
+  # video player
+  better_player: ^0.0.81
+
+  # http
+  http: ^0.13.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  plugin:
+    platforms:
+      android:
+        package: com.remedi.vimeo_player
+        pluginClass: RemediVimeoPlayerPlugin
+      ios:
+        pluginClass: RemediVimeoPlayerPlugin
+#      web:
+#        pluginClass: RemediVimeoPlayerWeb
+#        fileName: remedi_vimeo_player_web.dart
