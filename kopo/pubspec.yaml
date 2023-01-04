@@ -1,7 +1,7 @@
 name: remedi_kopo
 description: Search for Korean postal address. Fork of Kopo package with our web hosting for front-end.
-version: 0.0.1
-homepage: https://github.com/studio-b-co-kr/kopo
+version: 0.0.2
+homepage: https://github.com/studio-b-co-kr/flutter_plugins/tree/master/kopo
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
