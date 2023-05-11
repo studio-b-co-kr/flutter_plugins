@@ -1,6 +1,7 @@
 name: remedi_widgets
 description: A new Flutter package.
 version: 0.2.1
+publish_to: none
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
@@ -20,17 +21,14 @@ dependencies:
 
   # network image
   flutter_svg: ^1.1.6
-  extended_image: ^7.0.2
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-dependency_overrides:
   extended_image:
     git:
       url: https://github.com/SuaMusica/extended_image.git
       ref: feature/flutter310
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
 
 # For information on the generic Dart part of this multi_part, see the
 # following page: https://dart.dev/tools/pub/pubspec
