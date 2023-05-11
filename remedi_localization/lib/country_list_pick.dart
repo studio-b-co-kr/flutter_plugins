@@ -26,10 +26,10 @@ class CountryListPick extends StatefulWidget {
   final ValueChanged<CountryCode?>? onChanged;
   final PreferredSizeWidget? appBar;
   final Widget Function(BuildContext context, CountryCode? countryCode)?
-  pickerBuilder;
+      pickerBuilder;
   final CountryTheme? theme;
   final Widget Function(BuildContext context, CountryCode countryCode)?
-  countryBuilder;
+      countryBuilder;
   final bool useUiOverlay;
   final bool useSafeArea;
   final Color? backgroundColor;
@@ -37,15 +37,15 @@ class CountryListPick extends StatefulWidget {
   @override
   CountryListPickState createState() {
     List<Map> jsonList =
-    this.theme?.showEnglishName ?? true ? countriesEnglish : codes;
+        this.theme?.showEnglishName ?? true ? countriesEnglish : codes;
 
     List elements = jsonList
         .map((s) => CountryCode(
-      name: s['name'],
-      code: s['code'],
-      dialCode: s['dial_code'],
-      flagUri: 'assets/flags/${s['code'].toLowerCase()}.png',
-    ))
+              name: s['name'],
+              code: s['code'],
+              dialCode: s['dial_code'],
+              flagUri: 'assets/flags/${s['code'].toLowerCase()}.png',
+            ))
         .toList();
     return CountryListPickState(elements);
   }
@@ -61,9 +61,9 @@ class CountryListPickState extends State<CountryListPick> {
   void initState() {
     if (widget.initialSelection != null) {
       selectedItem = elements.firstWhere(
-              (e) =>
-          (e.code.toUpperCase() ==
-              widget.initialSelection!.toUpperCase()) ||
+          (e) =>
+              (e.code.toUpperCase() ==
+                  widget.initialSelection!.toUpperCase()) ||
               (e.dialCode == widget.initialSelection),
           orElse: () => elements[0] as CountryCode);
     } else {
@@ -83,7 +83,8 @@ class CountryListPickState extends State<CountryListPick> {
             selectedItem,
             appBar: widget.appBar ??
                 AppBar(
-                  backgroundColor: Theme.of(context).appBarTheme.color,
+                  backgroundColor:
+                      Theme.of(context).appBarTheme.backgroundColor,
                   title: Text("Select Country"),
                 ),
             theme: theme,
@@ -111,40 +112,40 @@ class CountryListPickState extends State<CountryListPick> {
       child: widget.pickerBuilder != null
           ? widget.pickerBuilder!(context, selectedItem)
           : Flex(
-        direction: Axis.horizontal,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          if (widget.theme?.isShowFlag ?? true == true)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Image.asset(
-                  selectedItem!.flagUri!,
-                  package: 'remedi_localization',
-                  width: 32.0,
-                ),
-              ),
+              direction: Axis.horizontal,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                if (widget.theme?.isShowFlag ?? true == true)
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Image.asset(
+                        selectedItem!.flagUri!,
+                        package: 'remedi_localization',
+                        width: 32.0,
+                      ),
+                    ),
+                  ),
+                if (widget.theme?.isShowCode ?? true == true)
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Text(selectedItem.toString()),
+                    ),
+                  ),
+                if (widget.theme?.isShowTitle ?? true == true)
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Text(selectedItem!.toCountryStringOnly()),
+                    ),
+                  ),
+                if (widget.theme?.isDownIcon ?? true == true)
+                  Flexible(
+                    child: Icon(Icons.keyboard_arrow_down),
+                  )
+              ],
             ),
-          if (widget.theme?.isShowCode ?? true == true)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Text(selectedItem.toString()),
-              ),
-            ),
-          if (widget.theme?.isShowTitle ?? true == true)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Text(selectedItem!.toCountryStringOnly()),
-              ),
-            ),
-          if (widget.theme?.isDownIcon ?? true == true)
-            Flexible(
-              child: Icon(Icons.keyboard_arrow_down),
-            )
-        ],
-      ),
     );
   }
 }
