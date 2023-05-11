@@ -20,11 +20,17 @@ dependencies:
 
   # network image
   flutter_svg: ^1.1.6
-  extended_image: 6.3.0
+  extended_image: ^7.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  extended_image:
+    git:
+      url: https://github.com/SuaMusica/extended_image.git
+      ref: feature/flutter310
 
 # For information on the generic Dart part of this multi_part, see the
 # following page: https://dart.dev/tools/pub/pubspec
