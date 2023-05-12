@@ -5,8 +5,6 @@ import 'package:remedi_localization/support/code_country.dart';
 import 'package:remedi_localization/support/code_countrys.dart';
 import 'package:flutter/material.dart';
 
-import 'support/code_country.dart';
-
 class CountryListPick extends StatefulWidget {
   CountryListPick({
     Key? key,
