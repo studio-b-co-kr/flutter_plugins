@@ -21,10 +21,7 @@ dependencies:
 
   # network image
   flutter_svg: ^1.1.6
-  extended_image:
-    git:
-      url: https://github.com/SuaMusica/extended_image.git
-      ref: feature/flutter310
+  extended_image: ^8.0.1
 
 dev_dependencies:
   flutter_test:
