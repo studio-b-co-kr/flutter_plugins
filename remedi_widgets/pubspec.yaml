@@ -20,7 +20,7 @@ dependencies:
 
   # network image
   flutter_svg: ^1.1.6
-  extended_image: ^8.0.1
+  extended_image: ^8.1.0
 
 dev_dependencies:
   flutter_test:
