@@ -1,5 +1,9 @@
 ## 0.2.3
 
+MultiFormatImage removed
+
+## 0.2.3
+
 extended_image updated to fix build error
 
 ## 0.2.1
