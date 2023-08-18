@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:remedi_widgets/multi_format_image.dart';
+// import 'package:remedi_widgets/multi_format_image.dart';
 import 'package:remedi_widgets/phone_number/phone_number_input.dart';
 
 void main() {
@@ -48,15 +48,15 @@ class MyHomePage extends StatelessWidget {
                 Expanded(
                     child: Row(
                   children: [
-                    Expanded(
-                        child: Container(
-                      height: MediaQuery.of(context).size.width / 4 - 16,
-                      child: MultiFormatImage.network(
-                        "https://remedi-website.s3.ap-northeast-2.amazonaws.com/data/achoo/history_month/moon.svg",
-                        format: ImageFormat.svg,
-                        fit: BoxFit.contain,
-                      ),
-                    )),
+                    // Expanded(
+                    //     child: Container(
+                    //   height: MediaQuery.of(context).size.width / 4 - 16,
+                    //   child: MultiFormatImage.network(
+                    //     "https://remedi-website.s3.ap-northeast-2.amazonaws.com/data/achoo/history_month/moon.svg",
+                    //     format: ImageFormat.svg,
+                    //     fit: BoxFit.contain,
+                    //   ),
+                    // )),
                     SizedBox(width: 8),
                     Expanded(
                         child: Container(
