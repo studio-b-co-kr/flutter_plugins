@@ -1,12 +1,12 @@
 name: remedi_widgets
 description: A new Flutter package.
-version: 0.2.1
+version: 0.2.4
 homepage: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter_app_components'
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: '>=2.17.6 <4.0.0'
+  flutter: '>=3.10.0'
 
 dependencies:
   flutter:
@@ -20,7 +20,7 @@ dependencies:
 
   # network image
   flutter_svg: ^1.1.6
-  extended_image: ^6.3.1
+  # extended_image: ^8.1.0
 
 dev_dependencies:
   flutter_test:
@@ -31,7 +31,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
 # To add assets to your package, add an assets section, like this:
 # assets:
 #   - images/a_dot_burr.jpeg
