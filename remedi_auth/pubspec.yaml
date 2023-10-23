@@ -5,8 +5,8 @@ homepage: 'https://github.com/studio-b-co-kr/remedi_flutter'
 repository: 'https://github.com/studio-b-co-kr/remedi_flutter'
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: '>=2.17.6 <3.0.0'
+  flutter: '>=2.0.0'
 
 dependencies:
   flutter:
@@ -26,7 +26,7 @@ dependencies:
 
   # phone number input.
   expandable: ^5.0.1
-  libphonenumber_plugin: ^0.2.3
+  libphonenumber_plugin: ^0.3.2
   equatable: ^2.0.5
   collection: ^1.16.0
 
