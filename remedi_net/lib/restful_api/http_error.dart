@@ -23,7 +23,7 @@ class HttpError {
 
     return HttpError._(
       statusCode: 0,
-      message: error.message,
+      message: error.message ?? '',
       data: error.error,
       stackTrace: error.stackTrace,
     );
