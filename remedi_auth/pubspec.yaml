@@ -19,11 +19,11 @@ dependencies:
   kakao_flutter_sdk: ^1.9.5
 
   # sign in with apple
-  sign_in_with_apple: ^6.1.1
+  sign_in_with_apple: ^7.0.1
 
   # phone verification
-  firebase_core: ^3.2.0
-  firebase_auth: ^5.1.2
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.1
 
   # phone number input.
   expandable: ^5.0.1
