@@ -1,6 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:notification_permissions/notification_permissions.dart'
-    as notification;
 import 'package:permission_handler/permission_handler.dart';
 
 class AppPermission {
@@ -72,21 +70,14 @@ class AppPermission {
 
   Future<PermissionStatus> request() async {
     if (permission == Permission.notification) {
-      var status = await notification.NotificationPermissions
-          .requestNotificationPermissions(
-              iosSettings: const notification.NotificationSettingsIos(
-                  sound: true, badge: true, alert: true));
+      final status = await Permission.notification.request();
 
-      switch (status) {
-        case notification.PermissionStatus.granted:
-          return PermissionStatus.granted;
-        case notification.PermissionStatus.denied:
-          return PermissionStatus.denied;
-        case notification.PermissionStatus.provisional:
-          return PermissionStatus.limited;
-        case notification.PermissionStatus.unknown:
-        default:
-          return PermissionStatus.denied;
+      if (status.isGranted) {
+        return PermissionStatus.granted;
+      } else if (status.isDenied) {
+        return PermissionStatus.denied;
+      } else if (status.isPermanentlyDenied) {
+        return PermissionStatus.denied;
       }
     }
 
@@ -95,18 +86,13 @@ class AppPermission {
 
   Future<PermissionStatus> get status async {
     if (permission == Permission.notification) {
-      var status = await notification.NotificationPermissions
-          .getNotificationPermissionStatus();
-      switch (status) {
-        case notification.PermissionStatus.granted:
-          return PermissionStatus.granted;
-        case notification.PermissionStatus.denied:
-          return PermissionStatus.denied;
-        case notification.PermissionStatus.provisional:
-          return PermissionStatus.limited;
-        case notification.PermissionStatus.unknown:
-        default:
-          return PermissionStatus.denied;
+      var status = await Permission.notification.status;
+      if (status.isGranted) {
+        return PermissionStatus.granted;
+      } else if (status.isDenied) {
+        return PermissionStatus.denied;
+      } else if (status.isPermanentlyDenied) {
+        return PermissionStatus.denied;
       }
     }
     return await permission.status;
